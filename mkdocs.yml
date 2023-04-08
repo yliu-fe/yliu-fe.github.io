@@ -1,7 +1,7 @@
 site_name: Website of a Doctor Candidate
 
-#repo_name: 
-#repo_url: 
+repo_name: yliu-fe/yliu-fe.github.io
+repo_url: https://github.com/yliu-fe/yliu-fe.github.io
 
 theme:
   name: material
@@ -44,6 +44,6 @@ theme:
       
 
   extra:
-  #social:
-    #- icon: fontawesome/brands/github
-    #  link: https://fosstodon.org/@squidfunk
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/yliu-fe/yliu-fe.github.io
