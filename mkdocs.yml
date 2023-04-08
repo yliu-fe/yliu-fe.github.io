@@ -1,0 +1,49 @@
+site_name: Website of a Doctor Candidate
+
+#repo_name: 
+#repo_url: 
+
+theme:
+  name: material
+  language: zh
+  palette: 
+        # Palette toggle for light mode
+    - scheme: default
+      toggle:
+        icon: material/brightness-7 
+        name: Switch to dark mode
+      primary: cyan
+      accent: red
+
+    # Palette toggle for dark mode
+    - scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+  font: 
+    text: Noto Sans Simplified Chinese
+    code: Roboto Mono
+
+  features:
+    - header.autohide
+    - navigation.tracking
+    - navigation.tabs
+    - search.highlight
+    - search.share
+    - search.suggest
+
+  plugins:
+  - search:
+    lang: 
+      -en
+      -ja
+  - git-revision-date-localized:
+      enable_creation_date: true
+      type: date
+      
+
+  extra:
+  #social:
+    #- icon: fontawesome/brands/github
+    #  link: https://fosstodon.org/@squidfunk
