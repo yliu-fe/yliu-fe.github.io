@@ -454,9 +454,8 @@
 <p>Github page repository的 <code>Page</code>设置中，<code>Branch</code>设置成gh-pages下的 <code>.\Docs</code>。</p>
 <p>在本地完成编辑后做如下操作：</p>
 <pre><code class="language-shell">mkdocs build
-mkdocs gh-deploy
 </code></pre>
-<p>然后通过git推送上去，本以为这样就可以解决问题，结果还需要在仓库 <code>Action</code>选项下，把工作流重做一遍，才能将网站推送成当前的状态，多少有点乐。</p>
+<p>然后通过git推送上去，但经常会出现的问题是，由 <code>ci.yml</code>所规定的自动工作流往往正常，而该工作流结束后跟随着的 <code>pages build and deployment</code>会在build阶段报错。</p>
 
 
 

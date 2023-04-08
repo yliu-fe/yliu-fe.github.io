@@ -10,7 +10,6 @@ Github page repository的 `Page`设置中，`Branch`设置成gh-pages下的 `.\D
 
 ```shell
 mkdocs build
-mkdocs gh-deploy
 ```
 
-然后通过git推送上去，本以为这样就可以解决问题，结果还需要在仓库 `Action`选项下，把工作流重做一遍，才能将网站推送成当前的状态，多少有点乐。
+然后通过git推送上去，但经常会出现的问题是，由 `ci.yml`所规定的自动工作流往往正常，而该工作流结束后跟随着的 `pages build and deployment`会在build阶段报错。
