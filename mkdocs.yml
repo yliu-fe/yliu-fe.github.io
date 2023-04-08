@@ -12,7 +12,7 @@ theme:
       toggle:
         icon: material/brightness-7 
         name: Switch to dark mode
-      primary: cyan
+      primary: indigo
       accent: red
 
     # Palette toggle for dark mode
