@@ -41,7 +41,3 @@
 4. 统计分析和科学计算工具。前者常用的是Stata和R，后者常见于Python(+Anaconda)和Matlab。如您决定从事一定的理论研究，可以考虑Mathematica或者Sagemath。
 
 最后，祝您好运。
-
-
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
-</script>
