@@ -67,3 +67,53 @@ E[y_i|X] = \sum_{j=1}^k \beta_j x_{ji}
 $$
 
 或者说偏导数$\partial E(y_i|X)/\partial x_{ji} = \beta_j$。其经济学意义在于，*平均而言（因为式子里是期望），在其他的变量不变的情况下（偏导数的意义），如果$x_{ji}$增大了$\Delta x_{ji}$个单位，那么$y_i$将会提高$\beta_j \Delta x_{ji}$。*
+
+### 3：没有完美的多重共线性
+
+假设3的严格表达应该是：*矩阵$X$（其规模为$n\times k$）的秩$rank(X) = k$*。
+
+> 严格来讲，这句话是with probability 1，而不是绝对的。
+
+此外，（1）这句话还暗含了$n \geq k$，即观测点数应大于等于变量数的原则（否则会有无数组解）；（2）观测值的任意一列**不能被其他列线性表出**（各变量不能具有完全的多重共线性，否则模型无法估计这些变量的参数，即变量“不可被识别”。）。
+
+从线性代数的角度，如果存在完美的多重共线性，则$rank(X) \not = k$，因而有$rank(X^T X) < k$，$X^T X$这个正方形矩阵不可逆了，从而无法估计参数。
+
+> 参照$rank(X^T X) = rank(XX^T) = rank(X)$
+
+此外，受限于计算机浮点数精度的限制，可能$X^T X$的行列式趋近于0，导致精度不够，或者其逆矩阵的行列式趋近于无穷，出现无法估计的情况。当这个行列式趋近于0时，其实就表明这个模型中存在比较严重的多重共线性了（如果等于零，则必然是存在完美的多重共线性），我们可以通过对$X^TX$做特征值分解来考察这个模型，如果特征值趋近于0，则就可以知道$X^TX$行列式趋近于0。或者，多重共线性可以通过VIF指标监测，若$VIF > 10$，则可以认为多重共线性存在。至于如何解决多重共线性，筛选变量即可。
+
+
+## 最小二乘法估计
+
+> 从现在开始，带着帽子头的变量全都是估计值。由于恁Mathjax不支持 `\bm`也不支持 `\boldsymbol`，我就只能在帽子下面加箭头，太傻了。为了省一省我的工作量，除了下面的式子，后面带帽子的变量就不再直接区分标量和向量了，不过我想应该比较好分开。
+
+目标：最小化估出模型的残差平方和，即：
+
+$$
+\hat{\vec{\beta}} = \operatorname{arg}\min_{\beta} \sum_{i=1}^N \epsilon_i^2 = \vec \epsilon^T \epsilon = (Y - X \vec \beta)^T (Y - X \vec \beta)
+$$
+
+从而，我们的目标是求出$\hat{\vec{\beta}}$，使得：
+
+$$
+\frac{\partial (Y - X \vec \beta)^T (Y - X \vec \beta)}{\partial \vec{\beta}} = 0
+$$
+
+> 这里要用到的线性代数求导法则：$\frac{\partial \alpha^T \beta}{\partial \beta} = \alpha$, $\frac{\partial \beta^T \alpha}{\partial \beta} = \alpha$, $\frac{\partial (\beta^T \alpha \beta)}{\partial \beta} = 2 \alpha \beta$。这里的$(\alpha, \beta)$都是向量。
+
+对上式左侧展开：
+
+$$
+\begin{align}
+    \frac{\partial (Y - X \vec \beta)^T (Y - X \vec \beta)}{\partial \vec \beta} & = \frac{\partial Y^T Y}{\partial \beta} - \frac{\partial Y^T X\beta}{\partial \beta} - \frac{\partial \beta^T X^T Y}{\partial \beta} + \frac{\partial \beta^T X^T X\beta}{\partial \beta}\\
+    &= 0-X^T Y - X^T Y + 2X^TX \hat \beta
+\end{align}
+$$
+
+从而有:
+
+$$
+\hat \beta = (X^T X)^{-1} X^T Y
+$$
+
+得到$\hat \beta$后，将其带回$y = x\beta + \epsilon$，即可求得$\hat y = x \hat \beta$，$\hat y$被称作预测值，而预测值与真实值的差$\hat \epsilon = y - \hat y$被称作残差(residuals)。
