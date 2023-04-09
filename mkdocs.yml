@@ -1,4 +1,7 @@
 site_name: Website of a Doctor Candidate
+site_url: https://yliu-fe.github.io
+site_author: yliu-fe
+site_description: 我的个人网页
 
 repo_name: yliu-fe
 repo_url: https://github.com/yliu-fe/yliu-fe.github.io
@@ -11,15 +14,15 @@ theme:
     - scheme: default
       toggle:
         icon: material/brightness-7 
-        name: Switch to dark mode
+        name: 切换为夜间模式
       primary: indigo
-      accent: red
+      accent: orange
 
     # Palette toggle for dark mode
     - scheme: slate
       toggle:
         icon: material/brightness-4
-        name: Switch to light mode
+        name: 切换为日间模式
 
   font: 
     text: Noto Sans Simplified Chinese
@@ -32,6 +35,11 @@ theme:
     - search.highlight
     - search.share
     - search.suggest
+  extra:
+    social:
+      - icon: fontawesome/brands/github
+        link: https://github.com/yliu-fe
+        name: GitHub | yliu-fe
 
   plugins:
   - search:
@@ -45,8 +53,10 @@ theme:
   markdown_extensions:
     - pymdownx.arithmatex:
         generic: true
+    - pymdownx.superfences
+
 
   extra_javascript:
     - javascripts/mathjax.js
     - https://polyfill.io/v3/polyfill.min.js?features=es6
-    - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js  
+    - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js 
