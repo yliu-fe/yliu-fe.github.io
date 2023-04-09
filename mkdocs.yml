@@ -19,7 +19,7 @@ nav:
     - Majors/Major_index.md
     - 截面数据计量经济学:
       - Majors/Cross-Sectional Econometrics/About cross-section data.md
-      - 线性模型和最小二乘法: Majors/Cross-Sectional Econometrics/1_OLS.md
+      - 一、线性模型和最小二乘法: Majors/Cross-Sectional Econometrics/1_OLS.md
 
 theme:
   name: material
@@ -71,6 +71,7 @@ markdown_extensions:
   - pymdownx.arithmatex:
       generic: true
   - pymdownx.superfences
+  - pymdownx.details
 
 
 extra_javascript:
