@@ -75,7 +75,7 @@ def bubble_sort(items):
 
 实现为:
 
-```py
+```py title="bubble_sort.py"
 def bubble_sort(items):
     for i in range(len(items)):
         for j in range(len(items) - 1 - i):
@@ -115,7 +115,7 @@ theme:
 
 实现样例如：
 
-```py
+``` py linenums="1" 
 def bubble_sort(items):
     for i in range(len(items)):
         for j in range(len(items) - 1 - i):
@@ -141,7 +141,7 @@ def bubble_sort(items):
 
 使用 `hl_lines`作为设置，但该参数默认从1开始数行号，无视 `linenums`对起始行号的规定。
 
-````markdown
+````markdown 
 ``` py hl_lines="2 3" linenums="1"
 def bubble_sort(items):
     for i in range(len(items)):
@@ -153,7 +153,7 @@ def bubble_sort(items):
 
 实现为：
 
-```py
+``` py hl_lines="2 3" linenums="1"
 def bubble_sort(items):
     for i in range(len(items)):
         for j in range(len(items) - 1 - i):
