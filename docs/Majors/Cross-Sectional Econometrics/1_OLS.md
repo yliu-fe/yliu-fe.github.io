@@ -49,13 +49,15 @@ $$
 > 期望迭代原则经常会用在宏观经济学的动态均衡模型中，利用T期信息集来求解之后的消费决策，如知信息集$I_t$时求解t+2期的消费决策，$E_t[C_{t+2}] = E[C_{t+2}|I_t] = E_t [ E(C_{t+2} | I_{t+1})]$，另一个用途就是接下来要讲的严格外生性。
 
 ??? success "期望迭代法则的证明"
-    $$
-    \begin{align}
+    
+
+$$
+\begin{align}
     E[u|v] &= \int uf(u|v) du\\
     E_v[E(u|v)] &= \int (\int uf(u|v) du) f(v) dv = \int \int uf(u|v) f(v) du dv\\
     &= \int u (\int f(u,v)dv) du = \int u f(u) du = E(u)
     \end{align}
-    $$
+$$
 
 接下来继续讨论严格外生性问题，由于知道了全部观测值$X$，就可以将这些常数$x_{ji}$乘进去：$E[\epsilon_i x_{ji}] = 0$，从而有$E_x [ E(\epsilon_i x_{ji} | x)] = 0$，从而有$E[\epsilon_i x_{ji}] = 0$，而如果$x_{1i} = 1$，那么就有$E[\epsilon_i] = 0$。而$cov(x_{ji}, \epsilon_i) = E[x_{ji} \epsilon_i] - E(x_{ji})E(\epsilon_i) = 0$，从而有$x_{ji}$与$\epsilon_i$正交（独立）。
 
@@ -67,7 +69,7 @@ $$
 
 或者说偏导数$\partial E(y_i|X)/\partial x_{ji} = \beta_j$。其经济学意义在于，*平均而言（因为式子里是期望），在其他的变量不变的情况下（偏导数的意义），如果$x_{ji}$增大了$\Delta x_{ji}$个单位，那么$y_i$将会提高$\beta_j \Delta x_{ji}$。*
 
-### 3：没有完美的多重共线性
+### 3. 没有完美的多重共线性
 
 假设3的严格表达应该是：*矩阵$X$（其规模为$n\times k$）的秩$rank(X) = k$*。
 
@@ -80,7 +82,6 @@ $$
 > 参照$rank(X^T X) = rank(XX^T) = rank(X)$
 
 此外，受限于计算机浮点数精度的限制，可能$X^T X$的行列式趋近于0，导致精度不够，或者其逆矩阵的行列式趋近于无穷，出现无法估计的情况。当这个行列式趋近于0时，其实就表明这个模型中存在比较严重的多重共线性了（如果等于零，则必然是存在完美的多重共线性），我们可以通过对$X^TX$做特征值分解来考察这个模型，如果特征值趋近于0，则就可以知道$X^TX$行列式趋近于0。或者，多重共线性可以通过VIF指标监测，若$VIF > 10$，则可以认为多重共线性存在。至于如何解决多重共线性，筛选变量即可。
-
 
 ## 最小二乘法估计
 
@@ -117,3 +118,55 @@ $$
 $$
 
 得到$\hat \beta$后，将其带回$y = x\beta + \epsilon$，即可求得$\hat y = x \hat \beta$，$\hat y$被称作预测值，而预测值与真实值的差$\hat \epsilon = y - \hat y$被称作残差(residuals)。
+
+???+ note "$X^T X$的性质"
+    $X^T X$具有一些性质：
+
+    1. $X^T X$是对称矩阵： $(X^TX)^T = X^TX$；
+
+    2. $X^T X$是正定矩阵（特征值均不小于0），对于任何$k$阶向量$c$，有$c^T (X^T X)c \geq 0$，而且如果$\vec c \not = \vec 0$，则前面的二次型必然大于0（即严格正定）；
+
+    3. $X^T X$是一个$k\times k$的方阵。
+
+??? note "OLS的特殊情形"
+    (1) 过原点回归，即截距项为0。为简单，这里设$k = 1$，有$y_i = \beta_i x_{1i} + \epsilon_i$，从而有$X = [x_{11},...,x_{1N}]^T$，$Y = [y_1,...,y_N]^T$，那么就可以得出:
+
+    $$
+    \hat \beta = (X^TX)^{-1}X^TY = \frac{\sum_{i=1}^N x_{1i}Y_i}{\sum_{i=1}^N x_{1i}^2}
+    $$
+
+    进一步，如果$x_{1i}$ = 1，则有$y_i = \beta_i + \epsilon_i$，此时$\beta = \bar y$。
+
+    (2) k = 2，且有截距项。则$y_i = \beta_1 + \beta_2 x_{2i} + \epsilon_i$，代入OLS系数表达式，就有著名的线性规划系数方程：
+    
+    $$
+    \begin{align}
+    \hat \beta_2 &= \frac{\sum_{i=1}^N (x_{2i} - \bar x_2) (y_i - \bar y)}{\sum_{i=1}^N (x_{2i} - \bar x_2)^2}\\
+    \hat \beta_1 &= \bar y - \hat \beta_2 \bar x_2
+    \end{align}
+    $$
+
+将视线转向残差，可以得到残差的几项性质：
+
+**性质1**： $X^T \hat \epsilon = 0$
+??? success "残差性质1证明"
+    $$
+    \begin{align}
+    X^T \hat \epsilon &= X^T(Y - \hat Y) = X^T Y - X^T \hat Y\\
+    &=X^T Y - X^T X \hat \beta = X^T Y - (X^TX) (X^TX)^{-1} X^TY\\
+    &= X^TY - X^TY = 0
+    \end{align}
+    $$
+
+由于不存在完美的多重共线性，所有的$X$中各个向量在多维空间中形成了一个超平面，而原始的$Y$亦是多维空间中的一个向量，二者并不一定共面，$Y$在超平面上的投影即为$\hat Y$，而剔除掉这个投影向量后，剩下的那部分（即残差）是垂直于超平面的，这也就是性质1的几何解释。而这个投影对应的投影矩阵(Projection Matrix)为$P = X(X^TX)^{-1}X^T$，这是一个$N \times N$的方阵。而再引入一个Annihilator Matrix $M = I - P$，其中I是N阶单位阵。
+> $PY = \hat Y$，$\hat Y$即为$Y$的投影，而P即为投影矩阵。
+>
+>"Annihilator"在数学中有三种译法，第一种叫“零化子”，常用于环论和泛函分析；第二种译作“消灭矩阵”，即此处所指Annihilator Matrix，用于回归分析；第三种用于解决非齐次常微分方程的“吸纳法”（Annihilator Method）。
+
+???+ note "投影矩阵和Annihilator矩阵的性质"
+
+    （1）$P$和$M$都是方阵和对称矩阵。
+    
+    （2）$P$和$M$都是幂等矩阵(idempotent matrix)。 即$P^2 = P$,$M^2 = M$，不难证明。
+    
+    （3）$PX = X$, $MX = 0$，不难证明。

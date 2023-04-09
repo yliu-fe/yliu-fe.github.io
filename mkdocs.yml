@@ -15,6 +15,7 @@ nav:
     - MkDocs疑难杂症研究:
       - 引入MathJax: Techs/Notes for Mkdocs/MathJax的引入.md
       - 如何联动Github Pages: Techs/Notes for Mkdocs/Github pages note.md
+      - 如何使用PyMdown blocks: Techs/Notes for Mkdocs/PyMdown_blocks.md
   - 专业笔记:
     - Majors/Major_index.md
     - 截面数据计量经济学:
@@ -72,6 +73,26 @@ markdown_extensions:
       generic: true
   - pymdownx.superfences
   - pymdownx.details
+  - pymdownx.blocks.admonition:
+      types:
+      - new
+      - settings
+      - note
+      - abstract
+      - info
+      - tip
+      - success
+      - question
+      - warning
+      - failure
+      - danger
+      - bug
+      - example
+      - quote
+  - pymdownx.blocks.details:
+  - pymdownx.blocks.definition:
+  - pymdownx.blocks.tab:
+      alternate_style: True
 
 
 extra_javascript:
