@@ -59,9 +59,9 @@ extra:
 
 plugins:
   - search:
-    lang: 
-      -en
-      -ja
+      lang: 
+        -en
+        -ja
   - git-revision-date-localized:
       enable_creation_date: true
       type: date
