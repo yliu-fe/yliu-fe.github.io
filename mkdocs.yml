@@ -6,6 +6,20 @@ site_description: 我的个人网页
 repo_name: yliu-fe
 repo_url: https://github.com/yliu-fe/yliu-fe.github.io
 
+nav:
+  - 关于:
+    - About/index.md
+    - Curriculum Vitae: About/cv.md
+  - 计算机笔记:
+    - 技术相关/tech_index.md
+    - MkDocs疑难杂症研究:
+      - 引入MathJax: 技术相关/Notes for Mkdocs/MathJax的引入.md
+      - 如何联动Github Pages: 技术相关/Notes for Mkdocs/Github pages note.md
+  - 专业笔记:
+    - 专业相关/Major_index.md
+    - 截面数据计量经济学:
+      - 专业相关/Cross-Sectional Econometrics/About cross-section data.md
+
 theme:
   name: material
   language: zh
