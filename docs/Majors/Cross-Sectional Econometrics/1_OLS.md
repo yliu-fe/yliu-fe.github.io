@@ -18,7 +18,7 @@ $$
 
 > 在以后的内容中，默认$x_{1i} = 1$，即截距项。另外，$x_i^2$这种平方项（正幂次项），或者$x_i x_j$这种交叉项，也可以被纳入线性模型中，即看作一个独立的解释变量。
 
-线性模型的基本形式就是“参数$\times$解释变量”并求和。由于直接写代数式太长，可以用向量的方式来简化表示，假设有$k$个参数，则令$X_i = [x_{1i}, x_{2i},...,x_{ki}]^T$，$\boldsymbol{\beta} = [\beta_1, ...,\beta_k]^T$，从而有$y_i = x_i^T \boldsymbol{\beta} + \epsilon_i$。
+线性模型的基本形式就是“参数$\times$解释变量”并求和。由于直接写代数式太长，可以用向量的方式来简化表示，假设有$k$个参数，则令$X_i = [x_{1i}, x_{2i},...,x_{ki}]^T$，$\vec \beta = [\beta_1, ...,\beta_k]^T$，从而有$y_i = x_i^T \vec \beta + \epsilon_i$。
 
 现假设有$N$个观测值，则令$Y = [y_1, y_2, ..., y_N]^T$，而令完整的样本集$X = [X_1^T, X_2^T,...,X_N^T]^T$ 为：
 
@@ -32,10 +32,10 @@ X =
     \end{array}\right]
 $$
 
-另设$\boldsymbol \epsilon = [\epsilon_1, \epsilon_2, ..., \epsilon_N]^T$，则有线性模型的基本表达形式：
+另设$\vec \epsilon = [\epsilon_1, \epsilon_2, ..., \epsilon_N]^T$，则有线性模型的基本表达形式：
 
 $$
-Y = X\boldsymbol{\beta} + \boldsymbol{\epsilon}
+Y = X \vec \beta + \vec \epsilon
 $$
 
 ### 2. 严格外生性假设
