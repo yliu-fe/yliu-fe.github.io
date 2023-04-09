@@ -50,7 +50,7 @@ markdown_extensions:
 
 ## 2. PyMdown Extensions 9.10对该样式的重构
 
-参考：[Details - PyMdown Extensions Documentation](https://facelessuser.github.io/pymdown-extensions/extensions/blocks/plugins/details/)
+参考：[Index - PyMdown Extensions Documentation](https://facelessuser.github.io/pymdown-extensions/extensions/blocks/)
 
 根据项目方的介绍，`block`系统将在PyMdown Extensions 9.10版本重构，在实现效果不变的情况下重构语法，新的语法结构为：
 
@@ -111,7 +111,8 @@ markdown_extensions:
 Some content
 ///
 ```
-其中`Some title`为该样例的版头名称，`admonition`说明该样例生成的是“admonition”式板块。
+
+其中 `Some title`为该样例的版头名称，`admonition`说明该样例生成的是“admonition”式板块。
 ///
 
 (3) `pymdownx.blocks.html`可以用block元素生成各类HTML效果，参照[HTML - PyMdown Extensions Documentation](https://facelessuser.github.io/pymdown-extensions/extensions/blocks/plugins/html/)。
@@ -127,6 +128,7 @@ Apple
 ///
 
 该样例的代码为：
+
 ```markdown
 /// define
 Apple
@@ -147,6 +149,7 @@ Tab 2 content
 ///
 
 其生成方法为：
+
 ```markdown
 /// tab | Tab 1 title
 Tab 1 content
@@ -156,9 +159,10 @@ Tab 1 content
 Tab 2 content
 ///
 ```
+
 ////
 
-下面讨论三个问题：（1）如何规定admonition和detail的类型和默认开启关闭，（2）新block语法的嵌套实现，（3）如何实现两个连续的`tab`格式。这里用了很多奇怪的type，是为了尝试花样，没有具体含义。
+下面讨论三个问题：（1）如何规定admonition和detail的类型和默认开启关闭，（2）新block语法的嵌套实现，（3）如何实现两个连续的 `tab`格式。这里用了很多奇怪的type，是为了尝试花样，没有具体含义。
 
 /// details | 1. 类型、默认打开和关闭
     type: example
@@ -166,6 +170,7 @@ Tab 2 content
 （这里用的是type: example）
 
 新语法下，类型和默认启闭是语法块的参数，在实现时写为：
+
 ```markdown
 /// details | Some summary
     open: True # 不写或写成False视作默认关闭
@@ -174,6 +179,7 @@ Tab 2 content
 Some content
 ///
 ```
+
 ///
 
 ///// details | 2. 新语法下如何嵌套block
@@ -181,7 +187,8 @@ Some content
 
 (这里用的是type: info)
 
-新版本的block舍弃了原有的缩进结构，因此，为了实现嵌套表示，新版本语法将`///`作为开始和结束的符号，而母块包含子块的方式，就是将母块的`///`写成`////`，斜线越多，代表该块的包含优先级越高，但最少不能少于3条斜线。实现形式可以为：
+新版本的block舍弃了原有的缩进结构，因此，为了实现嵌套表示，新版本语法将 `///`作为开始和结束的符号，而母块包含子块的方式，就是将母块的 `///`写成 `////`，斜线越多，代表该块的包含优先级越高，但最少不能少于3条斜线。实现形式可以为：
+
 ```markdown
 //// note | Some title
 /// details | Summary
@@ -191,6 +198,7 @@ content
 Content
 ////
 ```
+
 其效果为：
 //// note | Some title
 /// details | Summary
@@ -206,7 +214,8 @@ Content
     type: failure
 (这里用的是type: failure)
 
-为了实现两个单独的Tab组连续共存，则需要在两个tab组之间加强制隔离`new: true`，如：
+为了实现两个单独的Tab组连续共存，则需要在两个tab组之间加强制隔离 `new: true`，如：
+
 ```markdown
 /// tab | Tab A title
 Tab A content
@@ -222,6 +231,7 @@ Tab B content
 Will be part of a separate, new tab group.
 ///
 ```
+
 实现结果为：
 
 /// tab | Tab A title
