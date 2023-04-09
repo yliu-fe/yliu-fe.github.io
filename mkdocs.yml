@@ -41,7 +41,7 @@ theme:
       accent: cyan
 
   font: 
-    text: Noto Sans Simplified Chinese
+    text: Noto Sans SC
     code: Roboto Mono
 
   features:
