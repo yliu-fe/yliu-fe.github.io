@@ -404,3 +404,105 @@ $$
 $$
 
 由此，我们已经设定了截面数据计量经济学下的所有基本假设。
+
+### 3.5 假设检验1：单一变量显著性检验（T检验）
+第一种假设检验是对单一参数的检验，其原假设为$H_0$：$\beta_j = \bar \beta_j$，其中$\bar \beta_j$为任意给定的值。那么由多元正态分布的性质，有：
+
+$$
+f(\hat \beta_j|X) \sim N(\beta_j, \sigma^2 (X^TX)^{-1}_{jj})
+$$
+
+鉴于这个统计量是一个正态统计量，我们可以采用Z-score方式，即将上面的$\hat \beta_j$标准化：
+
+$$
+z_j = \frac{\hat \beta_j - \bar \beta_j}{\sqrt{\sigma^2 (X^TX)^{-1}_{jj}}}
+$$
+
+为了检验原假设$H_0$，我们可以选择备择假设,$H_1:\beta_{j} \not = \bar \beta_j$，或者定为$H_1: \beta_j > \bar \beta_j$ or $\beta_j  < \bar \beta_j$。双边的备择假设更为常见，而单边的备择假设选择方向时通常考虑经济学意义。
+
+回到统计量本身，$Z_j$服从标准正态分布，那么对于**双边**备择假设来说，其极端值（无论左右）都表明$H_0$为假。那么，就要确定一个认为$H_0$为假（拒绝原假设）的区间，是一个多大的极端值，从而引出了置信区间(significance level) $\alpha$。$\alpha$通常取值为1\%,5\%,10\%，如果$|Z_j| > Z_{\frac{\alpha}{2}}$(此处指的是Z统计量分布的$\alpha/2$分位数)，则拒绝原假设(reject $H_0$)，否则不拒绝（而不是"接受"！）原假设
+
+> 对应的，如果是单边备择假设情形，则分情况：（1）若$H_1$为"$\beta_j > \bar \beta_j$"，则当$Z_j > Z_\alpha$时，拒绝原假设；（2）反之则在$Z_j < Z_\alpha$时拒绝原假设。假设检验具体是单边还是双边是要看要检验的假设本身的，而并不是由分布的性质来决定。
+
+进一步，因为实际上的分布情况不明，我们只能通过估计出来的$\hat \sigma^2$来对应。所以，对于估计值$\hat \beta$，其对应的统计量我们称为$t_j$，表示为：
+
+$$
+t_j = \frac{\hat \beta_j - \bar \beta_j}{\sqrt{\hat \sigma^2 (X^TX)^{-1}_{jj}}}
+$$
+
+与$z_j$相比，唯一的变化在于分母上标准差为估计值。$t_j$服从于学生T分布，其自由度为(N-K)，即$t_j \sim t_{N-k}$。
+
+>学生T分布的形式是$t = \frac{MN(0,I_N)}{\sqrt{\chi^2(N-K)/ (N-K)}}$。分子为多元标准正态分布，分母主体是自由度为$N-K$的卡方统计量$\chi^2(N-K)$。
+
+下面给出证明：
+/// details | 证明t统计量服从学生t分布
+    type: note
+
+$$
+\begin{align}
+    t_j = \frac{\hat \beta_j - \bar \beta_j}{\sqrt{\hat \sigma^2 (X^TX)^{-1}_{jj}}} = \frac{\hat \beta_j - \bar \beta_j}{\sqrt{\sigma^2 (X^TX)^{-1}_{jj}}} \sqrt{\frac{\sigma^2}{\hat \sigma^2}} = z_j \sqrt{\frac{\sigma^2}{\hat \sigma^2}} 
+\end{align}
+$$
+
+由上文知$z_j \sim N(0,1)$，接下来证明$\hat \sigma^2 / \sigma^2 \sim \frac{X_{N-K}^2}{N-K}$，首先考察$\hat \sigma^2$的性质：
+
+$$
+\hat \sigma^2 = \frac{\hat \epsilon^T \hat \epsilon}{N-K} = \frac{\epsilon^T M \epsilon}{N-K}
+$$
+
+所以有:
+
+$$
+\frac{\hat \sigma_2}{ \sigma^2} = (\frac{\epsilon}{\sigma})^T M (\frac{\epsilon}{\sigma})/(N-K)
+$$
+
+而$\epsilon \sim N(0,\sigma^2 I_N)$，因而$\frac{\epsilon}{\sigma} \sim N(0,I_N)$，故有:
+
+$$
+\frac{\hat \sigma_2}{ \sigma^2} = N(0,I_N)^T M N(0,I_N) / (N-K) \sim \chi^2_{N-K}/ (N-K)
+$$
+
+(这里运用的定理：如果$X\sim N(0,I_N)$且A为幂等矩阵，则$X^TAX \sim \chi^2_{Rank(A)}$。此外，如果$A$为幂等矩阵，则Rank(A) = Trace(A)。在此之前，我们已经证出了$trace(M) = N-K$。)
+///
+
+由此，我们就证出了$t_j$服从学生t分布，接下来证明$t_j$的分子与分母相互独立（这是学生t分布的一个性质）。这个统计量的分子是$\hat \beta_j - \bar \beta_j$，其中我们知道$\hat \beta = \beta + (X^TX)^{-1}X^T\epsilon = \beta + A\epsilon$；而分母是一个$\hat \epsilon$的函数，而$\hat \epsilon = M \epsilon$，且$\epsilon \sim N(0,\sigma^2 I_N)$。因此有：
+
+$$
+\begin{align}
+    \left[\begin{array}{c}
+        \hat \beta - \beta  \\
+         \hat \epsilon 
+    \end{array} \right] = \left[\begin{array}{c}
+         A  \\
+         M 
+    \end{array}\right] \epsilon = N(0,\sigma^2\left[\begin{array}{cc}
+        AA^T & AM^T  \\
+        MA^T & MM^T
+    \end{array}\right])
+\end{align}
+$$
+
+其中:
+> $AA^T$可由其表达式直接推出，$MM^T = M$是因为$M$是幂等矩阵和对称矩阵，而$AM^T$与$MA^T$则是代入$A$和$M$的表达式解出，其中$M = I_N - X(X^TX)^{-1}X^T$， $A = (X^TX)^{-1}X^T$。
+
+$$
+\begin{align}
+    AA^T &= (X^TX)^{-1}\\
+    MM^T &= M\\
+    AM^T &= MA^T = 0
+\end{align}
+$$
+
+故有：
+
+$$
+    \left[\begin{array}{c}
+        \hat \beta - \beta  \\
+         \hat \epsilon 
+    \end{array} \right] = N(0,\left[\begin{array}{cc}
+        Var(\hat \beta|X) & 0  \\
+        0 & \sigma_2 M
+    \end{array}\right])
+$$
+
+所以$Cov(\hat \beta, \hat \epsilon) = 0_{K\times N}$，而由上文性质4可知，$\hat \beta$和$\hat \epsilon$互相独立，那么二者的函数亦相互独立，故统计量的分子和分母是互相独立的。

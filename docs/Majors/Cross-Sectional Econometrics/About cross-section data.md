@@ -12,7 +12,7 @@ $$
 
 - Wooldridge, J. M. (2015). *Introductory econometrics: A modern approach*. Cengage learning.
 - Hayashi, F. (2011). *Econometrics*. Princeton University Press.
-- Hansen, B. (2022). *Econometrics*. Princeton University Press.
+- Hansen, B. (2022). *Econometrics*. Princeton University Press. （第1-13章、22-24章）
 
 前两本书均有汉语译本，由中国人民大学出版社出版：
 
