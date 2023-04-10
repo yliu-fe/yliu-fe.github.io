@@ -27,7 +27,10 @@ nav:
       - 一、一点预备内容: Majors/Time-Series Analysis/1_Background.md
       - 二、基本时间序列模型: Majors/Time-Series Analysis/2_Basic TimeSeries.md
       - 三、条件异方差模型: Majors/Time-Series Analysis/3_Conditional Heteroscedasticity.md
-
+  - 消遣娱乐:
+    - Entertainment/ett_index.md
+    - 拉丁语:
+      - Entertainment/Lingua Latino/Latin_index.md
 theme:
   name: material
   language: zh
