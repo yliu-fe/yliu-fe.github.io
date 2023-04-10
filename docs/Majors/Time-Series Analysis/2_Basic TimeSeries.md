@@ -953,7 +953,7 @@ $$
 \begin{aligned}
          \hat r_h(1) &= C_0 - \theta_1 a_{h} - \theta_2 a_{h-1}\\
          \hat r_h(2) &= C_0 - \theta_2 a_h\\
-         \hat r_h(l) &= C_0, \quad \text{if  $l 2$}.
+         \hat r_h(l) &= C_0, \quad \text{if  > 2$}.
 \end{aligned}
 $$
 
@@ -980,6 +980,7 @@ $$
 ### ARMA(1,1)的性质
 
 1  **平稳性**。ARMA(1,1)模型不总是平稳的，因为AR模型不总是平稳的。而由接下来2、3（均值、方差）的讨论可知，ARMA(1,1)平稳的条件与AR(1)一致。
+
 2  **均值性质**。对式(9)左右同取期望，设$E(r_t) = \mu$，则：
 
 $$
