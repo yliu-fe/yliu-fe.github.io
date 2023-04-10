@@ -24,6 +24,9 @@ nav:
       - 一、线性模型和最小二乘法: Majors/Cross-Sectional Econometrics/1_OLS.md
     - 时间序列计量经济学:
       - Majors/Time-Series Analysis/TS_index.md
+      - 一、一点预备内容: Majors/Time-Series Analysis/1_Background.md
+      - 二、基本时间序列模型: Majors/Time-Series Analysis/2_Basic TimeSeries.md
+      - 三、条件异方差模型: Majors/Time-Series Analysis/3_Conditional Heteroscedasticity.md
 
 theme:
   name: material
