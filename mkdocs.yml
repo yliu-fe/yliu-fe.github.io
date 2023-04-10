@@ -55,6 +55,8 @@ theme:
     - search.suggest
     - content.code.copy
     - content.code.annotate
+    - navigation.top
+    - navigation.instant
 
 extra:
   social:
