@@ -32,6 +32,7 @@ nav:
       - Majors/Reinforcement Learning/RL_index.md
       - Deepmind RL:
         - 关于课程: Majors/Reinforcement Learning/Deepmind RL/DMRL_index.md
+        - 一、强化学习的介绍: Majors/Reinforcement Learning/Deepmind RL/1_Introduction.md
       - 伯克利CS285:
         - 关于课程: Majors/Reinforcement Learning/CS285/CS285_index.md
 
