@@ -15,16 +15,7 @@ Settings --> General --> Features --> 勾选Discussions
 ```
 
 ## 第二步：安装Giscus
-去[GitHub Apps - giscus](https://github.com/apps/giscus)安装Giscus应用。此应用安装在Github账户下，可选择特定仓库生效或者全账户生效
-
-/// admonition | 特定仓库生效可能有问题
-    type: warning
-
-在刚安装此插件时，我选择仅允许本仓库（网站仓库）生效，但完成后续步骤实装评论区时，Giscus报错
-> An error occurred: giscus is not installed on this repository
-
-而选择全账户生效后，评论区成功安装并通过测试。因此，该设定的选择需要额外测试。
-///
+去[GitHub Apps - giscus](https://github.com/apps/giscus)安装Giscus应用。此应用安装在Github账户下，可选择特定仓库生效或者全账户生效。
 
 ## 第三步：配置Giscus
 
@@ -64,6 +55,15 @@ Settings --> General --> Features --> 勾选Discussions
 </script>
 ```
 务必检查，您自己的样式代码中，以上各项内容（特别是被高亮的各行）均已填有内容。`data-repo`一项中填写的应当是自己代码仓库的实际名称。
+
+/// admonition | 否则...
+    type: warning
+
+第一次复制样式代码时，我有几项内容忘了选，复制了一份空代码过来，实装时Giscus报错：
+> An error occurred: giscus is not installed on this repository
+
+所以请务必检查各项内容是否设定完整。
+///
 
 ## 第四步：在网站仓库中实装评论区
 参考：[Customization - Material for MkDocs](https://squidfunk.github.io/mkdocs-material/customization/#extending-the-theme)中的`Extending the Theme`部分。
