@@ -81,6 +81,8 @@ extra:
       link: https://github.com/yliu-fe
       name: GitHub | yliu-fe
 
+copyright: Copyright &copy; 2023 Y. Liu
+
 plugins:
   - search:
       lang: 
