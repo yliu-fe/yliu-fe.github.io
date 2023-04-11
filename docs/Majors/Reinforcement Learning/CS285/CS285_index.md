@@ -6,9 +6,16 @@
 
 - 所属大学：University of California, Berkeley（UCB）
 - 先修要求：UCB CS188, CS189（声称）
-  - 该课程假定学习者具有一定程度的机器学习基础
-  - 并了解基本的强化学习模型，如多臂赌博机（Multi-armed Bandit）、马尔可夫决策过程（MDP）
-  - 机器学习、强化学习和该课程重点讨论的深度强化学习均要求较高的**最优化理论**功底
+
+/// admonition | 需要比较广泛的基本功
+    type: warning
+
+  1. 该课程假定学习者具有一定程度的机器学习基础；
+  2. 并了解基本的强化学习模型，如多臂赌博机（Multi-armed Bandit）、马尔可夫决策过程（MDP）；
+  3. 机器学习、强化学习和该课程重点讨论的深度强化学习均要求较高的**凸优化**功底；
+  4. 考虑到前三点，请回头复习概率论和线性代数。
+///
+
 - 编程语言：Python
 - 课程难度：🌟🌟🌟🌟
 - 预计学时：80-100hrs
@@ -28,7 +35,7 @@
 - 课程教材：请参照[CS 285 Resources](http://rail.eecs.berkeley.edu/deeprlcourse/resources/)，课程主页公布的演示文稿是最主要的参考内容
 - 课程作业：[berkeleydeeprlcourse/homework_fall2022: Assignments for Berkeley CS 285: Deep Reinforcement Learning (Fall 2022)](https://github.com/berkeleydeeprlcourse/homework_fall2022)
 
-## 资源汇总
+## 外部资源
 
-- 先修课程CS188：[Berkeley AI Materials](http://ai.berkeley.edu/home.html)
-- 先修课程CS189：[CS 189/289A](https://www.eecs189.org/)
+- 先修课程CS188：[CS 188 Spring 2023 | Introduction to Artificial Intelligence at UC Berkeley](https://inst.eecs.berkeley.edu/~cs188/sp23/)，主要参照其中关于马尔可夫决策过程（MDP）、强化学习（RL）、隐马尔可夫过程（HMM）的内容。
+- 先修课程CS189：[CS 189/289A](https://www.eecs189.org/)，机器学习方法。
