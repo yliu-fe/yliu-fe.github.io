@@ -10,5 +10,7 @@
 
   > 该书汉译本：《强化学习》（第二版） 电子工业出版社出版
   
+  > 英文原本网站：[Sutton & Barto Book: Reinforcement Learning: An Introduction](http://incompleteideas.net/book/the-book.html)
+
 
 - 我个人的研究总结
