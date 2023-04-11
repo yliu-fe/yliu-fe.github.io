@@ -17,6 +17,7 @@ nav:
       - 如何联动Github Pages: Techs/Notes for Mkdocs/Github pages note.md
       - 如何使用PyMdown blocks: Techs/Notes for Mkdocs/PyMdown_blocks.md
       - 如何配置代码块: Techs/Notes for Mkdocs/Settings_Code_Blocks.md
+      - 利用Giscus配置评论区: Techs/Notes for Mkdocs/Comment with Giscus.md
   - 专业笔记:
     - Majors/Major_index.md
     - 截面数据计量经济学:

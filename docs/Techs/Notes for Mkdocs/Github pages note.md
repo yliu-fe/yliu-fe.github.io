@@ -1,3 +1,7 @@
+---
+comments: true
+---
+
 # 关于Mkdocs和Github的联动
 
 核心的问题在于如何让Git和Github连起来，报超时的Fatal报到傻，目前网上给出的解决方案均无效。

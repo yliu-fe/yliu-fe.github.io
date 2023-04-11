@@ -1,3 +1,7 @@
+---
+comments: true
+---
+
 # 在MkDocs中使用MathJax
 
 为什么要用这个，那当然是我要写数学式子......

@@ -1,3 +1,7 @@
+---
+comments: true
+---
+
 # 代码块的配置
 
 下面讨论如何配置网站中的代码块(code blocks)。

@@ -1,3 +1,7 @@
+---
+comments: true
+---
+
 # PyMdown可用的"block"样式
 
 MkDocs支持PyMdown及其Extension，从而可以使用一系列的“block”，即模块化内容渲染。
