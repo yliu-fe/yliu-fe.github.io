@@ -35,6 +35,7 @@ nav:
         - 一、强化学习的介绍: Majors/Reinforcement Learning/Deepmind RL/1_Introduction.md
       - 伯克利CS285:
         - 关于课程: Majors/Reinforcement Learning/CS285/CS285_index.md
+        - 二、模仿学习: Majors\Reinforcement Learning\CS285\2_Imitation Learning.md
 
   - 消遣娱乐:
     - Entertainment/ett_index.md
