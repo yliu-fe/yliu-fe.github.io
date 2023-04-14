@@ -18,6 +18,9 @@ nav:
       - 如何使用PyMdown blocks: Techs/Notes for Mkdocs/PyMdown_blocks.md
       - 如何配置代码块: Techs/Notes for Mkdocs/Settings_Code_Blocks.md
       - 利用Giscus配置评论区: Techs/Notes for Mkdocs/Comment with Giscus.md
+    - Python掉坑笔记: 
+      - 基本语法:
+        - 形参"args"和"kwargs": Techs/Notes for Python/Basic Syntax/args_kwargs.md
   - 专业笔记:
     - Majors/Major_index.md
     - 截面数据计量经济学:
