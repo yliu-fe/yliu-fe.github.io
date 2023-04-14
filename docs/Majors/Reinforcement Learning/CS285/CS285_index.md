@@ -4,9 +4,9 @@
 
 本部分的笔记将直接略过第一讲（课程基本信息和强化学习介绍）
 
-课程视频来自2021年秋季学期
+课程视频来自2021年秋季学期，作业内容和演示文稿为2022年秋季学期
 
-作业内容和演示文稿为2022年秋季学期
+本人将力所能及地做一点课程作业，笔记发在这个目录下面，写完的代码放在[yliu-fe/homework_fall2022](https://github.com/yliu-fe/homework_fall2022)仓库中
 
 ## 课程简介
 
@@ -48,3 +48,4 @@
 - 先修课程CS188：[CS 188 Spring 2023 | Introduction to Artificial Intelligence at UC Berkeley](https://inst.eecs.berkeley.edu/~cs188/sp23/)，主要参照其中关于马尔可夫决策过程（MDP）、强化学习（RL）、隐马尔可夫过程（HMM）的内容。
 - 先修课程CS189：[CS 189/289A](https://www.eecs189.org/)，机器学习方法。
 - CS189的同级课程：[Stanford CS229: Machine Learning](https://cs229.stanford.edu/)，吴恩达曾经主讲的一门机器学习理论课程，作业不对外开放。现在的主讲为Tengyu Ma和Chris Re.
+- 同级课程：[Stanford CS234: Reinforcement Learning Winter 2022](https://web.stanford.edu/class/cs234/CS234Win2022/index.html)，DRL讲得比较浅，但贵在全面，我会在这个板块下面把作业写了。
