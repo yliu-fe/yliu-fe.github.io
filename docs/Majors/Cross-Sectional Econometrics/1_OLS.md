@@ -510,3 +510,425 @@ $$
 $$
 
 所以$Cov(\hat \beta, \hat \epsilon) = 0_{K\times N}$，而由上文性质4可知，$\hat \beta$和$\hat \epsilon$互相独立，那么二者的函数亦相互独立，故统计量的分子和分母是互相独立的。
+
+
+### 3.6 假设检验2：线性关系的假设检验（F分布）
+
+这个假设检验的原假设$H_0$：$R \times \beta = \gamma$。其中$R$是$r \times k$的矩阵，$\beta$是$k \times 1$的向量，$\gamma$是$r \times 1$的向量。这个原假设可以被看作是规定了线性规划问题中的约束，即各系数$\beta$的线性组合约束。这里假设$Rank(R) = r$，使得这里没有多余的线性约束（也就是没有多余的原假设），这隐含了$r \leq k$的条件。此外要注意的是，$R$与$\gamma$中是常值，而$\beta$则包含了所有的未知数（待估参数）。接下来以Cobb-Douglas函数为例，其基本形式是：
+
+$$
+Y = AK^{\beta_2}L^{\beta_3}e^\epsilon
+$$
+
+取对数：
+
+$$
+\ln Y_i = \ln A + \beta_2 \ln K + \beta_3 \ln L + \epsilon_i
+$$
+
+其中我们可以令$\beta_1 = \ln A$，则我们可以检验一下$\beta_1 = \bar \beta_1$（全要素生产率是否不以个体为转移），或者$\beta_2 + \beta_3 = 1$（规模效应不变），我们可以同时做检验，将二者同时作为$H_0$。那么有：
+
+$$
+\beta = \left[\begin{array}{c}
+        \beta_1\\
+        \beta_2\\
+        \beta_3
+    \end{array} \right], R = \left[\begin{array}{ccc}
+        1 & 0 & 0 \\
+        0 & 1 & 1
+    \end{array}\right], \gamma = \left[\begin{array}{c}
+        \bar \beta_1 \\
+        1
+    \end{array}\right]
+$$
+
+我们不知道$\beta$的真值，但是我们可以从$R\beta - \gamma$上下手。我们知道$\hat \beta \sim N(\beta, \sigma^2 (X^TX)^{-1})$，那么$\hat \beta - \beta \sim N(0,\sigma^2 (X^TX)^{-1})$，然后同乘以R：
+
+$$
+R\hat \beta - \gamma = R(\hat \beta - \beta)  \sim N(0,\sigma^2 R(X^TX)^{-1}R^T)
+$$
+
+如果原假设成立，那么左边的等式是成立的。所以检验原假设就是要检验$R\hat \beta - \gamma$是否服从那个上式的分布，我们可以算一下这玩意的平方和：
+
+$$
+(R\hat \beta - \gamma)^T [\sigma^2 R(X^TX)^{-1}R^T]^{-1} (R\hat \beta - \gamma) \sim \chi_r^2 
+$$
+
+上式的结果是一个标量，而这个标量服从自由度为r的卡方分布。
+
+/// details | 证明上式服从卡方分布
+    type: success
+
+接下来证明这是一个卡方分布，这里会用到Cholesky分解法：
+> Cholesky 分解在Matlab中使用函数`chol()`。
+
+如果矩阵$A$是正定的对称阵，则$A = (A^{\frac{1}{2}})(A^{\frac{1}{2}})^T$，而$A^{\frac{1}{2}}$是一个下三角矩阵。对于这样的矩阵，其逆矩阵为：$A^{-1} = ((A^{\frac{1}{2}})^T)^{-1}(A^{\frac{1}{2}})^{-1}$，我们令$(A^{\frac{1}{2}})^{-1} = A^{-\frac{1}{2}}$。
+///
+
+接下来讨论$R\hat \beta - \gamma$的分布，我们令$A = \sigma^2 R(X^TX)^{-1}R^T$，对其作Cholesky分解，则有：
+
+$$
+R\hat \beta - \gamma \sim A^{\frac{1}{2}} N(0,I_r)
+$$
+
+将Cholesky分解结果和基本性质带进平方和（那个被证明服从卡方分布的标量），有：
+
+$$
+\begin{align}
+    (R\hat \beta - \gamma)^T [\sigma^2 R(X^TX)^{-1}R^T]^{-1} (R\hat \beta - \gamma) &= [A^{\frac{1}{2}} N(0,I_r)]^T A^{-1} [A^{\frac{1}{2}} N(0,I_r)]\\
+    &= N(0,I_r)^T (A^{\frac{1}{2}})^T (A^{-\frac{1}{2}})^T (A^{-\frac{1}{2}}) A^{\frac{1}{2}} N(0,I_r)\\
+    &= N(0,I_r)^T N(0,I_r) \sim \chi_r^2
+\end{align}
+$$
+
+毕竟卡方分布的实质是正态分布的平方和。但是，这个统计量的缺陷在于，我们需要知道$\sigma^2$的真值，但这不可能。所以下面要用$\hat \sigma^2$代替$\sigma$，从而引入F统计量：
+
+$$
+   F \equiv (R\hat \beta - \gamma)^T [\hat \sigma^2 R(X^TX)^{-1}R^T]^{-1} (R\hat \beta - \gamma) / r
+$$
+
+当然，这个和中级计量经济学下的F统计量等价：
+
+$$
+F_R = \frac{(SSR_R - SSR_U)/r}{SSR_U/(N-K)}
+$$
+
+其中$SSR_R$是将原假设作为约束时进行OLS，求得的残差平方和；而$SSR_U$则是不带原假设约束的OLS残差平方和。
+
+在满足假设1-5的情况下，如果原假设成立，则$F\sim F_{r,N-k}$（F统计量服从自由度为r和N-k的F分布）。由于我们的原假设是$R \times \beta = \gamma$，因而备择假设为$H1: R \times \beta \not = \gamma$，从而使得这个假设检验是双边的。但F统计量的本质是估计量（$\hat \beta$）函数的平方项，因而无论是$R\beta > \gamma$还是$R\beta < \gamma$，F统计量都是异常提高，所以说，无论单双边检验，F分布都只看右侧的极端值，也就是：如果$F > F_{r,N-k,\alpha}$，则在$\alpha$置信度的情况下**拒绝**原假设（无论单边/双边检验）。
+
+//// details | 证明：F统计量的两个形态等价
+    type: success
+
+（这是我们当初的习题）
+
+/// admonition | 问题要求
+    type: question
+
+只用一次无约束OLS求出的F统计量如下式所示：
+
+$$
+F \equiv (R\hat \beta - \gamma)^T [\hat \sigma^2 R(X^TX)^{-1}R^T]^{-1} (R\hat \beta - \gamma) / r
+$$
+
+而之前中级计量会采用以$H0$为约束的OLS计算F统计量，即：
+
+$$
+F_R = \frac{(SSR_R - SSR_U)/r}{SSR_U/(N-K)} \tag{A.2}
+$$
+
+而二者可以被证明是等价的，请做出证明。
+///
+
+答案可参阅：[StackExchange Math的这个问题](https://math.stackexchange.com/questions/3868127/prove-these-two-f-stats-are-equivalent)，我的自问自答。
+
+**一、对分子的推导**。首先，对于没有任何约束的OLS估计来说，其SSR为：
+
+$$
+\begin{align}
+    SSR_U &= (Y - X\hat \beta)^T (Y - X\hat \beta) = [Y - X(X^TX)^{-1} X^TY]^T [Y - X(X^TX)^{-1} X^TY]\\
+    &= (MY)^T (MY) = [M(X\beta + \epsilon)]^T[M(X\beta + \epsilon)] = \epsilon^T M^TM\epsilon = \epsilon^T M \epsilon \tag{A.4}
+\end{align}
+$$
+
+接下来讨论带有约束的OLS估计，及其残差平方和。设此问题的估计值为$\bar \beta$，这个问题本质上是一个线性规划：
+
+$$
+\begin{align}
+    \min_{\beta}\quad& (Y - X\beta)^T (Y - X\beta)\\
+    s.t. \quad& R\beta = \gamma
+\end{align}
+$$
+
+利用Lagrange乘子法，则有Lagrange函数为：
+
+$$
+L = (Y - X\beta)^T (Y - X\beta) + \lambda^T (R\beta - \gamma) 
+$$
+
+其中$\lambda$为一个$r\times 1$的列向量。这个问题的FOC有两项：
+
+$$
+\begin{align}
+    \textbf{(1)}\frac{\partial L}{\partial \beta} &= -2X^TY + 2X^TX\bar \beta + R^T \lambda = 0\tag{A.8}\\
+    \bar \beta &= (X^TX)^{-1}[-\frac{1}{2}R^T\lambda + X^TY]\\
+    \textbf{(2)} \frac{\partial L}{\partial \lambda} &= R\bar\beta - \gamma = 0\\
+    \gamma &= R\beta \tag{A.11}
+\end{align}
+$$
+
+把A.8和A.11联合在一起，写成矩阵形式，有：
+
+$$
+\begin{align}
+    \left[\begin{array}{cc}
+        2X^TX & R^T  \\
+        R & 0
+    \end{array}\right] \left[\begin{array}{c}
+        \bar\beta  \\
+        \lambda^T 
+    \end{array}\right] &= \left[\begin{array}{c}
+        2X^TY  \\
+        \gamma 
+    \end{array}\right]\\
+     \left[\begin{array}{c}
+        \bar\beta  \\
+        \lambda^T 
+    \end{array}\right] &= \left[\begin{array}{cc}
+        2X^TX & R^T  \\
+        R & 0
+    \end{array}\right]^{-1}\left[\begin{array}{c}
+        2X^TY  \\
+        \gamma 
+    \end{array}\right]  
+\end{align}
+$$
+
+从而解得：
+
+$$
+\bar \beta = \hat \beta - (X^TX)^{-1}W(R\hat\beta - \gamma)
+$$
+
+其中$W = R^T[R(X^TX)^{-1}R^T]^{-1}$。那么，带约束的OLS的SSR为：
+
+$$
+\begin{align}
+    SSR_R &= (Y - X\bar \beta)^T (Y - X\bar \beta) \tag{A.15}\\
+    Y-X\bar\beta &= MY + X(X^TX)^{-1}R^T[R(X^TX)^{-1}R^T]^{-1}[R(X^TX)^{-1}X^TY - \gamma]
+\end{align}
+$$
+
+若令$S = X(X^TX)^{-1}R^T[R(X^TX)^{-1}R^T]^{-1}R(X^TX)^{-1}X^T$,则:
+
+$$
+Y - X\bar\beta = (M+S)Y - X(X^TX)^{-1}R^T[R(X^TX)^{-1}R^T]^{-1}\gamma \tag{A.17}
+$$
+
+易证矩阵$S$的幂等性。然后可证$(M+S)$是幂等和对称的：
+
+$$
+\begin{align}
+    &(M+S)(M+S) = M + S + SM + MS\\
+    &MS = [I - X(X^TX)^{-1} X^T][X(X^TX)^{-1}R^T[R(X^TX)^{-1}R^T]^{-1}R(X^TX)^{-1}X^T] = S - S = 0\\
+    &SM = [X(X^TX)^{-1}R^T[R(X^TX)^{-1}R^T]^{-1}R(X^TX)^{-1}X^T][I - X(X^TX)^{-1} X^T] = S - S = 0\\
+    &(M+S)(M+S) = M + S + 0 + 0 = M + S
+\end{align}
+$$
+
+那么，将式A.17代入式A.15，有：
+
+$$
+\begin{align}
+    SSR_R &= Y^T(M+S)Y - Y^T(M+S)^TX(X^TX)^{-1}R^T[R(X^TX)^{-1}R^T]^{-1}\gamma \tag{A.22}\\
+    &-\gamma^T[R(X^TX)^{-1}R^T]^{-1}R(X^TX)^{-1}X^T(M+S)Y + \gamma^T[R(X^TX)^{-1}R^T]^{-1}\gamma \tag{A.23}
+\end{align}
+$$
+
+对于上式第三项，有：
+
+$$
+\begin{align}
+    &\gamma^T[R(X^TX)^{-1}R^T]^{-1}R(X^TX)^{-1}X^TMY = \gamma^T[R(X^TX)^{-1}R^T]^{-1}R(X^TX)^{-1}X^T[I-X(X^TX)^{-1}X^T]Y = 0 \tag{A.24}\\
+    &\gamma^T[R(X^TX)^{-1}R^T]^{-1}R(X^TX)^{-1}X^TSY\\
+    &= \gamma^T[R(X^TX)^{-1}R^T]^{-1}R(X^TX)^{-1}X^TX(X^TX)^{-1}R^T[R(X^TX)^{-1}R^T]^{-1}R(X^TX)^{-1}X^TY\\
+    &= \gamma^T[R(X^TX)^{-1}R^T]^{-1}R(X^TX)^{-1}X^TY \tag{A.27}
+\end{align}
+$$
+
+对于上式第二项，有:
+
+$$
+\begin{align}
+    &Y^TM^TX(X^TX)^{-1}R^T[R(X^TX)^{-1}R^T]^{-1}\gamma = 0\tag{A.28}\\
+    &Y^TS^TX(X^TX)^{-1}R^T[R(X^TX)^{-1}R^T]^{-1}\gamma = Y^T X(X^TX)^{-1}R^T[R(X^TX)^{-1}R^T]^{-1}\gamma \tag{A.29}
+\end{align}
+$$
+
+由以上的整理，将A.24,A.27,A.28,A.29带回A.22/23，有：
+
+$$
+\begin{align}
+    SSR_R - SSR_U &= Y^TSY - \gamma^T[R(X^TX)^{-1}R^T]^{-1}R(X^TX)^{-1}X^TY \\
+    &- Y^T X(X^TX)^{-1}R^T[R(X^TX)^{-1}R^T]^{-1}\gamma + \gamma^T[R(X^TX)^{-1}R^T]^{-1}\gamma\\
+    &= Y^TSY - \gamma^T[R(X^TX)^{-1}R^T]^{-1}R\hat \beta - \hat\beta^TR^T [R(X^TX)^{-1}R^T]^{-1} \gamma + \gamma^T[R(X^TX)^{-1}R^T]^{-1}\gamma \tag{A.32}
+\end{align}
+$$
+
+其中由A.4知，$SSR_U = Y^TMY$，而$\hat \beta = (X^TX)^{-1}X^TY$。其中第一项为：
+
+$$
+\begin{align}
+    Y^TSY &= \hat \beta^T R^T[R(X^TX)^{-1}R^T]^{-1}R\hat\beta
+\end{align}
+$$
+
+从而A.32可变形为：
+
+$$
+SSR_R - SSR_U = (R\hat \beta - \gamma)^T [R(X^TX)^{-1}R^T]^{-1} (R\hat \beta - \gamma)\tag{A.34}
+$$
+
+**二、对分母的推导**。再来看A.2的分母$SSR_U/(N-K)$，参照$\hat \sigma^2 = \frac{\epsilon^T M \epsilon}{N-K}$，有：
+
+$$
+\frac{SSR_U}{N-K} = \frac{\epsilon^T M\epsilon}{N-K} = \frac{\hat\epsilon^T \hat \epsilon}{N-K} = \hat \sigma^2 \tag{A.35}
+$$
+
+将A.34/35带回A.2，有：
+
+$$
+\begin{align}
+    F_R &= (R\hat \beta - \gamma)^T [R(X^TX)^{-1}R^T]^{-1} (R\hat \beta - \gamma) /(r \hat \sigma^2)\\
+    &=(R\hat \beta - \gamma)^T [\sigma^2 R(X^TX)^{-1}R^T]^{-1} (R\hat \beta - \gamma) /r = F
+\end{align}
+$$
+
+因而$F$与$F_R$等价，原问题得证。
+////
+
+### 3.7 假设检验3：非线性关系的假设检验
+这种非线性关系的假设检验是非常宽泛的定义。例如检验$\hat \beta_j^2 + \hat \beta_i^2 = 1$这种非线性关系，在接下来讨论大样本情形时再讨论，而在小样本下，这种假设检验难以进行。非线性假设检验中包含了线性关系假设检验，而线性关系假设检验又包含了单一变量的显著性检验。
+
+### 3.8 置信区间和显著性水平
+置信区间(confidence interval)的定义是：*指定一个置信度$\alpha$，那么如果$\bar \beta_j$（真值）在置信区间中，我们就不能拒绝原假设*。
+>有一种错误的说法，说“真值出现在置信区间中的概率为$1-\alpha$”，错误的原因是真值$\bar\beta_j$是一个客观存在但看不到的值，而不是随机变量（这是贝叶斯学派的解释，但这里是频率学派的内容，也不涉及先验后验问题）。人们通过一次次的观测来估计$\beta_j$，得到了一个个估计值$\bar\beta_j$，从而得到了一个个不同的置信区间，而这些置信区间中包含了真值的概率是$1-\alpha$（这是频率学派的解释）。换句话说，**置信区间是可变的，而真值是不变的**。
+
+以t统计量为例（其实也可以用在Z统计量和F统计量，但是前者不知道$\sigma^2$，后者的置信区间是多维空间中的几何体/面，都比较复杂），若$-t_{N-k,\alpha} \leq t_j \leq t_{N-k,\alpha}$则不能拒绝原假设，而这个条件可以写为：
+
+$$
+\begin{align}
+    -t_{N-k,\alpha} &\leq \frac{\hat \beta_j - \bar \beta_j}{StdDev(\hat \beta_j)} \leq t_{N-k,\alpha}\\
+    \hat \beta_j - t_{N-k,\alpha} StdDev(\hat\beta_j) &\leq \bar \beta_j \leq  \hat \beta_j + t_{N-k,\alpha} StdDev(\hat\beta_j)
+\end{align}
+$$
+
+上两式中，下面那个表现出来的$\bar \beta_j$的取值范围即为置信区间。而P值(P-value)表示统计量得到极端（或者更加极端）取值的概率。
+>Probability of obtaining a value as extreme or more extreme for the test statistic.
+
+如果备择假设是双边的，则P-value取值为：$P = P(t_{N-K} > |t_j|) \times 2$，如果是单边的，就是$P = P(t_{N-K} > t_j)$（以备择$\beta_j > \bar \beta_j$为例）。
+
+### 3.9 MLE
+最大似然估计全程需要假设1-5，并且需要$\epsilon$的概率密度，在条件上要更强一些，但估计的结果通常都是有效的。
+
+所谓的“似然函数”（likelihood）是观测值的联合概率密度：
+
+$$
+    L(\theta) \equiv f(Y|X,\theta), \theta = \left[\begin{array}{c}
+        \beta \\
+        \sigma^2
+    \end{array}\right]
+$$
+
+$\theta$即为模型中需要估计的参数的集合。对于线性模型$Y = X\beta + \epsilon$和正态假设，有$L(\theta) = N(X\beta, \sigma^2 I_N)$，那么有：
+
+$$
+L(\theta) = [(2\pi)^{N/2} \det(\sigma^2 I_N)^{1/2}]^{-1} \exp [-\frac{1}{2} (Y- X\beta)^T [\sigma^2 I_N]^{-1} (Y-X\beta)]
+$$
+
+那么，使得$L(\theta)$最大的参数组$\bar \theta$即为MLE下的估计值，通常来说，求这个值都是用FOC（一阶条件）来搞（但不排除似然函数的形状很奇怪，从而找到局部最优），而且求FOC时通常采用对数化的似然函数$\mathcal{L}(\theta) = \ln L(\theta)$。在这个线性模型中，对数化的似然函数为：
+
+$$
+\mathcal{L}(\theta) = -\frac{N}{2} \ln(2\pi) - \frac{N}{2}\ln(\sigma^2) - \frac{1}{2\sigma^2} (Y-X\beta)^T (Y-X\beta)
+$$
+
+求FOC：
+
+$$
+\begin{align}
+    &\frac{\partial \mathcal{L}(\theta)}{\partial \beta} = 0 \leftrightarrow \frac{d (Y-X\beta)^T (Y-X\beta)}{d\beta} = 0 \leftrightarrow \hat \beta = (X^TX)^{-1}X^TY\\
+    &\frac{\partial \mathcal{L}(\theta)}{\partial \sigma^2} = 0 \leftrightarrow \hat \sigma^2 = \frac{(Y-X\beta)^T (Y-X\beta)}{N}
+\end{align}
+$$
+
+由此可见，MLE估计出的$\beta$和OLS相同，但是$\sigma^2$的估计与OLS不同，我们知道OLS的方差估计量是无偏的，因而MLE的方差估计值是**有偏**的。大样本情况下，MLE满足一致性，但是否满足有效性呢？
+
+### 3.10 OLS和MLE的大样本有效性
+
+我们定义S函数(Score function)，即$S(\theta) = \frac{\partial \mathcal{L}(\theta)}{\partial \theta}$，则引出Cramer-Rao下确界的定义：
+/// admonition | 定义： Cramer-Rao下确界
+    type: info
+
+给定$\hat \theta$是$\theta$的无偏估计，且方差是有限的，那么基于一般的约束条件（DCT，参见Cramer-Rao下界的Wiki Chapter1.5），有：
+
+$Var(\hat \theta) \geq I(\theta)^{-1}$，其中信息矩阵$I(\theta) = E[S(\theta) S^T(\theta)] = -E[\frac{\partial^2 \mathcal{L}(\theta)}{\partial \theta \partial \theta^T}]$
+///
+
+如果一个无偏估计的方差能够达到Cramer-Rao下界，则这个估计量必然是有效的。对于这个线性模型，其Score Function为：
+
+$$
+   S(\theta) = \left[\begin{array}{c}
+        \frac{\partial \mathcal{L}(\theta)}{\partial \beta} \\
+        \frac{\partial \mathcal{L}(\theta)}{\partial \sigma^2} 
+    \end{array} \right] = \left[\begin{array}{c}
+        -\frac{1}{\sigma^2} X^T (Y-X\beta)  \\
+        -\frac{N}{2\sigma^2} + \frac{1}{2\sigma^4}(Y-X\beta)^T (Y-X\beta)
+    \end{array}\right]
+$$
+
+则其信息矩阵为：
+
+$$
+    I(\theta) = E[S(\theta)S^T(\theta)] = \left[\begin{array}{cc}
+        \frac{\partial \mathcal{L}(\theta)}{\partial \beta} \frac{\partial \mathcal{L}(\theta)}{\partial \beta^T}& \frac{\partial \mathcal{L}(\theta)}{\partial \beta}\frac{\partial \mathcal{L}(\theta)}{\partial \sigma^2} \\
+        \frac{\partial \mathcal{L}(\theta)}{\partial \sigma^2}\frac{\partial \mathcal{L}(\theta)}{\partial \beta^T} & (\frac{\partial \mathcal{L}(\theta)}{\partial \sigma^2})^2
+    \end{array}\right]
+$$
+
+**（1）对于左上角那一项**，有：
+
+$$
+\begin{align}
+    \frac{\partial \mathcal{L}(\theta)}{\partial \beta} \frac{\partial \mathcal{L}(\theta)}{\partial \beta^T} &= \frac{1}{\sigma^4} X^T(Y-X\beta)(Y-X\beta)^T X = \frac{1}{\sigma^4}X^T\epsilon\epsilon^TX\\
+    E[\frac{\partial \mathcal{L}(\theta)}{\partial \beta} \frac{\partial \mathcal{L}(\theta)}{\partial \beta^T}|X] &= \frac{1}{\sigma^4}X^T E[\epsilon\epsilon^T|X]X = \frac{X^TX}{\sigma^2}
+\end{align}
+$$
+
+**（2）对于右上角和左下角项**（二者互为转置，仅看右上角项），有：
+
+$$
+\begin{align}
+    \frac{\partial \mathcal{L}(\theta)}{\partial \beta}\frac{\partial \mathcal{L}(\theta)}{\partial \sigma^2} &= -\frac{1}{\sigma^2} X^T(Y-X\beta) [-\frac{N}{2\sigma^2} + \frac{1}{2\sigma^4}(Y-X\beta)^T (Y-X\beta)] \\
+    &= \frac{N}{2\sigma^4}X^T\epsilon - \frac{1}{2\sigma^6} X^T \epsilon \epsilon^T \epsilon
+\end{align}
+$$
+
+而$E[X^T\epsilon|X] = 0$。而第二项有：
+
+$$
+    E[X^T\epsilon \epsilon^T \epsilon|X] = X^T E\left[\begin{array}{c}
+        \epsilon_1 \sum \epsilon_i^2\\
+        ... \\
+        \epsilon_N \sum \epsilon_i^2
+    \end{array}\right]
+$$
+
+分情况讨论:
+
+- 对于$j\not=i$时，有$E[\epsilon_j \epsilon_i^2|X] = E[\epsilon_j|X]E[\epsilon_i^2|X] = 0$（这里用到了假设2、4）；
+- 而$j = i$时，$E[\epsilon_i^3|X] = 0$。
+
+>$\int \epsilon^3 f(\epsilon) d\epsilon = 0$，因为$f(\epsilon)$为偶函数（正态分布），$\epsilon^3$为奇函数，二者相乘为奇函数，那么其积分为0。
+
+因而第二项绝对为0，所以右上角和左下角项为0。
+
+**（3）对于右下角项**，这是一个标量，因此我们可以把它当作一个特定的值，而不去求它了，比如说，我们管它叫something。
+
+> $\mathcal{L}$是一个标量，而求$\sigma^2$（标量）偏导时也是个标量。
+
+所以，信息矩阵$I(\theta)$形式为：
+
+$$
+    I(\theta) = \left[\begin{array}{cc}
+        \frac{1}{\sigma^2}X^TX & 0 \\
+        0 & sth
+    \end{array}\right], I^{-1} = \left[\begin{array}{cc}
+        \sigma^2(X^TX)^{-1} & 0 \\
+        0 & (sth)^{-1}
+    \end{array}\right]
+$$
+
+而$Var(\hat \beta_{MLE}) = Var(\hat \beta_{OLS}) = \sigma^2(X^TX)^{-1}$，因而二者均达到了Cramer-Rao下界，因而OLS和MLE对$\beta$的估计量都是有效的。
+> 如果无偏估计量的方差严格大于CR下界，则必然不是有效估计量。
+
+但是，对于$\sigma^2$的MLE估计量，由于其不满足无偏性，所以**不适用**于Cramer-Rao下确界法。
