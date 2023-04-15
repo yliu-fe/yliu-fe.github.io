@@ -1,3 +1,6 @@
+---
+comments: true
+---
 # 对动作的有监督学习
 
 对应CS285 Lecture 2
@@ -241,3 +244,5 @@ $$
 作业会单独的作为一个网页挂出来，见[作业一、模仿学习](https://yliu-fe.github.io/Majors/Reinforcement%20Learning/CS285/HW1_Imitation%20Learning/)。
 
 但在领略CS285这门课噩梦般的作业前，还要学习CS285的Lecture 3，这部分是助教领着上PyTorch的教程课，这部分内容不会出笔记。
+
+CS285 Fall 2021（最近一个有课程录像的学期）的网站上没有给出Lecture 3的演示文稿，我贴一下这一期课程所用Jupyter Notebook的Google Colab链接：[CS 285 Fa21 PyTorch Tutorial](https://colab.research.google.com/drive/135fzWzVf4IULsr68RUoShV-ZDTzXKvbp?usp=sharing)。
