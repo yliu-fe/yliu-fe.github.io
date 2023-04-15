@@ -44,6 +44,7 @@
 
 ## 外部资源
 
+- 本课的野生笔记，基于Fall18/19/20构建：[harryzhangOG/Deep-RL-Notes: A collection of comprehensive notes on Deep Reinforcement Learning, customized for UC Berkeley&#39;s CS 285 (prev. CS 294-112) ](https://github.com/harryzhangOG/Deep-RL-Notes)开源的是LaTeX代码，可以从Github上下载zip文件然后整体上传到Overleaf上编译并下载pdf。
 - 先修的先修：吴恩达的《机器学习》[Supervised Machine Learning: Regression and Classification](https://www.coursera.org/learn/machine-learning)
 - 先修课程CS188：[CS 188 Spring 2023 | Introduction to Artificial Intelligence at UC Berkeley](https://inst.eecs.berkeley.edu/~cs188/sp23/)，主要参照其中关于马尔可夫决策过程（MDP）、强化学习（RL）、隐马尔可夫过程（HMM）的内容。
 - 先修课程CS189：[CS 189/289A](https://www.eecs189.org/)，机器学习方法。
