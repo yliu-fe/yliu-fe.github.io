@@ -96,7 +96,7 @@ pip install -e .
 
 安装文件夹里那个 `cs285`包，接下来就进入正式的作业环节。
 
-## 作业1：Behavioral Cloning（动作复制）
+## 先读作业文件
 
 按照指引，先看七个文件：
 
@@ -172,8 +172,15 @@ trainer.run_training_loop()
 ```
 定义训练器为`BC_trainer`类，并传入参数；然后开始不断执行`run_training_loop`函数，而这个函数在`rl_trainer.py`文件中定义，所以下一步，我们要开始编写`rl_trainer.py`。
 
-### 作业文件1：`rl_trainer.py`
+### 作业文件1：`rl_trainer.py` （第一部分）
+
+/// admonition | 要写代码
+    type: warning
+这个文件中定义的`RL_Trainer`类下的`collect_training_trajectories`, `train_agent`, `do_relabel_with_expert`函数有TODO标记，需要补全代码。
+///
+
 相对路径`cs285/infrastructure/rl_trainer.py`，它定义了RL（尽管模仿学习并不是真正的RL）学习器和函数。先略过前面的import环节和两个常量，我们先看这个文件的核心`RL_Trainer`类：
+
 
 ```python
 class RL_Trainer(object):
@@ -186,9 +193,115 @@ class RL_Trainer(object):
             load_initial_expertdata,
             collect_policy,
             batch_size,
-    )
-    def train_agent(self)
-    def do_relabel_with_expert(self, expert_policy, paths)
+    ) #带TODO
+    def train_agent(self) #带TODO
+    def do_relabel_with_expert(self, expert_policy, paths) #带TODO
     def perform_logging(self, itr, paths, eval_policy, train_video_paths, training_logs)
 ```
 也就区区六个函数...
+
+首先是`__init__`即类的初始化函数。分为三块：（1）定义：打包接受传入的所有参数（这包参数打包传给了BC_trainer，然后它自己的定义过程中又打包传给了RL_trainer，也不管有用没用）、确定日志文件位置、设定随机种子；（2）环境：调用gym包构造环境，这里把`env_kwargs`打了两颗星填进了`**kwargs`结构里传给了gym.make函数，并传入了之前设好的随机种子。此外，还设置了最长回看期数、环境的离散/连续性质和observation/action set；（3）agent：定义了agent所用的类（纯BC、DAgger-BC等）。
+
+第二个函数是熟脸了，`run_training_loop`函数规定了训练循环的过程，并在前面文件中的`BC_trainer`中调用，另外也印证了前面的猜测，`relabel_with_expert`参数确实是布尔值。该函数首先定义了环境总步数`total_envsteps`和开始时间`start_time`（现实时间），然后就只有一个大循环：
+
+///details |  `run_training_loop`中的loop
+     type: note
+  
+```python
+# decide if videos should be rendered/logged at this iteration
+if itr % self.params['video_log_freq'] == 0 and self.params['video_log_freq'] != -1:
+    self.log_video = True
+else:
+    self.log_video = False
+
+# decide if metrics should be logged
+if itr % self.params['scalar_log_freq'] == 0:
+    self.log_metrics = True
+else:
+    self.log_metrics = False
+```
+
+首先是是否保存视频日志的判断，如果人为传参`video_log_freq`为-1，则必然不使用视频；而如果这个参数为正，则每隔`video_log_freq`次循环，渲染并保存一次视频日志。
+
+然后判断是否保存矩阵日志，这个是人为参数（日志频率）`scalar_log_freq`控制，参数为2，则每2次循环保存一次日志。
+
+```python 
+# collect trajectories, to be used for training
+training_returns = self.collect_training_trajectories(
+    itr,
+    initial_expertdata,
+    collect_policy,
+    self.params['batch_size']
+)  # HW1: implement this function below
+paths, envsteps_this_batch, train_video_paths = training_returns
+self.total_envsteps += envsteps_this_batch
+```
+接着是获取实验过程数据（trajectory，"弹道"一词非常形象）。这里调用了下面要开始写的`collect_training_trajectories`函数，从中获取`paths`,`envsteps_this_batch`和`train_video_paths`三项数据，其中第二项可能是犯错时所处的环境步数（也可以通俗地理解为时间$t$），这一项将被加到`self.total_envsteps`，总的环境步数。
+
+```python
+# relabel the collected obs with actions from a provided expert policy
+if relabel_with_expert and itr>=start_relabel_with_expert:
+    paths = self.do_relabel_with_expert(expert_policy, paths)  # HW1: implement this function below
+
+# add collected data to replay buffer
+self.agent.add_to_replay_buffer(paths)
+```
+从这一轮运行过程中获取的agent动作路径将导入到`do_relabel_with_expert`函数中，由专家策略对path中的各项state/observation做标注，给出最优的策略选择。然后，`add_to_replay_buffer`函数会把这一轮的路径保存下来，以后留着回放。
+
+后面的内容就是训练命令本身、保存日志的内容了，不再赘述。
+///
+
+下面就是第一个要**自己写**的函数，`collect_training_trajectories`。其传入传出结构为：
+```python 
+def collect_training_trajectories(self,
+            itr, #当前迭代次数序号
+            load_initial_expertdata, #专家数据pkl文件的路径
+            collect_policy, #当前获取新数据的策略
+            batch_size, # the number of transitions we collect
+    ):
+    return paths, envsteps_this_batch, train_video_paths
+```
+目前看来，`batch_size`还不太明确，感觉上讲，不像是DL里所说的训练集单次投喂的“批量”概念。
+
+接下来跟着TODO指示来写代码，第一块内容是决定是导入初始的专家数据，还是自己跑，显然，如果是第一次迭代，就要导入专家数据，以后就自己跑。
+
+> 注意，传入的`load_initial_expertdata`是一个`pkl`文件的路径，展开这种数据包需要另外导入`pickle`包（原文件未声明），并参考[How to unpack pkl  file - StackOverflow](https://stackoverflow.com/questions/24906126/how-to-unpack-pkl-file)的说明。
+> 
+> 但是，如何侦测这样的“弹道”，目前已经读过的代码中尚没有说明，所以另一种情况就先给他pass着，等什么时候看到了什么时候回来写。
+
+然后是第二个TODO，即获取`batch_size`大小的样本，这里才给出了提示：
+> 使用`utils`中的`sample_trajectories`，这个函数在同级文件夹下的`utils.py`中
+
+/// details | `collect_training_trajectories` -> TODO 1 参考代码
+    type: success
+
+```python linenums="1"
+# TODO decide whether to load training data or use the current policy to collect more data
+  # HINT: depending on if it's the first iteration or not, decide whether to either
+          # (1) load the data. In this case you can directly return as follows
+          # ``` return loaded_paths, 0, None ```
+
+          # (2) collect `self.params['batch_size']` transitions
+
+  # TODO collect `batch_size` samples to be used for training
+  # HINT1: use sample_trajectories from utils
+  # HINT2: you want each of these collected rollouts to be of length self.params['ep_len']
+  print("\nCollecting data to be used for training...")
+  if itr == 0:
+      with open(load_initial_expertdata, 'rb') as f:
+          loaded_paths = pickle.load(f)
+      return loaded_paths, 0, None
+  
+  paths, envsteps_this_batch = utils.sample_trajectories(self.env,
+                                                          collect_policy,
+                                                          batch_size,
+                                                          self.params['ep_len'])
+```
+注意的是，`open`函数不能漏掉其中的`rb`，其中`r`代表read，即读取命令，`b`代表binary，读取二进制文件。如果是第一次，读完了之后直接return让它滚蛋——因为这里没写if-else结构，所以如果不return的话，往下跑会报错。
+///
+
+接下来我们能看到另一个TODO，但下面的代码是完整的，这里的意思是让我们转到`utils.py`那里，完成刚才我们引入的两个函数。
+
+不过，从建议阅读代码顺序来说，这是很靠后的内容了，我们先跳出来，回过头去看第二个带有TODO的文件，`MLP_policy.py`。
+
+
