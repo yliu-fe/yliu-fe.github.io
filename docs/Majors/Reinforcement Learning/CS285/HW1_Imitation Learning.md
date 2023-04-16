@@ -1,12 +1,14 @@
 # 作业1： 模仿学习
 
-作业内容PDF：[hw1.pdf](https://rail.eecs.berkeley.edu/deeprlcourse/static/homeworks/hw1.pdf)
+作业内容PDF：[hw1.pdf](https://rail.eecs.berkeley.edu/deeprlcourse/static/homeworks/hw1.pdf) （Fall 2022）
 
 框架代码可在该仓库下载：[ Assignments for Berkeley CS 285: Deep Reinforcement Learning (Fall 2022) ](https://github.com/berkeleydeeprlcourse/homework_fall2022)
 
 该项作业要求完成模仿学习的相关实验，包括直接的行为复制和DAgger算法的实现。由于不具备现实指导的条件，因此该作业给予一个专家策略，来做数据的标注。
 
 最后，利用OpenAI Gym上的若干个benchmark 连续控制任务，来比较直接模仿学习和DAgger的表现。
+
+> 注意：CS285的作业可能需要GPU，如有必要请上Colab。
 
 /// details | 关于绘图规范
     type: danger
@@ -96,12 +98,97 @@ pip install -e .
 
 ## 作业1：Behavioral Cloning（动作复制）
 
-需要完成的填空位于：
+按照指引，先看七个文件：
 
 ```
+scripts/run_hw1.py (read-only)
 infrastructure/rl_trainer.py
+agents/bc_agent.py (another read-only file)
 policies/MLP_policy.py
 infrastructure/replay_buffer.py
 infrastructure/utils.py
 infrastructure/pytorch_util.py
 ```
+其中`run_hw1.py`和`bc_agent.py`只需要读，而另外五个里面有TODO，需要写代码。
+
+> 但`run_hw1.py`中一些代码后写着注释"HW1: you will modify this"，所以也要做一些调节
+
+### 总文件：`run_hw1.py`
+相对路径：`cs285/scripts/run_hw1.py`。显然，整套文件最后归于此。
+
+该文件的核心是定义了`BC_trainer`类。在这套作业中，BC代表"Behavior Cloning"，
+```python
+class BC_trainer(object):
+    def __init__(self, params)
+    def run_training_loop(self)
+```
+
+这个类的`__init__`函数看起来像是训练过程的函数，因为定义的`self.params['agent_params']`和`self.params['env_kwargs']`都来自外界传参，前者包括了NN的层数`n_layers`、节点量`size`、学习率`learning_rate`和重放缓冲区最大规模`max_replay_buffer_size`；后者则来自所执行环境。在定义参数之后，便是`RL_Trainer`和`loaded_expert_policy`两步过程，前者负责定义训练，后者负责载入专家策略。
+
+另一个函数`run_training_loop`只是调用了`rl_trainer.pu`中的同名函数，并传入了相关参数：
+```python
+def run_training_loop(self):
+
+    self.rl_trainer.run_training_loop(
+        n_iter=self.params['n_iter'], #迭代次数规定
+        initial_expertdata=self.params['expert_data'], #(未发现位置)初始专家数据（训练集）
+        collect_policy=self.rl_trainer.agent.actor, #拾取策略？
+        eval_policy=self.rl_trainer.agent.actor, #评估策略
+        relabel_with_expert=self.params['do_dagger'], # （未发现位置，可能是布尔值）在学习后，由专家对新发现状态做标注
+        expert_policy=self.loaded_expert_policy, # 所用专家策略
+    )
+```
+
+下方大量的`parser`命令无需在意，它们负责shell指令的传达和判断。也不能说完全不在意吧，因为命令行里将传递各个变量，比如上面提到的`do_dagger`, `expert_data`什么的。以HW1.pdf的作业一"behavior cloning"中给出的Shell代码，我们可以读到：
+
+```bash
+# 具体输入到shell里时，每行最右边的反斜线要删掉
+python cs285/scripts/run_hw1.py \
+--expert_policy_file cs285/policies/experts/Ant.pkl \
+--env_name Ant-v4 --exp_name bc_ant --n_iter 1 \
+--expert_data cs285/expert_data/expert_data_Ant-v4.pkl \
+--video_log_freq -1
+```
+
+/// details | 关于这行shell命令
+    type: note
+  
+第一行：执行`run_hw1.py`这个文件  
+
+第二行：指定专家策略文件`Ant.pkl`
+
+第三行：指定环境为`Ant-v4`，实验名`bc_ant`，迭代次数1（该项默认值为1）
+
+第四行：专家数据（训练集）：`expert_data_Ant-v4.pkl`
+
+第五行：禁用视频日志（该项默认值为5，而设为-1则代表禁用了以视频方式保存训练日志）
+
+///
+
+接着就是保存日志和真正的训练过程，训练过程只有两行命令：
+```python
+trainer = BC_Trainer(params)
+trainer.run_training_loop()
+```
+定义训练器为`BC_trainer`类，并传入参数；然后开始不断执行`run_training_loop`函数，而这个函数在`rl_trainer.py`文件中定义，所以下一步，我们要开始编写`rl_trainer.py`。
+
+### 作业文件1：`rl_trainer.py`
+相对路径`cs285/infrastructure/rl_trainer.py`，它定义了RL（尽管模仿学习并不是真正的RL）学习器和函数。先略过前面的import环节和两个常量，我们先看这个文件的核心`RL_Trainer`类：
+
+```python
+class RL_Trainer(object):
+    def __init__(self, params)
+    def run_training_loop(self, n_iter, collect_policy, eval_policy,
+                        initial_expertdata=None, relabel_with_expert=False,
+                        start_relabel_with_expert=1, expert_policy=None)
+    def collect_training_trajectories(self,
+            itr,
+            load_initial_expertdata,
+            collect_policy,
+            batch_size,
+    )
+    def train_agent(self)
+    def do_relabel_with_expert(self, expert_policy, paths)
+    def perform_logging(self, itr, paths, eval_policy, train_video_paths, training_logs)
+```
+也就区区六个函数...
