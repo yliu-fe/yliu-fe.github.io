@@ -23,6 +23,8 @@ nav:
     - Python掉坑笔记: 
       - 基本语法:
         - 形参"args"和"kwargs": Techs/Notes for Python/Basic Syntax/args_kwargs.md
+      - 各类包:
+        - numpy专题: Techs/Notes for Python/Packages/numpy.md
   - 专业笔记:
     - Majors/Major_index.md
     - 截面数据计量经济学:
