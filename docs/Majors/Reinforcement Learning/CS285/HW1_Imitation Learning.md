@@ -349,4 +349,6 @@ def do_relabel_with_expert(self, expert_policy, paths):
 最后一个函数是表现评估，而且没有需要填入的代码。
 
 ### 作业文件2: `MLP_policy.py`
-这是一个专家策略文件，应该指的是Maximize Log Probabilities.
+这是一个专家策略文件，应该指的是Maximize Log Probabilities。该文件主要的内容是定义了`MLPPolicy`类，定义该类需要传入的内容包括`BasePolicy`, `nn.Module`（神经网络各层规模）和`metaclass`(抽象基本类？)
+
+初始化函数中规定的内容基本上是神经网络相关的变量，如动作集、观测集、神网层数、学习率、是否为离散模型。所需工作是在`get_action`函数中填写

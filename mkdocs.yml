@@ -25,6 +25,9 @@ nav:
         - 形参"args"和"kwargs": Techs/Notes for Python/Basic Syntax/args_kwargs.md
       - 各类包:
         - numpy专题: Techs/Notes for Python/Packages/numpy.md
+      - CS61A:
+        - 引导页：希望这不是一个笑话: Techs/Notes for Python/CS61A/61a_index.md
+        - 高阶函数、递归和hw2: Techs/Notes for Python/CS61A/recursive.md 
   - 专业笔记:
     - Majors/Major_index.md
     - 截面数据计量经济学:

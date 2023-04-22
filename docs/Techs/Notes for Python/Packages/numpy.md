@@ -11,7 +11,7 @@
 如果算出来的是1*1的标量，numpy也会显示为向量的形式，带着中括号。如果要去除这一个东西，就可以采用:`a@b.squeeze`的命令，把所有长度为1的维度去掉，那么这个结果就变成标量，也就是一个数了。
 
 
-```python title= "multiply vs *"
+```python title="multiply vs *"
 import numpy as np
 x = np.array([[1,2,3], [4,5,6]])
 y = np.array([[-1, 2, 0], [-2, 5, 1]])
