@@ -69,3 +69,43 @@ def count_coins(total):
 2. 下一个硬币是当前最小面值的下一个稍大的面值(`next_largest_coin(least)`)。这样的话，只是调整了`least`的设定，而没有真正地配置一个硬币进去。
 
 每一种情况都继续向下分裂为上面所说的两种情况，从而将每一种吸收的情况都讨论到（也就是最上面的`if-elif-elif`），然后把这些情况中返回的`0`或`1`加起来。
+
+## Lab04: Recursion
+类似的Tree Recursion还有Lab04的第四题（Insect Combinatorics）：[Lab 4 Q4](https://inst.eecs.berkeley.edu/~cs61a/fa20/lab/lab04/#q4)
+
+给定`M`行`N`列的矩形地图，一个昆虫只能向右或向上移动，求出从左下角`(0,0)`到右上角`(M-1,N-1)`的可能路径数。直接给出代码：
+
+```python title="Insect Combinatorics" linenums="1"
+def paths(m, n):
+
+    def path_helper(x,y):
+        if x >= m:
+            return 0
+        elif y >= n:
+            return 0
+        elif x == m-1 and y == n-1:
+            return 1
+        right = path_helper(x, y+1)
+        upward = path_helper(x+1, y)
+        return right + upward
+
+    return path_helper(0,0)
+```
+闭包确实有好使的时候，但我老是想不到。
+
+还有第五题，这个题讨论的是留不留最后一位：
+
+```python title="maximum subsequence" linenums="1"
+def max_subseq(n, t):
+
+    if n == 0 or t == 0:
+        return 0
+    elif n <= 10**t:
+        return n
+    with_ones = max_subseq(n // 10, t-1) * 10 + n % 10
+    not_with = max_subseq(n // 10, t)
+    if with_ones > not_with:
+        return with_ones
+    else:
+        return not_with
+```
