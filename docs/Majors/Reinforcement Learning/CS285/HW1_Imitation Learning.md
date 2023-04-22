@@ -172,7 +172,7 @@ trainer.run_training_loop()
 ```
 定义训练器为`BC_trainer`类，并传入参数；然后开始不断执行`run_training_loop`函数，而这个函数在`rl_trainer.py`文件中定义，所以下一步，我们要开始编写`rl_trainer.py`。
 
-### 作业文件1：`rl_trainer.py` （第一部分）
+### 作业文件1：`rl_trainer.py` 
 
 /// admonition | 要写代码
     type: warning
@@ -300,8 +300,53 @@ def collect_training_trajectories(self,
 注意的是，`open`函数不能漏掉其中的`rb`，其中`r`代表read，即读取命令，`b`代表binary，读取二进制文件。如果是第一次，读完了之后直接return让它滚蛋——因为这里没写if-else结构，所以如果不return的话，往下跑会报错。
 ///
 
-接下来我们能看到另一个TODO，但下面的代码是完整的，这里的意思是让我们转到`utils.py`那里，完成刚才我们引入的两个函数。
+接下来我们能看到另一个TODO，但下面的代码是完整的，这里的意思是让我们转到`utils.py`那里，完成刚才我们引入的两个函数。不过，从建议阅读代码顺序来说，这是很靠后的内容了。继续往下看，完成`train_agent`部分的讨论：
 
-不过，从建议阅读代码顺序来说，这是很靠后的内容了，我们先跳出来，回过头去看第二个带有TODO的文件，`MLP_policy.py`。
+这个函数的任务是利用重放缓存区的样本数据训练agent，事先设定`num_agent_train_steps_per_iter`规定每轮迭代的重现修正学习次数，然后进行小的loop，分为两步：（1）从缓冲区做采样，拿出部分数据，这一步通过agent下的`sample`函数完成；（2）训练，训练agent的统一接口是各类agent class下的`train`函数，其读入参数只有`batch`（本期观测、本期动作、本期收益、下期观测、terminal batch），同时获取训练日志。
 
+/// details | `train_agent` -> TODO 参考代码
+    type: success
 
+```python linenums="1"
+def train_agent(self):
+    print('\nTraining agent using sampled data from replay buffer...')
+    all_logs = []
+    for train_step in range(self.params['num_agent_train_steps_per_iter']):
+
+        # TODO sample some data from the data buffer
+        # HINT1: use the agent's sample function
+        # HINT2: how much data = self.params['train_batch_size']
+        ob_batch, ac_batch, re_batch, next_ob_batch, terminal_batch = self.agent.sample(self.params['train_batch_size'])
+
+        # TODO use the sampled data to train an agent
+        # HINT: use the agent's train function
+        # HINT: keep the agent's training log for debugging
+        train_log = self.agent.train(ob_batch, ac_batch, re_batch, next_ob_batch, terminal_batch)
+        all_logs.append(train_log)
+    return all_logs
+```
+其中`train_batch_size`是直接从shell里读出的参数。
+///
+
+然后，`do_relabel_with_expert`函数的内容也比较简单，由于每一次会生成的path长度由`self.params['train_batch_size']`定义，所以根据它做一个for loop，然后每次读入一个 log observation并由专家打分，进而获取整体的新path。
+
+/// details | `do_relabel_with_expert` -> TODO 参考代码
+    type: success
+
+```python linenums="1"
+def do_relabel_with_expert(self, expert_policy, paths):
+    print("\nRelabelling collected observations with labels from an expert policy...")
+
+    # TODO relabel collected observations (from our policy) with labels from an expert policy
+    # HINT: query the policy (using the get_action function) with paths[i]["observation"]
+    # and replace paths[i]["action"] with these expert labels
+    for i in range(self.params['train_batch_size']):
+        paths[i]["action"] = expert_policy.get_action(paths[i]["observation"])
+    return paths
+```
+没什么好说的
+///
+最后一个函数是表现评估，而且没有需要填入的代码。
+
+### 作业文件2: `MLP_policy.py`
+这是一个专家策略文件，应该指的是Maximize Log Probabilities.
