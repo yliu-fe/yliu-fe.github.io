@@ -75,3 +75,34 @@ $$
 
 > 高斯过程回归的“学习原理”可以参照<https://zhuanlan.zhihu.com/p/44960851>。尽管存在先验分布，但由于缺乏训练数据，基于先验分布的多次采样得到的$f(x)$估计函数可能在$\mathbf{x}$上完全不同。但是，随着观测数据的学习，贝叶斯学习$f(x)$得到后验分布，基于后验分布的多次采样函数可能就比较收敛（主要在有数据的区间内收敛，而缺乏训练数据的区间则可能依然我行我素）。
 
+
+
+## 高斯分布的多维输入和多维输出
+
+### a. 多维输入
+
+回归GP的基本形式：$f(\mathbf{x}) \sim \mathcal{GP} [m(\mathbf{x}), k(\mathbf{x}, \mathbf{x'})]$，并有：
+
+$$
+m(\mathbf{x}) = E[f(\mathbf{x})]; \quad k(\mathbf{x}, \mathbf{x'}) = E[(f(\mathbf{x})-m(\mathbf{x}))(f(\mathbf{x'})-m(\mathbf{x'}))]
+$$
+
+显然，高斯过程由$m$和$k$决定，二者均允许多维的输入——$\mathbf{x}$是向量，可以接受若干个状态变量的输入，所以，Multi-input GP是天然支持的。仍然从mean和covariance两个方面来说：对于均值，一般置0，不做讨论；对于协方差，就要重视$\mathbf{x,x'}$的向量性质。核函数的核心思想是表现两个值（向量）的距离，因此，核函数要引入的概念是norm，即范数，如SE核改为：
+
+$$
+K_{SE}(x,x') = \exp \left(-\frac{||x-x'||^2}{2l^2}\right)
+$$
+
+其中$l$是lengthscale，即长度尺度，用来控制核函数的变化速度，即使在多输入的GP中，lengthscale仍然是一个标量——对所有输入变量都有相同的影响。大多数情况下，单一的lengthscale已经够用，而且降低了计算的难度，但如果状态变量的数量很多，那么单一的lengthscale可能无法很好地表达不同状态变量之间的关系，这时候就需要引入多个lengthscale，被称作ARD（Automatic Relevance Determination）核函数，以SE核为例：
+
+$$
+K_{SE, ard} (\mathbf{x}, \mathbf{x'}) = s_f^2 \exp \left(-\frac{(\mathbf{x} - \mathbf{x'})^T \Theta^{-1} (\mathbf{x} - \mathbf{x'})}{2} \right)
+$$
+
+其中，$\Theta$是一个对角矩阵，对角线上的元素是各个状态变量的lengthscale，$s_f^2$是一个标量，用来控制核函数的变化速度。这样，核函数就可以很好地表达不同状态变量之间的关系了。不过，lengthscale的作用主要体现在特征工程上，而对基于GP进行学习和决策的行为人来说，lengthscale是外生的，它自己并不能调整。
+
+> 其他部分核函数的ARD形式可参照<https://zhuanlan.zhihu.com/p/35396322>的第5部分。
+
+但是，$m$和$k$的输出都是标量，所以GP天然的是$\mathbb{R}^n \to \mathbb{R}$的映射，即多维输入，单维输出。那么，如何实现多维的输出呢？
+
+### b.多维输出
