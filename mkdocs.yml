@@ -38,6 +38,8 @@ nav:
       - 一、一点预备内容: Majors/Time-Series Analysis/1_Background.md
       - 二、基本时间序列模型: Majors/Time-Series Analysis/2_Basic TimeSeries.md
       - 三、条件异方差模型: Majors/Time-Series Analysis/3_Conditional Heteroscedasticity.md
+    - 非参数方法:
+      - 一、高斯过程: Majors/Non_Parametric/Gaussian_Process.md
     - 强化学习:
       - Majors/Reinforcement Learning/RL_index.md
       - Deepmind RL:

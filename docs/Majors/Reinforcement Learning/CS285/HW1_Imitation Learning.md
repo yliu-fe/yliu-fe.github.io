@@ -276,6 +276,8 @@ def collect_training_trajectories(self,
     type: success
 
 ```python linenums="1"
+import pickle #import package "pickle" to read .pkl file.  Write it at the top of file.
+
 # TODO decide whether to load training data or use the current policy to collect more data
   # HINT: depending on if it's the first iteration or not, decide whether to either
           # (1) load the data. In this case you can directly return as follows
