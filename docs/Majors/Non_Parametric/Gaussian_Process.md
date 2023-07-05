@@ -316,3 +316,8 @@ $$
 这两类思路请参见Liu et. al. (2018)所作综述的章节3.2和3.3：
 
 > Liu, H., Cai, J., & Ong, Y.-S. (2018). Remarks on multi-output Gaussian process regression. Knowledge-Based Systems, 144, 102–121. <https://doi.org/10.1016/j.knosys.2017.12.034>
+
+### d. 非对称MOGP
+这部分可以参考上面那篇文章的第四章。
+
+由于我本人研究中，模型的输出源自完全相同的状态变量，因此并不需要非对称MOGP，所以这部分内容就不再详述了。
