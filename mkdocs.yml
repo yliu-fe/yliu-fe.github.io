@@ -104,6 +104,7 @@ plugins:
         -ja
 
 markdown_extensions:
+  - md_in_html
   - pymdownx.arithmatex:
       generic: true
   - pymdownx.highlight:

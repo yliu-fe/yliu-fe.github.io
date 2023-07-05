@@ -9,6 +9,8 @@ comments: true
 /// details | 参考书目、文献和网站
     type: info
 
+    下文内容中所涉及具体方法的参考文献，参考对应方法的折叠栏，此处不再列出。
+
 1. 图书Gaussian Process for Machine Learning（Rasmussen and Williams，2006），网址: <https://ieeexplore.ieee.org/book/6267323/>
 2. 知乎专栏《高斯世界下的Machine Learning》，作者“蓦风星吟”，网址：<https://www.zhihu.com/column/gpml2016>
 3. Alvarez, M. A., Rosasco, L., & Lawrence, N. D. (2012). Kernels for vector-valued functions: A review. Foundations and Trends® in Machine Learning, 4(3), 195-266. <https://arxiv.org/abs/1106.6251> (关于多维输出的高斯过程)
@@ -89,7 +91,7 @@ $$
 y(\mathbf{x}) = f(\mathbf{x})+\epsilon, \quad \epsilon \sim N(0,\sigma_s^2)
 $$
 
-假定训练点$X = \{\mathbf{x}_1,...,\mathbf{x}_n\}^T, 对应输出$\mathbf{y} = \{y(\mathbf{x}_1), ..., y(\mathbf{x_n})\}^T。因为GP是一个随机过程，随机变量的任何子集服从多维高斯分布，因此测试点$x_{*}$处观测$\mathbf{y}$与输出$f(x_{*})$的联合先验分布为：
+假定训练点$X = \{\mathbf{x}_1,...,\mathbf{x}_n\}^T$, 对应输出$\mathbf{y} = \{y(\mathbf{x}_1), ..., y(\mathbf{x_n})\}^T。因为GP是一个随机过程，随机变量的任何子集服从多维高斯分布，因此测试点$x_{*}$处观测$\mathbf{y}$与输出$f(x_{*})$的联合先验分布为：
 
 $$
 \left[\begin{array}{l}
@@ -163,7 +165,7 @@ $$
 MOGP: \Omega_d \to \Omega_{f_1} \times ... \times \Omega_{f_T}
 $$
 
-其中$\Omega_d$是输入的样本空间，代表有$d$维的输入变量，$\Omega_{f_t}$表示输出$f_t(\mathbf{x})$的空间，为方便起见，假定输出变量$t= 1,...,T$具有相同的输入空间。下面表述的内容默认$X_1,...,X_T = \bar X$，即任何输出变量所对应的输入点集都完全相同。我们假定，全部$T$个输出$\mathbf{f} = \{f_1,...,f_T\}^T服从高斯过程：
+其中$\Omega_d$是输入的样本空间，代表有$d$维的输入变量，$\Omega_{f_t}$表示输出$f_t(\mathbf{x})$的空间，为方便起见，假定输出变量$t= 1,...,T$具有相同的输入空间。下面表述的内容默认$X_1,...,X_T = \bar X$，即任何输出变量所对应的输入点集都完全相同。我们假定，全部$T$个输出$\mathbf{f} = \{f_1,...,f_T\}^T$服从高斯过程：
 
 $$
 \mathbf{f(x)} \sim \mathcal{GP}(\mathbf{0}, \mathcal{K}_M (\mathbf{x,x'}))
@@ -204,3 +206,113 @@ $$
 
 类似的，这里也涉及到大量的超参数$\mathbf{\theta}_{M}$，包括$\mathbf{\theta}_{k_{tt'}}$和$\mathbf{\theta}_{\sigma_{s,t}}$。这些超参数还是通过最小化NLML来确定。
 
+### c. 对称MOGP
+（可参考<https://zhuanlan.zhihu.com/p/386642796>）
+
+目前的模型有（1）可分模型，将输入、输出分割开来处理（可以理解为两层的非参数估计）；（2）不可分割的混合卷积；（3）转换模型——将输出看作新的输入，将多输出模型转化为一层层的单输出模型。
+
+第一种的常见方法为LMC和ICM。
+/// details | Linear Model of Coregionalization (LMC) 
+    type: notes
+
+    （参考：Journel, A. G., & Huijbregts, C. J. (1976). Mining geostatistics.）
+    
+<figure markdown>
+  ![LMC's Structure](IMG/LMC_structure.png)
+  <figcaption>Graphical model of the LMC</figcaption>
+</figure>
+ 
+由于最早应用于地理统计领域，首个被广泛应用的多输出协方差模型被称作“共区域化线性模型”，即LMC，其结构如上图所示。对于协方差函数所需输出的$T$个部分，LMC假设每个部分都由$Q$个隐函数线性表出的，类似于下式：
+
+$$
+        f_t(\mathbf{x}) = \sum_{q=1}^Q a_{t,q} u_q(\mathbf{x})
+$$
+
+其中隐函数$u_q(\mathbf{x})$被假定为高斯过程，且**均值为零**，**协方差**$\operatorname{cov}[u_q(\mathbf{x}),u_q(\mathbf{x'})] = k_q(\mathbf{x,x'})$。线性系数被记为$a_{t,q}$（$T$个输出具有相同的隐函数族，只在线性系数上存在区别）。由于隐函数族$u_q(\mathbf{x}), q = 1,...,Q$对所有$T$个输出同质，因而LMC的原理式可以记作线性函数的形式：
+
+$$
+\mathbf{f(x)} = B\mathbf{u(x)}
+$$
+
+其中$\mathbf{f(x)} = [f_1(\mathbf{x}), ..., f_T(\mathbf{x})]^T$，而$\mathbf{u(x)} = [u_1(\mathbf{x}),...,u_Q(\mathbf{x})]^T$。$B$是一个$T\times Q$的矩阵，其元素为$a_{t,q}$。这里的$B$是一个超参数，需要通过最小化NLML来确定。
+
+同时，LMC模型引入了一个重要的假设，即**隐函数族$u_q(\mathbf{x})$之间的协方差矩阵是对角的**，即：$u_q(x) \perp u_{q'}(x)$对任意$q \not = q'$成立。因此，两个输出$f_{t}(x)$和$f_{t'}(x)$之间的协方差就可以表示为：
+
+$$
+\begin{align}
+    k_{tt'}(x,x') &= \sum_{q=1}^Q \sum_{q'=1}^Q a_{t,q}a_{t',q'}\operatorname{cov}[u_q(x),u_{q'}(x')]\\
+    &= \sum_{q=1}^Q a_{t,q}a_{t',q}k_q(x,x')
+\end{align}
+$$
+
+前文已经假定了隐函数$u_q$均服从零均值的高斯过程，如前文假设，这里的$k_q$便是第$q$个隐函数的协方差。由于引入了隐函数$u_q$，输入$\mathbf{x}$和输出$f_t(\mathbf{x})$已经**解耦**（decoupled），所以LMC被认为是一种可分离模型。
+
+> 参见Alvarez, M. A., Rosasco, L., & Lawrence, N. D. (2012). Kernels for vector-valued functions: A review. Foundations and Trends® in Machine Learning, 4(3), 195-266.
+
+同时，Rasmussen等（2006）在GPML一书中表明了，这种线性表出的方式仍然能得到一个有效的协方差函数，即前面的拟合协方差$k_{tt'}(x,x')$是可以接受的。进一步，多输出协方差$\mathcal{K}_M(\mathbf{x,x'})$可以表示为：
+
+> $\mathcal{K}_M$出现在上一小节，即MOGP问题的形式化表述中。
+
+$$
+\mathcal{K}_M = \sum_{q=1}^Q A_q k_q(x,x')
+$$
+
+其中$A_q$是一个$T\times T$的矩阵，其元素为$a_{t,q}a_{t',q}$。这里的$A_q$是一个超参数，需要通过最小化NLML来确定。
+
+【如果$Q = 1$，LMC将退化为“内在共区域化模型”，即ICM，参见下一个折叠框。】
+///
+
+/// details | Intrinsic Coregionalization Model (ICM) 
+    type: notes
+
+> 参考：Goovaerts, P. (1997). Geostatistics for natural resources evaluation. Applied Geostatistics.
+
+ICM是LMC在$Q = 1$时的简化模型，此时$\mathcal{K}_M$简化为：
+
+$$
+\mathcal{K}_M(\mathbf{x,x'}) = Ak(x,x')
+$$
+
+$A \in R^{T \times T}$，其中元素$A_{tt'} = a_t a_{t'}$，表示$f_t$和$f_{t'}$之间的相关性。在对称MOGP的情况下，即$X_1=...=X_T = \bar X$时，ICM的协方差函数可以简化为：
+
+$$
+K_M(\bar X, \bar X) = A \otimes K(\bar X, \bar X)
+$$
+
+符号“$\otimes$”代表Kronecker积。显然，ICM比LMC省去了大量的计算，但对应的，ICM只用了一个隐函数，因而其表达能力也大大降低了。
+///
+
+使用LMC/ICM要注意的几个问题：（1）额外定义；（2）线性模型参数拟合；
+
+
+/// details | 额外定义
+    type: warning
+需要额外定义隐函数族$u_q(\mathbf{x})$的形式，即$k_q(\mathbf{x,x'})$的形式。这个可以稍微偷点懒，既可以混用不同形式的协方差函数，也可以全部用SE形式，即：
+
+$$
+K_{SE, ard} (\mathbf{x}, \mathbf{x'}) = s_f^2 \exp \left(-\frac{(\mathbf{x} - \mathbf{x'})^T \Theta^{-1} (\mathbf{x} - \mathbf{x'})}{2} \right)
+$$
+
+此外，$Q$的取值也是一个问题，如果不同输出分布存在不同的长度尺度（lengthscale，简单说就是正态PDF里的$\sigma$），那么就应该选取$Q > 1$。现有研究推荐$Q = 2$或者$Q = T$，但$Q$的增长带来巨大的计算开销，却并不一定能带来足够的性能增长。
+
+> $Q=2$参阅：Nguyen, T. V., & Bonilla, E. V. (2014, July). Collaborative Multi-output Gaussian Processes. In UAI (pp. 643-652).
+> 
+> $Q = T$参阅： Fricker, T. E., Oakley, J. E., & Urban, N. M. (2013). Multivariate Gaussian process emulators with nonseparable covariance structures. Technometrics, 55(1), 47-56.
+
+///
+
+/// details | 线性模型参数拟合
+    type: warning
+
+最简单的方式就是直接定义$A_q = I$，换句话说，就是假定$f_t$之间是独立的。这样的话，$A_q$就是一个对角矩阵，其对角元素为$a_{t,q}^2 = 1$。这种情况下，$K_M(\bar X,\bar X)$是一个分块对角阵。这种情况下，所有的$f_t$之间唯一的共同点就是隐函数的协方差$k_q$（也就是构成这个协方差的超参数$\theta_q$）。
+
+此外，也可以定义$A_q = \mathbf{1}$，即全1矩阵，或者$A_q = \mathbf{1} + \alpha I$。
+///
+
+第二种方法是不分离的模型，被称作“过程卷积”(Process Convolution)。
+
+第三种方法是将多输出序列化——将前面的输出作为后面的输入，例如堆叠单目标(Stacked Single-target, SST)和集成回归器链（Ensemble of Regressor Chains, ERC）。
+
+这两类思路请参见Liu et. al. (2018)所作综述的章节3.2和3.3：
+
+> Liu, H., Cai, J., & Ong, Y.-S. (2018). Remarks on multi-output Gaussian process regression. Knowledge-Based Systems, 144, 102–121. <https://doi.org/10.1016/j.knosys.2017.12.034>
