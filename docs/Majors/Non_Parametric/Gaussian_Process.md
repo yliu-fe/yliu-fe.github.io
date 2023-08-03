@@ -91,7 +91,8 @@ $$
 y(\mathbf{x}) = f(\mathbf{x})+\epsilon, \quad \epsilon \sim N(0,\sigma_s^2)
 $$
 
-假定训练点$X = \{\mathbf{x}_1,...,\mathbf{x}_n\}^T$, 对应输出$\mathbf{y} = \{y(\mathbf{x}_1), ..., y(\mathbf{x_n})\}^T。因为GP是一个随机过程，随机变量的任何子集服从多维高斯分布，因此测试点$x_{*}$处观测$\mathbf{y}$与输出$f(x_{*})$的联合先验分布为：
+假定训练点$X = \{\mathbf{x}_1,...,\mathbf{x}_n\}^T$, 对应输出$\mathbf{y} = \{y(\mathbf{x}_1), ..., y(\mathbf{x_n})\}^T。因为GP是一个随机过程，随机变量的任何子集服从多维高斯分布，因此在测试点$x_{*}$处，
+观测$\mathbf{y}$与输出$f(x_{*})$的联合先验分布为：
 
 $$
 \left[\begin{array}{l}
@@ -257,7 +258,7 @@ $$
 \mathcal{K}_M = \sum_{q=1}^Q A_q k_q(x,x')
 $$
 
-其中$A_q$是一个$T\times T$的矩阵，其元素为$a_{t,q}a_{t',q}$。这里的$A_q$是一个超参数，需要通过最小化NLML来确定。
+其中$A_q$是一个$T\times T$的矩阵，其元素为$a_{t,q}a_{t',q}$。这里的$A_q$是一个超参数，但相较于通过极大似然求解，学界常见的一种处理方式是直接给定，见下面“线性模型参数拟合”部分。
 
 【如果$Q = 1$，LMC将退化为“内在共区域化模型”，即ICM，参见下一个折叠框。】
 ///
