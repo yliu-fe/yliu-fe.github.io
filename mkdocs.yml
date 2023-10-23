@@ -12,6 +12,8 @@ nav:
     - Curriculum Vitae: About/cv.md
   - 计算机笔记:
     - Techs/tech_index.md
+    - Matlab笔记:
+      - 引导页: Techs/Notes for Matlab/general.md
     - MkDocs疑难杂症研究:
       - 引入MathJax: Techs/Notes for Mkdocs/MathJax的引入.md
       - 如何联动Github Pages: Techs/Notes for Mkdocs/Github pages note.md
@@ -45,6 +47,14 @@ nav:
       - Deepmind RL:
         - 关于课程: Majors/Reinforcement Learning/Deepmind RL/DMRL_index.md
         - 一、强化学习的介绍: Majors/Reinforcement Learning/Deepmind RL/1_Introduction.md
+      - 伯克利CS188:
+        - 关于课程: Majors/Reinforcement Learning/CS188/Introduction.md
+        - 作业:
+          - 作业1 搜索: Majors/Reinforcement Learning/CS188/homework/Homework 1 Search.md
+        - 项目:
+          - 项目1 搜索: Majors/Reinforcement Learning/CS188/projects/Project 1 Search.md
+        - 1.1 盲目搜索: Majors/Reinforcement Learning/CS188/Section1.1 Uninformed Search.md
+        - 1.2 A*搜索和启发式搜索: Majors/Reinforcement Learning/CS188/Section1.2 A_star Search and Heuristics.md
       - 伯克利CS285:
         - 关于课程: Majors/Reinforcement Learning/CS285/CS285_index.md
         - 二、模仿学习: Majors/Reinforcement Learning/CS285/2_Imitation Learning.md
