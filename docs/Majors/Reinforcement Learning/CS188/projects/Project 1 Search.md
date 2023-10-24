@@ -2,10 +2,15 @@
 
 编辑内容仅限于`search.py`和`searchAgents.py`，需要阅读`pacman.py`,`game.py`和`util.py`。
 
+/// details | Python版本要求3.6
+由于判题脚本`autograder.py`的要求，Python环境应设置为3.6。
+///
+
 下面直接开始。
 
 ## problem类的几个常见方法
 题目中大量使用了`getSuccessor`和`getStartState`，前者负责给出后继点信息，后者给出图的初始点，其输出为：
+
 ```python
 (35, 1)
 [((35, 2), 'North', 1), ((34, 1), 'West', 1)]
@@ -21,6 +26,7 @@
 
 实现过程：
 首先，回顾DFS的思想。我们需要首先直到初始位置在哪，这不需要我们自行定义，而是调用该函数参数`problem`中的API，“getStartState”，不难理解。同时，DFS是一个先进后出的算法，因此需要一个栈，`util.py`已经为我们定义了这样的数据结构，然后，把出发状态`start`压进栈中。
+
 > 这里传入栈中的是`(start, [])`元胞，第一项是当前状态位置，第二项指代的是path，即从start到该节点的路径，显然，start到start并不需要任何路径。
 
 ```python
@@ -39,6 +45,7 @@ visited = set()
 - 如果栈中最先拿出的（最后存入的）节点是目标节点，算法结束并传回结果——结果就是元胞`(node, path)`中的`path`
 - 如果不是目标节点，则将其直接子节点加入栈中，重复以上目标。
 - 如果不是目标节点且没有未探索过的直接子节点，则回退到上一级，表现为这个while循环中，从堆栈中将当前节点pop出来扔掉以外，什么都没发生，重新判断上层节点。
+- 
 ```python
 while not stack.isEmpty():  
     node, path = stack.pop()  
@@ -51,7 +58,9 @@ while not stack.isEmpty():
 ```
 
 以下图的树为例（来自Wikipedia），来讲述搜索过程中的出入栈操作。假定我们要找的是节点4
-![[Depth-first-tree.svg.png]]
+
+![Depth-first Search](../IMGs/Depth-first-tree.svg.png)
+
 1. 一开始，栈是空的，状态`start`是1，且`visited`列表是空的，表示没探索过任何节点。
 2. 首先从当前的节点1开始，将该点及其路径`{1,[]}`压入栈。然后开始判断，又要把这个点pop出来，显然，节点1没有探索过，也不是目标节点，所以将1写入visited，表示已经探索过了，然后通过`getSuccessors`方法获取节点1的后续节点，即2、7、8。以节点2为例，实际获取的应当是`{2,[1,2]}`，既表示了2的名称，又写明了与初始节点1的路径关系。2、7、8同时被压入栈（栈中只有他仨），进入下一次的循环
 3. 按照先进后出的原则，下一轮从stack.pop中读出的其实是节点8，但对于DFS来说，同一层级的节点先后顺序不重要，所以看起来是倒着来的。8不是目标节点，但也没有探索过，所以和第二步一样，将其写入`visited`，并压入其子节点9、12。现在栈中按顺序为2、7、9、12，下一轮判断12。
@@ -60,7 +69,9 @@ while not stack.isEmpty():
 6. 评估7，然后再评估2的那棵子树，就和前面的步骤一样，直到找到节点4，返回其路径`[1,2,3,4]`，算法结束。
 
 ## Question 2 - BFS
+
 > Implement the breadth-first search (BFS) algorithm in the `breadthFirstSearch` function in `search.py`. Again, write a graph search algorithm that avoids expanding any already visited states. Test your code the same way you did for depth-first search.
+> 
 > 在`search.py`文件中的`breadthFirstSearch`函数中实现广度优先遍历（BFS）算法。一样的，写出避免评估任何已经评估过状态的图搜索算法，用与DFS题目一样的方式测试你的代码。
 
 任务：实现图的广度优先遍历算法。
@@ -69,6 +80,7 @@ while not stack.isEmpty():
 与DFS不同的是，BFS并不适合使用栈来实现，而是使用队列（queue），即先进先出的数据结构。与Stack一样，queue同样有push、pop操作，但是queue的push是将新数据插入到列表的最前面（索引0，而stack则是正常的append），从而queue每次pop出来的都是最后一项——第一个被push进去的数据。
 
 除了stack/queue的区别外，DFS和BFS在实现中基本一致，先进先出保证了查完一层后才会进入到下一层——而下一层的子节点在本层各节点的遍历过程中被按顺序push进了queue中。
+
 ```python
 def breadthFirstSearch(problem):  
     """Search the shallowest nodes in the search tree first."""  
@@ -97,6 +109,7 @@ UCS算是BFS的一种特例，采用的仍然是一种queue，但是出的顺序
 ### 特殊的队列：Priority Queue
 
 首先讨论这种数据结构`priority queue`。其python实现为：
+
 ```python
 class PriorityQueue:  
 	def  __init__(self):  
@@ -115,10 +128,7 @@ class PriorityQueue:
     def isEmpty(self):  
         return len(self.heap) == 0  
   
-	def update(self, item, priority):  
-    # If item already in priority queue with higher priority, update its priority and rebuild the heap.  
-    # If item already in priority queue with equal or lower priority, do nothing.    
-    # If item not in priority queue, do the same thing as self.push.    
+	def update(self, item, priority):   
 	    for index, (p, c, i) in enumerate(self.heap):  
 	        if i == item:  
 	            if p <= priority:  
@@ -173,10 +183,11 @@ def uniformCostSearch(problem):
 
 
 ## Question 4 - Astar Search
-从现在开始进入知情搜索（informed search）部分。第四题要求实现图模型上的A* 搜索方法。
+从现在开始进入知情搜索（informed search）部分。第四题要求实现图模型上的Astar 搜索方法。
 
-> Implement A* graph search in the empty function `aStarSearch` in `search.py`. A* takes a heuristic function as an argument. Heuristics take two arguments: a state in the search problem (the main argument), and the problem itself (for reference information). The `nullHeuristic` heuristic function in `search.py` is a trivial example.
-> 在`search.py`中的空函数`aStarSearch`中实现A* 图搜索。A* 需要获取一个启发函数作为实参。启发函数需要两个实参：主参数为搜索问题中的现有状态，并需要搜索问题本身提供参考信息。文件中给出的`nullHeuristic`函数是启发函数的平凡实例。
+> Implement Astar graph search in the empty function `aStarSearch` in `search.py`. Astar takes a heuristic function as an argument. Heuristics take two arguments: a state in the search problem (the main argument), and the problem itself (for reference information). The `nullHeuristic` heuristic function in `search.py` is a trivial example.
+> 
+> 在`search.py`中的空函数`aStarSearch`中实现Astar 图搜索。Astar 需要获取一个启发函数作为实参。启发函数需要两个实参：主参数为搜索问题中的现有状态，并需要搜索问题本身提供参考信息。文件中给出的`nullHeuristic`函数是启发函数的平凡实例。
 
 它可以被认为是UCS的进一步发展，唯一的改动在于priority的构成：
 ```python
@@ -198,10 +209,12 @@ def aStarSearch(problem, heuristic=nullHeuristic):
                            problem.getCostOfActions(path + [successor[1]]) + heuristic(successor[0], problem))
 ```
 
-打眼一看与UCS区别不大，都使用了priority queue，唯一的区别是多传入了一个方法`heuristic(node, problem)`，这是启发式方法和盲目搜索之间的本质区别。A* 方法的priority不仅包含了当前节点与出发节点的成本（距离，也就是UCS里本就有的部分），还包括了“启发式动力”，即当前节点与目标节点的*估计前向成本*（estimated forward cost），这一部分由`heuristic`方法导入。前向成本的估计方法多种多样，是启发式方法的核心部分，常见的方式有曼哈顿距离（Manhattan Distance），即两点坐标各维度差的绝对值之和：
+打眼一看与UCS区别不大，都使用了priority queue，唯一的区别是多传入了一个方法`heuristic(node, problem)`，这是启发式方法和盲目搜索之间的本质区别。Astar 方法的priority不仅包含了当前节点与出发节点的成本（距离，也就是UCS里本就有的部分），还包括了“启发式动力”，即当前节点与目标节点的*估计前向成本*（estimated forward cost），这一部分由`heuristic`方法导入。前向成本的估计方法多种多样，是启发式方法的核心部分，常见的方式有曼哈顿距离（Manhattan Distance），即两点坐标各维度差的绝对值之和：
+
 $$
 \operatorname{ManDistance}(x_1,x_2,y_1,y_2) = |x_1 - x_2|+|y_1 - y_2| 
 $$
+
 ```python
 def manhattanHeuristic(position, problem, info={}):  
     "The Manhattan distance heuristic for a PositionSearchProblem"  
@@ -212,19 +225,28 @@ def manhattanHeuristic(position, problem, info={}):
 
 另一种常见的启发式算法是贪心搜索（greedy search），它虽然也使用了priority queue，但其priority只考虑前向成本，而不考虑既有成本（即当前节点与出发节点的成本）。
 
-> 注意：启发式函数**只能低估**，而**绝不能高估**行动的真实成本
-> 参照Homework 1 Q7.3
-> 假定有K个小虫子，走向各自不同的的K个目标点，而且虫子只能走华容道——不能互相交换也不能重叠，但每个时间点所有虫子都可以考虑移动一格。那么以下能作为启发式函数的是：
-> （1）Sum of Manhattan distances from each insect's location to its target location.每个虫子与其目标点的曼哈顿距离之和。**不可以**，假定所有虫子离目标点都只有一格，那么真实时间成本是1，而这种函数将返回$K$，高估了真实成本。
-> （2）Sum of costs of optimal paths for each insect to its goal if it were acting alone in the environment, unobstructed by the other insects.假定环境中只有一个虫子时，各自独立决策下的最优路径成本求和。**不可以**，原因同上。
-> （3）Number of insects that have not yet reached their target location.还没有到达目标点的虫子总数。**不可以**，原因同上。
-> （4）Max of Manhattan distances from each insect's location to its target location.各个虫子距离目标点的曼哈顿距离中的最大值。**可以**，因为真实成本一定不会小于离目标最远的虫子的距离（即便环境中只有那么一只虫子）。而且因为有多只虫子且会被阻挡，因此真实成本只可能比这更高，符合低估原则。
-> （5）Max of costs of optimal paths for each insect to its goal if it were acting alone in the environment, unobstructed by the other insects.假定环境中只有一个虫子时，虫子与目标点间最优路径的成本中的最大值。**可以**，原因同上。
+/// details | 启发式函数只能低估，而绝不能高估行动的真实成本
+    type: warning
+
+参照Homework 1 Q7.3。假定有K个小虫子，走向各自不同的的K个目标点，而且虫子只能走华容道——不能互相交换也不能重叠，但每个时间点所有虫子都可以考虑移动一格。那么以下能作为启发式函数的是？
+
+（1）Sum of Manhattan distances from each insect's location to its target location.每个虫子与其目标点的曼哈顿距离之和。**不可以**，假定所有虫子离目标点都只有一格，那么真实时间成本是1，而这种函数将返回$K$，高估了真实成本。
+
+（2）Sum of costs of optimal paths for each insect to its goal if it were acting alone in the environment, unobstructed by the other insects.假定环境中只有一个虫子时，各自独立决策下的最优路径成本求和。**不可以**，原因同上。
+
+（3）Number of insects that have not yet reached their target location.还没有到达目标点的虫子总数。**不可以**，原因同上。
+
+（4）Max of Manhattan distances from each insect's location to its target location.各个虫子距离目标点的曼哈顿距离中的最大值。**可以**，因为真实成本一定不会小于离目标最远的虫子的距离（即便环境中只有那么一只虫子）。而且因为有多只虫子且会被阻挡，因此真实成本只可能比这更高，符合低估原则。
+
+（5）Max of costs of optimal paths for each insect to its goal if it were acting alone in the environment, unobstructed by the other insects.假定环境中只有一个虫子时，虫子与目标点间最优路径的成本中的最大值。**可以**，原因同上。
+///
+
 
 ## Question 5-6 Corner Problem
 下面的两个问题进一步将图上搜索复杂化。考虑一个四角迷宫，每个角上有一个点。新的搜索问题是找到最短的路径，使得Pacman遍历四个角点（无论这个点上有没有豆子）。这种情况下，部分迷宫形式的最短路径并不见得是一开始就吃掉最近的豆子。
 
 > Implement the `CornersProblem` search problem in `searchAgents.py`. You will need to choose a state representation that encodes all the information necessary to detect whether all four corners have been reached. 
+> 
 > 完成`searchAgents.py`中的`CornersProblem`类。您需要选择一种状态表示，对检测是否已到达所有四个角所需的所有信息进行编码。
 
 在这两个题目中，要完成`class CornersProblem(search.SearchProblem):`中的内容，包括但不限于此问题下的`getStartState`方法、`isGoalState`方法、`getSuccessors`方法等。
@@ -324,9 +346,88 @@ def isGoalState(self, state):
 ```
 
 最关键的还是`getSuccessors`方法的构造。其实也不困难，因为这里不涉及到任何搜索方法，只需要在当前节点基础上，找到可行动作——不撞墙就行，然后把它压进successor列表里返回给搜索算法。
+
 如果动作可行——没有撞上墙，那么就把动作后的位置、动作后踩过的corner集合`nextcorners`写出来，然后按照给定的数据结构：`((nextState, nextCorners), action, cost)`返回给算法，cost给定为1即可，这里不涉及启发式问题。
 
 ### Question 6 - 启发函数
 > Implement a non-trivial, consistent heuristic for the `CornersProblem` in `cornersHeuristic`.
+> 
 > 在`cornersHeuristic`空方法里实现一个非平凡的，一致的启发式函数。
 
+最简单的就是同时计算与尚未踩到的各个角的Manhattan距离，取最大值(**不可以取总和，原因在前面的Ques 4**)。
+```python
+def cornersHeuristic(state, problem):  
+	corners = problem.corners # These are the corner coordinates  
+    walls = problem.walls # These are the walls of the maze, as a Grid (game.py)  
+    "*** YOUR CODE HERE ***"  
+    totalDistance = []  
+    for corner in corners:  
+        if corner not in state[1]:  
+            totalDistance.append(util.manhattanDistance(state[0], corner))  
+    if len(totalDistance) == 0:  
+        return 0  
+    else:  
+        return max(totalDistance)
+```
+
+这样就能拿满这道题的分数了。
+
+## Question 7 - 吃光所有豆
+将目光转移到`FoodSearchProblem`类上。用尽可能少的步骤吃光地图上所有的豆子。此时的state变成了：
+
+```python
+position, foodGrid = state
+```
+
+其中`foodGrid`表示一个和迷宫地图大小相同的Boolean矩阵，当对应点上存在豆子时赋True，否则为False。那么我们遍历每一个为True的点，然后调用`MazeDistance`函数来获取当前位置与各豆子的图上距离，并选取其中的最大值——和上一题一样。
+
+```python
+def foodHeuristic(state, problem):  
+    position, foodGrid = state  
+    "*** YOUR CODE HERE ***"  
+    foodList = foodGrid.asList()  
+    max_distance = 0  
+    for food in foodList:  
+        distance = mazeDistance(position, food, problem.startingGameState)  
+        if distance > max_distance:  
+            max_distance = distance  
+    return max_distance
+```
+
+采用该启发式函数可以获取该题目的bonus grade（5/4），因为展开节点的子节点树的次数（number of nodes expanded）小于7000。
+## Question 8 - 次优解
+任务：
+
+1. 修改`findPathToClosestDot`方法
+
+2. 修改`AnyFoodSearchProblem`类中的`isGoalState`方法。
+
+首先要补上任务2的内容，这个问题没有给出判别目标状态的方法：
+```python
+def isGoalState(self, state):
+	x,y = state
+
+	"*** YOUR CODE HERE ***"
+	return (x,y) in self.food.asList()
+```
+
+其实问题本身只告诉你要做任务1，但是其中引用了`AnyFoodSearchProblem`问题，即随便吃一个地图中的豆的问题，所以要补。再者说，这里也没要求最优解，次优解即可，吃哪个豆都无所谓。
+
+进一步，回到任务1，为了尽量使找到的豆离当前位置最近，要用什么搜索方法？答案是BFS，因为它会一层一层的探索，只有第$i$层子节点找不到目标状态才去下一层，具象在地图上，就是不扫清楚离当前节点距离为$i$的所有格子，它不回去找距离为$i+1$的格子。
+
+```python
+def findPathToClosestDot(self, gameState):  
+    startPosition = gameState.getPacmanPosition()  
+    food = gameState.getFood()  
+    walls = gameState.getWalls()  
+    problem = AnyFoodSearchProblem(gameState)  
+  
+    "*** YOUR CODE HERE ***"  
+    return search.bfs(problem)
+```
+
+至此，Project 1内容结束，按照题头的指引，在shell中运行：
+```powershell
+python autograder.py
+```
+来获取各题目的本地评分。
