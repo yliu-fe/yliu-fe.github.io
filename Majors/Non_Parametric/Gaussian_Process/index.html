@@ -1,0 +1,2712 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="我的个人网页">
+      
+      
+        <meta name="author" content="yliu-fe">
+      
+      
+        <link rel="canonical" href="https://yliu-fe.github.io/Majors/Non_Parametric/Gaussian_Process/">
+      
+      
+        <link rel="prev" href="../../Time-Series%20Analysis/3_Conditional%20Heteroscedasticity/">
+      
+      
+        <link rel="next" href="../../Reinforcement%20Learning/RL_index/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.24">
+    
+    
+      
+        <title>一、高斯过程 - Website of a Doctor Candidate</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.6543a935.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+SC:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Noto Sans SC";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="Website of a Doctor Candidate" class="md-header__button md-logo" aria-label="Website of a Doctor Candidate" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Website of a Doctor Candidate
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              一、高斯过程
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="orange"  aria-label="切换为夜间模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换为夜间模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="cyan"  aria-label="切换为日间模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换为日间模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="分享" aria-label="分享" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/yliu-fe/yliu-fe.github.io" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    yliu-fe
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../About/" class="md-tabs__link">
+          
+  
+  关于
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../Techs/tech_index/" class="md-tabs__link">
+          
+  
+  计算机笔记
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../Major_index/" class="md-tabs__link">
+          
+  
+  专业笔记
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../Entertainment/ett_index/" class="md-tabs__link">
+          
+  
+  消遣娱乐
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Website of a Doctor Candidate" class="md-nav__button md-logo" aria-label="Website of a Doctor Candidate" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Website of a Doctor Candidate
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/yliu-fe/yliu-fe.github.io" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    yliu-fe
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    关于
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            关于
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../About/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Welcome to my Blog
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../About/cv/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Curriculum Vitae
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    计算机笔记
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            计算机笔记
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Techs/tech_index/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    常用计算机技术笔记索引
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Matlab笔记
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Matlab笔记
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Techs/Notes%20for%20Matlab/general/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    引导页
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    MkDocs疑难杂症研究
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            MkDocs疑难杂症研究
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Techs/Notes%20for%20Mkdocs/MathJax%E7%9A%84%E5%BC%95%E5%85%A5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    引入MathJax
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Techs/Notes%20for%20Mkdocs/Github%20pages%20note/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    如何联动Github Pages
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Techs/Notes%20for%20Mkdocs/PyMdown_blocks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    如何使用PyMdown blocks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Techs/Notes%20for%20Mkdocs/Settings_Code_Blocks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    如何配置代码块
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Techs/Notes%20for%20Mkdocs/Comment%20with%20Giscus/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    利用Giscus配置评论区
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    LaTeX杂症研究
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            LaTeX杂症研究
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Techs/Notes%20for%20LaTeX/Notes%20for%20Table/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    利用threeparttable包实现表格的note
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Python掉坑笔记
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            Python掉坑笔记
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_1" id="__nav_2_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    基本语法
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            基本语法
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Techs/Notes%20for%20Python/Basic%20Syntax/args_kwargs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    形参"args"和"kwargs"
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_2" id="__nav_2_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    各类包
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            各类包
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Techs/Notes%20for%20Python/Packages/numpy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    numpy专题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_3" id="__nav_2_5_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    CS61A
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            CS61A
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Techs/Notes%20for%20Python/CS61A/61a_index/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    引导页：希望这不是一个笑话
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Techs/Notes%20for%20Python/CS61A/recursive/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    高阶函数、递归和hw2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    专业笔记
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            专业笔记
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Major_index/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    我的专业相关领域文档
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    截面数据计量经济学
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            截面数据计量经济学
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Cross-Sectional%20Econometrics/About%20cross-section%20data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    引导页：截面计量
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Cross-Sectional%20Econometrics/1_OLS/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    一、线性模型和最小二乘法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    时间序列计量经济学
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            时间序列计量经济学
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Time-Series%20Analysis/TS_index/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    引导页：时间序列计量经济学
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Time-Series%20Analysis/1_Background/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    一、一点预备内容
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Time-Series%20Analysis/2_Basic%20TimeSeries/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    二、基本时间序列模型
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Time-Series%20Analysis/3_Conditional%20Heteroscedasticity/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    三、条件异方差模型
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    非参数方法
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            非参数方法
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    一、高斯过程
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    一、高斯过程
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      预备知识：从高斯分布开始
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      高斯过程
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="高斯过程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a" class="md-nav__link">
+    <span class="md-ellipsis">
+      a. 基本结构
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b" class="md-nav__link">
+    <span class="md-ellipsis">
+      b. 高斯过程回归
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      高斯过程的多维输入和多维输出
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="高斯过程的多维输入和多维输出">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      a. 多维输入
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      b. 多维输出(问题表述)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-mogp" class="md-nav__link">
+    <span class="md-ellipsis">
+      c. 对称MOGP
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-mogp" class="md-nav__link">
+    <span class="md-ellipsis">
+      d. 非对称MOGP
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    强化学习
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            强化学习
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Reinforcement%20Learning/RL_index/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    引导页：强化学习
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5_2" id="__nav_3_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Deepmind RL
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Deepmind RL
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Reinforcement%20Learning/Deepmind%20RL/DMRL_index/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    关于课程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Reinforcement%20Learning/Deepmind%20RL/1_Introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    一、强化学习的介绍
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5_3" id="__nav_3_5_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    伯克利CS188
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            伯克利CS188
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Reinforcement%20Learning/CS188/Introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    关于课程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5_3_2" id="__nav_3_5_3_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    作业
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_5_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            作业
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Reinforcement Learning/CS188/homework/Homework 1 Search.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    作业1 搜索
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5_3_3" id="__nav_3_5_3_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    项目
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_5_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            项目
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Reinforcement%20Learning/CS188/projects/Project%201%20Search/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    项目1 搜索
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Reinforcement%20Learning/CS188/Section1.1%20Uninformed%20Search/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.1 盲目搜索
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Reinforcement%20Learning/CS188/Section1.2%20A_star%20Search%20and%20Heuristics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.2 A*搜索和启发式搜索
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5_4" id="__nav_3_5_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    伯克利CS285
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_4">
+            <span class="md-nav__icon md-icon"></span>
+            伯克利CS285
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Reinforcement%20Learning/CS285/CS285_index/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    关于课程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Reinforcement%20Learning/CS285/2_Imitation%20Learning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    二、模仿学习
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Reinforcement%20Learning/CS285/HW1_Imitation%20Learning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    作业一、模仿学习
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    消遣娱乐
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            消遣娱乐
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Entertainment/ett_index/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    引导页？
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    拉丁语
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            拉丁语
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Entertainment/Lingua%20Latino/Latin_index/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    引导页：拉丁语
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      预备知识：从高斯分布开始
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      高斯过程
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="高斯过程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a" class="md-nav__link">
+    <span class="md-ellipsis">
+      a. 基本结构
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b" class="md-nav__link">
+    <span class="md-ellipsis">
+      b. 高斯过程回归
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      高斯过程的多维输入和多维输出
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="高斯过程的多维输入和多维输出">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      a. 多维输入
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      b. 多维输出(问题表述)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-mogp" class="md-nav__link">
+    <span class="md-ellipsis">
+      c. 对称MOGP
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-mogp" class="md-nav__link">
+    <span class="md-ellipsis">
+      d. 非对称MOGP
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="_1">高斯过程</h1>
+<p>在讨论行为人离散多期学习时，一种合适的方法是非参数拟合——行为人通过思考（或外界信息）获取对应特定状态的最优动作，并更新自身知识库——对任意状态<span class="arithmatex">\(\mathbf{s}_t\)</span>，估计<span class="arithmatex">\(a^{*}(\mathbf{s}_t)\)</span>的分布，并（通常）选取分布的均值作为下一次遇到<span class="arithmatex">\(s_t\)</span>状态时的动作方案。因此，基于高斯核函数的随机过程Gaussian Process（下称“高斯过程”或GP）是一种合适的非参数模型。</p>
+<details class="info">
+<summary>参考书目、文献和网站</summary>
+<div class="language-text highlight"><pre><span></span><code>下文内容中所涉及具体方法的参考文献，参考对应方法的折叠栏，此处不再列出。
+</code></pre></div>
+<ol>
+<li>图书Gaussian Process for Machine Learning（Rasmussen and Williams，2006），网址: <a href="https://ieeexplore.ieee.org/book/6267323/">https://ieeexplore.ieee.org/book/6267323/</a></li>
+<li>知乎专栏《高斯世界下的Machine Learning》，作者“蓦风星吟”，网址：<a href="https://www.zhihu.com/column/gpml2016">https://www.zhihu.com/column/gpml2016</a></li>
+<li>Alvarez, M. A., Rosasco, L., &amp; Lawrence, N. D. (2012). Kernels for vector-valued functions: A review. Foundations and Trends® in Machine Learning, 4(3), 195-266. <a href="https://arxiv.org/abs/1106.6251">https://arxiv.org/abs/1106.6251</a> (关于多维输出的高斯过程)</li>
+<li>Liu, H., Cai, J., &amp; Ong, Y.-S. (2018). Remarks on multi-output Gaussian process regression. Knowledge-Based Systems, 144, 102–121. <a href="https://doi.org/10.1016/j.knosys.2017.12.034">https://doi.org/10.1016/j.knosys.2017.12.034</a></li>
+</ol>
+</details>
+<h2 id="_2">预备知识：从高斯分布开始</h2>
+<p>就正态分布嘛。比如对于一维随机变量<span class="arithmatex">\(x\)</span>来说，如果<span class="arithmatex">\(x \sim \mathcal{N}(\mu,\sigma^2)\)</span>，则<span class="arithmatex">\(x\)</span>的概率密度函数为：</p>
+<div class="arithmatex">\[
+PDF(x) = \frac{1}{\sigma\sqrt{2\pi}} \exp \left(-\frac{(x-\mu)^2}{2\sigma^2} \right)\tag{1}
+\]</div>
+<p>再熟悉不过的分布函数，其中<span class="arithmatex">\(\mu\)</span>是均值，<span class="arithmatex">\(\sigma^2\)</span>是方差，二者共同唯一地决定了<span class="arithmatex">\(x\)</span>的概率分布，或者说笛卡尔坐标系下<span class="arithmatex">\(x\)</span>分布曲线的形状。但显然，很多时候一维分布是不够用的，比如说很多系统中状态空间的维度都是高于一维的，这时候就需要多维的高斯分布了，如果<span class="arithmatex">\(x_1,...,x_n\)</span>互相独立，则其联合概率分布为：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+&amp; p\left(x_1, x_2, \ldots, x_n\right)=\prod_{i=1}^n p\left(x_i\right) \\
+&amp; =\frac{1}{(2 \pi)^{\frac{n}{2}} \sigma_1 \sigma_2 \ldots \sigma_n} \exp \left(-\frac{1}{2}\left[\frac{\left(x_1-\mu_1\right)^2}{\sigma_1^2}+\frac{\left(x_2-\mu_2\right)^2}{\sigma_2^2}+\ldots+\frac{\left(x_n-\mu_n\right)^2}{\sigma_n^2}\right]\right)
+\end{aligned}
+\]</div>
+<p>也不麻烦，由于上面假定了<span class="arithmatex">\(x_1,...,x_n\)</span>的两两独立，故<span class="arithmatex">\(\mathbf{x} - \mathbf{\mu} = [x_1-\mu_1,...,x_n - \mu_n]\)</span>的协方差矩阵<span class="arithmatex">\(\Sigma\)</span>是一个对角矩阵，即<span class="arithmatex">\(\Sigma = \text{diag}(\sigma_1^2,...,\sigma_n^2)\)</span>，从而有：</p>
+<div class="arithmatex">\[
+\sigma_1 \sigma_2 ... \sigma_n = |\Sigma|^{1/2}
+\]</div>
+<p>那么联合分布的密度函数可以写成向量的形式：</p>
+<div class="arithmatex">\[
+p(x) = (2\pi)^{-n/2} |\Sigma|^{-1/2} \exp \left(-\frac{1}{2} (\mathbf{x}-\mathbf{\mu})^T \Sigma^{-1} (\mathbf{x}-\mathbf{\mu}) \right)
+\]</div>
+<h2 id="_3">高斯过程</h2>
+<h3 id="a">a. 基本结构</h3>
+<p>首先引用GPML一书（第2.2章，pp.13）中对高斯过程的描述：</p>
+<blockquote>
+<p>(Definition 2.1) A Gaussian process is a collection of random variables, any finite number of which have a joint Gaussian distribution.</p>
+<p>(定义2.1) 高斯过程是一个随机变量的联合，其中任意有限个随机变量的联合分布都是高斯分布。</p>
+</blockquote>
+<p>这一系列随机变量是出现在一个连续域之中的，而且对于任何的时间、空间，这个变量集的任何子集都服从（多维）高斯分布。高斯分布是由期望和方差来构造的，对应的，高斯过程也完全由期望函数（mean func）和协方差函数（covariance func）来构造。对于实过程<span class="arithmatex">\(f(\mathbf{x})\)</span>，分别定义期望函数<span class="arithmatex">\(m(\mathbf{x})\)</span>和协方差函数<span class="arithmatex">\(k(\mathbf{x}, \mathbf{x'})\)</span>：</p>
+<div class="arithmatex">\[
+m(\mathbf{x}) = E[f(\mathbf{x})]; \quad k(\mathbf{x}, \mathbf{x'}) = E[(f(\mathbf{x})-m(\mathbf{x}))(f(\mathbf{x'})-m(\mathbf{x'}))]
+\]</div>
+<p>从而写出<span class="arithmatex">\(f(\mathbf{x})\)</span>作为高斯过程的形式：</p>
+<div class="arithmatex">\[
+f(\mathbf{x}) \sim \mathcal{GP} [m(\mathbf{x}), k(\mathbf{x}, \mathbf{x'})]
+\]</div>
+<p>对于任意的<span class="arithmatex">\(\mathbf{x}, \mathbf{x'}\)</span>，<span class="arithmatex">\(k(\mathbf{x}, \mathbf{x'})\)</span>都是一个实数，且<span class="arithmatex">\(k(\mathbf{x}, \mathbf{x'}) = k(\mathbf{x'}, \mathbf{x})\)</span>，即协方差函数是对称的。协方差矩阵也可以很容易地写出来。注意，这里用<span class="arithmatex">\(k\)</span>来表示协方差函数，是因为在GP中，协方差函数也被称为kernel，即广为人知的“核函数”。Shepard（1978）的工作表明人类的泛化学习服从指数衰减规律，因此这里通常会讨论Squared Exponential（SE，平方化指数函数）形式的核函数，即：</p>
+<div class="arithmatex">\[
+K_{SE}(x,x') = \exp \left(-\frac{||x-x'||^2}{2l^2}\right)
+\]</div>
+<h3 id="b">b. 高斯过程回归</h3>
+<blockquote>
+<p>高斯过程回归的“学习原理”可以参照<a href="https://zhuanlan.zhihu.com/p/44960851">https://zhuanlan.zhihu.com/p/44960851</a>。尽管存在先验分布，但由于缺乏训练数据，基于先验分布的多次采样得到的<span class="arithmatex">\(f(x)\)</span>估计函数可能在<span class="arithmatex">\(\mathbf{x}\)</span>上完全不同。但是，随着观测数据的学习，贝叶斯学习<span class="arithmatex">\(f(x)\)</span>得到后验分布，基于后验分布的多次采样函数可能就比较收敛（主要在有数据的区间内收敛，而缺乏训练数据的区间则可能依然我行我素）。</p>
+</blockquote>
+<p>假定<span class="arithmatex">\(f(x)\)</span>中<span class="arithmatex">\(x \in R^d\)</span>，并服从单输出的GP，即：<span class="arithmatex">\(f(\mathbf{x}) \sim \mathcal{GP} [m(\mathbf{x}), k(\mathbf{x}, \mathbf{x'})]\)</span>。并假定其核函数为SE核：</p>
+<div class="arithmatex">\[
+K_{SE} (\mathbf{x}, \mathbf{x'}) = \sigma_f^2 \exp \left(-\frac{(\mathbf{x} - \mathbf{x'})^T P^{-1} (\mathbf{x} - \mathbf{x'})}{2} \right)
+\]</div>
+<p>这是一个ARD的形式，在下面“多维输入高斯过程”中具体讨论，这里只需要知道<span class="arithmatex">\(\sigma_f\)</span>决定了核函数的输出尺度，<span class="arithmatex">\(P\)</span>是一个对称阵，其每个对角元素都规定了输入变量<span class="arithmatex">\(x_i\)</span>的lengthscale（长度尺度）。假定行为人观测到的数据是无偏的：</p>
+<div class="arithmatex">\[
+y(\mathbf{x}) = f(\mathbf{x})+\epsilon, \quad \epsilon \sim N(0,\sigma_s^2)
+\]</div>
+<p>假定训练点<span class="arithmatex">\(X = \{\mathbf{x}_1,...,\mathbf{x}_n\}^T\)</span>, 对应输出<span class="arithmatex">\(\mathbf{y} = \{y(\mathbf{x}_1), ..., y(\mathbf{x_n})\}^T。因为GP是一个随机过程，随机变量的任何子集服从多维高斯分布，因此在测试点\)</span>x_{<em>}<span class="arithmatex">\(处，
+观测\)</span>\mathbf{y}<span class="arithmatex">\(与输出\)</span>f(x_{</em>})$的联合先验分布为：</p>
+<div class="arithmatex">\[
+\left[\begin{array}{l}
+\mathbf{y} \\
+f_*
+\end{array}\right] \sim \mathcal{N}\left(\left[\begin{array}{l}
+\mathbf{0} \\
+0
+\end{array}\right],\left[\begin{array}{cc}
+K(X, X)+\sigma_s^2 I &amp; \mathbf{k}\left(X, \mathbf{x}_*\right) \\
+\mathbf{k}\left(\mathbf{x}_*, X\right) &amp; k\left(\mathbf{x}_*, \mathbf{x}_*\right)
+\end{array}\right]\right)
+\]</div>
+<p>其中<span class="arithmatex">\(K(X,X) \in R^{n \times n}\)</span>是对称且半正定的协方差阵，其中<span class="arithmatex">\(K_{ij} = k(x_i, x_j)\)</span>。学习<span class="arithmatex">\(\{X,y\}\)</span>后，<span class="arithmatex">\(f(x_{*})\)</span>的后验分布为：<span class="arithmatex">\(f(x_{*}) \mid X, y , x_{*} \sim N(\hat f(x_{*}),\sigma^2(x_{*}))\)</span>。其中：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+&amp;\hat{f}\left(\mathbf{x}_*\right)=\mathbf{k}_*^{\top}\left[K(X, X)+\sigma_s^2 I\right]^{-1} \mathbf{y}\\
+&amp;\sigma^2\left(\mathbf{x}_*\right)=k\left(\mathbf{x}_*, \mathbf{x}_*\right)-\mathbf{k}_*^{\top}\left[K(X, X)+\sigma_s^2 I\right]^{-1} \mathbf{k}_*,
+\end{aligned}
+\]</div>
+<p>其中<span class="arithmatex">\(k_{*} = K(X,x_{*}) \in R^{n\times 1}\)</span>表示<span class="arithmatex">\(n\)</span>个训练点和测试点<span class="arithmatex">\(x_{*}\)</span>的协方差。显然，预测<span class="arithmatex">\(y(x_{*})\)</span>的方差就是<span class="arithmatex">\(\sigma^2(x_{*}) + \sigma_s^2\)</span>。</p>
+<p>在以上的学习之外，还要考虑超参数<span class="arithmatex">\(\mathbf{\theta}\)</span>的设定和优化问题，例如核函数中的<span class="arithmatex">\(P\)</span>和<span class="arithmatex">\(\sigma_f\)</span>，以及观测中的<span class="arithmatex">\(\sigma^2_s\)</span>等，优化的方法是最小化负对数似然函数（NLML），然后使用梯度下降法求解。NLML的表达式为：</p>
+<div class="arithmatex">\[
+NLML = -\log p(y \mid X, \theta) = \frac{1}{2} y^T [K(X,X) + \sigma_s^2 I]^{-1}y + \frac{1}{2} \log |K(X,X) + \sigma_s^2 I| + \frac{n}{2} \log 2\pi
+\]</div>
+<h2 id="_4">高斯过程的多维输入和多维输出</h2>
+<h3 id="a_1">a. 多维输入</h3>
+<p>回归GP的基本形式：<span class="arithmatex">\(f(\mathbf{x}) \sim \mathcal{GP} [m(\mathbf{x}), k(\mathbf{x}, \mathbf{x'})]\)</span>，并有：</p>
+<div class="arithmatex">\[
+m(\mathbf{x}) = E[f(\mathbf{x})]; \quad k(\mathbf{x}, \mathbf{x'}) = E[(f(\mathbf{x})-m(\mathbf{x}))(f(\mathbf{x'})-m(\mathbf{x'}))]
+\]</div>
+<p>显然，高斯过程由<span class="arithmatex">\(m\)</span>和<span class="arithmatex">\(k\)</span>决定，二者均允许多维的输入——<span class="arithmatex">\(\mathbf{x}\)</span>是向量，可以接受若干个状态变量的输入，所以，Multi-input GP是天然支持的。仍然从mean和covariance两个方面来说：对于均值，一般置0，不做讨论；对于协方差，就要重视<span class="arithmatex">\(\mathbf{x,x'}\)</span>的向量性质。核函数的核心思想是表现两个值（向量）的距离，因此，核函数要引入的概念是norm，即范数，如SE核改为：</p>
+<div class="arithmatex">\[
+K_{SE}(x,x') = \exp \left(-\frac{||x-x'||^2}{2l^2}\right)
+\]</div>
+<p>其中<span class="arithmatex">\(l\)</span>是lengthscale，即长度尺度，用来控制核函数的变化速度，即使在多输入的GP中，lengthscale仍然是一个标量——对所有输入变量都有相同的影响。大多数情况下，单一的lengthscale已经够用，而且降低了计算的难度，但如果状态变量的数量很多，那么单一的lengthscale可能无法很好地表达不同状态变量之间的关系，这时候就需要引入多个lengthscale，被称作ARD（Automatic Relevance Determination）核函数，以SE核为例：</p>
+<div class="arithmatex">\[
+K_{SE, ard} (\mathbf{x}, \mathbf{x'}) = s_f^2 \exp \left(-\frac{(\mathbf{x} - \mathbf{x'})^T \Theta^{-1} (\mathbf{x} - \mathbf{x'})}{2} \right)
+\]</div>
+<p>其中，<span class="arithmatex">\(\Theta\)</span>是一个对角矩阵，对角线上的元素是各个状态变量的lengthscale，<span class="arithmatex">\(s_f^2\)</span>是一个标量，用来控制核函数的输出尺度。这样，核函数就可以很好地表达不同状态变量之间的关系了。不过，lengthscale的作用主要体现在特征工程上，而对基于GP进行学习和决策的行为人来说，lengthscale是外生的，它自己并不能调整。</p>
+<blockquote>
+<p>其他部分核函数的ARD形式可参照<a href="https://zhuanlan.zhihu.com/p/35396322">https://zhuanlan.zhihu.com/p/35396322</a>的第5部分。</p>
+</blockquote>
+<p>但是，<span class="arithmatex">\(m\)</span>和<span class="arithmatex">\(k\)</span>的输出都是标量，所以GP天然的是<span class="arithmatex">\(\mathbb{R}^n \to \mathbb{R}\)</span>的映射，即多维输入，单维输出。那么，如何实现多维的输出呢？</p>
+<h3 id="b_1">b. 多维输出(问题表述)</h3>
+<p>关于Multi-output Gaussian Process，即MOGP的内容。目前MOGP主要分为两个条线：对称MOGP和非对称MOGP，二者的共同点是都通过考虑各个输出变量间的相关性来做近似，从而改进各自为战的训练方法。但在详细讨论各个方法之前，首先明确MOGP的概念和符号。</p>
+<blockquote>
+<p>首先我们明确，我们需要观测、学习并通过GP输出的变量一共有<span class="arithmatex">\(T\)</span>个，这里的<span class="arithmatex">\(t\)</span>不是时间的概念。对于第<span class="arithmatex">\(t\)</span>个输出变量，我们有<span class="arithmatex">\(n_t\)</span>个训练集数据。如果<span class="arithmatex">\(n_1 = n_2 = ... = n_T\)</span>，我们称之为对称的MOGP，对称MOGP可以适用于非同质化数据，即<span class="arithmatex">\(X_1 \not = X_2 \not = ... \not = X_T\)</span>的情况，也适用于同质化数据。如果<span class="arithmatex">\(n_1 &gt; n_2 &gt; ... &gt; n_T\)</span>（假定输出变量按数据集丰富程度排序），则称之为非对称的MOGP，非对称MOGP只适用于非同质化数据（显然也没有同质化数据可用），非对称MOGP的一个重要工作就是通过易得（低廉）的输出<span class="arithmatex">\(f_1,...,f_{T-1}\)</span>来改进难得（高昂）输出<span class="arithmatex">\(f_T\)</span>的预测。</p>
+</blockquote>
+<p><span class="arithmatex">\(\mathbf{X} = \{X_{t,i}\mid t = 1,...,T; i = 1,...n_t\}\)</span>和<span class="arithmatex">\(\mathbf{y} = \{y_{t,i} = y_t (\mathbf{X_t}) \mid t = 1,...,T; i = 1,...,n_t\}\)</span>是所有训练节点和对应观测的集合。假定<span class="arithmatex">\(N = \sum_{t=1}^T n_t\)</span>，矩阵<span class="arithmatex">\(X \in \mathbb{R}^{N \times d}\)</span>有<span class="arithmatex">\(T\)</span>个块，其中第<span class="arithmatex">\(t\)</span>个块<span class="arithmatex">\(X_t = \{\mathbf{x}_{t,1},...,\mathbf{x}_{t,n_t}\}^T\)</span>是对应于输出<span class="arithmatex">\(f_t\)</span>的训练集。<span class="arithmatex">\(\mathbf{y}\in \mathbb{R}^{N\times 1}\)</span>也有<span class="arithmatex">\(T\)</span>个成分，其中<span class="arithmatex">\(\mathbf{y}_t = \{y_{t,1},...,y_{t,n_t}\}^T\)</span>，是在状态<span class="arithmatex">\(X_t\)</span>下对<span class="arithmatex">\(f_t\)</span>的观测。</p>
+<p>在已知<span class="arithmatex">\(T\)</span>个阶段的训练数据<span class="arithmatex">\(\mathcal{D} = \{X,\mathcal{y}\}\)</span>时，目标就是训练MOGP模型：</p>
+<div class="arithmatex">\[
+MOGP: \Omega_d \to \Omega_{f_1} \times ... \times \Omega_{f_T}
+\]</div>
+<p>其中<span class="arithmatex">\(\Omega_d\)</span>是输入的样本空间，代表有<span class="arithmatex">\(d\)</span>维的输入变量，<span class="arithmatex">\(\Omega_{f_t}\)</span>表示输出<span class="arithmatex">\(f_t(\mathbf{x})\)</span>的空间，为方便起见，假定输出变量<span class="arithmatex">\(t= 1,...,T\)</span>具有相同的输入空间。下面表述的内容默认<span class="arithmatex">\(X_1,...,X_T = \bar X\)</span>，即任何输出变量所对应的输入点集都完全相同。我们假定，全部<span class="arithmatex">\(T\)</span>个输出<span class="arithmatex">\(\mathbf{f} = \{f_1,...,f_T\}^T\)</span>服从高斯过程：</p>
+<div class="arithmatex">\[
+\mathbf{f(x)} \sim \mathcal{GP}(\mathbf{0}, \mathcal{K}_M (\mathbf{x,x'}))
+\]</div>
+<p>其中，多维输出协方差<span class="arithmatex">\(\mathcal{K}_M(\mathbf{x,x'}) \sim R^{T\times T}\)</span>被定义为：</p>
+<div class="arithmatex">\[
+\kappa_M (\mathbf{x,x'}) = \left\{\begin{array}{ccc}
+k_{11}(\mathbf{x,x'}) &amp; ... &amp; k_{1T}(\mathbf{x,x'}) \\
+... &amp; ... &amp; ... \\
+k_{T1}(\mathbf{x,x'}) &amp; ... &amp; k_{TT}(\mathbf{x,x'})
+\end{array}\right\}
+\]</div>
+<p>其中，<span class="arithmatex">\(k_{tt'}(\mathbf{x,x'})\)</span>表示<span class="arithmatex">\(f_t(x)\)</span>和<span class="arithmatex">\(f_{t'}(x')\)</span>之间的协方差，<span class="arithmatex">\(t,t' = 1,...,T\)</span>。类似的，我们假定观测是无偏的：<span class="arithmatex">\(y_t(\mathbf{x}) = f_t(\mathbf{x}) + \epsilon_t\)</span>，且<span class="arithmatex">\(\epsilon_t \sim N(0,\sigma_{s,t}^2)\)</span>独立同分布。则全部<span class="arithmatex">\(T\)</span>个输出的似然函数可以写为：</p>
+<div class="arithmatex">\[
+p(\mathbf{y} | \mathbf{f,x}, \Sigma_S) = N(\mathbf{f}(\mathbf{x}), \Sigma_S)
+\]</div>
+<p>其中<span class="arithmatex">\(\Sigma_S \sim R^{T\times T}\)</span>是对角矩阵，其对角元素为<span class="arithmatex">\(\{\sigma_{s,t}^2\}, t = 1,...,T\)</span>。要注意<span class="arithmatex">\(\sigma_{f,t}\)</span>关于<span class="arithmatex">\(t\)</span>的分布并不相同，这是特意为之的，用于捕捉特定于输出的特征。进一步，给定训练集<span class="arithmatex">\(X = \{X_1,...,X_T\}^T和输出观测\mathbf{y} = \{y_1,...,y_T\}^T\)</span>，在观测点<span class="arithmatex">\(x_{*}\)</span>，观测<span class="arithmatex">\(f(x_{*}) = \{f_1(x_{*}),...,f_T(x_{*})\}^T\)</span>的后验分布可以推导为：</p>
+<div class="arithmatex">\[
+\mathbf{f}(x_{*}) \mid X,\mathbf{y},\mathbf{x_{*}} \sim N(\hat{\mathbf{f}}(\mathbf{x}_{*}), \Sigma_{*})
+\]</div>
+<p>其中：</p>
+<div class="arithmatex">\[
+\begin{align}
+\hat{\mathbf{f}}(\mathbf{x}_{*}) &amp;= K_{M*}^T [K_M(\bar X,\bar X) + \Sigma_M]^{-1}\mathbf{y}\\
+\Sigma_{*} &amp;= \mathcal{K}_M(x_{*},x_{*}) - K_{M*}^T [K_M(\bar X,\bar X) + \Sigma_M]^{-1}K_{M*}
+\end{align}
+\]</div>
+<p>其中，<span class="arithmatex">\(K_{M*} = K_M(\bar X, x_{*}) \sim R^{nT \times T}\)</span>，其中的<span class="arithmatex">\(K_{tt'}(\bar X, x_{*}) = [k_{tt'}(\mathbf{x}_i, \mathbf{x}_{*})], i = 1,...,n; t,t' = 1,...,T\)</span>。<span class="arithmatex">\(\mathcal{K}_M(x_{*},x_{*})\)</span>中的元素为<span class="arithmatex">\(k_{tt'}(x_{*},x_{*})\)</span>。<span class="arithmatex">\(\Sigma_{*}\)</span>的第<span class="arithmatex">\(t\)</span>个对角项为<span class="arithmatex">\(\sigma_t^2(\mathbf{x}_{*})\)</span>。下一项<span class="arithmatex">\(\Sigma_M = \Sigma_S \otimes I_n \sim R^{nT \times nT}\)</span>，这是一个表示噪声的对角矩阵，运算符“<span class="arithmatex">\(\otimes\)</span>”表示这是一个Kronecker product。</p>
+<p>类似的，这里也涉及到大量的超参数<span class="arithmatex">\(\mathbf{\theta}_{M}\)</span>，包括<span class="arithmatex">\(\mathbf{\theta}_{k_{tt'}}\)</span>和<span class="arithmatex">\(\mathbf{\theta}_{\sigma_{s,t}}\)</span>。这些超参数还是通过最小化NLML来确定。</p>
+<h3 id="c-mogp">c. 对称MOGP</h3>
+<p>（可参考<a href="https://zhuanlan.zhihu.com/p/386642796">https://zhuanlan.zhihu.com/p/386642796</a>）</p>
+<p>目前的模型有（1）可分模型，将输入、输出分割开来处理（可以理解为两层的非参数估计）；（2）不可分割的混合卷积；（3）转换模型——将输出看作新的输入，将多输出模型转化为一层层的单输出模型。</p>
+<p>第一种的常见方法为LMC和ICM。</p>
+<details class="notes">
+<summary>Linear Model of Coregionalization (LMC)</summary>
+<div class="language-text highlight"><pre><span></span><code>（参考：Journel, A. G., &amp; Huijbregts, C. J. (1976). Mining geostatistics.）
+</code></pre></div>
+<figure>
+<p><img alt="LMC's Structure" src="../IMG/LMC_structure.png" />
+  </p>
+<figcaption>Graphical model of the LMC</figcaption>
+</figure>
+<p>由于最早应用于地理统计领域，首个被广泛应用的多输出协方差模型被称作“共区域化线性模型”，即LMC，其结构如上图所示。对于协方差函数所需输出的<span class="arithmatex">\(T\)</span>个部分，LMC假设每个部分都由<span class="arithmatex">\(Q\)</span>个隐函数线性表出的，类似于下式：</p>
+<div class="arithmatex">\[
+        f_t(\mathbf{x}) = \sum_{q=1}^Q a_{t,q} u_q(\mathbf{x})
+\]</div>
+<p>其中隐函数<span class="arithmatex">\(u_q(\mathbf{x})\)</span>被假定为高斯过程，且<strong>均值为零</strong>，<strong>协方差</strong><span class="arithmatex">\(\operatorname{cov}[u_q(\mathbf{x}),u_q(\mathbf{x'})] = k_q(\mathbf{x,x'})\)</span>。线性系数被记为<span class="arithmatex">\(a_{t,q}\)</span>（<span class="arithmatex">\(T\)</span>个输出具有相同的隐函数族，只在线性系数上存在区别）。由于隐函数族<span class="arithmatex">\(u_q(\mathbf{x}), q = 1,...,Q\)</span>对所有<span class="arithmatex">\(T\)</span>个输出同质，因而LMC的原理式可以记作线性函数的形式：</p>
+<div class="arithmatex">\[
+\mathbf{f(x)} = B\mathbf{u(x)}
+\]</div>
+<p>其中<span class="arithmatex">\(\mathbf{f(x)} = [f_1(\mathbf{x}), ..., f_T(\mathbf{x})]^T\)</span>，而<span class="arithmatex">\(\mathbf{u(x)} = [u_1(\mathbf{x}),...,u_Q(\mathbf{x})]^T\)</span>。<span class="arithmatex">\(B\)</span>是一个<span class="arithmatex">\(T\times Q\)</span>的矩阵，其元素为<span class="arithmatex">\(a_{t,q}\)</span>。这里的<span class="arithmatex">\(B\)</span>是一个超参数，需要通过最小化NLML来确定。</p>
+<p>同时，LMC模型引入了一个重要的假设，即<strong>隐函数族<span class="arithmatex">\(u_q(\mathbf{x})\)</span>之间的协方差矩阵是对角的</strong>，即：<span class="arithmatex">\(u_q(x) \perp u_{q'}(x)\)</span>对任意<span class="arithmatex">\(q \not = q'\)</span>成立。因此，两个输出<span class="arithmatex">\(f_{t}(x)\)</span>和<span class="arithmatex">\(f_{t'}(x)\)</span>之间的协方差就可以表示为：</p>
+<div class="arithmatex">\[
+\begin{align}
+    k_{tt'}(x,x') &amp;= \sum_{q=1}^Q \sum_{q'=1}^Q a_{t,q}a_{t',q'}\operatorname{cov}[u_q(x),u_{q'}(x')]\\
+    &amp;= \sum_{q=1}^Q a_{t,q}a_{t',q}k_q(x,x')
+\end{align}
+\]</div>
+<p>前文已经假定了隐函数<span class="arithmatex">\(u_q\)</span>均服从零均值的高斯过程，如前文假设，这里的<span class="arithmatex">\(k_q\)</span>便是第<span class="arithmatex">\(q\)</span>个隐函数的协方差。由于引入了隐函数<span class="arithmatex">\(u_q\)</span>，输入<span class="arithmatex">\(\mathbf{x}\)</span>和输出<span class="arithmatex">\(f_t(\mathbf{x})\)</span>已经<strong>解耦</strong>（decoupled），所以LMC被认为是一种可分离模型。</p>
+<blockquote>
+<p>参见Alvarez, M. A., Rosasco, L., &amp; Lawrence, N. D. (2012). Kernels for vector-valued functions: A review. Foundations and Trends® in Machine Learning, 4(3), 195-266.</p>
+</blockquote>
+<p>同时，Rasmussen等（2006）在GPML一书中表明了，这种线性表出的方式仍然能得到一个有效的协方差函数，即前面的拟合协方差<span class="arithmatex">\(k_{tt'}(x,x')\)</span>是可以接受的。进一步，多输出协方差<span class="arithmatex">\(\mathcal{K}_M(\mathbf{x,x'})\)</span>可以表示为：</p>
+<blockquote>
+<p><span class="arithmatex">\(\mathcal{K}_M\)</span>出现在上一小节，即MOGP问题的形式化表述中。</p>
+</blockquote>
+<div class="arithmatex">\[
+\mathcal{K}_M = \sum_{q=1}^Q A_q k_q(x,x')
+\]</div>
+<p>其中<span class="arithmatex">\(A_q\)</span>是一个<span class="arithmatex">\(T\times T\)</span>的矩阵，其元素为<span class="arithmatex">\(a_{t,q}a_{t',q}\)</span>。这里的<span class="arithmatex">\(A_q\)</span>是一个超参数，但相较于通过极大似然求解，学界常见的一种处理方式是直接给定，见下面“线性模型参数拟合”部分。</p>
+<p>【如果<span class="arithmatex">\(Q = 1\)</span>，LMC将退化为“内在共区域化模型”，即ICM，参见下一个折叠框。】</p>
+</details>
+<details class="notes">
+<summary>Intrinsic Coregionalization Model (ICM)</summary>
+<blockquote>
+<p>参考：Goovaerts, P. (1997). Geostatistics for natural resources evaluation. Applied Geostatistics.</p>
+</blockquote>
+<p>ICM是LMC在<span class="arithmatex">\(Q = 1\)</span>时的简化模型，此时<span class="arithmatex">\(\mathcal{K}_M\)</span>简化为：</p>
+<div class="arithmatex">\[
+\mathcal{K}_M(\mathbf{x,x'}) = Ak(x,x')
+\]</div>
+<p><span class="arithmatex">\(A \in R^{T \times T}\)</span>，其中元素<span class="arithmatex">\(A_{tt'} = a_t a_{t'}\)</span>，表示<span class="arithmatex">\(f_t\)</span>和<span class="arithmatex">\(f_{t'}\)</span>之间的相关性。在对称MOGP的情况下，即<span class="arithmatex">\(X_1=...=X_T = \bar X\)</span>时，ICM的协方差函数可以简化为：</p>
+<div class="arithmatex">\[
+K_M(\bar X, \bar X) = A \otimes K(\bar X, \bar X)
+\]</div>
+<p>符号“<span class="arithmatex">\(\otimes\)</span>”代表Kronecker积。显然，ICM比LMC省去了大量的计算，但对应的，ICM只用了一个隐函数，因而其表达能力也大大降低了。</p>
+</details>
+<p>使用LMC/ICM要注意的几个问题：（1）额外定义；（2）线性模型参数拟合；</p>
+<details class="warning">
+<summary>额外定义</summary>
+<p>需要额外定义隐函数族<span class="arithmatex">\(u_q(\mathbf{x})\)</span>的形式，即<span class="arithmatex">\(k_q(\mathbf{x,x'})\)</span>的形式。这个可以稍微偷点懒，既可以混用不同形式的协方差函数，也可以全部用SE形式，即：</p>
+<div class="arithmatex">\[
+K_{SE, ard} (\mathbf{x}, \mathbf{x'}) = s_f^2 \exp \left(-\frac{(\mathbf{x} - \mathbf{x'})^T \Theta^{-1} (\mathbf{x} - \mathbf{x'})}{2} \right)
+\]</div>
+<p>此外，<span class="arithmatex">\(Q\)</span>的取值也是一个问题，如果不同输出分布存在不同的长度尺度（lengthscale，简单说就是正态PDF里的<span class="arithmatex">\(\sigma\)</span>），那么就应该选取<span class="arithmatex">\(Q &gt; 1\)</span>。现有研究推荐<span class="arithmatex">\(Q = 2\)</span>或者<span class="arithmatex">\(Q = T\)</span>，但<span class="arithmatex">\(Q\)</span>的增长带来巨大的计算开销，却并不一定能带来足够的性能增长。</p>
+<blockquote>
+<p><span class="arithmatex">\(Q=2\)</span>参阅：Nguyen, T. V., &amp; Bonilla, E. V. (2014, July). Collaborative Multi-output Gaussian Processes. In UAI (pp. 643-652).</p>
+<p><span class="arithmatex">\(Q = T\)</span>参阅： Fricker, T. E., Oakley, J. E., &amp; Urban, N. M. (2013). Multivariate Gaussian process emulators with nonseparable covariance structures. Technometrics, 55(1), 47-56.</p>
+</blockquote>
+</details>
+<details class="warning">
+<summary>线性模型参数拟合</summary>
+<p>最简单的方式就是直接定义<span class="arithmatex">\(A_q = I\)</span>，换句话说，就是假定<span class="arithmatex">\(f_t\)</span>之间是独立的。这样的话，<span class="arithmatex">\(A_q\)</span>就是一个对角矩阵，其对角元素为<span class="arithmatex">\(a_{t,q}^2 = 1\)</span>。这种情况下，<span class="arithmatex">\(K_M(\bar X,\bar X)\)</span>是一个分块对角阵。这种情况下，所有的<span class="arithmatex">\(f_t\)</span>之间唯一的共同点就是隐函数的协方差<span class="arithmatex">\(k_q\)</span>（也就是构成这个协方差的超参数<span class="arithmatex">\(\theta_q\)</span>）。</p>
+<p>此外，也可以定义<span class="arithmatex">\(A_q = \mathbf{1}\)</span>，即全1矩阵，或者<span class="arithmatex">\(A_q = \mathbf{1} + \alpha I\)</span>。</p>
+</details>
+<p>第二种方法是不分离的模型，被称作“过程卷积”(Process Convolution)。</p>
+<p>第三种方法是将多输出序列化——将前面的输出作为后面的输入，例如堆叠单目标(Stacked Single-target, SST)和集成回归器链（Ensemble of Regressor Chains, ERC）。</p>
+<p>这两类思路请参见Liu et. al. (2018)所作综述的章节3.2和3.3：</p>
+<blockquote>
+<p>Liu, H., Cai, J., &amp; Ong, Y.-S. (2018). Remarks on multi-output Gaussian process regression. Knowledge-Based Systems, 144, 102–121. <a href="https://doi.org/10.1016/j.knosys.2017.12.034">https://doi.org/10.1016/j.knosys.2017.12.034</a></p>
+</blockquote>
+<h3 id="d-mogp">d. 非对称MOGP</h3>
+<p>这部分可以参考上面那篇文章的第四章。</p>
+<p>由于我本人研究中，模型的输出源自完全相同的状态变量，因此并不需要非对称MOGP，所以这部分内容就不再详述了。</p>
+
+
+
+
+
+
+
+  
+    
+  
+  
+    
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="最后更新">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 27, 2024</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="创建日期">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3h-2Z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 27, 2024</span>
+  </span>
+
+    
+    
+    
+  </aside>
+
+
+
+
+
+  <h2 id="__comments">评论</h2>
+  <script src="https://giscus.app/client.js"
+  data-repo="yliu-fe/yliu-fe.github.io"
+  data-repo-id="R_kgDOJUL-qg"
+  data-category="Announcements"
+  data-category-id="DIC_kwDOJUL-qs4CVpQZ"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async>
+</script>
+
+
+  <!-- Synchronize Giscus theme with palette -->
+  <script>
+    var giscus = document.querySelector("script[src*=giscus]")
+
+    /* Set palette on initial load */
+    var palette = __md_get("__palette")
+    if (palette && typeof palette.color === "object") {
+      var theme = palette.color.scheme === "slate" ? "dark" : "light"
+      giscus.setAttribute("data-theme", theme) 
+    }
+
+    /* Register event handlers after documented loaded */
+    document.addEventListener("DOMContentLoaded", function() {
+      var ref = document.querySelector("[data-md-component=palette]")
+      ref.addEventListener("change", function() {
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+          var theme = palette.color.scheme === "slate" ? "dark" : "light"
+
+          /* Instruct Giscus to change theme */
+          var frame = document.querySelector(".giscus-frame")
+          frame.contentWindow.postMessage(
+            { giscus: { setConfig: { theme } } },
+            "https://giscus.app"
+          )
+        }
+      })
+    })
+  </script>
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 Y. Liu
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/yliu-fe" target="_blank" rel="noopener" title="GitHub | yliu-fe" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["header.autohide", "navigation.tracking", "navigation.tabs", "search.highlight", "search.share", "search.suggest", "content.code.copy", "content.code.annotate", "navigation.top", "navigation.instant"], "search": "../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.081f42fc.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,3910 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="我的个人网页">
+      
+      
+        <meta name="author" content="yliu-fe">
+      
+      
+        <link rel="canonical" href="https://yliu-fe.github.io/Majors/Time-Series%20Analysis/2_Basic%20TimeSeries/">
+      
+      
+        <link rel="prev" href="../1_Background/">
+      
+      
+        <link rel="next" href="../3_Conditional%20Heteroscedasticity/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.24">
+    
+    
+      
+        <title>二、基本时间序列模型 - Website of a Doctor Candidate</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.6543a935.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+SC:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Noto Sans SC";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="Website of a Doctor Candidate" class="md-header__button md-logo" aria-label="Website of a Doctor Candidate" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Website of a Doctor Candidate
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              二、基本时间序列模型
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="orange"  aria-label="切换为夜间模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换为夜间模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="cyan"  aria-label="切换为日间模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换为日间模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="分享" aria-label="分享" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/yliu-fe/yliu-fe.github.io" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    yliu-fe
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../About/" class="md-tabs__link">
+          
+  
+  关于
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../Techs/tech_index/" class="md-tabs__link">
+          
+  
+  计算机笔记
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../Major_index/" class="md-tabs__link">
+          
+  
+  专业笔记
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../Entertainment/ett_index/" class="md-tabs__link">
+          
+  
+  消遣娱乐
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Website of a Doctor Candidate" class="md-nav__button md-logo" aria-label="Website of a Doctor Candidate" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Website of a Doctor Candidate
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/yliu-fe/yliu-fe.github.io" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    yliu-fe
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    关于
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            关于
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../About/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Welcome to my Blog
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../About/cv/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Curriculum Vitae
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    计算机笔记
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            计算机笔记
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Techs/tech_index/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    常用计算机技术笔记索引
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Matlab笔记
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Matlab笔记
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Techs/Notes%20for%20Matlab/general/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    引导页
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    MkDocs疑难杂症研究
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            MkDocs疑难杂症研究
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Techs/Notes%20for%20Mkdocs/MathJax%E7%9A%84%E5%BC%95%E5%85%A5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    引入MathJax
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Techs/Notes%20for%20Mkdocs/Github%20pages%20note/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    如何联动Github Pages
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Techs/Notes%20for%20Mkdocs/PyMdown_blocks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    如何使用PyMdown blocks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Techs/Notes%20for%20Mkdocs/Settings_Code_Blocks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    如何配置代码块
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Techs/Notes%20for%20Mkdocs/Comment%20with%20Giscus/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    利用Giscus配置评论区
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    LaTeX杂症研究
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            LaTeX杂症研究
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Techs/Notes%20for%20LaTeX/Notes%20for%20Table/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    利用threeparttable包实现表格的note
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Python掉坑笔记
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            Python掉坑笔记
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_1" id="__nav_2_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    基本语法
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            基本语法
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Techs/Notes%20for%20Python/Basic%20Syntax/args_kwargs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    形参"args"和"kwargs"
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_2" id="__nav_2_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    各类包
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            各类包
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Techs/Notes%20for%20Python/Packages/numpy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    numpy专题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_3" id="__nav_2_5_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    CS61A
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            CS61A
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Techs/Notes%20for%20Python/CS61A/61a_index/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    引导页：希望这不是一个笑话
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Techs/Notes%20for%20Python/CS61A/recursive/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    高阶函数、递归和hw2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    专业笔记
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            专业笔记
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Major_index/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    我的专业相关领域文档
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    截面数据计量经济学
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            截面数据计量经济学
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Cross-Sectional%20Econometrics/About%20cross-section%20data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    引导页：截面计量
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Cross-Sectional%20Econometrics/1_OLS/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    一、线性模型和最小二乘法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    时间序列计量经济学
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            时间序列计量经济学
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TS_index/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    引导页：时间序列计量经济学
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1_Background/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    一、一点预备内容
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    二、基本时间序列模型
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    二、基本时间序列模型
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 基本假定
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 基本概念
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2 基本概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      平稳性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      自协方差
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      遍历性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acf" class="md-nav__link">
+    <span class="md-ellipsis">
+      自相关系数（ACF）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      样本自相关系数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      白噪声
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      线性时间序列
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23-1ar" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3 基本模型1：自回归模型（AR）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3 基本模型1：自回归模型（AR）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ar1" class="md-nav__link">
+    <span class="md-ellipsis">
+      AR(1)的性质
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ar2" class="md-nav__link">
+    <span class="md-ellipsis">
+      AR(2)的性质
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ar2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      AR(2)的差分
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ar" class="md-nav__link">
+    <span class="md-ellipsis">
+      AR模型的定阶
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ar_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      AR模型的参数估计
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      模型检验
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      模型的拟合优度
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ar_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      AR模型的预测
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#24-2ma" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4 基本模型2：滑动平均（MA）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4 基本模型2：滑动平均（MA）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ma" class="md-nav__link">
+    <span class="md-ellipsis">
+      MA模型的基本性质
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ma_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      MA模型的估计
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ma_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      MA模型的预测
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arma" class="md-nav__link">
+    <span class="md-ellipsis">
+      AR和MA模型的小结
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#25-arma" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5 自回归滑动平均模型（ARMA）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.5 自回归滑动平均模型（ARMA）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#arma11" class="md-nav__link">
+    <span class="md-ellipsis">
+      ARMA(1,1)的性质
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#armapq" class="md-nav__link">
+    <span class="md-ellipsis">
+      ARMA(p,q)模型
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#26" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.6 单位根非平稳序列
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.6 单位根非平稳序列">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      带趋势项的时间序列
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arima" class="md-nav__link">
+    <span class="md-ellipsis">
+      自回归求和滑动平均模型（ARIMA）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      单位根检验
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#27" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.7 考虑季节趋势的模型
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3_Conditional%20Heteroscedasticity/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    三、条件异方差模型
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    非参数方法
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            非参数方法
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Non_Parametric/Gaussian_Process/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    一、高斯过程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    强化学习
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            强化学习
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Reinforcement%20Learning/RL_index/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    引导页：强化学习
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5_2" id="__nav_3_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Deepmind RL
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Deepmind RL
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Reinforcement%20Learning/Deepmind%20RL/DMRL_index/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    关于课程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Reinforcement%20Learning/Deepmind%20RL/1_Introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    一、强化学习的介绍
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5_3" id="__nav_3_5_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    伯克利CS188
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            伯克利CS188
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Reinforcement%20Learning/CS188/Introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    关于课程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5_3_2" id="__nav_3_5_3_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    作业
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_5_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            作业
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Reinforcement Learning/CS188/homework/Homework 1 Search.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    作业1 搜索
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5_3_3" id="__nav_3_5_3_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    项目
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_5_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            项目
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Reinforcement%20Learning/CS188/projects/Project%201%20Search/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    项目1 搜索
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Reinforcement%20Learning/CS188/Section1.1%20Uninformed%20Search/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.1 盲目搜索
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Reinforcement%20Learning/CS188/Section1.2%20A_star%20Search%20and%20Heuristics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.2 A*搜索和启发式搜索
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5_4" id="__nav_3_5_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    伯克利CS285
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_4">
+            <span class="md-nav__icon md-icon"></span>
+            伯克利CS285
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Reinforcement%20Learning/CS285/CS285_index/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    关于课程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Reinforcement%20Learning/CS285/2_Imitation%20Learning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    二、模仿学习
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Reinforcement%20Learning/CS285/HW1_Imitation%20Learning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    作业一、模仿学习
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    消遣娱乐
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            消遣娱乐
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Entertainment/ett_index/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    引导页？
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    拉丁语
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            拉丁语
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Entertainment/Lingua%20Latino/Latin_index/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    引导页：拉丁语
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 基本假定
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 基本概念
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2 基本概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      平稳性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      自协方差
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      遍历性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acf" class="md-nav__link">
+    <span class="md-ellipsis">
+      自相关系数（ACF）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      样本自相关系数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      白噪声
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      线性时间序列
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23-1ar" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3 基本模型1：自回归模型（AR）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3 基本模型1：自回归模型（AR）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ar1" class="md-nav__link">
+    <span class="md-ellipsis">
+      AR(1)的性质
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ar2" class="md-nav__link">
+    <span class="md-ellipsis">
+      AR(2)的性质
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ar2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      AR(2)的差分
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ar" class="md-nav__link">
+    <span class="md-ellipsis">
+      AR模型的定阶
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ar_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      AR模型的参数估计
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      模型检验
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      模型的拟合优度
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ar_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      AR模型的预测
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#24-2ma" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4 基本模型2：滑动平均（MA）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4 基本模型2：滑动平均（MA）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ma" class="md-nav__link">
+    <span class="md-ellipsis">
+      MA模型的基本性质
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ma_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      MA模型的估计
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ma_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      MA模型的预测
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arma" class="md-nav__link">
+    <span class="md-ellipsis">
+      AR和MA模型的小结
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#25-arma" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5 自回归滑动平均模型（ARMA）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.5 自回归滑动平均模型（ARMA）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#arma11" class="md-nav__link">
+    <span class="md-ellipsis">
+      ARMA(1,1)的性质
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#armapq" class="md-nav__link">
+    <span class="md-ellipsis">
+      ARMA(p,q)模型
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#26" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.6 单位根非平稳序列
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.6 单位根非平稳序列">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      带趋势项的时间序列
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arima" class="md-nav__link">
+    <span class="md-ellipsis">
+      自回归求和滑动平均模型（ARIMA）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      单位根检验
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#27" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.7 考虑季节趋势的模型
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="_1">时间序列基本内容</h1>
+<h2 id="21">2.1 基本假定</h2>
+<p>设时间节点<span class="arithmatex">\(t\)</span>，有观测值<span class="arithmatex">\(\{r_1,...,r_{t-1}\}\)</span>，这个观测值的集合（已知信息集）记作<span class="arithmatex">\(F_{t-1}\)</span>，因而当前时点<span class="arithmatex">\(r_t\)</span>可以分为<strong>可观测部分</strong>和<strong>不可观测部分</strong>：</p>
+<div class="arithmatex">\[
+r_{t} = \mu_t + a_t = E(r_t|F_{t-1}) + \sigma_t \epsilon_t
+\]</div>
+<p>可观测部分记作<span class="arithmatex">\(\mu_t\)</span>，被定义为当前值<span class="arithmatex">\(r_t\)</span>关于已知信息集的条件期望；不可观测部分定义为<span class="arithmatex">\(a_t\)</span>，即扰动项，可被定义为两项的乘积：<span class="arithmatex">\(\sigma_t\)</span>是条件标准差（扰动项），<span class="arithmatex">\(\epsilon_t\)</span>则假定为独立同分布的随机变量，且服从标准正态分布。<strong>时间序列模型将同时研究<span class="arithmatex">\(\mu_t,\sigma_t\)</span>对<span class="arithmatex">\(\{r_t\}\)</span>序列性质的影响，并进行预测。</strong></p>
+<h2 id="22">2.2 基本概念</h2>
+<p>通常，我们遇到的问题是这样的，给定随机对数收益率序列<span class="arithmatex">\(\{r_t|t = 1,...,T\}\)</span>，而需要求知：（1）序列的矩信息；（2）序列矩信息是否与时间<span class="arithmatex">\(t\)</span>相关。</p>
+<p>那么，为了做这方面的工作，我们需要明确几个概念。</p>
+<h3 id="_2">平稳性</h3>
+<p>较强的平稳性是严平稳，即分布不随时间变化而改变。</p>
+<div class="admonition info">
+<p class="admonition-title">定义2.1 - 严平稳</p>
+<p>对<span class="arithmatex">\(\forall t\)</span>，且有任意正整数<span class="arithmatex">\(k\)</span>个观测点<span class="arithmatex">\(\{t_1,...,t_k\}\)</span>，若序列<span class="arithmatex">\(\{t_1,...,t_k\}\)</span>的联合分布与序列<span class="arithmatex">\(\{t_{1+t},...,t_{k+t}\}\)</span>的联合分布一致，则称序列为严平稳序列。</p>
+</div>
+<p>严平稳是很严格的条件，放松一定条件，只追求<strong>弱平稳（宽平稳）</strong>条件：前两阶矩信息（主要是均值、方差）与时间无关，也即<strong><span class="arithmatex">\(r_t\)</span>的均值、<span class="arithmatex">\(r_t\)</span>与<span class="arithmatex">\(r_{t-l}\)</span>的协方差，不随时间的变化而改变</strong>。从而有以下几条：</p>
+<ul>
+<li><span class="arithmatex">\(E(r_t) = \mu\)</span>，序列平均值为常数；</li>
+<li><span class="arithmatex">\(Cov(r_t, r_{t-l}) = \gamma_l\)</span>，序列任意两期间的协方差只与相隔期数相关。</li>
+</ul>
+<p>弱平稳意味着，<span class="arithmatex">\(T\)</span>个值在一个常数间隔水平中相同幅度波动。</p>
+<div class="admonition warning">
+<p class="admonition-title">严平稳不是宽平稳的充分条件</p>
+<p>严平稳并不能推出宽平稳，因为宽平稳只追求前二阶矩的信息与时间无关，而对高阶矩信息没有要求，而严平稳严格限制了各阶矩信息。</p>
+</div>
+<h3 id="_3">自协方差</h3>
+<p>“我和过去的自己。”</p>
+<p>定义<span class="arithmatex">\(\gamma_l = Cov(r_t, r_{t-l})\)</span>为间隔为<span class="arithmatex">\(l\)</span>的自协方差。由协方差的定义：</p>
+<div class="arithmatex">\[
+\gamma_l = E[(r_t - \mu)(r_{t-l} - \mu)]
+\]</div>
+<p>在宽平稳条件下，自协方差有如下性质：</p>
+<ul>
+<li><span class="arithmatex">\(\gamma_0 = Var(r_t)\)</span>；</li>
+<li><span class="arithmatex">\(\gamma_{-l} = \gamma_l\)</span>，即自反性；</li>
+</ul>
+<h3 id="_4">遍历性</h3>
+<div class="admonition info">
+<p class="admonition-title">定义2.2 - 遍历性</p>
+<p>如果一个平稳序列（或者有一个协方差平稳过程）<span class="arithmatex">\(\{r_t\}\)</span>满足<span class="arithmatex">\(\sum_{j=0}^{\infty}|\gamma_{j}| &lt;\infty\)</span>，则称序列<span class="arithmatex">\(r_t\)</span>是关于均值遍历的。</p>
+</div>
+<p>遍历性的用处在于，给定样本<span class="arithmatex">\(\{r_t\}\)</span>，则应有：</p>
+<ol>
+<li>当样本大小<span class="arithmatex">\(T \to \infty\)</span>时，样本均值<span class="arithmatex">\(\bar r = \frac{1}{T} \sum_{t=1}^T r_t\)</span><strong>依概率收敛</strong>于<span class="arithmatex">\(E(r_t)\)</span>，则该序列是关于均值遍历的。</li>
+<li>类似的，如果:</li>
+</ol>
+<div class="arithmatex">\[
+\frac{1}{T-j} \sum_{t=j+1}^T [(r_t - \mu)(r_{t-j} - \mu)] \mathop{\to}^P r_j
+\]</div>
+<p>对所有的<span class="arithmatex">\(j\)</span>都成立，则称该序列关于二阶矩遍历。
+3. 若一个平稳序列的自协方差<span class="arithmatex">\(\sum_{j=0}^\infty |\gamma_j| &lt; \infty\)</span>，则称该序列是关于均值遍历的。</p>
+<p>这一条意味着当间隔逐渐拉长后，自协方差迅速趋近于0，即序列在长期上均值回归。</p>
+<p>现实工作中，常常要求所用时间序列具有弱平稳性和遍历性。</p>
+<h3 id="acf">自相关系数（ACF）</h3>
+<div class="admonition info">
+<p class="admonition-title">定义2.3 - 自相关系数</p>
+<p><span class="arithmatex">\(r_t\)</span> 与<span class="arithmatex">\(r_{t-l}\)</span>的相关系数称作<span class="arithmatex">\(r_t\)</span>的，间隔为<span class="arithmatex">\(l\)</span>的自相关系数：</p>
+<div class="arithmatex">\[
+\rho_l = \frac{Cov(r_t, r_{t-l})}{\sqrt{Var(r_t) Var(r_{t-l})}} = \frac{Cov(r_t, r_{t-l})}{Var(r_t)} =  \frac{\gamma_l}{\gamma_0}
+\]</div>
+</div>
+<p>显然，<span class="arithmatex">\(\rho_0 = 1\)</span>，且<span class="arithmatex">\(\rho_l = \rho_{-l}\)</span>，此外，与其他的Pearson相关系数一样，<span class="arithmatex">\(-1 \leq \rho_l \leq 1\)</span>。另外，若对于任意的<span class="arithmatex">\(l 0\)</span>，都有<span class="arithmatex">\(\rho_l = 0\)</span>，则称该弱平稳序列为不相关序列。</p>
+<h3 id="_5">样本自相关系数</h3>
+<p>对应上面的内容，样本的自相关系数可以表示为：</p>
+<div class="arithmatex">\[
+\hat \rho_l = \frac{\sum_{t=l+1}^T (r_t - \bar r)(r_{t-l}-\bar r)}{\sum_{t=1}^T (r_t - \bar r)^2} ,\quad 0 \leq l \leq T-1
+\]</div>
+<p>若序列<span class="arithmatex">\(\{r_t\}\)</span>是独立同分布序列，且<span class="arithmatex">\(E(r_t^2) &lt; \infty\)</span>，对于任意正整数<span class="arithmatex">\(l\)</span>，则<span class="arithmatex">\(\hat \rho_l\)</span>渐近服从于均值为0，方差为<span class="arithmatex">\(1/T\)</span>的正态分布。这个定义可以用于检验市场是否有效。如果市场收益率序列是不相关的序列，那么序列就和时间毫无关系，从而无法预测，这代表着市场实现了强有效（与过去信息毫无关联）。这个可以通过检验单个（或若干个）ACF值是否为0来实现：</p>
+<p>(1) <strong>单个ACF的一期检验</strong>：对间隔为1的样本，可设立原假设<span class="arithmatex">\(H0: \rho_1 = 0\)</span>，备择假设为<span class="arithmatex">\(H1: \rho_1 \not = 0\)</span>。并进而构造t统计量：<span class="arithmatex">\(t = \hat \rho_1 / \sqrt{1/T} = \sqrt{T} \hat \rho_1 \sim N(0,1)\)</span>。如果t统计量超过了置信分位点，则拒绝原假设，从而认为市场并不完全有效。</p>
+<p>(2) <strong>单个ACF的多期检验</strong>：对给定正整数<span class="arithmatex">\(l\)</span>（间隔为<span class="arithmatex">\(l\)</span>的样本），和原假设、备择假设<span class="arithmatex">\(H0: \rho_1 = 0\)</span>,<span class="arithmatex">\(H1: \rho_1 \not = 0\)</span>，有t统计量。</p>
+<div class="arithmatex">\[
+t = \frac{\hat \rho_l}{\sqrt{(1+2\sum_{i=1}^{l-1} \hat \rho_i^2)T}}
+\]</div>
+<p>若<span class="arithmatex">\(\{r_t\}\)</span>为平稳高斯序列且满足<span class="arithmatex">\(j l\)</span>时有<span class="arithmatex">\(\rho_j = 0\)</span>，则这个<span class="arithmatex">\(t\)</span>统计量渐近服从标准正态分布。</p>
+<p>(3) <strong>多个ACF的检验（Ljung-Box检验）</strong>。对于原假设<span class="arithmatex">\(H0: \rho_1 = \rho_2 = ... = \rho_m = 0\)</span>和备择假设<span class="arithmatex">\(H1: \rho_i \not = 0\)</span>，则有基于卡方分布的Ljung-Box检验量：</p>
+<div class="arithmatex">\[
+Q(m) = T(T+2) \sum_{l=1}^m \frac{\hat \rho_l^2}{T-l}
+\]</div>
+<p>该分布渐近服从自由度为<span class="arithmatex">\(m\)</span>的卡方分布，卡方分布是单边检验，若<span class="arithmatex">\(Q(m) \chi_i^2 (m)\)</span>，则拒绝原假设，证明序列并非不相关的。在实务中，通常将<span class="arithmatex">\(m\)</span>设定为<span class="arithmatex">\(\ln(T)\)</span>。</p>
+<p>总体来讲，样本的自相关函数（ACF）在线性时序模型中起着重要的作用：一个线性时序模型完全可由ACF来决定。例如CAPM中，通常认为资本收益率不可预测且无相关性，那么检验样本的<span class="arithmatex">\(\rho_l\)</span>是否为0，即可判定是否满足这一假定。</p>
+<h3 id="_6">白噪声</h3>
+<div class="admonition info">
+<p class="admonition-title">定义 2.4 - 白噪声</p>
+<p>如果<span class="arithmatex">\(\{r_t\}\)</span>是一个具有有限均值和有限方差的序列独立同分布随机变量序列，则称<span class="arithmatex">\(\{r_t\}\)</span>为一个白噪声序列。特别的，如果<span class="arithmatex">\(r_t \sim N(0,\sigma^2)\)</span>，则称该序列为高斯白噪声序列。</p>
+<p>(有限均值和有限方差可以确认这个序列弱平稳且遍历。)</p>
+</div>
+<p>白噪声性质与<span class="arithmatex">\(ACF = 0\)</span>等价。白噪声并不一定是高斯白噪声（不一定服从正态分布），其核心要素在于有限均值方差，且独立同分布。</p>
+<h3 id="_7">线性时间序列</h3>
+<div class="admonition info">
+<p class="admonition-title">定义 2.5 - 线性时间序列</p>
+<p>时间序列<span class="arithmatex">\(\{r_t\}\)</span>称为线性时间序列，如果可以写作以下形式：</p>
+<div class="arithmatex">\[
+r_t = \mu + \sum_{i=0}^\infty \phi_i a_{t-i}
+\]</div>
+<p>即<span class="arithmatex">\(r_t\)</span>可以表示为其均值和之前若干期扰动项的加权平均。</p>
+<p>其中<span class="arithmatex">\(E(r_t) = \mu\)</span>,权重序列<span class="arithmatex">\(\phi_0 = 1\)</span>,<span class="arithmatex">\(\{\alpha_t\}\)</span>是零均值的i.i.d序列。</p>
+</div>
+<p>那么有：</p>
+<ol>
+<li><span class="arithmatex">\(Var(r_t) = \sigma_a \sum_{i=0}^{\infty} \phi_i^2\)</span>，其中<span class="arithmatex">\(\{\phi_i^2\}\)</span>应当收敛，从而使方差有限。</li>
+<li>自协方差如下：</li>
+</ol>
+<div class="arithmatex">\[
+\begin{aligned}
+Cov(r_t,r_{t-l}) &amp;= Cov(\mu+\sum_{t = 0}^\infty \phi_i a_{t-i}, \mu +\sum_{j=0}^\infty \phi_{j-l} a_{t-(j+l)})\\
+         \text{（如果$\mu = 0$）}\quad  &amp;= Cov(\sum_{t = 0}^\infty \phi_i a_{t-i}, \sum_{j=0}^\infty \phi_{j-l} a_{t-(j+l)})\\
+         &amp;= E(\sum_{i,j = 0}^{\infty} \phi_i \phi_j a_{t-i} a_{t-j-l})\\
+         &amp;= \sum_{j=0}^\infty \phi_{j+l} \phi_j E(a_{t-j-l}^2) = \sigma_a^2 \sum_{j=0}^\infty \phi_j \phi_{j+l}
+\end{aligned}
+\]</div>
+<ol>
+<li>自相关系数如下：</li>
+</ol>
+<div class="arithmatex">\[
+\rho_l = \frac{\gamma_i}{\gamma_0} = \frac{\sigma_a^2 \sum_{j=0}^\infty \phi_j \phi_{j+l}}{\sigma_a^2(1+\sum_{j=1}^\infty \phi_j^2)
+         } = \frac{\sum_{j=0}^\infty \phi_j \phi_{j+l}}{1+\sum_{j=1}^\infty \phi_j^2}  \quad (l 0)
+\]</div>
+<p>对于弱平稳序列，对于<span class="arithmatex">\(j \to \infty\)</span>，有<span class="arithmatex">\(\phi_j \to 0\)</span>，从而随着间隔<span class="arithmatex">\(l\)</span>的增大，<span class="arithmatex">\(\rho_l \to 0\)</span>。那么，遥远过去的信息对当前收益率的影响逐渐趋向于0（当前信息对过去信息的线性依赖逐渐消失），从而出现自相关的截尾性。</p>
+<h2 id="23-1ar">2.3 基本模型1：自回归模型（AR）</h2>
+<p>即<strong>A</strong>uto<strong>R</strong>egressive model。最简单的自相关模型是AR(1)，即对<span class="arithmatex">\(r_t\)</span>和<span class="arithmatex">\(r_{t-1}\)</span>建立模型。</p>
+<div class="arithmatex">\[
+r_t = \phi_0 + \phi_1 r_{t-1} + a_t, \quad a_t \sim N(0,\sigma_a^2)
+\]</div>
+<p>其中<span class="arithmatex">\(a_t\)</span>为高斯白噪声序列。那么：</p>
+<ul>
+<li>在已知<span class="arithmatex">\(r_{t-1}\)</span>的条件下:</li>
+</ul>
+<div class="arithmatex">\[
+E(r_t|r_{t-1}) = \phi_0 + \phi_1 r_{t-1},\quad  Var(r_t |r_{t-1}) = Var(a_t) = \sigma_a^2
+\]</div>
+<ul>
+<li>在给定<span class="arithmatex">\(r_{t-1}\)</span>的条件下，<span class="arithmatex">\(r_t\)</span>与<span class="arithmatex">\(r_{t-i}(i 1)\)</span>无关。即AR(1)对于远期信息，存在Markov性；或者说对于AR(<span class="arithmatex">\(p\)</span>)模型对于超过<span class="arithmatex">\(p\)</span>期的信息存在Markov性。</li>
+</ul>
+<p>也就是说，AR(p)模型中，<span class="arithmatex">\(r_t\)</span>只与最近<span class="arithmatex">\(p\)</span>个观测值相关。</p>
+<h3 id="ar1">AR(1)的性质</h3>
+<p>假定序列<span class="arithmatex">\(\{r_t\}\)</span>弱平稳。并设<span class="arithmatex">\(E(r_t) = \mu, Var(r_t) = \gamma_0, Cov(r_t, r_{t-j}) = \gamma_j\quad \forall j\)</span>，其中<span class="arithmatex">\(\mu,\gamma_0\)</span>为常数，而<span class="arithmatex">\(\gamma_j\)</span>与<span class="arithmatex">\(j\)</span>相关。下面推导<span class="arithmatex">\(\mu, \gamma_0\)</span>的具体形式：</p>
+<details class="note">
+<summary>AR(1)的期望性质</summary>
+<div class="arithmatex">\[
+\mu = E(r_t) = \phi_1 E(r_{t-1}) + \phi_0 \Rightarrow \mu = \frac{\phi_0}{1-\phi_1} \quad (\phi_1 \not = 1)
+\]</div>
+</details>
+<details class="note">
+<summary>AR(1)的方差性质</summary>
+<p>而对于<span class="arithmatex">\(\gamma_0\)</span>，则不能直接两边取方差，而要剔除其交叉项。利用前面的<span class="arithmatex">\(\phi_0 = (1-\phi_1)\mu\)</span>，将<span class="arithmatex">\(AR(1)\)</span>改写为：</p>
+<div class="arithmatex">\[
+r_t - \mu = \phi_1(r_{t-1} - \mu) + a_t 
+\]</div>
+<p>令<span class="arithmatex">\(X_t = r_t - \mu\)</span>，从而有：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+      X_t &amp;= \phi_1 X_{t-1} + a_t = \phi_1(\phi_1 X_{t-2} + a_{t-1}) + a_t \\
+      &amp;= \phi_1^2 X_{t-2} + \phi_1 a_{t-1} + a_t\\
+      &amp;= \ldots\\
+      &amp;= a_t + \phi_1 a_{t-1} + \phi_1^2 a_{t-2} + ... = \sum_{i=0}^{\infty} \phi_1^i a_{t-i}
+\end{aligned}
+\]</div>
+<p>从而说<span class="arithmatex">\(r_t - \mu\)</span>为<span class="arithmatex">\(a_{t-i}, i \geq 0\)</span>的线性加权，又因为<span class="arithmatex">\(\{a_t\}\)</span>独立同分布，从而有：</p>
+<div class="arithmatex">\[
+E[(r_t-\mu)a_{t+1}] = 0
+\]</div>
+<p>将上式带回<span class="arithmatex">\(r_t - \mu = \phi_1(r_{t-1} - \mu) + a_t\)</span>，并取期望：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+      E[(r_t - \mu)^2] &amp;= E[(a_t + \phi_1(r_{t-1} - \mu))^2]\\
+      \operatorname{Var}(r_t) &amp;= E[a_t^2 + 2\phi_1 a_t(r_{t-1} - \mu) \phi_1^2 (r_{t-1} - \mu)^2]\\
+      &amp;= E[a_t^2] + 2\phi_1 E[a_t(r_{t-1} - \mu)] + \phi_1^2 E[(r_{t-1} - \mu)^2] \quad \text{(第二项由上面的式子可知为0)}\\
+      &amp;= \sigma_a^2 + \phi_1^2 \operatorname{Var}(r_t)
+\end{aligned}
+\]</div>
+<p>从而有：</p>
+<div class="arithmatex">\[
+\gamma_0 = \operatorname{Var}(r_t) = \frac{\sigma_a^2}{1-\phi_1^2}, \quad \phi_1^2 &lt; 1 \Rightarrow |\phi_1| &lt; 1 \tag{AR1.Gamma}
+\]</div>
+<p>由以上内容，我们可以得到AR(1)模型弱平稳的一个充要条件：<span class="arithmatex">\(|\phi_1| &lt; 1\)</span>。将<span class="arithmatex">\(\phi_0 = (1-\phi_1)\mu\)</span>带入AR(1)模型，则AR(1)可以表示为：</p>
+<div class="arithmatex">\[
+r_t = (1-\phi_1) \mu + \phi_1 r_{t-1} + a_t
+\]</div>
+<p>即AR(1)可以表示为均值（可能是市场均值）和上期值的加权平均，整得很像CAPM。</p>
+</details>
+<details class="note">
+<summary>AR(1)的自相关系数（ACF）性质</summary>
+<p>从式<span class="arithmatex">\(r_t - \mu = \phi_1(r_{t-1} - \mu) + a_t\)</span>开始，两端乘以<span class="arithmatex">\(a_t\)</span>，取期望：</p>
+<div class="arithmatex">\[
+E[a_t(r_t - \mu)] = \phi_1 E[a_t (r_{t-1} - \mu)] + E[a_t^2]= \sigma_a^2
+\]</div>
+<p>而对式<span class="arithmatex">\(r_t - \mu = \phi_1(r_{t-1} - \mu) + a_t\)</span>两端同乘<span class="arithmatex">\(r_{t-l} - \mu\)</span>，取期望：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+      E[(r_t - \mu) (r_{t-l} - \mu)] &amp;= E[(\phi_1(r_{t-1} - \mu) + a_t)(r_{t-l} - \mu)]\\
+      &amp;= \phi_1 E[(r_{t-1} - \mu)(r_{t-l} - \mu)]
+\end{aligned}
+\]</div>
+<p>如果<span class="arithmatex">\(l = 0\)</span>，则<span class="arithmatex">\(\gamma_l = \phi_1 \gamma_1 + \sigma_a^2\)</span>，否则<span class="arithmatex">\(\gamma_l = \phi_1 \gamma_{l-1}\)</span>。由以上内容和式(AR1.Gamma)可导出AR(1)的ACF满足：</p>
+<div class="arithmatex">\[
+ACF = \frac{\gamma_l}{\gamma_0} = \frac{\phi_1^l \gamma_0}{\gamma_0} = \phi_1^l
+\]</div>
+<p>由于<span class="arithmatex">\(\phi_1 \in (-1,1)\)</span>，所以ACF会呈现两种典型性的指数级衰减，如Tsay书Figure 2.3。</p>
+<p><img alt="Tsey Figure 2.3" src="../image/2_BasicTimeSeries/1681096517505.jpg" /></p>
+</details>
+<h3 id="ar2">AR(2)的性质</h3>
+<p>将自回归模型扩张到2期：</p>
+<div class="arithmatex">\[
+r_t = \phi_0 + \phi_1 r_{t-1} + \phi_2 r_{t-2} + a_t, a_t \sim N(0,\sigma_a^2)
+\]</div>
+<p>仍然从期望、方差、ADF上讨论其性质：</p>
+<details class="note">
+<summary>AR(2)的期望和方差</summary>
+<p>类似于前面AR(1)，其矩信息应当有如下性质：</p>
+<div class="arithmatex">\[
+E(r_t) = \mu = \frac{\phi_0}{1-\phi_1 - \phi_2}, \quad \phi_1 + \phi_2 \not = 0
+\]</div>
+<p>而利用<span class="arithmatex">\(\phi_0 = (1-\phi_1 - \phi_2)\mu\)</span>，从而有：</p>
+<div class="arithmatex">\[
+\begin{align}
+      r_t - \mu &amp;= \phi_1(r_{t-1} - \mu) + \phi_2(r_{t-2} - \mu) + a_t \tag{0}\\
+      E[(r_t - \mu)^2] &amp;= \phi_1 E[(r_{t-1} - \mu)(r_{t-2} - \mu)] + \phi_2 E[(r_{t-2} - \mu)(r_t - \mu)]+ E[a_t(r_t - \mu)]\\
+      \text{即有} \quad \gamma_0 &amp;= \phi_1 \gamma_1 + \phi_2 \gamma_2 + \sigma_a^2\tag{1}
+\end{align}
+\]</div>
+<p>类似的，对式(0)左右同乘<span class="arithmatex">\((r_{t-1} - \mu)\)</span>或<span class="arithmatex">\((r_{t-2} - \mu)\)</span>，并左右同取期望，则可以获得<span class="arithmatex">\(\gamma_1, \gamma_2\)</span>的表达式：</p>
+<div class="arithmatex">\[
+\begin{align}
+      \gamma_1 &amp;= \phi_1 \gamma_0 + \phi_2 \gamma_1\tag{2}\\
+      \gamma_2 &amp;= \phi_1 \gamma_1 + \phi_2 \gamma_0\tag{3}
+\end{align}
+\]</div>
+<p>联立式(1-3)，利用矩阵方程求解（利用Cramer法则）</p>
+</details>
+<details class="note">
+<summary>AR(2)的ADF性质</summary>
+<p>对式<span class="arithmatex">\((0)\)</span>同乘<span class="arithmatex">\((r_{t-l} - \mu)\)</span>并取期望:</p>
+<div class="arithmatex">\[
+E[(r_{t-l} - \mu)(r_t - \mu)] = \phi_1 E[(r_{t-l} - \mu)(r_{t-1} -\mu)] + \phi_2 E[(r_{t-2} - \mu) (r_{t-l} - \mu)] + E[(r_{t-l}-\mu) a_t]
+\]</div>
+<p>当<span class="arithmatex">\(l 0\)</span>时，<span class="arithmatex">\(E[(r_{t-l} - \mu) a_t] 0\)</span>，从而有：</p>
+<div class="arithmatex">\[
+\gamma_l = \phi_1 \gamma_{l-1} + \phi_2 \gamma_{l-2}
+\]</div>
+<p>该方程称作AR(2)的矩方程。对于<span class="arithmatex">\(l=0\)</span>，有<span class="arithmatex">\(\rho_0 = 1\)</span>，而<span class="arithmatex">\(\rho_1 = \phi_1 / (1-\phi_2)\)</span>。对于更大阶的情况，两边同除以<span class="arithmatex">\(\gamma_0\)</span>，有：</p>
+<div class="arithmatex">\[
+\rho_l = \phi_1 \rho_{l-1} + \phi_2 \rho_{l-2} (l 0)
+\]</div>
+<p>平稳AR(2)序列的ACF满足二阶差分方程：</p>
+<div class="arithmatex">\[
+(1-\phi_1 B - \phi_2 B^2)\rho_l = 0 \tag{4}
+\]</div>
+<p>其中<span class="arithmatex">\(B\)</span>称作“向后推移算子”，其定义为<span class="arithmatex">\(B \rho_l = \rho_{l-1}\)</span>，即ACF的向后推移。</p>
+<p>（注：有的论著中采用向后推移算子<span class="arithmatex">\(L\)</span>，且有<span class="arithmatex">\(L\gamma_l = \gamma_{l-1}\)</span>。）</p>
+</details>
+<h3 id="ar2_1">AR(2)的差分</h3>
+<p>已知时间序列<span class="arithmatex">\(\{r_t\}\)</span>在<span class="arithmatex">\(t\)</span>时刻的值<span class="arithmatex">\(r_t\)</span>和<span class="arithmatex">\(t-1\)</span>时刻的值<span class="arithmatex">\(r_{t-1}\)</span>，二者相减之差<span class="arithmatex">\(dt = r_t - r_{t-1}\)</span>，得到的新序列<span class="arithmatex">\(\{dt\}\)</span>称作<span class="arithmatex">\(\{r_t\}\)</span>的一阶差分，如果再对<span class="arithmatex">\(\{dt\}\)</span>序列再做一次差分，则新序列是<span class="arithmatex">\(\{r_t\}\)</span>的二阶差分。差分操作可以将非平稳的序列近似转换为弱平稳序列。回到上面的AR(2)方程中，式(4)决定了平稳AR(2)模型的性质，而与这个差分方程对应的是AR(2)的特征方程：</p>
+<div class="arithmatex">\[
+1-\phi_1 X - \phi_2 X^2 = 0 \tag{5}
+\]</div>
+<details class="success">
+<summary>对AR(2)特征方程的推导</summary>
+<p>该部分的证明并未被Tsey给出。</p>
+<p>对于<span class="arithmatex">\(p\)</span>阶差分方程:</p>
+<div class="arithmatex">\[
+r_t = \phi_1 r_{t-1} + \phi_2 r_{t-2} + ... + \phi_p r_{t-p} + a_t \tag{6}
+\]</div>
+<p>定义向量<span class="arithmatex">\(\epsilon_t = [r_t, r_{t-1}, ..., r_{t-p+1}]^T\)</span>。另定义矩阵：</p>
+<div class="arithmatex">\[
+F = \left[ \begin{array}{ccccc}
+\phi_1 &amp; \phi_2 &amp; ... &amp;\phi_{p-1} &amp; \phi_p \\
+1 &amp; 0 &amp; ... &amp; 0 &amp; 0\\
+0 &amp; 1 &amp; ... &amp; 0 &amp; 0\\
+... &amp; ... &amp; ... &amp; ... &amp; ...\\
+0 &amp; 0 &amp; ... &amp; 1 &amp; 0
+\end{array}\right], \quad V_t = \left[\begin{array}{c}
+a_t \\
+0\\
+...\\
+0
+\end{array}\right]
+\]</div>
+<p>那么式(6)可以被表示为一个一阶的向量系统：</p>
+<div class="arithmatex">\[
+\epsilon_t = F \epsilon_{t-1} + V_t \tag{7}
+\]</div>
+<p>进一步迭代式(7)，从一阶向量系统迭代<span class="arithmatex">\(t\)</span>次，成为<span class="arithmatex">\(t\)</span>阶向量系统：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\epsilon_t &amp;= F \epsilon_{t-1} + V_t \\
+&amp;= F(F\epsilon_{t-2} + V_{t-1}) + V_t = ...\\
+&amp;= F^{t+1} \epsilon_{(-1)} + F^t V_0 + ... + FV_{t-1} + V_t
+\end{aligned}
+\]</div>
+<p>把向量的具体形式带到向量系统中：</p>
+<div class="arithmatex">\[
+\left[\begin{array}{c}
+r_t  \\
+r_{t-1}\\
+...\\
+r_{t-p+1}
+\end{array}\right] = F^{t+1} \left[\begin{array}{c}
+r_1\\
+r_2\\
+...\\
+r_{p-1}
+\end{array}\right] + F^t \left[\begin{array}{c}
+a_0\\
+0\\
+...\\
+0
+\end{array}\right] + ... + F\left[\begin{array}{c}
+  a_{t-1}  \\
+  0\\
+  ...\\
+  0
+\end{array}\right] + \left[\begin{array}{c}
+  a_t  \\
+  0\\
+  ...\\
+  0
+\end{array}\right]
+\]</div>
+<p>这个大方程组有什么用呢？第一行（第一个方程）就刻画了<span class="arithmatex">\(r_t\)</span>的结构。令<span class="arithmatex">\(f_{(pq)}^{(t)}\)</span>表示<span class="arithmatex">\(F^t\)</span>中的第<span class="arithmatex">\((p,q)\)</span>个元素，则有：</p>
+<div class="arithmatex">\[
+r_t = f_{(11)}^{(t+1)} + f_{(12)}^{(t+1)} r_2 + ... + f_{(1p)}^{(t+1)} r_p + f_{(11)}^t a_0 + f_{(11)}^{(t-1)} a_1 + ... + a_t
+\]</div>
+<p>对这个向量系统进行推广，做一个<span class="arithmatex">\(j\)</span>期的迭代：</p>
+<div class="arithmatex">\[
+\begin{align}
+\epsilon_{t+j} &amp;= F^{j+1} \epsilon_{t-1} + F^j V_t + ... + FV_{t+j-1} V_{t+j}\\
+r_{t+j} &amp;= f_{(11)}^{(j+1)} r_{t-1} + ... + f_{(1p)}^{(j+1)} r_{t-p} + f_{(11)}^j a_t + ... + f_{(11)}^1 a_{t+j-1} + a_{t+j}
+\end{align}
+\]</div>
+<p>从上式可知<span class="arithmatex">\(f_{(11)}^j = \partial r_{t+j} / \partial a_t\)</span>，该量被称作“动态乘子”，表示一单位<span class="arithmatex">\(a_t\)</span>的变化（扰动）对<span class="arithmatex">\(r_{t+j}\)</span>的影响。由于该量是<span class="arithmatex">\(F\)</span>的最左上角元素，因此只需寻找<span class="arithmatex">\(F\)</span>矩阵的特征值，即可同等刻画这一个扰动影响。即解方程：<span class="arithmatex">\(|F - \lambda I_p| = 0\)</span>，其中<span class="arithmatex">\(\lambda\)</span>为特征值。对于AR(2)模型，有：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+ &amp;\left|\left[\begin{array}{cc}
+     \phi_1 &amp; \phi_2 \\
+     1 &amp; 0 
+ \end{array}\right] - \left[\begin{array}{cc}
+     \lambda &amp; 0 \\
+     0 &amp; \lambda
+ \end{array}\right] \right| = 0\\
+ \textbf{从而有}\quad &amp;\lambda^2 - \phi_1 \lambda - \phi_2 = 0 \Rightarrow 1-\phi_1 x - \phi_2 x^2 = 0
+\end{aligned}
+\]</div>
+</details>
+<p>其中<span class="arithmatex">\(x = 1/\lambda\)</span>，即<span class="arithmatex">\(F\)</span>特征值的倒数，用二次方程求根公式：</p>
+<div class="arithmatex">\[
+x = \frac{\phi_1 \pm \sqrt{\phi_1^2 + 4\phi_2}}{-2\phi_2} \label{eq: ar2_checkpoint}
+\]</div>
+<p>得到的特征根为双根<span class="arithmatex">\((\omega_1,\omega_2)\)</span>，要讨论实根和虚根问题。</p>
+<ul>
+<li>如果两根均为<strong>实根</strong>，则方程分解为：<span class="arithmatex">\((1-\omega_1 B)(1-\omega_2 B)\)</span>的形式，此时AR(2)可以表示为两个AR(1)的叠加。AR(1)的ACF曲线取决于<span class="arithmatex">\(\phi_1\)</span>的取值，那么这种AR(2)的ACF曲线就是两个AR(1)叠加起来，即两个指数函数的复合，其图形取决于两个<span class="arithmatex">\(\phi\)</span>的取值。</li>
+<li>如果两根均为<strong>虚根</strong>，那么<span class="arithmatex">\(\omega_1,\omega_2\)</span>为复数共轭对，而复数共轭对可以表示为极坐标中的正弦/余弦曲线，这种情况下的ACF表示为减幅的正弦、余弦波。该种情况在商业和经济应用上比较重要，正弦波形式的ACF可以导致商业环/商业周期的出现。带一对复共轭特征根的AR(2)模型的随机环的平均长度（减幅正弦函数的平均周期）可以由以下式子给出：</li>
+</ul>
+<div class="arithmatex">\[
+k = \frac{2\pi}{\cos^{-1}[\phi_1/(2\sqrt{-\phi_2})]} = \frac{2\pi}{\operatorname{arccos}[\phi_1/(2\sqrt{-\phi_2})]}
+\]</div>
+<p>如果将复数解记为<span class="arithmatex">\(a \pm b_i\)</span>的形式，则<span class="arithmatex">\(\phi_1 = 2a, \phi_2 = -(a^2+b^2)\)</span>，则上式可写为：</p>
+<div class="arithmatex">\[
+k = \frac{2\pi}{\cos^{-1} (a / \sqrt{a^2+b^2})}
+\]</div>
+<p>进而引出AR(2)模型平稳的必要条件：<strong>AR(2)模型两个特征根(<span class="arithmatex">\(\omega\)</span>)的模都要小于1</strong>。对应特征方程（式5）的两个解(<span class="arithmatex">\(x\)</span>)的模都要大于1。该条件同样适用于AR(1)模型。其对应特征方程<span class="arithmatex">\(1-\phi_1 x = 0\)</span>，对应特征根解为<span class="arithmatex">\(\omega = 1/x = \phi_1\)</span>，则该必要条件要求<span class="arithmatex">\(|\phi_1| &lt; 1\)</span>。而对于AR(p)模型呢？对于AR(p)模型，其对应的多项式方程为：</p>
+<div class="arithmatex">\[
+1-\phi_1 x - \phi_2 x^2 - ... - \phi_p x^p = 0
+\]</div>
+<p>那么序列<span class="arithmatex">\(\{r_t\}\)</span>平稳的条件就是所有解的模都要大于1，即所有特征根的模都小于1，而这个条件通常难以保证，因此尽量要采用低阶AR模型，因而牵扯到重要的问题：定阶。</p>
+<h3 id="ar">AR模型的定阶</h3>
+<p>定阶，即确定AR(p)中的唯一参数：<span class="arithmatex">\(p\)</span>。有几种主要的方法，如偏自相关函数（PACF）、信息准则法。</p>
+<p>第一种， <strong>偏自相关函数法</strong>。考虑一连串的AR模型：</p>
+<div class="arithmatex">\[
+\begin{align}
+      r_t &amp;= \phi_{01} + \phi_{11} r_{t-1} + e_{1t}\\
+      r_t &amp;= \phi_{02} + \phi_{12} r_{t-1} + \phi_{22} r_{t-2} + e_{2t}
+\end{align}
+\]</div>
+<p>对这两个模型做估计，那么<span class="arithmatex">\(\hat \phi_{22}\)</span>表示在AR(1)模型基础上，添加<span class="arithmatex">\(r_{t-2}\)</span>对<span class="arithmatex">\(r_t\)</span>拟合的贡献。以此类推，不断尝试和验证，我们称<span class="arithmatex">\(\hat \phi_{ll}\)</span>为<span class="arithmatex">\(r_t\)</span>的间隔为<span class="arithmatex">\(l\)</span>的偏自相关函数(PACF)，这个过程中每一个<span class="arithmatex">\(\hat \phi_{ll}\)</span>就可以形成一个估计值的向量。由于AR模型的PACF具有截尾性质，因而适合用于定阶。计算PACF主要依赖于Yule-Walker方程。</p>
+<p>在讲Yule-Walker之前，显然有<span class="arithmatex">\(AR(1)\)</span>的PACF和ACF相等，别问我为什么，问就是定义所得。</p>
+<details class="note">
+<summary>Yule-Walker方程组</summary>
+<p><strong>Yule-Walker方程组</strong>：对于AR(p)模型，两边同时乘以<span class="arithmatex">\(r_{t-k} (k \geq 1)\)</span>后取期望。要注意的是，以下所指<span class="arithmatex">\(\phi_k\)</span>，均为AR(p)中的第<span class="arithmatex">\(k\)</span>的<span class="arithmatex">\(\phi\)</span>参数，放在上面两式的语境中，应当称作<span class="arithmatex">\(\phi_{pk}\)</span>，而只有<span class="arithmatex">\(\phi_{pp}\)</span>（也就是下面Yule-Walker方程中的<span class="arithmatex">\(\phi_p\)</span>）才是AR(p)模型在<span class="arithmatex">\(p\)</span>阶处的PACF。</p>
+<div class="arithmatex">\[
+E(r_t r_{t-k}) = \phi_1 E(r_{t-1} r_{t-k}) + ... + \phi_p E(r_{t-p} r_{t-k}) + E(a_t r_{t-k}) \Rightarrow \gamma_k = \phi_1 \gamma_{k-1} + ... + \phi_p \gamma_{k-p}
+\]</div>
+<p>当然，两边同除<span class="arithmatex">\(\gamma_0\)</span>，有：</p>
+<div class="arithmatex">\[
+\rho_k = \phi_1 \rho_{k-1} + ... + \phi_p \gamma_{k-p}
+\]</div>
+<p>以<span class="arithmatex">\(\gamma_k\)</span>表达式，将<span class="arithmatex">\(k = 1,...,p\)</span>分别写出来，形成下面的矩阵方程。</p>
+<div class="arithmatex">\[
+\left(\begin{array}{c}
+   \gamma_1\\
+   \gamma_2\\
+   \vdots\\
+   \gamma_p
+\end{array}\right)  = \left(\begin{array}{cccc}
+   \gamma_0 &amp; \gamma_1 &amp; \ldots &amp;\gamma_{p-1} \\
+   \gamma_1 &amp; \gamma_0 &amp;\ldots &amp; \gamma_{p-2}\\
+   \vdots &amp; \vdots &amp; \ddots &amp; \vdots\\
+   \gamma_{p-1} &amp; \gamma_{p-2} &amp; \ldots &amp; \gamma_{0}
+\end{array}\right) \left(\begin{array}{c}
+   \phi_1\\
+   \phi_2\\
+   \vdots\\
+   \phi_p
+\end{array}\right) :\Rightarrow \quad \mathbf{\gamma}_p   = \mathbf{\Gamma}_p \mathbf{\phi}_p \label{eq: Yule-Walker eqs}
+\]</div>
+<p>该方程组即为Yule-Walker方程组。</p>
+</details>
+<p>为了求解PACF，我们需要让<span class="arithmatex">\(\phi_p\)</span>暴露出来，从式<span class="arithmatex">\(\eqref{eq: Yule-Walker eqs}\)</span>左右同除以<span class="arithmatex">\(\gamma_0\)</span>，有：</p>
+<div class="arithmatex">\[
+\left(\begin{array}{cccc}
+         1 &amp; \rho_1 &amp; \ldots &amp; \rho_{k-1} \\
+         \rho_1 &amp; 1 &amp; \ldots &amp; \rho_{k-2}\\
+         \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+         \rho_{k-1} &amp; \rho_{k-2} &amp; \ldots &amp; 1
+      \end{array}\right) \left(\begin{array}{c}
+         \phi_1\\
+         \phi_2\\
+         \vdots\\
+         \phi_p
+      \end{array}\right) = \left(\begin{array}{c}
+         \rho_1\\
+         \rho_2\\
+         \vdots\\
+         \rho_k
+      \end{array}\right)
+\]</div>
+<p>解这个方程组的好办法是Cramer法则。将上式左侧系数阵的第<span class="arithmatex">\(p\)</span>列（即最后一列）替换为等号右边的向量，分子即为这个新矩阵的行列式，而分母是原系数矩阵的行列式，所求得的商即为<span class="arithmatex">\(\phi_{p}\)</span>的解，即AR模型系数所谓的Yule-Walker估计量。如果<span class="arithmatex">\(\{r_t\}\)</span>是AR(p)过程，且<span class="arithmatex">\(\{a_t\} \sim N(0,\sigma_a^2) i.i.d.\)</span>，则Yule-Walker估计量<span class="arithmatex">\(\hat \phi_p\)</span>服从分布：</p>
+<div class="arithmatex">\[
+(\hat \phi_p - \phi) \sim N(\mathbf{0}, n^{-1} \sigma_a^2 \mathbf{\Gamma}_k^{-1})
+\]</div>
+<p>其中<span class="arithmatex">\(n\)</span>为样本容量。基于此可以求得Yule-Walker估计量的置信区间。</p>
+<p>第二种，<strong>信息准则法</strong>。信息准则（Information Criteria，IC）本质上是对残差的调整，常用的信息准则包括Akaike IC(AIC，赤池信息准则)和Bayesian IC(BIC，贝叶斯信息准则)。</p>
+<ul>
+<li>赤池信息准则。AIC的形式为：</li>
+</ul>
+<div class="arithmatex">\[
+AIC = \frac{-2}{T} \ln (\text{似然函数最大值}) + \frac{2}{T} (\text{参数个数})
+\]</div>
+<p>特别的是，对于高斯AR(l)模型，AIC的形式为：</p>
+<div class="arithmatex">\[
+AIC(l) = \ln(\tilde \sigma_l^2) + \frac{2l}{T}
+\]</div>
+<ul>
+<li>==贝叶斯信息准则==。BIC基于AIC进行调整，对于高斯AR(l)模型，其形式为：</li>
+</ul>
+<div class="arithmatex">\[
+BIC(l) = \ln (\tilde \sigma_l^2) + \frac{l \ln(T)}{T}
+\]</div>
+<p>BIC的改进位于第二项，将分子上的<span class="arithmatex">\(2\)</span>改为<span class="arithmatex">\(\ln(l)\)</span>。对于样本容量较大的情形，基于BIC的定阶方法倾向于<em>选择更小阶</em>的AR模型。</p>
+<p>争议处理：PACF，AIC，BIC结果存在偏差时，可以优先按照BIC意见定阶，也可以选择三选二的方式，投票得出定阶方案。</p>
+<h3 id="ar_1">AR模型的参数估计</h3>
+<p>AR模型的估计采用条件最小二乘估计（CLS）。在给定前<span class="arithmatex">\(p\)</span>个观测值的条件下，进行多元线性回归。在前<span class="arithmatex">\(p\)</span>个观测值的条件下，利用其他观测值回归下列模型：</p>
+<div class="arithmatex">\[
+\tilde r_t = \phi_0 + \phi_1 r_{t-1} + ... + \phi_p r_{t-p}
+\]</div>
+<p>对应的残差为<span class="arithmatex">\(\tilde a_t = r_t - \tilde r_t\)</span>，称<span class="arithmatex">\(\{\tilde a_t\}\)</span>为残差序列，而该残差序列的残差平方和（样本外残差平方和）为：</p>
+<div class="arithmatex">\[
+\tilde \sigma_a^2 = \frac{\sum_{t = p+1}^{T} \hat a_t^2}{T-2p-1}
+\]</div>
+<p>而条件最小二乘的任务是最小化样本外残差平方和：</p>
+<div class="arithmatex">\[
+\hat \phi = \mathop{\operatorname{argmin}}_\phi \hat \sigma_a^2 = \mathop{\operatorname{argmin}}_\phi ||y-X\beta||^2
+\]</div>
+<p>其中，<span class="arithmatex">\(y = [\hat r_{p+1}, \hat r_{p+2}, ..., \hat r_T]^T\)</span>, <span class="arithmatex">\(\beta = [\hat \phi_0,...,\hat \phi_p]^T\)</span>，<span class="arithmatex">\(X\)</span>是对<span class="arithmatex">\(y\)</span>向量进行拟合的式子中所有变量的集合。且<span class="arithmatex">\(X\in \mathcal{R}^{(T-p)\times (p+1)}, \beta \in \mathcal{R}^{(R+1) \times 1}, y \in \mathcal{R}^{(T-p) \times 1}\)</span>。对<span class="arithmatex">\(\hat \sigma_a^2\)</span>做微分求最值，解得经典老式子：</p>
+<div class="arithmatex">\[
+\hat \beta = (X^TX)^{-1}X^Ty
+\]</div>
+<p>备注两则：</p>
+<ul>
+<li>如果上面的<span class="arithmatex">\(\{y_t\}\)</span>的分布未知，CLS估计所得的参数仍然是合理的。</li>
+<li>如果<span class="arithmatex">\(\{y_t\}\)</span>样本的联合密度<span class="arithmatex">\(P(y_1,...,y_T)\)</span>已知，则除了CLS，也可使用MLE来估计，CLS和MLE对参数的估计值是一致的，但MLE对方差的估计有区别：</li>
+</ul>
+<div class="arithmatex">\[
+\tilde \sigma_a^2 \textbf{(MLE)} = \frac{T-2p-1}{T-p}  \hat \sigma_a^2 \textbf{(CLS)}
+\]</div>
+<h3 id="_8">模型检验</h3>
+<p>该工作用于验证模型是否充分，或者参数是否冗余。AR模型的检验工作采用Ljung-Box检验。其思想为，如果模型充分，则残差序列<span class="arithmatex">\(\{\hat a_t\}\)</span>应当为白噪声，而检验序列是否为白噪声的工作可以用Ljung-Box检验进行，它将检验序列与一般白噪声的接近程度：</p>
+<div class="arithmatex">\[
+Q(m) = T(T+2) \sum_{l=1}^m \frac{\hat \rho_l^2}{T-l} \sim \chi_\alpha^2 (m-g)
+\]</div>
+<p>其中<span class="arithmatex">\(g\)</span>为AR模型中的参数个数。</p>
+<h3 id="_9">模型的拟合优度</h3>
+<p>拟合优度，就是<span class="arithmatex">\(R^2\)</span>：</p>
+<div class="arithmatex">\[
+R^2 = 1-\frac{\text{Square Sum of Residual}}{\text{Square Sum Totally}} = 1-\frac{\sum_{t=p+1}^T \hat a_t^2}{\sum_{t=p+1}^T (r_t - \bar r)^2}
+\]</div>
+<p>其中<span class="arithmatex">\(\bar r = \frac{1}{T-p} \sum_{t = p+1}^T r_t\)</span>。如果序列平稳，则<span class="arithmatex">\(R^2\)</span>越大，模型拟合情况越好。但对于时间序列来说，变量个数对<span class="arithmatex">\(R^2\)</span>会产生影响，为了剔除自变量个数对<span class="arithmatex">\(R^2\)</span>的影响，时间序列中引入了Adjusted <span class="arithmatex">\(R^2\)</span>，其形式为：</p>
+<div class="arithmatex">\[
+\text{Adjusted } R^2 = 1- \frac{\hat \sigma_a^2}{\hat \sigma_r^2} = 1-\frac{\frac{1}{T-2p-1}\sum_{t=p+1}^T \hat a_t^2}{\frac{1}{T-p-1}\sum_{t=p+1}^T (r_t - \bar r)^2} = 1-\frac{T-p-1}{T-2p-1}(1-R^2)
+\]</div>
+<p>大多数情况下，Adjusted <span class="arithmatex">\(R^2\)</span>仍在<span class="arithmatex">\((0,1)\)</span>之间，但是可能会出现超出该范围的情况，通常需要分析该现象出现的原因。Adjusted <span class="arithmatex">\(R^2\)</span>有一个好，如果新加入的变量<span class="arithmatex">\((X)\)</span>对回归的贡献较少，则Adjusted <span class="arithmatex">\(R^2\)</span>反而可能降低，这就体现了Adjusted <span class="arithmatex">\(R^2\)</span>对模型自变量数量的限制作用。</p>
+<h3 id="ar_2">AR模型的预测</h3>
+<p>设时间指标<span class="arithmatex">\(h\)</span>为预测原点，<span class="arithmatex">\(l\)</span>为预测步长，想预测<span class="arithmatex">\(r_{h+l}\)</span>。定义<span class="arithmatex">\(\hat r_h(l)\)</span>为最小均方误差下的预测，则<span class="arithmatex">\(\hat r_h(l)\)</span>应当满足：</p>
+<div class="arithmatex">\[
+E\{[r_{h+l} - \hat r_h(l)]^2|F_h\} \leq \min_g E[(r_{h+l} - g)^2|F_h]
+\]</div>
+<p>其中<span class="arithmatex">\(g\)</span>为时点<span class="arithmatex">\(h\)</span>下所得的信息函数，即时点<span class="arithmatex">\(h\)</span>下所能得到的所有信息<span class="arithmatex">\(F_h\)</span>的函数。</p>
+<p><strong>(1) 向前一步预测</strong>。让我们想想AR(p)中<span class="arithmatex">\(r_{h+1}\)</span>的结构是：</p>
+<div class="arithmatex">\[
+r_{h+1} = \phi_0 + \phi_1 r_h + ... + \phi_p r_{h+1-p} + a_{h+1}
+\]</div>
+<p>而<span class="arithmatex">\(h\)</span>时刻下拥有的信息集是什么？<span class="arithmatex">\(F_h = \{r_h,r_{h-1},...\}\)</span>，那么就可以得到<span class="arithmatex">\(r_{h+1}\)</span>点预测的条件期望。从而有：</p>
+<div class="arithmatex">\[
+\hat r_h(1) = E(r_{h+1}|F_h) =  \phi_0 + \phi_1 r_h + ... + \phi_p r_{h+1-p} = \phi_0 + \sum_{i=1}^p \phi_i r_{h+1-i}
+\]</div>
+<p>那么，这个条件期望和原本的<span class="arithmatex">\(r_{h+1}\)</span>之间的区别就在于最后的扰动项<span class="arithmatex">\(a_{h+1}\)</span>，也就是预测的误差：</p>
+<div class="arithmatex">\[
+e_h(1) = r_{h+1} - \hat r_h(1) = a_{h+1}
+\]</div>
+<p>而误差的方差是：</p>
+<div class="arithmatex">\[
+Var[e_h(1)] = Var(a_{h+1}) = \sigma_a^2
+\]</div>
+<p>如果<span class="arithmatex">\(\{a_t\}\)</span>是服从正态分布的，那么<span class="arithmatex">\(\{r_t\}\)</span>序列向前一步预测（即<span class="arithmatex">\(r_{h+1}\)</span>）的点预测具有的预测区间即为<span class="arithmatex">\([\hat r_h(1) - \eta_\alpha \sigma_a, \hat r_h(1) + \eta_\alpha \sigma_a]\)</span>，其中<span class="arithmatex">\(\eta_\alpha\)</span>是对应置信度<span class="arithmatex">\(\alpha\)</span>的置信区间上下界。</p>
+<p><strong>(2)</strong> <strong>向前两步预测</strong></p>
+<p>对第二步的预测，其作为条件的信息集仍然为<span class="arithmatex">\(F_h\)</span>。原始的<span class="arithmatex">\(r_{h+2}\)</span>结构为：</p>
+<div class="arithmatex">\[
+r_{h+2} = \phi_0 + \phi_1 r_{h+1} + ... + \phi_p r_{h+2-p} + a_{h+2}
+\]</div>
+<p>而预测值的结构如下，注意的是，对于第二步预测，<span class="arithmatex">\(r_{h+1}\)</span>仍然是未知的（你仍然站在时点<span class="arithmatex">\(h\)</span>往后看）：</p>
+<div class="arithmatex">\[
+\hat r_h(2) = E[r_{h+2}|F_t] = \phi_0 + \phi_1 \hat \phi_h(1) + \phi_2 r_h +...+\phi_p r_{h+2-p}
+\]</div>
+<p>那么预测误差为：</p>
+<div class="arithmatex">\[
+e_h(2) = \phi_1[r_{h+1} - \hat r_h(1)] + a_{h+2} = \phi_1 a_{h+1} + a_{h+2}
+\]</div>
+<p>其方差为：</p>
+<div class="arithmatex">\[
+Var[e_h(2)] = [1+\phi_1^2] \sigma_a^2 \geq Var[e_h(1)]
+\]</div>
+<p>显然，随着预测步长的增加，进一步预测结果的不确定性会逐渐增加。</p>
+<p><strong>(3) 向前<span class="arithmatex">\(l\)</span>步预测</strong>。</p>
+<p>向前<span class="arithmatex">\(l\)</span>步预测的点值为：</p>
+<div class="arithmatex">\[
+r_{h+l} = \phi_0 + \phi_1 r_{h+l-1} + ... + \phi_p r_{h+l-p} + a_{h+l}
+\]</div>
+<p>对应的预测值为：</p>
+<div class="arithmatex">\[
+\hat r_h(l) = \phi_0 + \sum_{i=1}^p \phi_i \hat r_h(l-i)
+\]</div>
+<p>如果<span class="arithmatex">\(l - i \leq 0\)</span>，那么那部分就是包含在<span class="arithmatex">\(F_h\)</span>中的，即已知精确值的部分。其预测误差的结构为：</p>
+<p>(本来是有式子的，不想推了)</p>
+<details class="info">
+<summary>均值回转(mean reversion)现象</summary>
+<p>对于一个平稳的AR(p)模型，当<span class="arithmatex">\(l \to \infty\)</span>时，<span class="arithmatex">\(\hat r_h(l)\)</span>收敛于<span class="arithmatex">\(E(r_t)\)</span>，即预测的有条件均值逐渐逼近到无条件均值（你已知的信息已经不足以预测很靠后的值了，你的预测几乎起不到任何作用）。而均值回转现象存在“半衰期”，对于<span class="arithmatex">\(AR(1)\)</span>模型，其均值回转的半衰期为<span class="arithmatex">\(k = \ln (0.5/|\phi_1|)\)</span>。</p>
+</details>
+<h2 id="24-2ma">2.4 基本模型2：滑动平均（MA）</h2>
+<p>对于无穷阶的AR模型，应有：</p>
+<div class="arithmatex">\[
+r_t = \phi_0 + \phi_1 r_{t-1} + ... + a_t
+\]</div>
+<p>当<span class="arithmatex">\(i \geq 1\)</span>时，设<span class="arithmatex">\(\phi_i = -\theta_1^i\)</span>，则较遥远的过往信息对当下值的影响就变得微不足道了，上式变为：</p>
+<div class="arithmatex">\[
+r_t = \phi_0 - \theta_1 r_{t-1} - \theta_1^2 r_{t-2} -... + a_t
+\]</div>
+<p>为了使模型平稳，<span class="arithmatex">\(\theta_1\)</span>的绝对值应当小于1。对上面做移项：</p>
+<div class="arithmatex">\[
+r_t + \theta_1 r_{t-1}+\theta_1^2 r_{t-2} + ... = \phi_0 + a_t
+\]</div>
+<p>同理，我们还能得到：</p>
+<div class="arithmatex">\[
+r_{t-1} + \theta_1 r_{t-2} + \theta_1^2 r_{t-3} + ... = \phi_0 + a_{t-1}
+\]</div>
+<p>两式相减，能够得到：</p>
+<div class="arithmatex">\[
+r_t = (1-\theta_1)\phi_0 + a_t - \theta_1 a_{t-1} = C_0 + a_t - \theta_1 a_{t-1} = C_0 + (1-\theta_1 B)a_t
+\]</div>
+<p>其中<span class="arithmatex">\(C_0\)</span>为常数，<span class="arithmatex">\(a_t \sim N(0,\sigma_a^2)\)</span>这样，<span class="arithmatex">\(r_t\)</span>的无穷阶AR模型就变成了当期扰动项和往期扰动项的线性加权。该改进后的模型被称作一阶滑动平均模型，即MA(1)模型。显然，MA(1)仍然是平稳的。类似的，MA(q)模型的形式为：</p>
+<div class="arithmatex">\[
+r_t = C_0 + a_t - \theta_1 a_{t-1} -... - \theta_q a_{t-q} = C_0 + (1-\theta_1 B - ... - \theta_q B^q) a_t
+\]</div>
+<h3 id="ma">MA模型的基本性质</h3>
+<details class="note" open="open">
+<summary>MA模型的平稳性</summary>
+<p>MA(q)模型总是平稳的，因为：</p>
+<ul>
+<li>
+<p>MA(q)是有限个(<span class="arithmatex">\(q\)</span>个)白噪声的线性加权;</p>
+</li>
+<li>
+<p>其前两阶矩不随时间变化而变化（满足宽平稳条件）；</p>
+</li>
+</ul>
+<p>对于MA(1),有<span class="arithmatex">\(r_t = C_0 + a_t - \theta_1 a_{t-1}\)</span>，对应均值方差为：</p>
+<div class="arithmatex">\[
+E(r_t) = C_0; \quad Var(r_t) = (1+\theta_1^2)\sigma_a^2
+\]</div>
+<p>对于MA(q)模型，其均值方差为:</p>
+<div class="arithmatex">\[
+E(r_t) = C_0; \quad Var(r_t) = (1+\theta_1^2 + ... + \theta_q^2) \sigma_a^2
+\]</div>
+<ul>
+<li>自协方差只与<span class="arithmatex">\(l\)</span>有关。以MA(1)为例，若<span class="arithmatex">\(C_0 =0\)</span>，则有：</li>
+</ul>
+<div class="arithmatex">\[
+\gamma_l = E[(r_t - \mu) (r_{t-l} - \mu)] = E[(r_{t-l}a_t)] - \theta_1 E(r_{t-l}a_{t-1}) = -\theta_1 E(r_{t-l}a_{t-1})
+\]</div>
+<p>(第三个等号的原因在于，<span class="arithmatex">\(r_{t-l}\)</span>是往期<span class="arithmatex">\(a_t\)</span>的线性加权，而这些往期扰动与当期扰动之积的期望为0。)</p>
+<p>a. 若<span class="arithmatex">\(l=1\)</span>，则<span class="arithmatex">\(\gamma_1 = -\theta_1 \sigma_a^2\)</span>;</p>
+<p>b. 若<span class="arithmatex">\(l&gt;1\)</span>，则<span class="arithmatex">\(\gamma_l = 0\)</span>。</p>
+<p>总之，<span class="arithmatex">\(\gamma_l\)</span>甚至与时间<span class="arithmatex">\(l\)</span>无关，在任何情况下均为常数。</p>
+<p>由以上三条可知，MA(q)模型必然是平稳的。</p>
+</details>
+<details class="note" open="open">
+<summary>MA模型的ACF</summary>
+<p>MA(1)的ACF很漂亮，<span class="arithmatex">\(\rho_0 = 1,\rho_1 = \gamma_1 / \gamma_0 = \frac{-\theta_1}{1+\theta_1^2}, \rho_l = 0 (l&gt;1)\)</span>。即MA(1)的自相关系数只有在1阶处非零（间隔为1之后是截尾的），而该值的范围为<span class="arithmatex">\([-0.5,0.5]\)</span>，最小值取在<span class="arithmatex">\(\theta_1 = 1\)</span>，最大值取在<span class="arithmatex">\(\theta_1 = -1\)</span>。很明显，MA(1)模型的一个美德就是，ACF曲线会在滞后期内迅速衰减到0。</p>
+<p>进一步，MA(2)模型：<span class="arithmatex">\(r_t = a_t - \theta_1 a_{t-1} - \theta a_{t-2}\)</span>（方便起见，假定<span class="arithmatex">\(C_0\)</span>为0）的ACF为：</p>
+<div class="arithmatex">\[
+\rho_1 = \frac{-\theta_1 + \theta_1 \theta_2}{1+\theta_1^2 + \theta_2^2}; \quad \rho_2 = \frac{-\theta_2}{1+\theta_1^2 + \theta_2^2}; \quad \rho_l = 0, \forall l 2
+\]</div>
+<p>其中<span class="arithmatex">\(\rho_1\)</span>的范围为<span class="arithmatex">\([-1/\sqrt{2},1/\sqrt{2}]\)</span>，<span class="arithmatex">\(\rho_2\)</span>范围为<span class="arithmatex">\([-1/2,1/2]\)</span>。MA(2)在间隔为2之后截尾，从此归纳，MA(q)至于其前q个滞后项相关，这一点也称作<strong>MA的有限记忆性</strong>。</p>
+</details>
+<details class="note" open="open">
+<summary>MA模型的可逆性</summary>
+<p>改写MA(1)模型，则有：<span class="arithmatex">\(a_t = r_t + \theta_1 a_{t-1}\)</span>，重复迭代：</p>
+<div class="arithmatex">\[
+a_t = r_t + \theta_1 r_{t-1} + \theta_1^2 r_{t-2} + ...
+\]</div>
+<p>该方程称作AR(<span class="arithmatex">\(\infty\)</span>)过程，表示当期扰动项<span class="arithmatex">\(a_t\)</span>为现在及过去所有期收益率的线性组合，且<span class="arithmatex">\(|\theta_1| &lt; 1\)</span>，这就是MA(1)的可逆性（MA由AR变化得来，也可以变化出AR）。对于MA(q)模型，有<span class="arithmatex">\(r_t - C_0 = (1-\theta_1 B - \theta_2 B^2 - ...) a_t\)</span>，其特征方程为：</p>
+<div class="arithmatex">\[
+1- \theta_1 X - \theta_2 X^2 -... - \theta_q X^q = 0
+\]</div>
+<p>该方程解落在单位圆之外，则MA(q)模型可以转化为AR(<span class="arithmatex">\(\infty\)</span>)过程，即MA(q)可逆。</p>
+<blockquote>
+<p>如果可解，则特征方程可以转化为<span class="arithmatex">\((1-\lambda_1 X)(1-\lambda_2X)...(1-\lambda_q X) = 0\)</span>，那么方程解均落在单位圆之外，等价于所有<span class="arithmatex">\(|\theta_i| \leq 1\)</span>，即特征方程根的模均大于1。</p>
+</blockquote>
+</details>
+<h3 id="ma_1">MA模型的估计</h3>
+<p>MA模型的定阶主要看<strong>ACF的取值</strong>。而估计主要采用两种方法：（1）条件似然法；（2）精确似然法。</p>
+<blockquote>
+<p>MA模型的PACF是拖尾的，而ACF是截尾的，因此需要用ACF来指导定阶。下面讲到ARMA模型时会对ACF和PACF指导定阶的准则做更细致的讲解。</p>
+</blockquote>
+<details class="note" open="open">
+<summary>条件似然法</summary>
+<p>设初始扰动<span class="arithmatex">\(a_0 = 0\)</span>，有<span class="arithmatex">\(a_1 = r_1 - C_0\)</span>，<span class="arithmatex">\(a_2 = r_2 - C_0 + \theta_1 a_1\)</span>，......。递归得到最优的扰动序列，再进行参数估计。</p>
+<p>对于MA(1)模型，即<span class="arithmatex">\(r_t = \mu + a_t + \theta_1 a_{t-1}, a_t \sim N(0,\sigma_a^2)\)</span>。我们令<span class="arithmatex">\(\Theta = (\mu, \theta_1, \sigma_a^2)^T\)</span>。如果<span class="arithmatex">\(a_{t-1}\)</span>已知，那么<span class="arithmatex">\(r_t\)</span>的所有不确定性都存在于<span class="arithmatex">\(a_t\)</span>上，那么有：</p>
+<div class="arithmatex">\[
+r_t | a_{t-1} \sim N(\mu + \theta_1 a_{t-1}, \sigma_a^2)
+\]</div>
+<p>其边际密度函数为：</p>
+<div class="arithmatex">\[
+f_{r_t|a_{t-1}}(r_t|a_{t-1}; \Theta) = \frac{1}{\sigma \sqrt{2\pi}} \mathop{exp} [\frac{-(r_t - \mu - \theta_1 a_{t-1})^2}{2\sigma^2}]\tag{8}
+\]</div>
+<p>从<span class="arithmatex">\(a_0 = 0\)</span>开始，则<span class="arithmatex">\(r_1 |a_0 = 0 \sim N(\mu,\sigma_n^2)\)</span>，给定观测值得<span class="arithmatex">\(a_1 = r_1 - \mu\)</span>，带入到式(8)$中：</p>
+<div class="arithmatex">\[
+f_{r_2|r_1,a_0}(r_2 |r_1, a_0 = 0;\Theta) = \frac{1}{\sigma\sqrt{2\pi}}\mathop{exp}[\frac{-(r_2 - \mu - \theta_1 a_1)^2}{2\sigma_a^2}]
+\]</div>
+<p>当<span class="arithmatex">\(a_1\)</span>确定，则<span class="arithmatex">\(a_2 = r_2 - \mu - \theta_1 a_1\)</span>，进而重复迭代<span class="arithmatex">\(\{a_t\}\)</span>和<span class="arithmatex">\(\{r_t\}\)</span>序列，从而有第<span class="arithmatex">\(t\)</span>个时刻观测值的条件密度：</p>
+<div class="arithmatex">\[
+f_{r_t|\{r_i, i=1,...,t-1\}, a_0 = 0} (r_t | r_{t-1},...,r_1,a_0 = 0;\Theta) = \frac{1}{\sigma\sqrt{2\pi}} \mathop{exp}[\frac{-(r_t - \mu - \theta_1 a_{t-1})^2}{2\sigma_a^2}]
+\]</div>
+<p>进而得到条件似然函数：</p>
+<div class="arithmatex">\[
+L(\Theta) = \log \prod_{i=1}^T (f_{r_t|r_{t-1},...,r_1;a_0=0,\Theta}(r_t|r_{t-1},...,r_1;a_0=0,\Theta))
+\]</div>
+<p>对<span class="arithmatex">\(\Theta\)</span>向量中所有的元素挨个求偏导，但要注意：</p>
+<p>(1) 由<span class="arithmatex">\(a_t = r_t - \mu - \theta_1 a_{t-1}\)</span>，可进一步推导：</p>
+<div class="arithmatex">\[
+a_t = r_t - \mu - \theta_1 a_{t-1} = (r_t - \mu) - \theta_1(r_{t-1} - \mu) - \theta_1^2(r_{t-2} - \mu) - ... +(-1)^{t-1}\theta_1^{t-1}(r_1-\mu) + (-1)^t \theta_1^t a_0
+\]</div>
+<p>如果<span class="arithmatex">\(\theta_1\)</span>的绝对值极小，则<span class="arithmatex">\(a_0 = 0\)</span>的假定对估计的影响会迅速消失，可以忽略不计，所以条件似然法是MA模型的良好估计。</p>
+<p>(2) 如果<span class="arithmatex">\(\theta_1 1\)</span>，则<span class="arithmatex">\(a_0=0\)</span>的假定会随着时间的增加而不断放大，因而MA的条件似然估计在此时很可能是存在偏差的，因而估计不合理，需要做调整：将<span class="arithmatex">\(\theta\)</span>变为<span class="arithmatex">\(1/\theta\)</span>再行估计（这合理吗？）。</p>
+</details>
+<details class="note" open="open">
+<summary>精确似然法</summary>
+<p>将初始扰动作为一个待估计变量，与其他参数同时进入模型做联合估计。</p>
+<p>模型评估：拟合情况的评估仍然采用Ljung-Box检验，以判断残差序列是否为白噪声。</p>
+</details>
+<h3 id="ma_2">MA模型的预测</h3>
+<p>设预测原点为<span class="arithmatex">\(h\)</span>，<span class="arithmatex">\(F_h\)</span>为此处的已知信息集：</p>
+<ol>
+<li>MA(1)向前一步预测。直接代入式子，有<span class="arithmatex">\(r_{h+1} = C_0 + a_{h+1} - \theta_1 a_h\)</span>，而MA的点预测则为<span class="arithmatex">\(\hat r_h(1) = E(r_{h+1} | F_h) = C_0 - \theta_1 a_h\)</span>，点预测与真值的误差（期望误差）为：<span class="arithmatex">\(e_h(1) = \hat r_h(1) - r_{h+1} = a_{h+1}\)</span>，期望误差的平方为<span class="arithmatex">\(Var(e_h(1)) = \sigma_a^2\)</span>。相较于MA(1)模型，预测值的期望和方差均发生了改变。</li>
+<li>MA(1)向前两步预测。原始值为<span class="arithmatex">\(r_{h+2} = C_0 + a_{h+2} - \theta_1 a_{h+1}\)</span>，而预测值为<span class="arithmatex">\(\hat r_h(2) = E[r_{h+2}|F_h] = C_0\)</span>，预测误差为<span class="arithmatex">\(e_h(2) = a_{h+2} - \theta_1 a_{h+1}\)</span>，其方差为<span class="arithmatex">\(Var(e_h(2)) = (1+\theta_1^2)\sigma_a^2\)</span>，向前两步预测结果的均值方差与MA(1)均相同（从而实现了均值回归, MA(1)模型实现均值回归只需2阶，而AR则需要较长期预测才能逐渐接近无条件期望）。</li>
+<li>MA(2)向前<span class="arithmatex">\(l\)</span>步预测。真值为<span class="arithmatex">\(r_{h+l} = C_0 + a_{h+l} - \theta_1 a_{h+l-1} - \theta_2 a_{h+l-2}\)</span>，对应<span class="arithmatex">\(l\)</span>取值不同，已知项也不同：</li>
+</ol>
+<div class="arithmatex">\[
+\begin{aligned}
+         \hat r_h(1) &amp;= C_0 - \theta_1 a_{h} - \theta_2 a_{h-1}\\
+         \hat r_h(2) &amp;= C_0 - \theta_2 a_h\\
+         \hat r_h(l) &amp;= C_0, \quad \text{if  &gt; 2$}.
+\end{aligned}
+\]</div>
+<p>因而可知，MA(2)在第三期之后预测值即收敛到无条件均值。类似的，MA(q)的均值回归在<span class="arithmatex">\(q+1\)</span>期预测处即实现均值回归。</p>
+<h3 id="arma">AR和MA模型的小结</h3>
+<ol>
+<li><strong>定阶</strong>。对于MA模型，ACF是定阶的有效工具，因为MA(q)序列的ACF必然<span class="arithmatex">\(q\)</span>步截尾（第<span class="arithmatex">\(q+1\)</span>步的ACF必然为0）；而对于AR模型，则采用PACF来定阶。因为AR(p)过程的PACF必然<span class="arithmatex">\(p\)</span>步截尾。</li>
+<li><strong>平稳性</strong>。MA序列总是弱平稳的，参照章节“<a href="#MA模型的基本性质">MA模型的基本性质</a>”的相关内容；而AR序列平稳存在条件：特征根的模都小于1，或者说特征方程的解都在单位圆之外。</li>
+<li><strong>对偶关系</strong>。AR和MA模型其实是对偶的，如果基于AR模型分析比较复杂，则可以尝试转化为MA模型来分析。<ul>
+<li>对于有限阶平稳AR(p)过程，必然对应一个MA(<span class="arithmatex">\(\infty\)</span>)过程。</li>
+<li>对于有限且可逆的MA(q)过程，必然对应一个AR(<span class="arithmatex">\(\infty\)</span>)过程。</li>
+</ul>
+</li>
+</ol>
+<h2 id="25-arma">2.5 自回归滑动平均模型（ARMA）</h2>
+<p>如果<span class="arithmatex">\(\{r_t\}\)</span>满足：</p>
+<div class="arithmatex">\[
+r_t - \phi_1 r_{t-1} = \phi_0 + a_t - \theta_1 a_{t-1}, \quad a_t \sim N(0,\sigma_a^2) \tag{9}
+\]</div>
+<p>则称该时间序列<span class="arithmatex">\(\{r_t\}\)</span>服从于一个ARMA(1,1)过程，一般<span class="arithmatex">\(\theta_1 \not = \phi_1\)</span>。进一步推广，相应延长左边AR部分和右边MA部分，从而能够推广到ARMA(p,q)模型。</p>
+<h3 id="arma11">ARMA(1,1)的性质</h3>
+<p>1  <strong>平稳性</strong>。ARMA(1,1)模型不总是平稳的，因为AR模型不总是平稳的。而由接下来2、3（均值、方差）的讨论可知，ARMA(1,1)平稳的条件与AR(1)一致。</p>
+<p>2  <strong>均值性质</strong>。对式(9)左右同取期望，设<span class="arithmatex">\(E(r_t) = \mu\)</span>，则：</p>
+<div class="arithmatex">\[
+\mu - \phi_1 \mu = \phi_0 \Rightarrow \mu = \frac{\phi_0}{1-\phi_1}, \quad \phi_1 \not = 0
+\]</div>
+<p>显然，这与AR(1)模型具有相同的均值性质。</p>
+<p>3  <strong>无条件方差</strong>。求解<span class="arithmatex">\(Var(r_t)\)</span>，有：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+         Var(r_t) &amp;= Var(r_{t-1} + a_t - \theta_1 a_{t-1})\\ 
+         &amp;= \phi_1^2 Var(r_{t-1}) + \sigma_a^2 (1+ \theta_1^2) - 2\phi_1 \theta_1 Cov(r_{t-1}, a_{t-1})\\
+         &amp;= \phi_1^2 Var(r_{t-1}) + \sigma_a^2 (1+ \theta_1^2) - 2\phi_1 \theta_1 \sigma_a^2\\
+         &amp;= \frac{(1+\theta_1^2 - 2\phi_1 \theta_1)\sigma_a^2}{1-\phi_1^2}, \quad |\phi_1| &lt; 1 
+      \end{aligned}
+\]</div>
+<p>因而，ARMA(1,1)模型平稳的条件与AR(1)一致。</p>
+<p>4  <strong>ACF</strong>。对式（9）两端同时乘以<span class="arithmatex">\(r_{t-l}\)</span>，则为：</p>
+<div class="arithmatex">\[
+r_t r_{t-l} - \phi_1 r_{t-1} r_{t-l} = a_t r_{t-l} - \theta_1 a_{t-1} r_{t-l}
+\]</div>
+<ul>
+<li>对于<span class="arithmatex">\(l=1\)</span>，两端同取期望：</li>
+</ul>
+<div class="arithmatex">\[
+\gamma_1 - \phi_1 \gamma_0 = 0 - \theta_1 \sigma_a^2
+\]</div>
+<p>这个式子不同于AR(1)模型，主要区别在AR(1)的ACF等式没有右手边的<span class="arithmatex">\(\theta_1 \sigma_a^2\)</span>。</p>
+<ul>
+<li>对于<span class="arithmatex">\(l &gt; 1\)</span>，有：</li>
+</ul>
+<div class="arithmatex">\[
+\gamma_l - \phi_1 \gamma_{l-1} = 0
+\]</div>
+<p>此时与<span class="arithmatex">\(AR(1)\)</span>一致。与<span class="arithmatex">\(l=1\)</span>的情形对比，可以发现这是因为ARMA(1,1)中存在的MA(1)导致的问题。</p>
+<p>综上所述，对于平稳的ARMA(1,1)来说，<span class="arithmatex">\(\rho_1 = \phi_1 - \frac{\theta_1}{\gamma_0} \sigma_a^2\)</span>；而当<span class="arithmatex">\(l&gt;1\)</span>时，<span class="arithmatex">\(\rho_l = \phi_1 \rho_{l-1}\)</span>。其ACF的衰减从间隔2期开始，但不能再任意有限的间隔实现截尾，至于其函数图像，由于<span class="arithmatex">\(\phi_1, \theta_1\)</span>的符号不能确定，因而函数图像无法确定。</p>
+<h3 id="armapq">ARMA(p,q)模型</h3>
+<p>拓展到一般化的ARMA(p,q)模型，其表达式为：</p>
+<div class="arithmatex">\[
+r_t = \phi_0 + \sum_{i=1}^p \phi_i r_{t-i} + a_t - \sum_{i=1}^q \theta_i a_{t-i}\tag{10}
+\]</div>
+<p>利用推移算子改写上式，为：</p>
+<div class="arithmatex">\[
+(1-\phi_1 B - ... - \phi_p B^p) r_t = \phi_0 + (1-\theta_1 B - ... - \theta_q B^q) a_t
+\]</div>
+<p>(1) <strong>定阶</strong>。ARMA模型采用推广后的ACF(Extended ACF, EACF)来进行。寻找所有满足EACF小于<span class="arithmatex">\(2/\sqrt{T}\)</span>（即EACF的两倍标准差）的情况；然后寻找所有符合条件的(p,q)组合中最紧致的组合。</p>
+<blockquote>
+<p>符合EACF条件的(p,q)组合一般是一个三角形，所以选择左上角的阶数组合。
+(2) <strong>估计</strong>。估计ARMA模型的参数依然采用条件似然估计。提供初始扰动<span class="arithmatex">\(a_0\)</span>和初始收益率<span class="arithmatex">\(r_0\)</span>，然后一切与MA(1)处相同。
+(3) <strong>ARMA的三种表达式</strong>。</p>
+</blockquote>
+<p>第一种就是式(10)表现的常规形式。</p>
+<p>第二种是将MA折回来，形成的只有AR部分的形式。</p>
+<details class="note" open="open">
+<summary>ARMA的第二形式</summary>
+<p>其形式为：</p>
+<div class="arithmatex">\[
+\begin{align}
+         \text{设} \quad &amp;\phi(B) = 1 - \sum_{i=1}^p \phi_i B^i, \quad \theta(B) = 1- \sum_{i=1}^q \theta_i B^i\\
+         \Rightarrow &amp; \phi(B) r_t = \phi_0 + \theta(B) a_t \quad \Rightarrow \quad \frac{\phi(B)}{\theta(B)} r_t = \frac{\phi_0}{\theta(B)} + a_t\tag{11}
+      \end{align}
+\]</div>
+<p>利用两个多项式级数展开式（长除法）进行化简：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+         \frac{\phi(B)}{\theta(B)} &amp;= \frac{1-\sum_{i=1}^p \phi_i B^i}{1-\sum_{i=1}^q \theta_i B^i}\\
+         &amp;= 1-(\phi_1 - \theta_1) B - \theta_1 (\phi_1 - \theta_1) B^2 - \theta_1^2 (\phi_1 - \theta_1)B^3 - ...\\
+         &amp;= 1-\pi_1 B - \pi_2 B^2 - ... \equiv \Pi(B)
+      \end{aligned}
+\]</div>
+<p>将上式带回式(11)，有：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+         &amp;r_t - \pi_1 B(r_t) - \pi_2 B^2 r_t - ... = \frac{\phi_0}{\theta(B)} - a_t\\
+         \Rightarrow &amp;  r_t = \frac{\phi_0}{1-\theta_1 -... - \theta_q} + \pi_1 r_{t-1} + \pi_2 r_{t-2} + ... + a_t
+\end{aligned}
+\]</div>
+<p>系数序列<span class="arithmatex">\(\{\pi_i\}\)</span>称为ARMA模型的<span class="arithmatex">\(\pi\)</span>权重，如果<span class="arithmatex">\(i \to \infty\)</span>时<span class="arithmatex">\(\pi \to 0\)</span>，则这个ARMA(p,q)模型为可逆的。那么对于一般的ARMA(p,q)模型，其可逆的充要条件是<span class="arithmatex">\(\theta(B)\)</span><strong>所有的零点的模都应当大于1</strong>。</p>
+</details>
+<p>第三种是把AR折过去，形成只有MA部分的形式。</p>
+<details class="note" open="open">
+<summary>ARMA的第三形式</summary>
+<div class="arithmatex">\[
+\begin{align}
+         &amp; r_t = \mu + a_t + \phi_1 a_{t-1} + \phi_2 a_{t-2} + ... = \mu + \Phi(B) a_t\\
+      \text{其中，}\quad    &amp; \Phi(B) = \frac{1-\sum_{i=1}^q \theta_i B^i}{1-\sum_{i=1}^p \phi_i B^i} = 1+ (\phi_1 - \theta_1)B + \phi_1 (\phi_1 - \theta_1)B^2 +...\\
+         &amp; \mu = E(r_t) = \frac{\phi_0}{1-\sum_{i=1}^p \phi_i}\tag{11}
+      \end{align}
+\]</div>
+<p>其中<span class="arithmatex">\(\{\Phi_i\}\)</span>称作ARMA(p,q)的脉冲响应函数，且<span class="arithmatex">\(i \to \infty, \Phi \to 0\)</span>。</p>
+</details>
+<p>(4) <strong>预测</strong>。我们把ARMA写在一侧：</p>
+<div class="arithmatex">\[
+r_t = \phi_0 + \sum_{i=1}^p \phi_i r_{t-i} + a_t - \sum_{i=1}^q \theta_i a_{t-i}
+\]</div>
+<p>老规矩，以时间点<span class="arithmatex">\(h\)</span>为原点开始预测，此时的已知信息集为<span class="arithmatex">\(F_h\)</span>。</p>
+<details class="note" open="open">
+<summary>向前一步预测</summary>
+<div class="arithmatex">\[
+   \begin{align}
+      \text{真值序列}\quad  &amp; r_{h+1} = \phi_0 + \sum_{i=1}^p \phi_i r_{h+1-i} + a_{h+1} - \sum_{i=1}^q \theta_i a_{h+1-i}\\
+      \text{预测均值}\quad &amp; \hat r_h(1) = E(r_{h+1}|F_h) = \phi_0 + \sum_{i=1}^p \phi_i r_{h+1-i} - \sum_{i=1}^q \theta_i a_{h+1-i}\\
+      \text{预测误差}\quad &amp; e_h(1) = r_{h+1} - \hat r_h(1) = a_{h+1}\\
+      \text{预测误差的方差} \quad &amp; Var(e_h(1)) = \sigma_a^2
+   \end{align}
+\]</div>
+</details>
+<details class="note" open="open">
+<summary>向前<span class="arithmatex">\(l\)</span>步预测</summary>
+<p>直接使用ARMA原模型会非常麻烦，因而这里以MA形式（即上文所述的第三形式）来预测，即式(11)：</p>
+<div class="arithmatex">\[
+\begin{align}
+   \text{真值序列} \quad &amp; r_{h+l} = \mu + a_{h+l} + \phi_1 a_{h+l-1} + \phi_2 a_{h+l-2} + ...\\
+   \text{预测均值} \quad &amp; \hat r_h(l) = \mu + \phi_l a_h + \phi_{l+1} a_{h-1} + ...\\
+   \text{预测误差} \quad &amp; e_h(l) = r_{h+l} - \hat r_h(l) = a_{h+l} + \phi_1 a_{h+l-1} + ... + \phi_{l-1} a_{h+1}\\
+   \text{预测误差的方差} \quad &amp; Var(e_h(l)) = (1+\phi_1^2 + ... + \phi_{l-1}^2) \sigma_a^2
+\end{align}
+\]</div>
+<p>同样，在这里也能看到，由于阶数的不断放大，<span class="arithmatex">\(\hat r_h(l)\)</span>也呈现出均值回转的现象，即<span class="arithmatex">\(\phi_i\)</span>随着<span class="arithmatex">\(i\)</span>的增大而趋近于0，<span class="arithmatex">\(\hat r_h(l)\)</span>倾向于<span class="arithmatex">\(\mu\)</span>。</p>
+</details>
+<h2 id="26">2.6 单位根非平稳序列</h2>
+<p>我们要求的宽平稳是一个一阶、二阶矩不随时间变化的过程，但是，有的分布的一阶矩不随时间变化而二阶矩随时间变化，这种情况被称作<em>单位根非平稳序列</em>。如：</p>
+<ul>
+<li>随机游走模型(random walk)。</li>
+</ul>
+<details class="note">
+<summary>随机游走模型</summary>
+<p>若时间序列<span class="arithmatex">\(\{P_t\}\)</span>满足:</p>
+<div class="arithmatex">\[
+P_t = P_{t-1} + e_t, \quad e_t \sim N(0,\sigma_a^2)
+\]</div>
+<p>则称作随机游走模型。显然，相比于正常的AR(1)，随机游走模型的<span class="arithmatex">\(\phi_1 = 1 \not &lt; 1\)</span>，因此随机游走模型并非弱平稳序列。对于各类AR模型，如果模型中存在一个等于1的<span class="arithmatex">\(\phi\)</span>，则称这个AR模型中存在一个单位根(unit root)。存在单位根的非平稳序列，如果进行AR模型的估计，则无法出现均值回归现象，从而无法通过AR模型预测，例如我们进行向前一步预测，已知信息集<span class="arithmatex">\(\{\mathcal{F}_h\}\)</span>，则有：</p>
+<div class="arithmatex">\[
+\hat P_h(1) = E(P_{h+1} \mid \mathcal{F}_h) = P_{h}
+\]</div>
+<p>进一步做两步预测，则有：</p>
+<div class="arithmatex">\[
+\hat P_h(2) = E(P_{h+1} + a_{h+2} \mid \mathcal{F}_h) = P_h
+\]</div>
+<p>继续，对任意的步长<span class="arithmatex">\(l\)</span>，都有<span class="arithmatex">\(\hat P_h(l) = P_h\)</span>，而没有出现任何均值回归的迹象，这种情形的经济意义在于，任何过去扰动<span class="arithmatex">\(a_{t-i}\)</span>对<span class="arithmatex">\(P_t\)</span>的影响都不随时间变化而衰减，即序列具有强烈的记忆性，ACF曲线是常值为1。</p>
+</details>
+<ul>
+<li>带漂移项(drift)的随机游走模型。</li>
+</ul>
+<details class="note">
+<summary>加入漂移的随机游走</summary>
+<p>模型的表现形式为：</p>
+<div class="arithmatex">\[
+P_t = \mu + P_{t-1} + e_t, \quad e_t \sim N(0,\sigma_a^2)
+\]</div>
+<p>其中漂移项<span class="arithmatex">\(\mu = \ln(P_t) - \ln (P_{t-1})\)</span>，即对数收益率，表现了对数价格<span class="arithmatex">\(P_t\)</span>的时间趋势。漂移项可能是平稳的，因为它代表了收益率的差分形式，但整个随机过程仍然不是平稳的，我们试着来做预测，设初始价格为<span class="arithmatex">\(P_0\)</span>：</p>
+<div class="arithmatex">\[
+P_1 = \mu + P_0 + e_1, \quad P_2 = \mu + P_1 + e_2 = 2\mu + P_0 +e_1 + e_2
+\]</div>
+<p>随着时间的延长，<span class="arithmatex">\(P_t\)</span>的表达式为：</p>
+<div class="arithmatex">\[
+P_t = t \mu + P_0 + e_t + e_{t-1} + ... + e_1
+\]</div>
+<p>表明这个对数价格是由时间趋势<span class="arithmatex">\(t\mu\)</span>和随机游走过程<span class="arithmatex">\(\sum_{i=1}^t a_i\)</span>组成，对数价格的方差就可以得到计算：</p>
+<div class="arithmatex">\[
+\operatorname{Var}(P_t) = \operatorname{Var}(t\mu + P_0) + \operatorname{Var}(\sum_{i=1}^t e_i) = t\sigma_e^2
+\]</div>
+<p>由此知对数价格的方差（二阶矩信息）与<span class="arithmatex">\(t\)</span>相关，因而对数价格序列是非平稳的。对于那些平稳的序列，如AR(p),MA(q),ARMA(p,q)来说，模型的系数、常数项都是参数的函数，例如AR(1)的均值为<span class="arithmatex">\(\phi_0 / (1-\phi_1)\)</span>，但是对于带漂移的随机游走过程，其系数、均值是<span class="arithmatex">\(t\)</span>的斜率[^12]。</p>
+<blockquote>
+<p>如对数价格曲线，其取值基本上随时间波动，而漂移项<span class="arithmatex">\(\mu\)</span>决定了对数价格曲线随时间变化的情况，而随着时间不断延伸，更多的波动项加入了模型当中，从而使得序列的波动性越来越大，越来越难以预测。</p>
+</blockquote>
+<p>我们宁可允许存在趋势项，<strong>也不希望出现二阶矩随时间变化的情况</strong>，因此我们找到了一类新的时间序列。</p>
+</details>
+<h3 id="_10">带趋势项的时间序列</h3>
+<p>其表现形式为：</p>
+<div class="arithmatex">\[
+P_t = \beta_0 + \beta_1 t + r_t
+\]</div>
+<p>其中<span class="arithmatex">\(\{r_t\}\)</span>为一个平稳的时间序列。拆开<span class="arithmatex">\(r_t\)</span>，可以将这个时间序列表示为一个MA和一个趋势项的结合：</p>
+<div class="arithmatex">\[
+P_t = \beta_0 + \beta_1 t + \sum_{i} \phi_i e_{t-i}
+\]</div>
+<p>因为<span class="arithmatex">\(\{r_t\}\)</span>是平稳的，所以<span class="arithmatex">\(\mid \phi_i \mid &lt; 1\)</span>，则较远的扰动项对当前序列的影响仍然会随着时间逐渐衰减，从而可以进行时间序列分析。</p>
+<ul>
+<li><strong>期望性质</strong>。与带漂移项的随机游走模型类似：</li>
+</ul>
+<div class="arithmatex">\[
+\begin{aligned}
+         &amp;E(P_t) = \beta_0 + \beta_1 t + E(r_t), &amp; \text{Time series with trend}\\
+         &amp;E(P_t) = P_0 + \mu t, &amp;\text{Time series with drift}
+\end{aligned}
+\]</div>
+<p>两者差不多，都是依赖于时间<span class="arithmatex">\(t\)</span>的。</p>
+<ul>
+<li><strong>方差性质</strong>。</li>
+</ul>
+<div class="arithmatex">\[
+\begin{align}
+      &amp;\operatorname{Var}(P_t) = \operatorname{Var}(r_t),  &amp; \text{Time series with trend}\\
+      &amp;\operatorname{Var}(P_t) = t\sigma_e^2,&amp;\text{Time series with drift}
+\end{align}
+\]</div>
+<p>由此看出，相比带漂移项的随机游走模型，带有趋势项的时间序列模型的方差不随时间改变，因此该模型可以通过简单回归分析而将时间趋势去掉，从而转化为平稳的序列。</p>
+<h3 id="arima">自回归求和滑动平均模型（ARIMA）</h3>
+<p>指的是ARMA模型中AR部分的某项（某些项）存在单位根的情形，即AR多项式中以1为特征根的情形（或者说，ACF曲线中某一阶的值为1）。</p>
+<details class="info" open="open">
+<summary>定义2.6 - ARIMA过程</summary>
+<p>对于一个时间序列<span class="arithmatex">\(y_t\)</span>，若经过差分变换后，得到新的序列<span class="arithmatex">\(\{c_t \mid c_t = y_t - y_{t-1}\}\)</span>，并服从一个平移可逆的ARMA(p,q)过程，则称<span class="arithmatex">\(\{y_t\}\)</span>服从ARIMA(p,1,q)过程。</p>
+<blockquote>
+<p>其中p,q仍然是原ARMA的参数，1代表通过一次差分实现了ARIMA到ARMA的变化。</p>
+</blockquote>
+</details>
+<p>为了进行ARIMA模型的预测，我们需要进行单位根检验，确认原始序列中是否存在单位根。</p>
+<h3 id="_11">单位根检验</h3>
+<p>我们需要检验资产对数价格<span class="arithmatex">\(P_t\)</span>是否服从一个随机游走过程/带漂移项的随机游走过程，如：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+    &amp;P_t = \phi_1 P_{t-1} + e_t, \quad \text{万一有单位根，也就是某个$\phi$等于1，就不好玩了}\\ 
+    &amp;P_t = \phi_0 + \phi_1 P_{t-1} + e_t
+\end{aligned}
+\]</div>
+<p>如果模型是一个带趋势项的时间序列模型，其实是无所谓的，但是如果是前面那俩，就得做点工作，所以我们要做一个单位根检验，其原假设和备择假设为：<span class="arithmatex">\(H0: \phi_1 = 1, H1: \phi_1 &lt; 1\)</span>。其思路是，计算原假设下<span class="arithmatex">\(\phi_1\)</span>最小二乘估计的<span class="arithmatex">\(t\)</span>供给量的值。对于上式的第一种情形：</p>
+<div class="arithmatex">\[
+\hat \phi_1 = \frac{\sum_{t=1}^T P_{t-1} P_t}{\sum_{t=1}^T P_{t-1}^2}, \quad \hat \sigma_e^2= \frac{1}{T-1} \sum_{t=1}^T (P_t - \hat \phi_1 P_{t-1})^2
+\]</div>
+<p>这种情况下的t-stat为：</p>
+<div class="arithmatex">\[
+t = \frac{\hat \phi_1 - 1}{\sqrt{\operatorname{Var}(\hat \phi_1)}} = \frac{\sum_{i=1}^T P_{t-1} e_t}{\hat \sigma_e^2 \sqrt{\sum_{i=1}^T P_{t-1}^2}}
+\]</div>
+<p>这个t统计量被称作Dickey-Fuller统计量，而这种单位根检验被称作Dickey-Fuller检验。而该检验过程中有一些结论：</p>
+<ul>
+<li>如果<span class="arithmatex">\(e_t\)</span>为白噪声，则二阶之外的矩信息有限；</li>
+<li>当样本观测量趋于无穷，则DF统计量渐近服从于标准布朗运动；<blockquote>
+<p>随着样本容量的扩大，<span class="arithmatex">\(e_t\)</span>渐近服从于独立同分布的正态分布。</p>
+</blockquote>
+</li>
+<li>对于第二种情况（带漂移项的随机游走过程），<span class="arithmatex">\(\phi_1 = 1\)</span>的t-stats趋于一个非标准的渐近分布；<blockquote>
+<p>至于是什么分布，不好说。</p>
+</blockquote>
+</li>
+<li>如果<span class="arithmatex">\(\phi_0 \not = 0\)</span>，则带漂移项的随机游走过程中检验<span class="arithmatex">\(\phi_1 = 1\)</span>的t-stat服从一个渐近的正态分布。</li>
+</ul>
+<p>实务中，DF检验通常使用AR(p)模型来检验序列是否存在单位根，即有：</p>
+<div class="arithmatex">\[
+X_t = C_t + \beta X_{t-1} + \sum_{i=1}^{p-1} \phi_i \Delta X_{t-i} + e_t \tag{12}
+\]</div>
+<p>其中<span class="arithmatex">\(C_t\)</span>表示时间指标<span class="arithmatex">\(t\)</span>的函数，也可以是常数；<span class="arithmatex">\(\Delta X_{t-i} = X_{t-i} - X_{t-i-1}\)</span>，即<span class="arithmatex">\(X_t\)</span>的一阶差分序列。这种情况下的原假设<span class="arithmatex">\(H0: \beta = 1\)</span>，备择假设<span class="arithmatex">\(H1: \beta &lt; 1\)</span>，并计算此时的t-stat来判断是否拒绝原假设。</p>
+<div class="arithmatex">\[
+ADF = \frac{\hat \beta -1}{\sqrt{\operatorname{Var}(\hat \beta)}}
+\]</div>
+<p>这种情形下的DF检验被称作Augmented Dickey-Fuller Unit-root Test，简称ADF检验。进一步改写式(12)：</p>
+<div class="arithmatex">\[
+\Delta X_t = C_t + \beta_c X_{t-1} + \sum_{i=1}^{p-1} \phi_i \Delta X_{t-i} + e_t
+\]</div>
+<p>其中<span class="arithmatex">\(\beta_c = \beta - 1\)</span>，那么基于上式的ADF检验就可以改为检验<span class="arithmatex">\(\beta = 0\)</span>和<span class="arithmatex">\(\beta &lt; 0\)</span>的假设检验。</p>
+<h2 id="27">2.7 考虑季节趋势的模型</h2>
+<p>对数收益率有时会呈现周期性（特别是一年、季度为周期）的变化，处理这种情况的方式为季节模型，季节性模型通常伴随着季节性差分操作：</p>
+<details class="info" open="open">
+<summary>定义2.7 - 季节性差分</summary>
+<p>对一个周期为<span class="arithmatex">\(s\)</span>的季节性价格序列<span class="arithmatex">\(y_t\)</span>，季节性差分指的是：</p>
+<div class="arithmatex">\[
+\Delta_s y_t = y_t - y_{t-s} = (1-B^s)y_t
+\]</div>
+<p>称一阶差分<span class="arithmatex">\(\Delta y_t = y_t - y_{t-1}\)</span>为正规差分。</p>
+<blockquote>
+<p>通常情况下，季节效应对应季度化的数据并设<span class="arithmatex">\(s = 4\)</span>。</p>
+</blockquote>
+</details>
+<p>对正规差分再做季节性差分：</p>
+<div class="arithmatex">\[
+\Delta_4 (\Delta X_t) = (1-B^4)\Delta X_t = \Delta X_t - \Delta X_{t-4} = (X_t - X_{t-1}) - (X_{t-4} - X_{t-5})
+\]</div>
+<p>季节性差分的任务仍然是将非平稳序列转为平稳序列，而季节性差分针对的是ACF可能存在季节性周期变化的时间序列：一类由间隔为1和间隔为<span class="arithmatex">\(s\)</span>的序列复合而成的多重季节性模型，这种模型的表达式为：</p>
+<div class="arithmatex">\[
+(1-B^s) (1-B) X_t = (1-\theta B) (1-\Theta B^s)a_t
+\]</div>
+<p>显然，左边是AR部分，而右边则是MA的形式。接下来，利用之前ARMA模型的三种形式。展开右边的MA部分，设<span class="arithmatex">\(\omega_t = (1-\theta B) (1-\Theta B^s) a_t\)</span>，则右边可以写作：</p>
+<div class="arithmatex">\[
+\omega_t = a_t - \theta a_{t-1} - \Theta a_{t-s} + \theta \Theta a_{t-s-1}
+\]</div>
+<p>显然均值为0，方差为：</p>
+<div class="arithmatex">\[
+\operatorname{Var}(\omega_t) = (1+\theta^2)(1+\Theta^2)\sigma_a^2
+\]</div>
+<p>进一步，要看自协方差：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+    \gamma_1 &amp;= \operatorname{Cov}(\omega_t, \omega_{t-1}) = E(\omega_t \omega_{t-1}) =E(-\theta a_{t-1}^2) - \theta \Theta^2 E(a_{t-s-1}^2) =  -\theta (1+\Theta^2) \sigma_a^2\\
+    \gamma_{s} &amp;= \operatorname{Cov}(\omega_t,\omega_{t-s}) = E(\omega_t \omega_{t-s}) = -\Theta(\theta^2 + 1)\sigma_a^2\\
+    \gamma_{s-1} &amp;= \operatorname{Cov}(\omega_t, \omega_{t-s+1}) =  \theta \Theta \sigma_a^2\\
+    \gamma_{s+1} &amp;= \theta \Theta \sigma_a^2\\
+    \gamma_{l} &amp;= 0, \quad \forall  l \not \in \{0,1,s-1,s,s+1\}
+\end{aligned}
+\]</div>
+<p>那么，<span class="arithmatex">\(\omega_t\)</span>的ACF可以表示为：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+    \rho_1 &amp;= \frac{\gamma_1}{\gamma_0} = \frac{-\theta(1+\Theta^2) \sigma_a^2}{(1+\theta^2)(1+\Theta^2)\sigma_a^2} = \frac{-\theta}{1+\theta^2}\\
+    \rho_s &amp;= \frac{\gamma_s}{\gamma_0} = \frac{-\Theta}{1+\Theta^2}\\
+    \rho_{s-1} &amp;= \rho_{s+1} =  \frac{\theta \Theta }{(1+\theta^2)(1+\Theta^2)} = \rho_1 \rho_s \\
+    \rho_l &amp;= 0,\quad \forall  l \not \in \{0, 1,s-1,s,s+1\}
+\end{aligned}
+\]</div>
+<p>对于一般的季节性模型，有<span class="arithmatex">\(s = 4\)</span>，则通过以上各式，我们发现在<span class="arithmatex">\(t = 1,3,4,5\)</span>处与自身相关，换句话说，自身和下一期、下周同期及其前后各一期相关。</p>
+
+
+
+
+
+
+
+  
+    
+  
+  
+    
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="最后更新">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 27, 2024</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="创建日期">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3h-2Z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 27, 2024</span>
+  </span>
+
+    
+    
+    
+  </aside>
+
+
+
+
+
+  <h2 id="__comments">评论</h2>
+  <script src="https://giscus.app/client.js"
+  data-repo="yliu-fe/yliu-fe.github.io"
+  data-repo-id="R_kgDOJUL-qg"
+  data-category="Announcements"
+  data-category-id="DIC_kwDOJUL-qs4CVpQZ"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async>
+</script>
+
+
+  <!-- Synchronize Giscus theme with palette -->
+  <script>
+    var giscus = document.querySelector("script[src*=giscus]")
+
+    /* Set palette on initial load */
+    var palette = __md_get("__palette")
+    if (palette && typeof palette.color === "object") {
+      var theme = palette.color.scheme === "slate" ? "dark" : "light"
+      giscus.setAttribute("data-theme", theme) 
+    }
+
+    /* Register event handlers after documented loaded */
+    document.addEventListener("DOMContentLoaded", function() {
+      var ref = document.querySelector("[data-md-component=palette]")
+      ref.addEventListener("change", function() {
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+          var theme = palette.color.scheme === "slate" ? "dark" : "light"
+
+          /* Instruct Giscus to change theme */
+          var frame = document.querySelector(".giscus-frame")
+          frame.contentWindow.postMessage(
+            { giscus: { setConfig: { theme } } },
+            "https://giscus.app"
+          )
+        }
+      })
+    })
+  </script>
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 Y. Liu
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/yliu-fe" target="_blank" rel="noopener" title="GitHub | yliu-fe" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["header.autohide", "navigation.tracking", "navigation.tabs", "search.highlight", "search.share", "search.suggest", "content.code.copy", "content.code.annotate", "navigation.top", "navigation.instant"], "search": "../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.081f42fc.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

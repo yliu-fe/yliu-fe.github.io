@@ -1,0 +1,3327 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="我的个人网页">
+      
+      
+        <meta name="author" content="yliu-fe">
+      
+      
+        <link rel="canonical" href="https://yliu-fe.github.io/Majors/Cross-Sectional%20Econometrics/1_OLS/">
+      
+      
+        <link rel="prev" href="../About%20cross-section%20data/">
+      
+      
+        <link rel="next" href="../../Time-Series%20Analysis/TS_index/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.24">
+    
+    
+      
+        <title>一、线性模型和最小二乘法 - Website of a Doctor Candidate</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.6543a935.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+SC:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Noto Sans SC";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="Website of a Doctor Candidate" class="md-header__button md-logo" aria-label="Website of a Doctor Candidate" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Website of a Doctor Candidate
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              一、线性模型和最小二乘法
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="orange"  aria-label="切换为夜间模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换为夜间模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="cyan"  aria-label="切换为日间模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换为日间模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="分享" aria-label="分享" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/yliu-fe/yliu-fe.github.io" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    yliu-fe
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../About/" class="md-tabs__link">
+          
+  
+  关于
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../Techs/tech_index/" class="md-tabs__link">
+          
+  
+  计算机笔记
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../Major_index/" class="md-tabs__link">
+          
+  
+  专业笔记
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../Entertainment/ett_index/" class="md-tabs__link">
+          
+  
+  消遣娱乐
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Website of a Doctor Candidate" class="md-nav__button md-logo" aria-label="Website of a Doctor Candidate" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Website of a Doctor Candidate
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/yliu-fe/yliu-fe.github.io" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    yliu-fe
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    关于
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            关于
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../About/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Welcome to my Blog
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../About/cv/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Curriculum Vitae
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    计算机笔记
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            计算机笔记
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Techs/tech_index/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    常用计算机技术笔记索引
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Matlab笔记
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Matlab笔记
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Techs/Notes%20for%20Matlab/general/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    引导页
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    MkDocs疑难杂症研究
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            MkDocs疑难杂症研究
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Techs/Notes%20for%20Mkdocs/MathJax%E7%9A%84%E5%BC%95%E5%85%A5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    引入MathJax
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Techs/Notes%20for%20Mkdocs/Github%20pages%20note/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    如何联动Github Pages
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Techs/Notes%20for%20Mkdocs/PyMdown_blocks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    如何使用PyMdown blocks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Techs/Notes%20for%20Mkdocs/Settings_Code_Blocks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    如何配置代码块
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Techs/Notes%20for%20Mkdocs/Comment%20with%20Giscus/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    利用Giscus配置评论区
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    LaTeX杂症研究
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            LaTeX杂症研究
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Techs/Notes%20for%20LaTeX/Notes%20for%20Table/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    利用threeparttable包实现表格的note
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Python掉坑笔记
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            Python掉坑笔记
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_1" id="__nav_2_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    基本语法
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            基本语法
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Techs/Notes%20for%20Python/Basic%20Syntax/args_kwargs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    形参"args"和"kwargs"
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_2" id="__nav_2_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    各类包
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            各类包
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Techs/Notes%20for%20Python/Packages/numpy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    numpy专题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_3" id="__nav_2_5_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    CS61A
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            CS61A
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Techs/Notes%20for%20Python/CS61A/61a_index/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    引导页：希望这不是一个笑话
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Techs/Notes%20for%20Python/CS61A/recursive/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    高阶函数、递归和hw2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    专业笔记
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            专业笔记
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Major_index/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    我的专业相关领域文档
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    截面数据计量经济学
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            截面数据计量经济学
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../About%20cross-section%20data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    引导页：截面计量
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    一、线性模型和最小二乘法
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    一、线性模型和最小二乘法
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      基本假设
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="基本假设">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1 线性模型假设
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.2 严格外生性假设
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.3 没有完美的多重共线性
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      最小二乘法估计
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ols" class="md-nav__link">
+    <span class="md-ellipsis">
+      OLS的性质及假设检验
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OLS的性质及假设检验">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 无偏性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 条件同方差假设
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-gauss-markov" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3 Gauss-Markov定理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.4 正态分布假设
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35-1t" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.5 假设检验1：单一变量显著性检验（T检验）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#36-2f" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.6 假设检验2：线性关系的假设检验（F分布）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#37-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.7 假设检验3：非线性关系的假设检验
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#38" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.8 置信区间和显著性水平
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#39-mle" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.9 MLE
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#310-olsmle" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.10 OLS和MLE的大样本有效性
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    时间序列计量经济学
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            时间序列计量经济学
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Time-Series%20Analysis/TS_index/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    引导页：时间序列计量经济学
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Time-Series%20Analysis/1_Background/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    一、一点预备内容
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Time-Series%20Analysis/2_Basic%20TimeSeries/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    二、基本时间序列模型
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Time-Series%20Analysis/3_Conditional%20Heteroscedasticity/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    三、条件异方差模型
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    非参数方法
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            非参数方法
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Non_Parametric/Gaussian_Process/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    一、高斯过程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    强化学习
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            强化学习
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Reinforcement%20Learning/RL_index/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    引导页：强化学习
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5_2" id="__nav_3_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Deepmind RL
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Deepmind RL
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Reinforcement%20Learning/Deepmind%20RL/DMRL_index/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    关于课程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Reinforcement%20Learning/Deepmind%20RL/1_Introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    一、强化学习的介绍
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5_3" id="__nav_3_5_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    伯克利CS188
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            伯克利CS188
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Reinforcement%20Learning/CS188/Introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    关于课程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5_3_2" id="__nav_3_5_3_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    作业
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_5_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            作业
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Reinforcement Learning/CS188/homework/Homework 1 Search.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    作业1 搜索
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5_3_3" id="__nav_3_5_3_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    项目
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_5_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            项目
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Reinforcement%20Learning/CS188/projects/Project%201%20Search/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    项目1 搜索
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Reinforcement%20Learning/CS188/Section1.1%20Uninformed%20Search/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.1 盲目搜索
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Reinforcement%20Learning/CS188/Section1.2%20A_star%20Search%20and%20Heuristics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.2 A*搜索和启发式搜索
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5_4" id="__nav_3_5_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    伯克利CS285
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_4">
+            <span class="md-nav__icon md-icon"></span>
+            伯克利CS285
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Reinforcement%20Learning/CS285/CS285_index/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    关于课程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Reinforcement%20Learning/CS285/2_Imitation%20Learning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    二、模仿学习
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Reinforcement%20Learning/CS285/HW1_Imitation%20Learning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    作业一、模仿学习
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    消遣娱乐
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            消遣娱乐
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Entertainment/ett_index/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    引导页？
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    拉丁语
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            拉丁语
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Entertainment/Lingua%20Latino/Latin_index/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    引导页：拉丁语
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      基本假设
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="基本假设">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1 线性模型假设
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.2 严格外生性假设
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.3 没有完美的多重共线性
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      最小二乘法估计
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ols" class="md-nav__link">
+    <span class="md-ellipsis">
+      OLS的性质及假设检验
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OLS的性质及假设检验">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 无偏性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 条件同方差假设
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-gauss-markov" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3 Gauss-Markov定理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.4 正态分布假设
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35-1t" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.5 假设检验1：单一变量显著性检验（T检验）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#36-2f" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.6 假设检验2：线性关系的假设检验（F分布）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#37-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.7 假设检验3：非线性关系的假设检验
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#38" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.8 置信区间和显著性水平
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#39-mle" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.9 MLE
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#310-olsmle" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.10 OLS和MLE的大样本有效性
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="_1">一、线性模型和最小二乘法</h1>
+<p>这一部分是初级计量经济学的起始内容。在这一部分中，我们探讨计量经济学的基本假设，并介绍最小二乘法思想及其相关的假设检验。</p>
+<div class="admonition info">
+<p class="admonition-title">“假设x”的指代</p>
+<p>考虑到下文中大量出现了“假设1”之类的指代，因此这里将提前明确各个假设的指代：</p>
+<ul>
+<li>假设1： 线性模型假设（1.1）</li>
+<li>假设2： 严格外生性假设（1.2）</li>
+<li>假设3： 无完美多重共线性假设（1.3）</li>
+<li>假设4： 条件同方差假设（3.2）</li>
+<li>假设5： 正态分布假设（3.4）</li>
+</ul>
+</div>
+<h2 id="_2">基本假设</h2>
+<p>计量经济学的前三个基本假设分别是：线性性、严格外生性、无完美多重共线性。</p>
+<h3 id="11">1.1 线性模型假设</h3>
+<p>首先是线性模型假设，传统的计量经济学认为经济模型应当服从线性关系，即：</p>
+<div class="arithmatex">\[
+y_i = \beta_1 x_{1i} + \beta_2 x_{2i} + ... + \beta_k x_{ki} + \epsilon_i
+\]</div>
+<p>其中<span class="arithmatex">\(y_i\)</span>被称作被解释变量(dependent variable)，<span class="arithmatex">\(\beta\)</span>为参数(parameter)，<span class="arithmatex">\(x_i\)</span>为解释变量（有各种称呼，比如regressor, independent variable)，<span class="arithmatex">\(\epsilon\)</span>为误差项（模型必然存在无法解释的误差）。</p>
+<blockquote>
+<p>在以后的内容中，默认<span class="arithmatex">\(x_{1i} = 1\)</span>，即截距项。另外，<span class="arithmatex">\(x_i^2\)</span>这种平方项（正幂次项），或者<span class="arithmatex">\(x_i x_j\)</span>这种交叉项，也可以被纳入线性模型中，即看作一个独立的解释变量。</p>
+</blockquote>
+<p>线性模型的基本形式就是“参数<span class="arithmatex">\(\times\)</span>解释变量”并求和。由于直接写代数式太长，可以用向量的方式来简化表示，假设有<span class="arithmatex">\(k\)</span>个参数，则令<span class="arithmatex">\(X_i = [x_{1i}, x_{2i},...,x_{ki}]^T\)</span>，<span class="arithmatex">\(\vec \beta = [\beta_1, ...,\beta_k]^T\)</span>，从而有<span class="arithmatex">\(y_i = x_i^T \vec \beta + \epsilon_i\)</span>。</p>
+<p>现假设有<span class="arithmatex">\(N\)</span>个观测值，则令<span class="arithmatex">\(Y = [y_1, y_2, ..., y_N]^T\)</span>，而令完整的样本集<span class="arithmatex">\(X = [X_1^T, X_2^T,...,X_N^T]^T\)</span> 为：</p>
+<div class="arithmatex">\[
+X = 
+    \left[ \begin{array}{cccc}
+        x_{11} &amp; x_{21} &amp; ... &amp; x_{k1}  \\
+        x_{12} &amp; x_{22} &amp; ... &amp; x_{k2} \\
+        ... &amp; ... &amp; ... &amp; ...\\
+        x_{1N} &amp; x_{2N} &amp; ... &amp; x_{kN}
+    \end{array}\right]
+\]</div>
+<p>另设<span class="arithmatex">\(\vec \epsilon = [\epsilon_1, \epsilon_2, ..., \epsilon_N]^T\)</span>，则有线性模型的基本表达形式：</p>
+<div class="arithmatex">\[
+Y = X \vec \beta + \vec \epsilon
+\]</div>
+<h3 id="12">1.2 严格外生性假设</h3>
+<p>即<span class="arithmatex">\(E[\epsilon_i | X] = 0\)</span>。<strong>给定观测值<span class="arithmatex">\(X\)</span>时，误差项的条件期望为0。</strong>这与期望迭代法则（Law of iterated expectations，LIE)有关。</p>
+<p>给定两个随机变量<span class="arithmatex">\(u,v\)</span>并知其联合密度函数<span class="arithmatex">\(f(u,v)\)</span>，求其边际密度函数，例如<span class="arithmatex">\(u\)</span>的边际密度函数为<span class="arithmatex">\(f(u) = \int f(u,v) dv\)</span>；而条件密度函数则需要利用贝叶斯公式：<span class="arithmatex">\(f(u|v = a) = \frac{f(u,v = a)}{f(v = a)}\)</span>，那么就可以讨论条件期望和期望迭代法则了。</p>
+<p><strong>期望迭代法则：</strong> <span class="arithmatex">\(E_v[E(u|v)] = E(u)\)</span>。<em>即对于所有的<span class="arithmatex">\(v\)</span>取值情况下，<span class="arithmatex">\(E(u|v)\)</span>的期望是<span class="arithmatex">\(E(u)\)</span>。</em></p>
+<blockquote>
+<p>期望迭代原则经常会用在宏观经济学的动态均衡模型中，利用T期信息集来求解之后的消费决策，如知信息集<span class="arithmatex">\(I_t\)</span>时求解t+2期的消费决策，<span class="arithmatex">\(E_t[C_{t+2}] = E[C_{t+2}|I_t] = E_t [ E(C_{t+2} | I_{t+1})]\)</span>，另一个用途就是接下来要讲的严格外生性。</p>
+</blockquote>
+<details class="success">
+<summary>期望迭代法则的证明</summary>
+<div class="arithmatex">\[
+\begin{align}
+    E[u|v] &amp;= \int uf(u|v) du\\
+    E_v[E(u|v)] &amp;= \int (\int uf(u|v) du) f(v) dv = \int \int uf(u|v) f(v) du dv\\
+    &amp;= \int u (\int f(u,v)dv) du = \int u f(u) du = E(u)
+    \end{align}
+\]</div>
+</details>
+<p>接下来继续讨论严格外生性问题，由于知道了全部观测值<span class="arithmatex">\(X\)</span>，就可以将这些常数<span class="arithmatex">\(x_{ji}\)</span>乘进去：<span class="arithmatex">\(E[\epsilon_i x_{ji}] = 0\)</span>，从而有<span class="arithmatex">\(E_x [ E(\epsilon_i x_{ji} | x)] = 0\)</span>，从而有<span class="arithmatex">\(E[\epsilon_i x_{ji}] = 0\)</span>，而如果<span class="arithmatex">\(x_{1i} = 1\)</span>，那么就有<span class="arithmatex">\(E[\epsilon_i] = 0\)</span>。而<span class="arithmatex">\(cov(x_{ji}, \epsilon_i) = E[x_{ji} \epsilon_i] - E(x_{ji})E(\epsilon_i) = 0\)</span>，从而有<span class="arithmatex">\(x_{ji}\)</span>与<span class="arithmatex">\(\epsilon_i\)</span>正交（独立）。</p>
+<p>有了以上两个基本假设，模型（及其参数的估计值）便有了意义，即：</p>
+<div class="arithmatex">\[
+E[y_i|X] = \sum_{j=1}^k \beta_j x_{ji}
+\]</div>
+<p>或者说偏导数<span class="arithmatex">\(\partial E(y_i|X)/\partial x_{ji} = \beta_j\)</span>。其经济学意义在于，<em>平均而言（因为式子里是期望），在其他的变量不变的情况下（偏导数的意义），如果<span class="arithmatex">\(x_{ji}\)</span>增大了<span class="arithmatex">\(\Delta x_{ji}\)</span>个单位，那么<span class="arithmatex">\(y_i\)</span>将会提高<span class="arithmatex">\(\beta_j \Delta x_{ji}\)</span>。</em></p>
+<h3 id="13">1.3 没有完美的多重共线性</h3>
+<p>假设3的严格表达应该是：<em>矩阵<span class="arithmatex">\(X\)</span>（其规模为<span class="arithmatex">\(n\times k\)</span>）的秩<span class="arithmatex">\(rank(X) = k\)</span></em>。</p>
+<blockquote>
+<p>严格来讲，这句话是with probability 1，而不是绝对的。</p>
+</blockquote>
+<p>此外，（1）这句话还暗含了<span class="arithmatex">\(n \geq k\)</span>，即观测点数应大于等于变量数的原则（否则会有无数组解）；（2）观测值的任意一列<strong>不能被其他列线性表出</strong>（各变量不能具有完全的多重共线性，否则模型无法估计这些变量的参数，即变量“不可被识别”。）。</p>
+<p>从线性代数的角度，如果存在完美的多重共线性，则<span class="arithmatex">\(rank(X) \not = k\)</span>，因而有<span class="arithmatex">\(rank(X^T X) &lt; k\)</span>，<span class="arithmatex">\(X^T X\)</span>这个正方形矩阵不可逆了，从而无法估计参数。</p>
+<blockquote>
+<p>参照<span class="arithmatex">\(rank(X^T X) = rank(XX^T) = rank(X)\)</span></p>
+</blockquote>
+<p>此外，受限于计算机浮点数精度的限制，可能<span class="arithmatex">\(X^T X\)</span>的行列式趋近于0，导致精度不够，或者其逆矩阵的行列式趋近于无穷，出现无法估计的情况。当这个行列式趋近于0时，其实就表明这个模型中存在比较严重的多重共线性了（如果等于零，则必然是存在完美的多重共线性），我们可以通过对<span class="arithmatex">\(X^TX\)</span>做特征值分解来考察这个模型，如果特征值趋近于0，则就可以知道<span class="arithmatex">\(X^TX\)</span>行列式趋近于0。或者，多重共线性可以通过VIF指标监测，若<span class="arithmatex">\(VIF &gt; 10\)</span>，则可以认为多重共线性存在。至于如何解决多重共线性，筛选变量即可。</p>
+<h2 id="_3">最小二乘法估计</h2>
+<div class="admonition warning">
+<p class="admonition-title">变量上边加hat</p>
+<p>从现在开始，带着帽子头的变量全都是估计值。由于恁Mathjax不支持 <code>\bm</code>也不支持 <code>\boldsymbol</code>，我就只能在帽子下面加箭头，太傻了。为了省一省我的工作量，除了下面的式子，后面带帽子的变量就不再直接区分标量和向量了，不过我想应该比较好分开。</p>
+</div>
+<p>目标：最小化估出模型的残差平方和，即：</p>
+<div class="arithmatex">\[
+\hat{\vec{\beta}} = \operatorname{arg}\min_{\beta} \sum_{i=1}^N \epsilon_i^2 = \vec \epsilon^T \epsilon = (Y - X \vec \beta)^T (Y - X \vec \beta)
+\]</div>
+<p>从而，我们的目标是求出<span class="arithmatex">\(\hat{\vec{\beta}}\)</span>，使得：</p>
+<div class="arithmatex">\[
+\frac{\partial (Y - X \vec \beta)^T (Y - X \vec \beta)}{\partial \vec{\beta}} = 0
+\]</div>
+<blockquote>
+<p>这里要用到的线性代数求导法则：<span class="arithmatex">\(\frac{\partial \alpha^T \beta}{\partial \beta} = \alpha\)</span>, <span class="arithmatex">\(\frac{\partial \beta^T \alpha}{\partial \beta} = \alpha\)</span>, <span class="arithmatex">\(\frac{\partial (\beta^T \alpha \beta)}{\partial \beta} = 2 \alpha \beta\)</span>。这里的<span class="arithmatex">\((\alpha, \beta)\)</span>都是向量。</p>
+</blockquote>
+<p>对上式左侧展开：</p>
+<div class="arithmatex">\[
+\begin{align}
+    \frac{\partial (Y - X \vec \beta)^T (Y - X \vec \beta)}{\partial \vec \beta} &amp; = \frac{\partial Y^T Y}{\partial \beta} - \frac{\partial Y^T X\beta}{\partial \beta} - \frac{\partial \beta^T X^T Y}{\partial \beta} + \frac{\partial \beta^T X^T X\beta}{\partial \beta}\\
+    &amp;= 0-X^T Y - X^T Y + 2X^TX \hat \beta
+\end{align}
+\]</div>
+<p>从而有:</p>
+<div class="arithmatex">\[
+\hat \beta = (X^T X)^{-1} X^T Y
+\]</div>
+<p>得到<span class="arithmatex">\(\hat \beta\)</span>后，将其带回<span class="arithmatex">\(y = x\beta + \epsilon\)</span>，即可求得<span class="arithmatex">\(\hat y = x \hat \beta\)</span>，<span class="arithmatex">\(\hat y\)</span>被称作预测值，而预测值与真实值的差<span class="arithmatex">\(\hat \epsilon = y - \hat y\)</span>被称作残差(residuals)。</p>
+<details class="note" open="open">
+<summary><span class="arithmatex">\(X^T X\)</span>的性质</summary>
+<p><span class="arithmatex">\(X^T X\)</span>具有一些性质：</p>
+<ol>
+<li>
+<p><span class="arithmatex">\(X^T X\)</span>是对称矩阵： <span class="arithmatex">\((X^TX)^T = X^TX\)</span>；</p>
+</li>
+<li>
+<p><span class="arithmatex">\(X^T X\)</span>是正定矩阵（特征值均不小于0），对于任何<span class="arithmatex">\(k\)</span>阶向量<span class="arithmatex">\(c\)</span>，有<span class="arithmatex">\(c^T (X^T X)c \geq 0\)</span>，而且如果<span class="arithmatex">\(\vec c \not = \vec 0\)</span>，则前面的二次型必然大于0（即严格正定）；</p>
+</li>
+<li>
+<p><span class="arithmatex">\(X^T X\)</span>是一个<span class="arithmatex">\(k\times k\)</span>的方阵。</p>
+</li>
+</ol>
+</details>
+<details class="note">
+<summary>OLS的特殊情形</summary>
+<p>(1) 过原点回归，即截距项为0。为简单，这里设<span class="arithmatex">\(k = 1\)</span>，有<span class="arithmatex">\(y_i = \beta_i x_{1i} + \epsilon_i\)</span>，从而有<span class="arithmatex">\(X = [x_{11},...,x_{1N}]^T\)</span>，<span class="arithmatex">\(Y = [y_1,...,y_N]^T\)</span>，那么就可以得出:</p>
+<div class="arithmatex">\[
+\hat \beta = (X^TX)^{-1}X^TY = \frac{\sum_{i=1}^N x_{1i}Y_i}{\sum_{i=1}^N x_{1i}^2}
+\]</div>
+<p>进一步，如果<span class="arithmatex">\(x_{1i}\)</span> = 1，则有<span class="arithmatex">\(y_i = \beta_i + \epsilon_i\)</span>，此时<span class="arithmatex">\(\beta = \bar y\)</span>。</p>
+<p>(2) k = 2，且有截距项。则<span class="arithmatex">\(y_i = \beta_1 + \beta_2 x_{2i} + \epsilon_i\)</span>，代入OLS系数表达式，就有著名的线性规划系数方程：</p>
+<div class="arithmatex">\[
+\begin{align}
+\hat \beta_2 &amp;= \frac{\sum_{i=1}^N (x_{2i} - \bar x_2) (y_i - \bar y)}{\sum_{i=1}^N (x_{2i} - \bar x_2)^2}\\
+\hat \beta_1 &amp;= \bar y - \hat \beta_2 \bar x_2
+\end{align}
+\]</div>
+</details>
+<p>将视线转向残差，可以得到残差的几项性质：</p>
+<p><strong>性质1</strong>： <span class="arithmatex">\(X^T \hat \epsilon = 0\)</span></p>
+<details class="success">
+<summary>残差性质1证明</summary>
+<div class="arithmatex">\[
+\begin{align}
+X^T \hat \epsilon &amp;= X^T(Y - \hat Y) = X^T Y - X^T \hat Y\\
+&amp;=X^T Y - X^T X \hat \beta = X^T Y - (X^TX) (X^TX)^{-1} X^TY\\
+&amp;= X^TY - X^TY = 0
+\end{align}
+\]</div>
+</details>
+<p>由于不存在完美的多重共线性，所有的<span class="arithmatex">\(X\)</span>中各个向量在多维空间中形成了一个超平面，而原始的<span class="arithmatex">\(Y\)</span>亦是多维空间中的一个向量，二者并不一定共面，<span class="arithmatex">\(Y\)</span>在超平面上的投影即为<span class="arithmatex">\(\hat Y\)</span>，而剔除掉这个投影向量后，剩下的那部分（即残差）是垂直于超平面的，这也就是性质1的几何解释。而这个投影对应的投影矩阵(Projection Matrix)为<span class="arithmatex">\(P = X(X^TX)^{-1}X^T\)</span>，这是一个<span class="arithmatex">\(N \times N\)</span>的方阵。而再引入一个Annihilator Matrix <span class="arithmatex">\(M = I - P\)</span>，其中I是N阶单位阵。</p>
+<blockquote>
+<p><span class="arithmatex">\(PY = \hat Y\)</span>，<span class="arithmatex">\(\hat Y\)</span>即为<span class="arithmatex">\(Y\)</span>的投影，而P即为投影矩阵。</p>
+<p>"Annihilator"在数学中有三种译法，第一种叫“零化子”，常用于环论和泛函分析；第二种译作“消灭矩阵”，即此处所指Annihilator Matrix，用于回归分析；第三种用于解决非齐次常微分方程的“吸纳法”（Annihilator Method）。</p>
+</blockquote>
+<details class="note" open="open">
+<summary>投影矩阵和Annihilator矩阵的性质</summary>
+<p>（1）<span class="arithmatex">\(P\)</span>和<span class="arithmatex">\(M\)</span>都是方阵和对称矩阵。</p>
+<p>（2）<span class="arithmatex">\(P\)</span>和<span class="arithmatex">\(M\)</span>都是幂等矩阵(idempotent matrix)。 即<span class="arithmatex">\(P^2 = P\)</span>,<span class="arithmatex">\(M^2 = M\)</span>，不难证明。</p>
+<p>（3）<span class="arithmatex">\(PX = X\)</span>, <span class="arithmatex">\(MX = 0\)</span>，不难证明。</p>
+</details>
+<h2 id="ols">OLS的性质及假设检验</h2>
+<p>在有限样本下，OLS具有三个性质：无偏性(unbiased)、有效性(efficient)、一致性(consistency)。我们首先推导无偏性，而其他两个性质需要更强的假设，因此我们需要先讨论一些数学结论、补充假设。此外，这一节还会介绍一些假设检验的内容，和假设检验对应的置信区间等性质，然后讨论有效性。一致性属于大样本范畴下的性质，将在其他单元讨论。</p>
+<h3 id="31">3.1 无偏性</h3>
+<p>无偏性即<span class="arithmatex">\(E[\hat \beta|X] = \beta\)</span>，即基于样本估计出来的参数估计值是无偏的。仅依据基本假设1-3，即可证明：</p>
+<details class="success">
+<summary>无偏性的证明</summary>
+<div class="arithmatex">\[
+\begin{align}
+    \hat \beta &amp;= (X^TX)^{-1}X^TY = (X^TX)^{-1}X^T(X\beta + \epsilon)\\
+    &amp;= \beta + (X^TX)^{-1}X^T\epsilon\\
+    E(\hat \beta|X) &amp;= E(\beta|X) + E[(X^TX)^{-1}X^T\epsilon|X]\\
+    &amp;=\beta + (X^TX)^{-1}X^T E(\epsilon|X) = \beta
+\end{align}
+\]</div>
+</details>
+<p>而在讨论有效性和一致性时，需要考虑扰动项的分布问题，需要补充两个额外的假设：条件同方差假设、正态分布假设。</p>
+<h3 id="32">3.2 条件同方差假设</h3>
+<p>条件同方差假设(conditional homoscedasticity)也可以被称作spherical error variance（球形方差），由于在直角坐标系中每个变量的方差图象都是一个圆。其定义为：</p>
+<p><strong>假设4（条件同方差）</strong>：<span class="arithmatex">\(E[\epsilon_i^2|X] = \sigma^2\)</span>，而对于交叉项，有<span class="arithmatex">\(E[\epsilon_i \epsilon_j|X] = 0, i \not = j\)</span>。</p>
+<p>现在先讨论一下向量的方差、协方差问题。如果<span class="arithmatex">\(y\)</span>是一个列向量，那么默认<span class="arithmatex">\(Var(y) = E\{[y - E(y)][y - E(y)]^T\}\)</span>，这是一个<span class="arithmatex">\(n \times n\)</span>的矩阵，如果写开，就是：</p>
+<div class="arithmatex">\[
+\begin{equation}
+    Var(y) = \left[\begin{array}{ccc}
+        E[(y_1 - E(y_1))^2] &amp; E[(y_1 - E(y_1)) (y_2 - E(y_2)] &amp;... \\
+        E[(y_2 - E(y_2) (y_1 - E(y_1))] &amp; E[(y_2 - E(y_2))^2] &amp; ...\\
+        ... &amp; ... &amp; ...
+    \end{array} \right] = \left[\begin{array}{ccc}
+        Var(y_1) &amp; Cov(y_1,y_2)&amp;... \\
+        Cov(y_2,y_1) &amp; Var(y_2) &amp; ...\\
+        ...&amp;...&amp;...
+    \end{array}\right]
+\end{equation}
+\]</div>
+<p>即向量<span class="arithmatex">\(y\)</span>的方差协方差矩阵。对于向量<span class="arithmatex">\(Ay\)</span>(<span class="arithmatex">\(A\)</span>是一个矩阵)的方差，则有：</p>
+<div class="arithmatex">\[
+Var(Ay) = E[(Ay - E(Ay))(Ay  -E(Ay)^T] = AVar(y)A^T
+\]</div>
+<p>如果<span class="arithmatex">\(w,y\)</span>是两个向量，那么有：</p>
+<div class="arithmatex">\[
+Cov(w,y) = E[(w - E(w)) (y - E(y))^T]
+\]</div>
+<p>但要注意的是<span class="arithmatex">\(Cov(y,w) \not = Cov(w,y)\)</span>，如果说是两个随机变量的协方差，反过来是一样的。但是这里是两个由若干随机变量组成的向量，其维度可能不同，计算时要转置的矩阵不一样，因而不能调换位置。而对于矩阵<span class="arithmatex">\(A,B\)</span>，有<span class="arithmatex">\(Cov(Aw, By) = A Cov(w,y) B^T\)</span>。</p>
+<p>那么由以上四个基本假设，可以求出<span class="arithmatex">\(Var(\hat \beta| X) = \sigma^2 (X^TX)^{-1}\)</span>，下面给出证明：</p>
+<details class="success">
+<summary>OLS估计量条件方差性质的证明</summary>
+<div class="arithmatex">\[
+\hat \beta = (X^TX)^{-1} X^TY = \beta + (X^TX)^{-1}X^T\epsilon
+\]</div>
+<p>令<span class="arithmatex">\(A = (X^TX)^{-1}X^T\)</span>，则有：</p>
+<div class="arithmatex">\[
+\begin{align}
+    Var(\hat \beta|X) &amp;= Var[(X^TX)^{-1}X^T\epsilon|X] = Var(A\epsilon|X) = AVar(\epsilon|X)A^T\\
+    \text{由假设4，}Var(\epsilon|X) &amp;= \sigma^2\\
+    \text{因而有}Var(A\epsilon|X) &amp;= \sigma^2 AA^T = \sigma^2(X^TX)^{-1}
+\end{align}
+\]</div>
+<p>通过假设4，定义一个新的参数<span class="arithmatex">\(\sigma^2\)</span>，即误差项方差，而有其估计量：</p>
+<div class="arithmatex">\[
+\hat \sigma^2 = \frac{1}{N-k} \sum_{i=1}^N \hat \epsilon_i^2
+\]</div>
+<p>系数采用<span class="arithmatex">\(N-k\)</span>，使得这个估计值是无偏的，同时<span class="arithmatex">\(N-k\)</span>也被称作自由度。由假设1-4，可以证明这是无偏的估计(这里会用到前面的两个投影矩阵<span class="arithmatex">\(P\)</span>和<span class="arithmatex">\(M\)</span>)：</p>
+<div class="arithmatex">\[
+\begin{align}
+    \sum_{i=1}^N \hat \epsilon_i^2 &amp;= \hat \epsilon ^T \hat \epsilon = (MY)^T(MY)\\
+    &amp;=[M(X\beta + \epsilon)]^T [M(X\beta + \epsilon)] = \epsilon^T M^T M \epsilon\\
+    &amp;= \epsilon^T M \epsilon \text{（这里用到了M的幂等性和对称性）}
+\end{align}
+\]</div>
+<p>因而，有:</p>
+<div class="arithmatex">\[
+\begin{align}
+    E[\sum_{i=1}^N \hat \epsilon_i^2|X] &amp;= E[\epsilon^T M \epsilon|X] = E[\sum_{i=1}^N \sum_{j=1}^N m_{ij} \epsilon_i \epsilon_j|X]\\
+    \text{由假设4}&amp;=E[\sum_{i=1}^N m_{ii} \sigma^2|X] = (\sum_{i = 1}^N m_{ii}) \sigma^2 = tr(M) \sigma^2 \\
+    &amp;= tr(I_N - P) \sigma^2 = [tr(I_N) - tr(P)]\sigma^2 = (N - tr(P))\sigma^2
+\end{align}
+\]</div>
+<p>其中<span class="arithmatex">\(tr(\cdot)\)</span>表示矩阵的迹（trace）运算，矩阵的迹有以下运算：<span class="arithmatex">\(tr(AB) = tr(BA)\)</span>，而<span class="arithmatex">\(P = X(X^TX)^{-1}X^T\)</span>，从而有：</p>
+<div class="arithmatex">\[
+tr(P) = tr(X(X^TX)^{-1}X^T) = tr(X^TX (X^TX)^{-1}) = tr(I_k) = k
+\]</div>
+<p>从而有<span class="arithmatex">\(E[\sum_{i=1}^N \hat \epsilon_i^2|X] = (N-k)\sigma^2\)</span>，或者<span class="arithmatex">\(E[\hat \sigma^2|X] = \sigma^2\)</span>，得证。同时，这里就是自由度<span class="arithmatex">\(N-k\)</span>的来源。</p>
+</details>
+<h3 id="33-gauss-markov">3.3 Gauss-Markov定理</h3>
+<p>这里其实是BLUE的来源。</p>
+<blockquote>
+<p>BLUE即best linear unbiased estimator，最优线性无偏估计量。</p>
+</blockquote>
+<p>首先，OLS将系数向量估计为<span class="arithmatex">\(\hat \beta = (X^TX)^{-1}X^TY\)</span>，如果将<span class="arithmatex">\(A = (X^TX)^{-1}X^T\)</span>，则<span class="arithmatex">\(\hat \beta = AY\)</span>，因而<span class="arithmatex">\(\hat \beta\)</span>是线性的估计量；其次，而如果有<span class="arithmatex">\(E(\hat \beta) = \beta\)</span>，从而达到了无偏；最后，而如果对于任意的估计量<span class="arithmatex">\(\tilde \beta = Cy\)</span>，有<span class="arithmatex">\(Var(\tilde \beta|X) \geq Var(\hat \beta|X)\)</span>，则<span class="arithmatex">\(\hat \beta\)</span>就是最优的，因而<span class="arithmatex">\(\hat \beta\)</span>即为BLUE。</p>
+<p>而Gauss-Markov定理的内容就是，<em>基于假设1-4，可以证明OLS估计量是BLUE。</em>下面给出证明：</p>
+<details class="success">
+<summary>Gauss-Markov定理的证明</summary>
+<p>(上面那段话的前两部分，已经证明了其线性性和无偏性，接下来只需要证明其“best”，即具有最小的条件方差。)</p>
+<p>设<span class="arithmatex">\(D \equiv C-A\)</span>，则<span class="arithmatex">\(\tilde \beta = (D+A)Y = DY + \hat \beta\)</span>，进一步有：</p>
+<div class="arithmatex">\[
+\begin{align}
+    \tilde \beta &amp;= (D+A)Y = DY + \hat \beta = DX\beta + D\epsilon + \hat \beta\\
+    \beta &amp;= E(\tilde \beta|X) = DX\beta + DE(\epsilon|X) + E(\hat \beta|X)= DX\beta + \beta\\
+    \text{因而有：}DX &amp;= 0
+\end{align}
+\]</div>
+<p>因而有<span class="arithmatex">\(\tilde \beta = D\epsilon + \hat \beta\)</span>，进而有<span class="arithmatex">\(\tilde \beta -\beta = D\epsilon + \hat \beta - \beta = (D+A)\epsilon\)</span>，故有：</p>
+<div class="arithmatex">\[
+\begin{align}
+    Var(\tilde \beta|X) &amp;= Var(\tilde \beta - \beta|X) = Var[(D+A)\epsilon|X] = (D+A) \sigma^2 (D+A)^T \\
+    &amp;= \sigma^2 (D+A)(D+A)^T = \sigma^2 (DD^T + AD^T + DA^T + AA^T)
+\end{align}
+\]</div>
+<p>其中<span class="arithmatex">\(DA^T = DX(X^TX)^{-1} = 0\)</span>（因为<span class="arithmatex">\(DX = 0\)</span>），同理<span class="arithmatex">\(AD^T = 0\)</span>，从而有：</p>
+<div class="arithmatex">\[
+Var(\tilde \beta|X) = \sigma^2 (DD^T + AD^T + DA^T + AA^T) = \sigma^2(DD^T + AA^T) = Var(\hat \beta|X) + \sigma^2 DD^T
+\]</div>
+<p>而由于<span class="arithmatex">\(DD^T\)</span>是一个半正定矩阵，因而<span class="arithmatex">\(Var(\tilde \beta|X) \geq Var(\hat \beta|X)\)</span>，故<span class="arithmatex">\(\hat \beta\)</span>具有最小的条件方差，是最优的估计量，因而Gauss-Markov定理得证。</p>
+<p>(<span class="arithmatex">\(DD^T\)</span>这种形式的矩阵均为半正定矩阵，如果不能一眼看出，代入一个行向量<span class="arithmatex">\(c\)</span>，按半正定矩阵的条件也可以证明。)</p>
+</details>
+<h3 id="34">3.4 正态分布假设</h3>
+<p>这个假设的内容是<span class="arithmatex">\(f(\epsilon|X) \sim MN(0,\sigma^2 I_N)\)</span>。</p>
+<blockquote>
+<p>多元正态分布，均值为0向量，且服从仅有方差且方差相等的一个协方差矩阵。</p>
+</blockquote>
+<p>从一元正态分布说起，如果<span class="arithmatex">\(x \sim N(\mu, \sigma^2)\)</span>，则其概率密度函数(PDF)为：</p>
+<div class="arithmatex">\[
+f(x) = \frac{1}{\sqrt{2\pi}\sigma}exp(-\frac{(x-\mu)^2}{2\sigma^2})
+\]</div>
+<p>对应的，对于多元正态分布<span class="arithmatex">\(X \sim MN(\mu, \Sigma)\)</span>，则其PDF为：</p>
+<div class="arithmatex">\[
+f(X) = \frac{1}{(2\pi)^{N/2} \sqrt{det(\Sigma)}} exp[-\frac{1}{2} (X - \mu)^T \Sigma^{-1} (X-\mu)]
+\]</div>
+<p>接下来讨论多元正态分布的性质，设<span class="arithmatex">\(X\)</span>为<span class="arithmatex">\(N\)</span>维列向量且<span class="arithmatex">\(X \sim MN(\mu, \Sigma)\)</span>，将其分为<span class="arithmatex">\(X = [X_1, X_2]^T\)</span>，其中<span class="arithmatex">\(X_1,X_2\)</span>分别为<span class="arithmatex">\(N_1,N_2\)</span>维列向量，且有<span class="arithmatex">\(N_1 + N_2 = N\)</span>。对应的，将<span class="arithmatex">\(\mu = [\mu_1, \mu_2]^T\)</span>，二者分别为<span class="arithmatex">\(N_1\)</span>和<span class="arithmatex">\(N_2\)</span>维，而<span class="arithmatex">\(\Sigma\)</span>应分为：</p>
+<div class="arithmatex">\[
+    \Sigma = \left[\begin{array}{cc}
+        \Sigma_{11} &amp; \Sigma_{12} \\
+        \Sigma_{21} &amp; \Sigma_{22} 
+    \end{array} \right]
+\]</div>
+<p>左、上的维度数为<span class="arithmatex">\(N_1\)</span>，右、下为<span class="arithmatex">\(N_2\)</span>。由以上内容，可以推出：</p>
+<ol>
+<li>
+<p><span class="arithmatex">\(X_1\)</span>的边际密度函数<span class="arithmatex">\(f(X_1) = MN(\mu_1, \Sigma_{11})\)</span>；</p>
+</li>
+<li>
+<p>条件密度函数：<span class="arithmatex">\(f(X_1|X_2) = MN(\mu_{1|2}, \Sigma_{1|2})\)</span>。其中<span class="arithmatex">\(\mu_{1|2} = \mu_1 + \Sigma_{12}\Sigma_{22}^{-1}(X_2 - \mu_2)\)</span>；<span class="arithmatex">\(\Sigma_{1|2} = \Sigma_{11} - \Sigma_{12} \Sigma_{22}^{-1}\sigma_{12}^T\)</span>；</p>
+</li>
+<li>
+<p>如果<span class="arithmatex">\([X_1,X_2]^T \sim MN\)</span>，则<span class="arithmatex">\(X_1, X_2\)</span>均服从MN，但<strong>逆命题不成立</strong>，这个逆命题被称作Copula问题；</p>
+</li>
+<li>
+<p>如果<span class="arithmatex">\(X,Y \sim MN\)</span>，则<span class="arithmatex">\(cov(X,Y) = 0\)</span>与“<span class="arithmatex">\(X\)</span>、<span class="arithmatex">\(Y\)</span>互相独立”可以相互推出。对于其他大多数分布来说，独立性可以推出协方差为0，而不能反推。 </p>
+</li>
+</ol>
+<p>由于假设5，且<span class="arithmatex">\(Y = X\beta + \epsilon\)</span>，因而有:</p>
+<div class="arithmatex">\[
+f(Y|X) = MN(X\beta, \sigma^2 I_N)
+\]</div>
+<p>进一步，由<span class="arithmatex">\(\hat \beta = (X^TX)^{-1}X^TY = \beta + (X^TX)^{-1}X^T\epsilon\)</span>，从而可以推导<span class="arithmatex">\(\hat \beta\)</span>的概率分布：</p>
+<div class="arithmatex">\[
+\begin{align}
+    f(\hat \beta|X) &amp;= MN(\beta, (X^TX)^{-1}X^TVar(\epsilon|X) X(X^TX)^{-1}\\
+    &amp;= MN(\beta, \sigma^2 (X^TX)^{-1})
+\end{align}
+\]</div>
+<p>由此，我们已经设定了截面数据计量经济学下的所有基本假设。</p>
+<h3 id="35-1t">3.5 假设检验1：单一变量显著性检验（T检验）</h3>
+<p>第一种假设检验是对单一参数的检验，其原假设为<span class="arithmatex">\(H_0\)</span>：<span class="arithmatex">\(\beta_j = \bar \beta_j\)</span>，其中<span class="arithmatex">\(\bar \beta_j\)</span>为任意给定的值。那么由多元正态分布的性质，有：</p>
+<div class="arithmatex">\[
+f(\hat \beta_j|X) \sim N(\beta_j, \sigma^2 (X^TX)^{-1}_{jj})
+\]</div>
+<p>鉴于这个统计量是一个正态统计量，我们可以采用Z-score方式，即将上面的<span class="arithmatex">\(\hat \beta_j\)</span>标准化：</p>
+<div class="arithmatex">\[
+z_j = \frac{\hat \beta_j - \bar \beta_j}{\sqrt{\sigma^2 (X^TX)^{-1}_{jj}}}
+\]</div>
+<p>为了检验原假设<span class="arithmatex">\(H_0\)</span>，我们可以选择备择假设,<span class="arithmatex">\(H_1:\beta_{j} \not = \bar \beta_j\)</span>，或者定为<span class="arithmatex">\(H_1: \beta_j &gt; \bar \beta_j\)</span> or <span class="arithmatex">\(\beta_j  &lt; \bar \beta_j\)</span>。双边的备择假设更为常见，而单边的备择假设选择方向时通常考虑经济学意义。</p>
+<p>回到统计量本身，<span class="arithmatex">\(Z_j\)</span>服从标准正态分布，那么对于<strong>双边</strong>备择假设来说，其极端值（无论左右）都表明<span class="arithmatex">\(H_0\)</span>为假。那么，就要确定一个认为<span class="arithmatex">\(H_0\)</span>为假（拒绝原假设）的区间，是一个多大的极端值，从而引出了置信区间(significance level) <span class="arithmatex">\(\alpha\)</span>。<span class="arithmatex">\(\alpha\)</span>通常取值为1\%,5\%,10\%，如果<span class="arithmatex">\(|Z_j| &gt; Z_{\frac{\alpha}{2}}\)</span>(此处指的是Z统计量分布的<span class="arithmatex">\(\alpha/2\)</span>分位数)，则拒绝原假设(reject <span class="arithmatex">\(H_0\)</span>)，否则不拒绝（而不是"接受"！）原假设</p>
+<blockquote>
+<p>对应的，如果是单边备择假设情形，则分情况：（1）若<span class="arithmatex">\(H_1\)</span>为"<span class="arithmatex">\(\beta_j &gt; \bar \beta_j\)</span>"，则当<span class="arithmatex">\(Z_j &gt; Z_\alpha\)</span>时，拒绝原假设；（2）反之则在<span class="arithmatex">\(Z_j &lt; Z_\alpha\)</span>时拒绝原假设。假设检验具体是单边还是双边是要看要检验的假设本身的，而并不是由分布的性质来决定。</p>
+</blockquote>
+<p>进一步，因为实际上的分布情况不明，我们只能通过估计出来的<span class="arithmatex">\(\hat \sigma^2\)</span>来对应。所以，对于估计值<span class="arithmatex">\(\hat \beta\)</span>，其对应的统计量我们称为<span class="arithmatex">\(t_j\)</span>，表示为：</p>
+<div class="arithmatex">\[
+t_j = \frac{\hat \beta_j - \bar \beta_j}{\sqrt{\hat \sigma^2 (X^TX)^{-1}_{jj}}}
+\]</div>
+<p>与<span class="arithmatex">\(z_j\)</span>相比，唯一的变化在于分母上标准差为估计值。<span class="arithmatex">\(t_j\)</span>服从于学生T分布，其自由度为(N-K)，即<span class="arithmatex">\(t_j \sim t_{N-k}\)</span>。</p>
+<blockquote>
+<p>学生T分布的形式是<span class="arithmatex">\(t = \frac{MN(0,I_N)}{\sqrt{\chi^2(N-K)/ (N-K)}}\)</span>。分子为多元标准正态分布，分母主体是自由度为<span class="arithmatex">\(N-K\)</span>的卡方统计量<span class="arithmatex">\(\chi^2(N-K)\)</span>。</p>
+</blockquote>
+<p>下面给出证明：</p>
+<details class="note">
+<summary>证明t统计量服从学生t分布</summary>
+<div class="arithmatex">\[
+\begin{align}
+    t_j = \frac{\hat \beta_j - \bar \beta_j}{\sqrt{\hat \sigma^2 (X^TX)^{-1}_{jj}}} = \frac{\hat \beta_j - \bar \beta_j}{\sqrt{\sigma^2 (X^TX)^{-1}_{jj}}} \sqrt{\frac{\sigma^2}{\hat \sigma^2}} = z_j \sqrt{\frac{\sigma^2}{\hat \sigma^2}} 
+\end{align}
+\]</div>
+<p>由上文知<span class="arithmatex">\(z_j \sim N(0,1)\)</span>，接下来证明<span class="arithmatex">\(\hat \sigma^2 / \sigma^2 \sim \frac{X_{N-K}^2}{N-K}\)</span>，首先考察<span class="arithmatex">\(\hat \sigma^2\)</span>的性质：</p>
+<div class="arithmatex">\[
+\hat \sigma^2 = \frac{\hat \epsilon^T \hat \epsilon}{N-K} = \frac{\epsilon^T M \epsilon}{N-K}
+\]</div>
+<p>所以有:</p>
+<div class="arithmatex">\[
+\frac{\hat \sigma_2}{ \sigma^2} = (\frac{\epsilon}{\sigma})^T M (\frac{\epsilon}{\sigma})/(N-K)
+\]</div>
+<p>而<span class="arithmatex">\(\epsilon \sim N(0,\sigma^2 I_N)\)</span>，因而<span class="arithmatex">\(\frac{\epsilon}{\sigma} \sim N(0,I_N)\)</span>，故有:</p>
+<div class="arithmatex">\[
+\frac{\hat \sigma_2}{ \sigma^2} = N(0,I_N)^T M N(0,I_N) / (N-K) \sim \chi^2_{N-K}/ (N-K)
+\]</div>
+<p>(这里运用的定理：如果<span class="arithmatex">\(X\sim N(0,I_N)\)</span>且A为幂等矩阵，则<span class="arithmatex">\(X^TAX \sim \chi^2_{Rank(A)}\)</span>。此外，如果<span class="arithmatex">\(A\)</span>为幂等矩阵，则Rank(A) = Trace(A)。在此之前，我们已经证出了<span class="arithmatex">\(trace(M) = N-K\)</span>。)</p>
+</details>
+<p>由此，我们就证出了<span class="arithmatex">\(t_j\)</span>服从学生t分布，接下来证明<span class="arithmatex">\(t_j\)</span>的分子与分母相互独立（这是学生t分布的一个性质）。这个统计量的分子是<span class="arithmatex">\(\hat \beta_j - \bar \beta_j\)</span>，其中我们知道<span class="arithmatex">\(\hat \beta = \beta + (X^TX)^{-1}X^T\epsilon = \beta + A\epsilon\)</span>；而分母是一个<span class="arithmatex">\(\hat \epsilon\)</span>的函数，而<span class="arithmatex">\(\hat \epsilon = M \epsilon\)</span>，且<span class="arithmatex">\(\epsilon \sim N(0,\sigma^2 I_N)\)</span>。因此有：</p>
+<div class="arithmatex">\[
+\begin{align}
+    \left[\begin{array}{c}
+        \hat \beta - \beta  \\
+         \hat \epsilon 
+    \end{array} \right] = \left[\begin{array}{c}
+         A  \\
+         M 
+    \end{array}\right] \epsilon = N(0,\sigma^2\left[\begin{array}{cc}
+        AA^T &amp; AM^T  \\
+        MA^T &amp; MM^T
+    \end{array}\right])
+\end{align}
+\]</div>
+<p>其中:</p>
+<blockquote>
+<p><span class="arithmatex">\(AA^T\)</span>可由其表达式直接推出，<span class="arithmatex">\(MM^T = M\)</span>是因为<span class="arithmatex">\(M\)</span>是幂等矩阵和对称矩阵，而<span class="arithmatex">\(AM^T\)</span>与<span class="arithmatex">\(MA^T\)</span>则是代入<span class="arithmatex">\(A\)</span>和<span class="arithmatex">\(M\)</span>的表达式解出，其中<span class="arithmatex">\(M = I_N - X(X^TX)^{-1}X^T\)</span>， <span class="arithmatex">\(A = (X^TX)^{-1}X^T\)</span>。</p>
+</blockquote>
+<div class="arithmatex">\[
+\begin{align}
+    AA^T &amp;= (X^TX)^{-1}\\
+    MM^T &amp;= M\\
+    AM^T &amp;= MA^T = 0
+\end{align}
+\]</div>
+<p>故有：</p>
+<div class="arithmatex">\[
+    \left[\begin{array}{c}
+        \hat \beta - \beta  \\
+         \hat \epsilon 
+    \end{array} \right] = N(0,\left[\begin{array}{cc}
+        Var(\hat \beta|X) &amp; 0  \\
+        0 &amp; \sigma_2 M
+    \end{array}\right])
+\]</div>
+<p>所以<span class="arithmatex">\(Cov(\hat \beta, \hat \epsilon) = 0_{K\times N}\)</span>，而由上文性质4可知，<span class="arithmatex">\(\hat \beta\)</span>和<span class="arithmatex">\(\hat \epsilon\)</span>互相独立，那么二者的函数亦相互独立，故统计量的分子和分母是互相独立的。</p>
+<h3 id="36-2f">3.6 假设检验2：线性关系的假设检验（F分布）</h3>
+<p>这个假设检验的原假设<span class="arithmatex">\(H_0\)</span>：<span class="arithmatex">\(R \times \beta = \gamma\)</span>。其中<span class="arithmatex">\(R\)</span>是<span class="arithmatex">\(r \times k\)</span>的矩阵，<span class="arithmatex">\(\beta\)</span>是<span class="arithmatex">\(k \times 1\)</span>的向量，<span class="arithmatex">\(\gamma\)</span>是<span class="arithmatex">\(r \times 1\)</span>的向量。这个原假设可以被看作是规定了线性规划问题中的约束，即各系数<span class="arithmatex">\(\beta\)</span>的线性组合约束。这里假设<span class="arithmatex">\(Rank(R) = r\)</span>，使得这里没有多余的线性约束（也就是没有多余的原假设），这隐含了<span class="arithmatex">\(r \leq k\)</span>的条件。此外要注意的是，<span class="arithmatex">\(R\)</span>与<span class="arithmatex">\(\gamma\)</span>中是常值，而<span class="arithmatex">\(\beta\)</span>则包含了所有的未知数（待估参数）。接下来以Cobb-Douglas函数为例，其基本形式是：</p>
+<div class="arithmatex">\[
+Y = AK^{\beta_2}L^{\beta_3}e^\epsilon
+\]</div>
+<p>取对数：</p>
+<div class="arithmatex">\[
+\ln Y_i = \ln A + \beta_2 \ln K + \beta_3 \ln L + \epsilon_i
+\]</div>
+<p>其中我们可以令<span class="arithmatex">\(\beta_1 = \ln A\)</span>，则我们可以检验一下<span class="arithmatex">\(\beta_1 = \bar \beta_1\)</span>（全要素生产率是否不以个体为转移），或者<span class="arithmatex">\(\beta_2 + \beta_3 = 1\)</span>（规模效应不变），我们可以同时做检验，将二者同时作为<span class="arithmatex">\(H_0\)</span>。那么有：</p>
+<div class="arithmatex">\[
+\beta = \left[\begin{array}{c}
+        \beta_1\\
+        \beta_2\\
+        \beta_3
+    \end{array} \right], R = \left[\begin{array}{ccc}
+        1 &amp; 0 &amp; 0 \\
+        0 &amp; 1 &amp; 1
+    \end{array}\right], \gamma = \left[\begin{array}{c}
+        \bar \beta_1 \\
+        1
+    \end{array}\right]
+\]</div>
+<p>我们不知道<span class="arithmatex">\(\beta\)</span>的真值，但是我们可以从<span class="arithmatex">\(R\beta - \gamma\)</span>上下手。我们知道<span class="arithmatex">\(\hat \beta \sim N(\beta, \sigma^2 (X^TX)^{-1})\)</span>，那么<span class="arithmatex">\(\hat \beta - \beta \sim N(0,\sigma^2 (X^TX)^{-1})\)</span>，然后同乘以R：</p>
+<div class="arithmatex">\[
+R\hat \beta - \gamma = R(\hat \beta - \beta)  \sim N(0,\sigma^2 R(X^TX)^{-1}R^T)
+\]</div>
+<p>如果原假设成立，那么左边的等式是成立的。所以检验原假设就是要检验<span class="arithmatex">\(R\hat \beta - \gamma\)</span>是否服从那个上式的分布，我们可以算一下这玩意的平方和：</p>
+<div class="arithmatex">\[
+(R\hat \beta - \gamma)^T [\sigma^2 R(X^TX)^{-1}R^T]^{-1} (R\hat \beta - \gamma) \sim \chi_r^2 
+\]</div>
+<p>上式的结果是一个标量，而这个标量服从自由度为r的卡方分布。</p>
+<details class="success">
+<summary>证明上式服从卡方分布</summary>
+<p>接下来证明这是一个卡方分布，这里会用到Cholesky分解法：</p>
+<blockquote>
+<p>Cholesky 分解在Matlab中使用函数<code>chol()</code>。</p>
+</blockquote>
+<p>如果矩阵<span class="arithmatex">\(A\)</span>是正定的对称阵，则<span class="arithmatex">\(A = (A^{\frac{1}{2}})(A^{\frac{1}{2}})^T\)</span>，而<span class="arithmatex">\(A^{\frac{1}{2}}\)</span>是一个下三角矩阵。对于这样的矩阵，其逆矩阵为：<span class="arithmatex">\(A^{-1} = ((A^{\frac{1}{2}})^T)^{-1}(A^{\frac{1}{2}})^{-1}\)</span>，我们令<span class="arithmatex">\((A^{\frac{1}{2}})^{-1} = A^{-\frac{1}{2}}\)</span>。</p>
+</details>
+<p>接下来讨论<span class="arithmatex">\(R\hat \beta - \gamma\)</span>的分布，我们令<span class="arithmatex">\(A = \sigma^2 R(X^TX)^{-1}R^T\)</span>，对其作Cholesky分解，则有：</p>
+<div class="arithmatex">\[
+R\hat \beta - \gamma \sim A^{\frac{1}{2}} N(0,I_r)
+\]</div>
+<p>将Cholesky分解结果和基本性质带进平方和（那个被证明服从卡方分布的标量），有：</p>
+<div class="arithmatex">\[
+\begin{align}
+    (R\hat \beta - \gamma)^T [\sigma^2 R(X^TX)^{-1}R^T]^{-1} (R\hat \beta - \gamma) &amp;= [A^{\frac{1}{2}} N(0,I_r)]^T A^{-1} [A^{\frac{1}{2}} N(0,I_r)]\\
+    &amp;= N(0,I_r)^T (A^{\frac{1}{2}})^T (A^{-\frac{1}{2}})^T (A^{-\frac{1}{2}}) A^{\frac{1}{2}} N(0,I_r)\\
+    &amp;= N(0,I_r)^T N(0,I_r) \sim \chi_r^2
+\end{align}
+\]</div>
+<p>毕竟卡方分布的实质是正态分布的平方和。但是，这个统计量的缺陷在于，我们需要知道<span class="arithmatex">\(\sigma^2\)</span>的真值，但这不可能。所以下面要用<span class="arithmatex">\(\hat \sigma^2\)</span>代替<span class="arithmatex">\(\sigma\)</span>，从而引入F统计量：</p>
+<div class="arithmatex">\[
+   F \equiv (R\hat \beta - \gamma)^T [\hat \sigma^2 R(X^TX)^{-1}R^T]^{-1} (R\hat \beta - \gamma) / r
+\]</div>
+<p>当然，这个和中级计量经济学下的F统计量等价：</p>
+<div class="arithmatex">\[
+F_R = \frac{(SSR_R - SSR_U)/r}{SSR_U/(N-K)}
+\]</div>
+<p>其中<span class="arithmatex">\(SSR_R\)</span>是将原假设作为约束时进行OLS，求得的残差平方和；而<span class="arithmatex">\(SSR_U\)</span>则是不带原假设约束的OLS残差平方和。</p>
+<p>在满足假设1-5的情况下，如果原假设成立，则<span class="arithmatex">\(F\sim F_{r,N-k}\)</span>（F统计量服从自由度为r和N-k的F分布）。由于我们的原假设是<span class="arithmatex">\(R \times \beta = \gamma\)</span>，因而备择假设为<span class="arithmatex">\(H1: R \times \beta \not = \gamma\)</span>，从而使得这个假设检验是双边的。但F统计量的本质是估计量（<span class="arithmatex">\(\hat \beta\)</span>）函数的平方项，因而无论是<span class="arithmatex">\(R\beta &gt; \gamma\)</span>还是<span class="arithmatex">\(R\beta &lt; \gamma\)</span>，F统计量都是异常提高，所以说，无论单双边检验，F分布都只看右侧的极端值，也就是：如果<span class="arithmatex">\(F &gt; F_{r,N-k,\alpha}\)</span>，则在<span class="arithmatex">\(\alpha\)</span>置信度的情况下<strong>拒绝</strong>原假设（无论单边/双边检验）。</p>
+<details class="success">
+<summary>证明：F统计量的两个形态等价</summary>
+<p>（这是我们当初的习题）</p>
+<div class="admonition question">
+<p class="admonition-title">问题要求</p>
+<p>只用一次无约束OLS求出的F统计量如下式所示：</p>
+<div class="arithmatex">\[
+F \equiv (R\hat \beta - \gamma)^T [\hat \sigma^2 R(X^TX)^{-1}R^T]^{-1} (R\hat \beta - \gamma) / r
+\]</div>
+<p>而之前中级计量会采用以<span class="arithmatex">\(H0\)</span>为约束的OLS计算F统计量，即：</p>
+<div class="arithmatex">\[
+F_R = \frac{(SSR_R - SSR_U)/r}{SSR_U/(N-K)} \tag{A.2}
+\]</div>
+<p>而二者可以被证明是等价的，请做出证明。</p>
+</div>
+<p>答案可参阅：<a href="https://math.stackexchange.com/questions/3868127/prove-these-two-f-stats-are-equivalent">StackExchange Math的这个问题</a>，我的自问自答。</p>
+<p><strong>一、对分子的推导</strong>。首先，对于没有任何约束的OLS估计来说，其SSR为：</p>
+<div class="arithmatex">\[
+\begin{align}
+    SSR_U &amp;= (Y - X\hat \beta)^T (Y - X\hat \beta) = [Y - X(X^TX)^{-1} X^TY]^T [Y - X(X^TX)^{-1} X^TY]\\
+    &amp;= (MY)^T (MY) = [M(X\beta + \epsilon)]^T[M(X\beta + \epsilon)] = \epsilon^T M^TM\epsilon = \epsilon^T M \epsilon \tag{A.4}
+\end{align}
+\]</div>
+<p>接下来讨论带有约束的OLS估计，及其残差平方和。设此问题的估计值为<span class="arithmatex">\(\bar \beta\)</span>，这个问题本质上是一个线性规划：</p>
+<div class="arithmatex">\[
+\begin{align}
+    \min_{\beta}\quad&amp; (Y - X\beta)^T (Y - X\beta)\\
+    s.t. \quad&amp; R\beta = \gamma
+\end{align}
+\]</div>
+<p>利用Lagrange乘子法，则有Lagrange函数为：</p>
+<div class="arithmatex">\[
+L = (Y - X\beta)^T (Y - X\beta) + \lambda^T (R\beta - \gamma) 
+\]</div>
+<p>其中<span class="arithmatex">\(\lambda\)</span>为一个<span class="arithmatex">\(r\times 1\)</span>的列向量。这个问题的FOC有两项：</p>
+<div class="arithmatex">\[
+\begin{align}
+    \textbf{(1)}\frac{\partial L}{\partial \beta} &amp;= -2X^TY + 2X^TX\bar \beta + R^T \lambda = 0\tag{A.8}\\
+    \bar \beta &amp;= (X^TX)^{-1}[-\frac{1}{2}R^T\lambda + X^TY]\\
+    \textbf{(2)} \frac{\partial L}{\partial \lambda} &amp;= R\bar\beta - \gamma = 0\\
+    \gamma &amp;= R\beta \tag{A.11}
+\end{align}
+\]</div>
+<p>把A.8和A.11联合在一起，写成矩阵形式，有：</p>
+<div class="arithmatex">\[
+\begin{align}
+    \left[\begin{array}{cc}
+        2X^TX &amp; R^T  \\
+        R &amp; 0
+    \end{array}\right] \left[\begin{array}{c}
+        \bar\beta  \\
+        \lambda^T 
+    \end{array}\right] &amp;= \left[\begin{array}{c}
+        2X^TY  \\
+        \gamma 
+    \end{array}\right]\\
+     \left[\begin{array}{c}
+        \bar\beta  \\
+        \lambda^T 
+    \end{array}\right] &amp;= \left[\begin{array}{cc}
+        2X^TX &amp; R^T  \\
+        R &amp; 0
+    \end{array}\right]^{-1}\left[\begin{array}{c}
+        2X^TY  \\
+        \gamma 
+    \end{array}\right]  
+\end{align}
+\]</div>
+<p>从而解得：</p>
+<div class="arithmatex">\[
+\bar \beta = \hat \beta - (X^TX)^{-1}W(R\hat\beta - \gamma)
+\]</div>
+<p>其中<span class="arithmatex">\(W = R^T[R(X^TX)^{-1}R^T]^{-1}\)</span>。那么，带约束的OLS的SSR为：</p>
+<div class="arithmatex">\[
+\begin{align}
+    SSR_R &amp;= (Y - X\bar \beta)^T (Y - X\bar \beta) \tag{A.15}\\
+    Y-X\bar\beta &amp;= MY + X(X^TX)^{-1}R^T[R(X^TX)^{-1}R^T]^{-1}[R(X^TX)^{-1}X^TY - \gamma]
+\end{align}
+\]</div>
+<p>若令<span class="arithmatex">\(S = X(X^TX)^{-1}R^T[R(X^TX)^{-1}R^T]^{-1}R(X^TX)^{-1}X^T\)</span>,则:</p>
+<div class="arithmatex">\[
+Y - X\bar\beta = (M+S)Y - X(X^TX)^{-1}R^T[R(X^TX)^{-1}R^T]^{-1}\gamma \tag{A.17}
+\]</div>
+<p>易证矩阵<span class="arithmatex">\(S\)</span>的幂等性。然后可证<span class="arithmatex">\((M+S)\)</span>是幂等和对称的：</p>
+<div class="arithmatex">\[
+\begin{align}
+    &amp;(M+S)(M+S) = M + S + SM + MS\\
+    &amp;MS = [I - X(X^TX)^{-1} X^T][X(X^TX)^{-1}R^T[R(X^TX)^{-1}R^T]^{-1}R(X^TX)^{-1}X^T] = S - S = 0\\
+    &amp;SM = [X(X^TX)^{-1}R^T[R(X^TX)^{-1}R^T]^{-1}R(X^TX)^{-1}X^T][I - X(X^TX)^{-1} X^T] = S - S = 0\\
+    &amp;(M+S)(M+S) = M + S + 0 + 0 = M + S
+\end{align}
+\]</div>
+<p>那么，将式A.17代入式A.15，有：</p>
+<div class="arithmatex">\[
+\begin{align}
+    SSR_R &amp;= Y^T(M+S)Y - Y^T(M+S)^TX(X^TX)^{-1}R^T[R(X^TX)^{-1}R^T]^{-1}\gamma \tag{A.22}\\
+    &amp;-\gamma^T[R(X^TX)^{-1}R^T]^{-1}R(X^TX)^{-1}X^T(M+S)Y + \gamma^T[R(X^TX)^{-1}R^T]^{-1}\gamma \tag{A.23}
+\end{align}
+\]</div>
+<p>对于上式第三项，有：</p>
+<div class="arithmatex">\[
+\begin{align}
+    &amp;\gamma^T[R(X^TX)^{-1}R^T]^{-1}R(X^TX)^{-1}X^TMY = \gamma^T[R(X^TX)^{-1}R^T]^{-1}R(X^TX)^{-1}X^T[I-X(X^TX)^{-1}X^T]Y = 0 \tag{A.24}\\
+    &amp;\gamma^T[R(X^TX)^{-1}R^T]^{-1}R(X^TX)^{-1}X^TSY\\
+    &amp;= \gamma^T[R(X^TX)^{-1}R^T]^{-1}R(X^TX)^{-1}X^TX(X^TX)^{-1}R^T[R(X^TX)^{-1}R^T]^{-1}R(X^TX)^{-1}X^TY\\
+    &amp;= \gamma^T[R(X^TX)^{-1}R^T]^{-1}R(X^TX)^{-1}X^TY \tag{A.27}
+\end{align}
+\]</div>
+<p>对于上式第二项，有:</p>
+<div class="arithmatex">\[
+\begin{align}
+    &amp;Y^TM^TX(X^TX)^{-1}R^T[R(X^TX)^{-1}R^T]^{-1}\gamma = 0\tag{A.28}\\
+    &amp;Y^TS^TX(X^TX)^{-1}R^T[R(X^TX)^{-1}R^T]^{-1}\gamma = Y^T X(X^TX)^{-1}R^T[R(X^TX)^{-1}R^T]^{-1}\gamma \tag{A.29}
+\end{align}
+\]</div>
+<p>由以上的整理，将A.24,A.27,A.28,A.29带回A.22/23，有：</p>
+<div class="arithmatex">\[
+\begin{align}
+    SSR_R - SSR_U &amp;= Y^TSY - \gamma^T[R(X^TX)^{-1}R^T]^{-1}R(X^TX)^{-1}X^TY \\
+    &amp;- Y^T X(X^TX)^{-1}R^T[R(X^TX)^{-1}R^T]^{-1}\gamma + \gamma^T[R(X^TX)^{-1}R^T]^{-1}\gamma\\
+    &amp;= Y^TSY - \gamma^T[R(X^TX)^{-1}R^T]^{-1}R\hat \beta - \hat\beta^TR^T [R(X^TX)^{-1}R^T]^{-1} \gamma + \gamma^T[R(X^TX)^{-1}R^T]^{-1}\gamma \tag{A.32}
+\end{align}
+\]</div>
+<p>其中由A.4知，<span class="arithmatex">\(SSR_U = Y^TMY\)</span>，而<span class="arithmatex">\(\hat \beta = (X^TX)^{-1}X^TY\)</span>。其中第一项为：</p>
+<div class="arithmatex">\[
+\begin{align}
+    Y^TSY &amp;= \hat \beta^T R^T[R(X^TX)^{-1}R^T]^{-1}R\hat\beta
+\end{align}
+\]</div>
+<p>从而A.32可变形为：</p>
+<div class="arithmatex">\[
+SSR_R - SSR_U = (R\hat \beta - \gamma)^T [R(X^TX)^{-1}R^T]^{-1} (R\hat \beta - \gamma)\tag{A.34}
+\]</div>
+<p><strong>二、对分母的推导</strong>。再来看A.2的分母<span class="arithmatex">\(SSR_U/(N-K)\)</span>，参照<span class="arithmatex">\(\hat \sigma^2 = \frac{\epsilon^T M \epsilon}{N-K}\)</span>，有：</p>
+<div class="arithmatex">\[
+\frac{SSR_U}{N-K} = \frac{\epsilon^T M\epsilon}{N-K} = \frac{\hat\epsilon^T \hat \epsilon}{N-K} = \hat \sigma^2 \tag{A.35}
+\]</div>
+<p>将A.34/35带回A.2，有：</p>
+<div class="arithmatex">\[
+\begin{align}
+    F_R &amp;= (R\hat \beta - \gamma)^T [R(X^TX)^{-1}R^T]^{-1} (R\hat \beta - \gamma) /(r \hat \sigma^2)\\
+    &amp;=(R\hat \beta - \gamma)^T [\sigma^2 R(X^TX)^{-1}R^T]^{-1} (R\hat \beta - \gamma) /r = F
+\end{align}
+\]</div>
+<p>因而<span class="arithmatex">\(F\)</span>与<span class="arithmatex">\(F_R\)</span>等价，原问题得证。</p>
+</details>
+<h3 id="37-3">3.7 假设检验3：非线性关系的假设检验</h3>
+<p>这种非线性关系的假设检验是非常宽泛的定义。例如检验<span class="arithmatex">\(\hat \beta_j^2 + \hat \beta_i^2 = 1\)</span>这种非线性关系，在接下来讨论大样本情形时再讨论，而在小样本下，这种假设检验难以进行。非线性假设检验中包含了线性关系假设检验，而线性关系假设检验又包含了单一变量的显著性检验。</p>
+<h3 id="38">3.8 置信区间和显著性水平</h3>
+<p>置信区间(confidence interval)的定义是：<em>指定一个置信度<span class="arithmatex">\(\alpha\)</span>，那么如果<span class="arithmatex">\(\bar \beta_j\)</span>（真值）在置信区间中，我们就不能拒绝原假设</em>。</p>
+<blockquote>
+<p>有一种错误的说法，说“真值出现在置信区间中的概率为<span class="arithmatex">\(1-\alpha\)</span>”，错误的原因是真值<span class="arithmatex">\(\bar\beta_j\)</span>是一个客观存在但看不到的值，而不是随机变量（这是贝叶斯学派的解释，但这里是频率学派的内容，也不涉及先验后验问题）。人们通过一次次的观测来估计<span class="arithmatex">\(\beta_j\)</span>，得到了一个个估计值<span class="arithmatex">\(\bar\beta_j\)</span>，从而得到了一个个不同的置信区间，而这些置信区间中包含了真值的概率是<span class="arithmatex">\(1-\alpha\)</span>（这是频率学派的解释）。换句话说，<strong>置信区间是可变的，而真值是不变的</strong>。</p>
+</blockquote>
+<p>以t统计量为例（其实也可以用在Z统计量和F统计量，但是前者不知道<span class="arithmatex">\(\sigma^2\)</span>，后者的置信区间是多维空间中的几何体/面，都比较复杂），若<span class="arithmatex">\(-t_{N-k,\alpha} \leq t_j \leq t_{N-k,\alpha}\)</span>则不能拒绝原假设，而这个条件可以写为：</p>
+<div class="arithmatex">\[
+\begin{align}
+    -t_{N-k,\alpha} &amp;\leq \frac{\hat \beta_j - \bar \beta_j}{StdDev(\hat \beta_j)} \leq t_{N-k,\alpha}\\
+    \hat \beta_j - t_{N-k,\alpha} StdDev(\hat\beta_j) &amp;\leq \bar \beta_j \leq  \hat \beta_j + t_{N-k,\alpha} StdDev(\hat\beta_j)
+\end{align}
+\]</div>
+<p>上两式中，下面那个表现出来的<span class="arithmatex">\(\bar \beta_j\)</span>的取值范围即为置信区间。而P值(P-value)表示统计量得到极端（或者更加极端）取值的概率。</p>
+<blockquote>
+<p>Probability of obtaining a value as extreme or more extreme for the test statistic.</p>
+</blockquote>
+<p>如果备择假设是双边的，则P-value取值为：<span class="arithmatex">\(P = P(t_{N-K} &gt; |t_j|) \times 2\)</span>，如果是单边的，就是<span class="arithmatex">\(P = P(t_{N-K} &gt; t_j)\)</span>（以备择<span class="arithmatex">\(\beta_j &gt; \bar \beta_j\)</span>为例）。</p>
+<h3 id="39-mle">3.9 MLE</h3>
+<p>最大似然估计全程需要假设1-5，并且需要<span class="arithmatex">\(\epsilon\)</span>的概率密度，在条件上要更强一些，但估计的结果通常都是有效的。</p>
+<p>所谓的“似然函数”（likelihood）是观测值的联合概率密度：</p>
+<div class="arithmatex">\[
+    L(\theta) \equiv f(Y|X,\theta), \theta = \left[\begin{array}{c}
+        \beta \\
+        \sigma^2
+    \end{array}\right]
+\]</div>
+<p><span class="arithmatex">\(\theta\)</span>即为模型中需要估计的参数的集合。对于线性模型<span class="arithmatex">\(Y = X\beta + \epsilon\)</span>和正态假设，有<span class="arithmatex">\(L(\theta) = N(X\beta, \sigma^2 I_N)\)</span>，那么有：</p>
+<div class="arithmatex">\[
+L(\theta) = [(2\pi)^{N/2} \det(\sigma^2 I_N)^{1/2}]^{-1} \exp [-\frac{1}{2} (Y- X\beta)^T [\sigma^2 I_N]^{-1} (Y-X\beta)]
+\]</div>
+<p>那么，使得<span class="arithmatex">\(L(\theta)\)</span>最大的参数组<span class="arithmatex">\(\bar \theta\)</span>即为MLE下的估计值，通常来说，求这个值都是用FOC（一阶条件）来搞（但不排除似然函数的形状很奇怪，从而找到局部最优），而且求FOC时通常采用对数化的似然函数<span class="arithmatex">\(\mathcal{L}(\theta) = \ln L(\theta)\)</span>。在这个线性模型中，对数化的似然函数为：</p>
+<div class="arithmatex">\[
+\mathcal{L}(\theta) = -\frac{N}{2} \ln(2\pi) - \frac{N}{2}\ln(\sigma^2) - \frac{1}{2\sigma^2} (Y-X\beta)^T (Y-X\beta)
+\]</div>
+<p>求FOC：</p>
+<div class="arithmatex">\[
+\begin{align}
+    &amp;\frac{\partial \mathcal{L}(\theta)}{\partial \beta} = 0 \leftrightarrow \frac{d (Y-X\beta)^T (Y-X\beta)}{d\beta} = 0 \leftrightarrow \hat \beta = (X^TX)^{-1}X^TY\\
+    &amp;\frac{\partial \mathcal{L}(\theta)}{\partial \sigma^2} = 0 \leftrightarrow \hat \sigma^2 = \frac{(Y-X\beta)^T (Y-X\beta)}{N}
+\end{align}
+\]</div>
+<p>由此可见，MLE估计出的<span class="arithmatex">\(\beta\)</span>和OLS相同，但是<span class="arithmatex">\(\sigma^2\)</span>的估计与OLS不同，我们知道OLS的方差估计量是无偏的，因而MLE的方差估计值是<strong>有偏</strong>的。大样本情况下，MLE满足一致性，但是否满足有效性呢？</p>
+<h3 id="310-olsmle">3.10 OLS和MLE的大样本有效性</h3>
+<p>我们定义S函数(Score function)，即<span class="arithmatex">\(S(\theta) = \frac{\partial \mathcal{L}(\theta)}{\partial \theta}\)</span>，则引出Cramer-Rao下确界的定义：</p>
+<div class="admonition info">
+<p class="admonition-title">定义： Cramer-Rao下确界</p>
+<p>给定<span class="arithmatex">\(\hat \theta\)</span>是<span class="arithmatex">\(\theta\)</span>的无偏估计，且方差是有限的，那么基于一般的约束条件（DCT，参见Cramer-Rao下界的Wiki Chapter1.5），有：</p>
+<p><span class="arithmatex">\(Var(\hat \theta) \geq I(\theta)^{-1}\)</span>，其中信息矩阵<span class="arithmatex">\(I(\theta) = E[S(\theta) S^T(\theta)] = -E[\frac{\partial^2 \mathcal{L}(\theta)}{\partial \theta \partial \theta^T}]\)</span></p>
+</div>
+<p>如果一个无偏估计的方差能够达到Cramer-Rao下界，则这个估计量必然是有效的。对于这个线性模型，其Score Function为：</p>
+<div class="arithmatex">\[
+   S(\theta) = \left[\begin{array}{c}
+        \frac{\partial \mathcal{L}(\theta)}{\partial \beta} \\
+        \frac{\partial \mathcal{L}(\theta)}{\partial \sigma^2} 
+    \end{array} \right] = \left[\begin{array}{c}
+        -\frac{1}{\sigma^2} X^T (Y-X\beta)  \\
+        -\frac{N}{2\sigma^2} + \frac{1}{2\sigma^4}(Y-X\beta)^T (Y-X\beta)
+    \end{array}\right]
+\]</div>
+<p>则其信息矩阵为：</p>
+<div class="arithmatex">\[
+    I(\theta) = E[S(\theta)S^T(\theta)] = \left[\begin{array}{cc}
+        \frac{\partial \mathcal{L}(\theta)}{\partial \beta} \frac{\partial \mathcal{L}(\theta)}{\partial \beta^T}&amp; \frac{\partial \mathcal{L}(\theta)}{\partial \beta}\frac{\partial \mathcal{L}(\theta)}{\partial \sigma^2} \\
+        \frac{\partial \mathcal{L}(\theta)}{\partial \sigma^2}\frac{\partial \mathcal{L}(\theta)}{\partial \beta^T} &amp; (\frac{\partial \mathcal{L}(\theta)}{\partial \sigma^2})^2
+    \end{array}\right]
+\]</div>
+<p><strong>（1）对于左上角那一项</strong>，有：</p>
+<div class="arithmatex">\[
+\begin{align}
+    \frac{\partial \mathcal{L}(\theta)}{\partial \beta} \frac{\partial \mathcal{L}(\theta)}{\partial \beta^T} &amp;= \frac{1}{\sigma^4} X^T(Y-X\beta)(Y-X\beta)^T X = \frac{1}{\sigma^4}X^T\epsilon\epsilon^TX\\
+    E[\frac{\partial \mathcal{L}(\theta)}{\partial \beta} \frac{\partial \mathcal{L}(\theta)}{\partial \beta^T}|X] &amp;= \frac{1}{\sigma^4}X^T E[\epsilon\epsilon^T|X]X = \frac{X^TX}{\sigma^2}
+\end{align}
+\]</div>
+<p><strong>（2）对于右上角和左下角项</strong>（二者互为转置，仅看右上角项），有：</p>
+<div class="arithmatex">\[
+\begin{align}
+    \frac{\partial \mathcal{L}(\theta)}{\partial \beta}\frac{\partial \mathcal{L}(\theta)}{\partial \sigma^2} &amp;= -\frac{1}{\sigma^2} X^T(Y-X\beta) [-\frac{N}{2\sigma^2} + \frac{1}{2\sigma^4}(Y-X\beta)^T (Y-X\beta)] \\
+    &amp;= \frac{N}{2\sigma^4}X^T\epsilon - \frac{1}{2\sigma^6} X^T \epsilon \epsilon^T \epsilon
+\end{align}
+\]</div>
+<p>而<span class="arithmatex">\(E[X^T\epsilon|X] = 0\)</span>。而第二项有：</p>
+<div class="arithmatex">\[
+    E[X^T\epsilon \epsilon^T \epsilon|X] = X^T E\left[\begin{array}{c}
+        \epsilon_1 \sum \epsilon_i^2\\
+        ... \\
+        \epsilon_N \sum \epsilon_i^2
+    \end{array}\right]
+\]</div>
+<p>分情况讨论:</p>
+<ul>
+<li>对于<span class="arithmatex">\(j\not=i\)</span>时，有<span class="arithmatex">\(E[\epsilon_j \epsilon_i^2|X] = E[\epsilon_j|X]E[\epsilon_i^2|X] = 0\)</span>（这里用到了假设2、4）；</li>
+<li>而<span class="arithmatex">\(j = i\)</span>时，<span class="arithmatex">\(E[\epsilon_i^3|X] = 0\)</span>。</li>
+</ul>
+<blockquote>
+<p><span class="arithmatex">\(\int \epsilon^3 f(\epsilon) d\epsilon = 0\)</span>，因为<span class="arithmatex">\(f(\epsilon)\)</span>为偶函数（正态分布），<span class="arithmatex">\(\epsilon^3\)</span>为奇函数，二者相乘为奇函数，那么其积分为0。</p>
+</blockquote>
+<p>因而第二项绝对为0，所以右上角和左下角项为0。</p>
+<p><strong>（3）对于右下角项</strong>，这是一个标量，因此我们可以把它当作一个特定的值，而不去求它了，比如说，我们管它叫something。</p>
+<blockquote>
+<p><span class="arithmatex">\(\mathcal{L}\)</span>是一个标量，而求<span class="arithmatex">\(\sigma^2\)</span>（标量）偏导时也是个标量。</p>
+</blockquote>
+<p>所以，信息矩阵<span class="arithmatex">\(I(\theta)\)</span>形式为：</p>
+<div class="arithmatex">\[
+    I(\theta) = \left[\begin{array}{cc}
+        \frac{1}{\sigma^2}X^TX &amp; 0 \\
+        0 &amp; sth
+    \end{array}\right], I^{-1} = \left[\begin{array}{cc}
+        \sigma^2(X^TX)^{-1} &amp; 0 \\
+        0 &amp; (sth)^{-1}
+    \end{array}\right]
+\]</div>
+<p>而<span class="arithmatex">\(Var(\hat \beta_{MLE}) = Var(\hat \beta_{OLS}) = \sigma^2(X^TX)^{-1}\)</span>，因而二者均达到了Cramer-Rao下界，因而OLS和MLE对<span class="arithmatex">\(\beta\)</span>的估计量都是有效的。</p>
+<blockquote>
+<p>如果无偏估计量的方差严格大于CR下界，则必然不是有效估计量。</p>
+</blockquote>
+<p>但是，对于<span class="arithmatex">\(\sigma^2\)</span>的MLE估计量，由于其不满足无偏性，所以<strong>不适用</strong>于Cramer-Rao下确界法。</p>
+
+
+
+
+
+
+
+  
+    
+  
+  
+    
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="最后更新">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 27, 2024</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="创建日期">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3h-2Z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 27, 2024</span>
+  </span>
+
+    
+    
+    
+  </aside>
+
+
+
+
+
+  <h2 id="__comments">评论</h2>
+  <script src="https://giscus.app/client.js"
+  data-repo="yliu-fe/yliu-fe.github.io"
+  data-repo-id="R_kgDOJUL-qg"
+  data-category="Announcements"
+  data-category-id="DIC_kwDOJUL-qs4CVpQZ"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async>
+</script>
+
+
+  <!-- Synchronize Giscus theme with palette -->
+  <script>
+    var giscus = document.querySelector("script[src*=giscus]")
+
+    /* Set palette on initial load */
+    var palette = __md_get("__palette")
+    if (palette && typeof palette.color === "object") {
+      var theme = palette.color.scheme === "slate" ? "dark" : "light"
+      giscus.setAttribute("data-theme", theme) 
+    }
+
+    /* Register event handlers after documented loaded */
+    document.addEventListener("DOMContentLoaded", function() {
+      var ref = document.querySelector("[data-md-component=palette]")
+      ref.addEventListener("change", function() {
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+          var theme = palette.color.scheme === "slate" ? "dark" : "light"
+
+          /* Instruct Giscus to change theme */
+          var frame = document.querySelector(".giscus-frame")
+          frame.contentWindow.postMessage(
+            { giscus: { setConfig: { theme } } },
+            "https://giscus.app"
+          )
+        }
+      })
+    })
+  </script>
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 Y. Liu
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/yliu-fe" target="_blank" rel="noopener" title="GitHub | yliu-fe" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["header.autohide", "navigation.tracking", "navigation.tabs", "search.highlight", "search.share", "search.suggest", "content.code.copy", "content.code.annotate", "navigation.top", "navigation.instant"], "search": "../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.081f42fc.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

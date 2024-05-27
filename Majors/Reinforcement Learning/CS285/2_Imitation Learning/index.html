@@ -1,0 +1,2603 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="我的个人网页">
+      
+      
+        <meta name="author" content="yliu-fe">
+      
+      
+        <link rel="canonical" href="https://yliu-fe.github.io/Majors/Reinforcement%20Learning/CS285/2_Imitation%20Learning/">
+      
+      
+        <link rel="prev" href="../CS285_index/">
+      
+      
+        <link rel="next" href="../HW1_Imitation%20Learning/">
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.24">
+    
+    
+      
+        <title>二、模仿学习 - Website of a Doctor Candidate</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.6543a935.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+SC:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Noto Sans SC";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../../.." title="Website of a Doctor Candidate" class="md-header__button md-logo" aria-label="Website of a Doctor Candidate" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Website of a Doctor Candidate
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              二、模仿学习
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="orange"  aria-label="切换为夜间模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换为夜间模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="cyan"  aria-label="切换为日间模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换为日间模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="分享" aria-label="分享" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/yliu-fe/yliu-fe.github.io" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    yliu-fe
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../About/" class="md-tabs__link">
+          
+  
+  关于
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../Techs/tech_index/" class="md-tabs__link">
+          
+  
+  计算机笔记
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../Major_index/" class="md-tabs__link">
+          
+  
+  专业笔记
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../Entertainment/ett_index/" class="md-tabs__link">
+          
+  
+  消遣娱乐
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="Website of a Doctor Candidate" class="md-nav__button md-logo" aria-label="Website of a Doctor Candidate" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Website of a Doctor Candidate
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/yliu-fe/yliu-fe.github.io" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    yliu-fe
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    关于
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            关于
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../About/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Welcome to my Blog
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../About/cv/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Curriculum Vitae
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    计算机笔记
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            计算机笔记
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Techs/tech_index/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    常用计算机技术笔记索引
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Matlab笔记
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Matlab笔记
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Techs/Notes%20for%20Matlab/general/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    引导页
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    MkDocs疑难杂症研究
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            MkDocs疑难杂症研究
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Techs/Notes%20for%20Mkdocs/MathJax%E7%9A%84%E5%BC%95%E5%85%A5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    引入MathJax
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Techs/Notes%20for%20Mkdocs/Github%20pages%20note/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    如何联动Github Pages
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Techs/Notes%20for%20Mkdocs/PyMdown_blocks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    如何使用PyMdown blocks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Techs/Notes%20for%20Mkdocs/Settings_Code_Blocks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    如何配置代码块
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Techs/Notes%20for%20Mkdocs/Comment%20with%20Giscus/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    利用Giscus配置评论区
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    LaTeX杂症研究
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            LaTeX杂症研究
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Techs/Notes%20for%20LaTeX/Notes%20for%20Table/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    利用threeparttable包实现表格的note
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Python掉坑笔记
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            Python掉坑笔记
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_1" id="__nav_2_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    基本语法
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            基本语法
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Techs/Notes%20for%20Python/Basic%20Syntax/args_kwargs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    形参"args"和"kwargs"
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_2" id="__nav_2_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    各类包
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            各类包
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Techs/Notes%20for%20Python/Packages/numpy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    numpy专题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_3" id="__nav_2_5_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    CS61A
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            CS61A
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Techs/Notes%20for%20Python/CS61A/61a_index/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    引导页：希望这不是一个笑话
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Techs/Notes%20for%20Python/CS61A/recursive/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    高阶函数、递归和hw2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    专业笔记
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            专业笔记
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Major_index/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    我的专业相关领域文档
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    截面数据计量经济学
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            截面数据计量经济学
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Cross-Sectional%20Econometrics/About%20cross-section%20data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    引导页：截面计量
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Cross-Sectional%20Econometrics/1_OLS/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    一、线性模型和最小二乘法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    时间序列计量经济学
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            时间序列计量经济学
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Time-Series%20Analysis/TS_index/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    引导页：时间序列计量经济学
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Time-Series%20Analysis/1_Background/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    一、一点预备内容
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Time-Series%20Analysis/2_Basic%20TimeSeries/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    二、基本时间序列模型
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Time-Series%20Analysis/3_Conditional%20Heteroscedasticity/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    三、条件异方差模型
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    非参数方法
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            非参数方法
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Non_Parametric/Gaussian_Process/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    一、高斯过程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    强化学习
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            强化学习
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../RL_index/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    引导页：强化学习
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5_2" id="__nav_3_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Deepmind RL
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Deepmind RL
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Deepmind%20RL/DMRL_index/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    关于课程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Deepmind%20RL/1_Introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    一、强化学习的介绍
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5_3" id="__nav_3_5_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    伯克利CS188
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            伯克利CS188
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CS188/Introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    关于课程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5_3_2" id="__nav_3_5_3_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    作业
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_5_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            作业
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Reinforcement Learning/CS188/homework/Homework 1 Search.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    作业1 搜索
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5_3_3" id="__nav_3_5_3_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    项目
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_5_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            项目
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CS188/projects/Project%201%20Search/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    项目1 搜索
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CS188/Section1.1%20Uninformed%20Search/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.1 盲目搜索
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CS188/Section1.2%20A_star%20Search%20and%20Heuristics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.2 A*搜索和启发式搜索
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_5_4" id="__nav_3_5_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    伯克利CS285
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_5_4">
+            <span class="md-nav__icon md-icon"></span>
+            伯克利CS285
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CS285_index/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    关于课程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    二、模仿学习
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    二、模仿学习
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 概念和预备知识
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2imitation-learning" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.模仿学习(imitation learning)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.模仿学习(imitation learning)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-" class="md-nav__link">
+    <span class="md-ellipsis">
+      实践中的深度模仿学习 - 问题
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      解决这些问题的探索
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. 模仿学习的问题？
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. 模仿学习中的收益或成本函数，及其形式化表达
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. 关于作业
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../HW1_Imitation%20Learning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    作业一、模仿学习
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    消遣娱乐
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            消遣娱乐
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Entertainment/ett_index/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    引导页？
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    拉丁语
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            拉丁语
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Entertainment/Lingua%20Latino/Latin_index/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    引导页：拉丁语
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 概念和预备知识
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2imitation-learning" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.模仿学习(imitation learning)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.模仿学习(imitation learning)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-" class="md-nav__link">
+    <span class="md-ellipsis">
+      实践中的深度模仿学习 - 问题
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      解决这些问题的探索
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. 模仿学习的问题？
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. 模仿学习中的收益或成本函数，及其形式化表达
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. 关于作业
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="_1">对动作的有监督学习</h1>
+<p>对应CS285 Lecture 2</p>
+<h2 id="1">1. 概念和预备知识</h2>
+<p>首先说明DRL下需要的核心概念：状态（state），观测（observation），动作（action），策略（policy）。状态是最底层的，但可能纷繁复杂，而且未必对agent可见。因此由状态产生了观测，agent通过学习对已知观测和动作产生了映射关系：</p>
+<div class="arithmatex">\[
+\pi_\theta (a_t, \mid o_t)
+\]</div>
+<p>从而有了不完全观测下的agent策略；如果是完全可观测，则就有<span class="arithmatex">\(\pi_{\theta}(a_t\mid s_t)\)</span>，直接用状态替换掉观测。</p>
+<div class="admonition note">
+<p class="admonition-title">Observation vs. State</p>
+<p>以CS285的lecture slide为例，它给出了一个猎豹(cheetah)追逐瞪羚(gazelle)的图片：我们的观测是这张图片，而实际的状态——或者说和我们做学习有关的状态则是猎豹和羚羊在前后、左右、上下三个方向上的运动速度。</p>
+<p>而抽象一些来说，状态就是环境的实际情况，而观测则是由状态产生，但并不一定能推出状态全部信息的内容，见下图（CS285 Lecture 2 第3页）</p>
+<p><img alt="1681371069937" src="../image/2_ImitationLearning/1681371069937.png" /></p>
+<p>而且，状态一定满足马尔可夫性（已知<span class="arithmatex">\(s_t\)</span>时，<span class="arithmatex">\(s_1,...,s_{t-1}\)</span>没有用处），但观测不一定服从马尔可夫性。例如，在观测点和猎豹之间有一辆车，完整地挡住了猎豹，那猎豹和瞪羚仍在追逐，但观测者无法得知猎豹的情况，并在不借助既往信息的情况下预测未来。所以，利用观测做决策时，一般会同时参照既往的观测。</p>
+</div>
+<details class="info">
+<summary>逸闻：关于符号系统的差异</summary>
+<p>强化相关领域有两套符号系统。其中，一套是前面提到的<span class="arithmatex">\(s_t, a_t\)</span>，它由美国动态规划领域专家理查德·贝尔曼（Richard Bellman）提出。</p>
+<p>另一套则是<span class="arithmatex">\(x_t, u_t\)</span>，前者代表状态，用<span class="arithmatex">\(x\)</span>的原因是它常代表未知数；后者代表动作，来自俄语单词"управление"(latin: upravlenie，操纵、控制、（行政）管理（及其机关）、指挥)的首字母，这一套符号系统来自苏联自动控制领域专家列夫·庞特里亚金(Лев Семёнович Понтрягин, Lev S. Pontryagin)</p>
+</details>
+<p>然后聊一下强化学习和监督学习之间的区别。</p>
+<p>有监督学习给定了一套观测集<span class="arithmatex">\(\mathcal{D}\{(x_i,y_i)\}\)</span>，进而通过<span class="arithmatex">\(x_i\)</span>来预测<span class="arithmatex">\(y_i\)</span>。在这个过程中，通常假定数据独立同分布，并且知道训练集的真实标签<span class="arithmatex">\(y_i\)</span>。</p>
+<p>但强化学习不假定数据独立同分布——之前的输出会影响未来的输入；即便是训练集也不知道准确的标签，而只能获得reward。</p>
+<h2 id="2imitation-learning">2.模仿学习(imitation learning)</h2>
+<p>本质上，模仿学习不是强化学习，而是监督学习。</p>
+<p><img alt="1681372171022" src="../image/2_ImitationLearning/1681372171022.png" /></p>
+<p>以上图为例，模仿学习是从过程中拿到<span class="arithmatex">\(o_t, a_t\)</span>作为训练数据，进而通过有监督学习来学习<span class="arithmatex">\(\pi_\theta(a_t \mid o_t)\)</span>，获取参数化的策略函数。那么这玩意能有用吗？没有。</p>
+<p><img alt="1681372369828" src="../image/2_ImitationLearning/1681372369828.png" /></p>
+<p>因为训练集和实际采取策略并产生的数据就不是一套分布。黑曲线(training trajectory)是训练agent的训练集数据分布，而红线(<span class="arithmatex">\(\pi_\theta\)</span> expected)是agent所作动作后新生成的数据。前者没有前后关系，后者有前后因果关系，因此随着时间流逝，两者之差累积增大。</p>
+<div class="admonition warning">
+<p class="admonition-title">Big mistake</p>
+<p>在时间初期，红黑线是比较接近的，但是会慢慢地出现一些误差，导致模仿学习策略在现实环境中进入了一些以前从未见过的状态中，并进而导致了其决策失效——然后出现更大的mistake。因此，从这张图上能看出来，随着时间的增大，红线与理想化的黑线之间具有总体越来越大（可能变小但逐渐不可控）的差异。</p>
+</div>
+<p>怎么解决呢？总体的思路是，尽管黑线（观测）是有随机的，但总体来说应该有一个分布存在，这个分布是来自于一个可控的机制，所以分布内的黑线是受到这个机制的控制并进行纠偏的。对应的，我们可以考虑一些启发式的方法，在更大的采样范围内改进模仿学习：</p>
+<p><img alt="1681544805863" src="../image/2_ImitationLearning/1681544805863.png" /></p>
+<p>用更加数学化的方式来表示，我们的采样（黑线）是观测的<span class="arithmatex">\(o_t, a_t\)</span>对，那么<span class="arithmatex">\(o_t\)</span>就有一个样本集的概率分布，我们称之为<span class="arithmatex">\(p_{data}(o_t)\)</span>，显然<span class="arithmatex">\(o_t\)</span>分布不是独立的。我们用采样来训练策略<span class="arithmatex">\(\pi_\theta(a_t \mid o_t)\)</span>，训练得到的过程也能观测到一个<span class="arithmatex">\(o_t\)</span>的分布，我们称之为<span class="arithmatex">\(p_{\pi_\theta}(o_t)\)</span>。 那么，改进学习过程，并强制<span class="arithmatex">\(p_{\pi_\theta}(o_t) = p_{data}(o_t)\)</span>，会是一种方法。即DAgger：通过agent产生的动作产生一些数据<span class="arithmatex">\(o_t\)</span>，并将这些生成的数据加回到数据集中。</p>
+<div class="admonition example">
+<p class="admonition-title">DAgger</p>
+<p>目的：从<span class="arithmatex">\(p_{\pi_\theta}(o_t)\)</span>中获取训练数据</p>
+<p>怎么做：不断地跑<span class="arithmatex">\(\pi_\theta (a_t \mid o_t)\)</span>，但这需要对应的<span class="arithmatex">\(a_t\)</span>（这不是以前现成的模仿数据，而是随做随学），下面的内容不断循环：</p>
+<ol>
+<li>通过人类行为数据集<span class="arithmatex">\(\mathcal{D}=(o_1,a_1,...,o_N,a_N)\)</span>，训练<span class="arithmatex">\(\pi_\theta (a_t \mid o_t)\)</span>;</li>
+<li>运行<span class="arithmatex">\(\pi_\theta (a_t \mid o_t)\)</span>来获取<span class="arithmatex">\(\mathcal{D}_{\pi} (o_1,...,o_M)\)</span>;</li>
+<li>人工标注<span class="arithmatex">\(\mathcal{D}_\pi\)</span>中的每一个观测——给出对应动作<span class="arithmatex">\(a_t\)</span>;</li>
+<li>将新数据注入训练集<span class="arithmatex">\(\mathcal{D} \leftarrow \mathcal{D} \cup \mathcal{D}_\pi\)</span></li>
+</ol>
+<p>Ross et.al. (2011) 证明了DAgger在大量反复观测和获取新训练集数据的情况下，DAgger得到的训练集分布将渐近等同于实际的策略后状态分布。</p>
+<blockquote>
+<p>Ross, S., Gordon, G., &amp; Bagnell, D. (2011, June). A reduction of imitation learning and structured prediction to no-regret online learning. In <em>Proceedings of the fourteenth international conference on artificial intelligence and statistics</em> (pp. 627-635). JMLR Workshop and Conference Proceedings.</p>
+</blockquote>
+</div>
+<h3 id="-">实践中的深度模仿学习 - 问题</h3>
+<p>DAgger的问题是什么？人工，我要找大量的标注人，这是一个很枯燥而复杂的问题，而且很多的state是让人很不舒服的。例如，你不能让标注员去讨论如果一辆车已经飞出悬崖，他应该怎么做。</p>
+<p>但是，如果不使用额外数据，DAgger或者深度模仿学习能解决前面的问题吗？理论上讲是不可以的。</p>
+<ul>
+<li>如果模型非常好，不会出现分布的漂移，也不会出现误差的利滚利，那么DAgger就没必要用了</li>
+<li>如果不能，那么就必须要非常好地拟合专家行为，但这几乎不可能</li>
+<li>以及，不能过拟合！</li>
+</ul>
+<p>那么，为什么很难很好地拟合专家行为呢？主要来自于两个问题：</p>
+<p><strong>（一） 非马尔可夫行为</strong></p>
+<p>马尔可夫性假定当前的行为来自当前的观测——那么连续给出两次相同观测的结果是两个相同的行为，但显然对于人类来说非常不自然。人类的行为是有限理性的，而且有延迟，而且人类做出决策的过程是关于当前环境的，那么人类不会<span class="arithmatex">\(\pi_{\theta}(a_t \mid o_t)\)</span>，而是<span class="arithmatex">\(\pi_\theta(a_t \mid o_1,...,o_t)\)</span>，即考虑更久远的观测。</p>
+<div class="admonition warning">
+<p class="admonition-title">引入全部观测历史的副作用</p>
+<p>这个东西在DeepMind的讲座中也提及了，不过Hasselt站在非深度强化学习模型的角度上，只提了全历史数据集会非常大，从而导致计算复杂度的问题；而Levine提到了另一个问题，即站在DRL的角度上，全量历史（时间跨度大、<span class="arithmatex">\(o_t\)</span>包含图片等高体积信息）可能会导致神经网络的第一层在整个系统中具有极高的权重，从而导致过拟合。</p>
+</div>
+<p>但这里不是说我们不用全量历史了，而是聚焦于后一个问题（因为自动驾驶不用图片也不行，计算复杂度就随他去吧）。为了解决第一层过大的问题，可以采用RNN的方式解决，各期历史共享一套图片encoder的权重，然后在最后加入一套例如LSTM的递归神经网络。</p>
+<p><img alt="1681546432376" src="../image/2_ImitationLearning/1681546432376.png" /></p>
+<details class="note">
+<summary>很多模型在模仿学习中翻车的原因</summary>
+<p>参照下图，这是一个自动驾驶中碰到行人急刹车的例子，但我们用的是模仿学习。
+<img alt="1681546705437" src="../image/2_ImitationLearning/1681546705437.png" />
+我们为其提供了全量历史，观测的内容是挡风玻璃外的前景和仪表盘。按理说前面有行人，摄像头拍到了就应该刹车，但模型偏不。为什么呢？在模仿学习过程中，模型不光看到了踩刹车时前面有个人，而且还看到了仪表盘上刹车灯亮了。</p>
+<p>结果就是，模型认为，踩刹车的条件不是前面有个人，而是仪表盘上刹车灯亮了......</p>
+<p>怎么解决呢，我们把仪表盘盖住不让它看，再训练的时候就行了。</p>
+<p>这种模型倒果为因的现象一般被称作“Causal Confusion”，参见de Hann et. al. (2019)的工作：</p>
+<p>De Haan, P., Jayaraman, D., &amp; Levine, S. (2019). Causal confusion in imitation learning. <em>Advances in Neural Information Processing Systems</em>, 32.</p>
+</details>
+<p><strong>（二）多模态行为</strong></p>
+<p>例如，飞行问题中发现前面有一棵树，我想让无人机绕过去，那么往左飞往右飞都可以，但我不好取舍，那平均一下，就撞树上了。</p>
+<p>这种事发生的原理在于模拟学习策略对<span class="arithmatex">\(\pi_\theta(a_t \mid o_t = o)\)</span>(假如<span class="arithmatex">\(o\)</span>代表飞行器前面有棵树)的学习是基于现实专家数据的MLE，而专家数据表示一半往左一半往右，那么策略最后拟合出来的未必是<span class="arithmatex">\(p(a = L) = p(a = R) = 0.5, p(a = c) = 0\)</span>，而是一个<span class="arithmatex">\(a \in \{l,c,r\}\)</span>的正态分布，而且PDF的峰值出现在了<span class="arithmatex">\(c\)</span>上。</p>
+<h3 id="_2">解决这些问题的探索</h3>
+<ul>
+<li>不用单一分布，而是采用多个正态分布的组合，最好实现</li>
+<li>用一些隐变量模型(latent variable models)，最难</li>
+<li>自回归离散化 (autoregressive discretization)，前两者的trade-off</li>
+</ul>
+<p><strong>（一）混合分布</strong></p>
+<p>绝对意义上的傻大黑粗，其原理非常简单：</p>
+<div class="arithmatex">\[
+\pi (a \mid o) = \sum_i w_i \mathcal{N} (\mu_i, \Sigma_i)
+\]</div>
+<p>假设有<span class="arithmatex">\(N\)</span>个正态分布做混合，那就得输出N组<span class="arithmatex">\(\{w_i, \mu_i, \Sigma_i\}\)</span>的元胞，这使得策略地表达变得复杂了很多，尤其对动作空间非常复杂的模型非常不友好，但确实好使。</p>
+<p><strong>（二）隐变量模型</strong></p>
+<p>训练难度最大的模型，其思路不是改变模型的输出，而是改变模型的输入。</p>
+<p>其训练的方法之后会讲，通常包括：</p>
+<ol>
+<li>条件变分自编码 conditional variational autoencoder</li>
+<li>正态流 Normalizing flow</li>
+<li>Stein变分梯度下降法 Stein variational gradient descent</li>
+</ol>
+<p><strong>(三)自回归离散化</strong></p>
+<p>如果动作空间的维度很低（action set的选项很多，乃至于连续action都可以），那么就可以通过自回归离散化方式把动作空间变成离散的。对于一维空间，我可以轻松地将其变成少数<span class="arithmatex">\(k\)</span>个action，但对于高维空间，这种方法的复杂度会迅速提升,<span class="arithmatex">\(n\)</span>维动作空间，每个维度分<span class="arithmatex">\(k\)</span>个离散动作将导致出现<span class="arithmatex">\(k^n\)</span>个动作，因此不太实际。不过，我们可以在神经网络的结构上动刀，在相对低维的情况下，一次只离散化一个维度并训练。</p>
+<h2 id="3">3. 模仿学习的问题？</h2>
+<p>CS285不叫“深度模仿学习”，而是“深度强化学习”，显然模仿学习，以及其他的对动作策略的无监督学习存在一些严重的缺陷。</p>
+<ol>
+<li>首当其冲的是，模仿学习需要所有的数据都由人来编写和选择，这导致数据量可能比较少——但有监督的深度学习需要大量的数据。</li>
+<li>人有时候很难提供各种动作。简单的情况是，人不会飞，也不想在林子里跑，就算人会控制无人机，但人也很难控制无人机里某个电路的电压，或者同时操纵无人机动作的各个自由度。</li>
+<li>就不能让机器自己去学？这顺道把第一个问题也解决了。</li>
+<li>随着模型期数的增长，发生错误的次数会逐渐增大（最好的情况也不过线性增长），具体见下一段。</li>
+</ol>
+<h2 id="4">4. 模仿学习中的收益或成本函数，及其形式化表达</h2>
+<p>最后聊一点理论的东西</p>
+<p>我们回到刚开始的问题，碰到了一头狮子，人肯定会跑，跑的原因不是因为看到了以前人都跑，而是自己脑子里就在不断想象不跑被狮子吃掉的情景。被狮子吃掉可以理解为某种cost（当然是正无穷，但在很多问题中cost是有限的）。那么我们可以说agent的问题可以被表示为某种程度上的cost minimization:</p>
+<div class="arithmatex">\[
+\min_{\theta} E_{s_{1:T}, a_{1:T}} \sum_t c(s_t,a_t)
+\]</div>
+<p>其中状态<span class="arithmatex">\(s_t\)</span>服从动态的分布，即unstationary distribution，分布随着时间变化；而动作<span class="arithmatex">\(a_t\)</span>的分布跟着状态走，也是一种unstationary的情况。</p>
+<blockquote>
+<p>当然，也可以反过来，最大化reward，都一样。不过，RL更倾向于reward，而自动控制理论更习惯于cost。</p>
+</blockquote>
+<p>那么，在模仿学习中，我可以有以下两种（也可以有其他很多种）reward或cost函数，第一种是log likelihood，即<span class="arithmatex">\(r(s,a) = \log p(a = \pi^{*}(s) \mid s)\)</span>，即当前状态<span class="arithmatex">\(s\)</span>下做出最优决策的概率的对数；另一种是二元的0-1变量：</p>
+<div class="arithmatex">\[
+c(s,a) = \left\{\begin{array}{ll}
+0\quad &amp; \text{if } a = \pi^{*}(s)\\
+1\quad &amp; \text{otherwise} 
+\end{array} \right.
+\]</div>
+<p>如果选出了最优决策就没有cost，否则cost加一。那么，DAgger能将这个imitation learning优化成什么样？</p>
+<p>为了说明这个问题，这里首先用一种相对简便的假设：假定<span class="arithmatex">\(\pi_\theta (a \not = \pi^{*}(s) \mid s) \leq \epsilon\)</span>对任意<span class="arithmatex">\(s \in \mathcal{D}_{\text{train}}\)</span>成立。这句话的意思是，对于任意出现在训练集中的状态<span class="arithmatex">\(s\)</span>，在这种状态下选取非最优动作的概率不高于上界<span class="arithmatex">\(\epsilon\)</span>。</p>
+<p>那么，对于一个Imitation learner，共有<span class="arithmatex">\(T\)</span>期动作的情况下，其Cost Function将如此表示：</p>
+<div class="arithmatex">\[
+E[\sum_t c(s_t, a_t)] \leq \epsilon T + (1-\epsilon) [\epsilon(T-1)+ (1-\epsilon) [...]]
+\]</div>
+<p>这么写的原因很简单，只要做错一次，就再也无法修正回来了。接下来证明<span class="arithmatex">\(E[\sum_t c] \in O(\epsilon T^2)\)</span>，即其最大不超过<span class="arithmatex">\(\epsilon T^2\)</span>。不过在这里，之前那个<span class="arithmatex">\(\forall s \in \mathcal{D}_{\text{train}}\)</span>的假设就要扩展为更一般的条件，即策略不仅在训练集中出现过的state能做好，而且也能外推到其他的state。换句话说，假设改成：</p>
+<p><span class="arithmatex">\(E_{p_{\text{train}}(s)} \pi_\theta (a \not = \pi^{*}(s) \mid s) \leq \epsilon\)</span>对 <span class="arithmatex">\(\forall s \in p_{\text{train}}(s)\)</span>成立，state的分布来自于训练集。</p>
+<blockquote>
+<p>如果模仿学习中采用了DAgger，则有<span class="arithmatex">\(p_{\text{train}}(s) \to p_{\theta}(s)\)</span>，这使得每次决策错误都有挽回的余地，那么有<span class="arithmatex">\(E[\sum_t c(s_t, a_t)] \leq \epsilon T\)</span>，期望变成了线性关系。</p>
+</blockquote>
+<p>如果不用DAgger，那么就是一个比较难的问题，因为<span class="arithmatex">\(p_{\text{train}}(s) \not =  p_{\theta}(s)\)</span>，我们先把拟合出来的状态分布$p_{\theta} (s_t)写成两项：第一项是训练集训练出来的完全没走错的情况，第二项是出现了错误的情况：</p>
+<div class="arithmatex">\[
+p_\theta(s_t) = (1-\epsilon)^t p_{\text{train}} (s_t) + (1-(1-\epsilon)^t) p_{\text{mistake}}(s_t)
+\]</div>
+<p>第一项我们清楚，但第二项未知也不可能知道。所以我们能做的是衡量<span class="arithmatex">\(p_\theta\)</span>和<span class="arithmatex">\(p_{\text{train}}\)</span>的差：</p>
+<div class="arithmatex">\[
+|p_\theta(s_t) - p_{\text{train}}(s_t)| = (1-(1-\epsilon)^t) |p_{\text{mistake}} - p_{\text{train}}| \leq 2(1-(1-\epsilon)^t) \leq 2 \epsilon t
+\]</div>
+<p>设想最坏的情况，<span class="arithmatex">\(p_{\text{mistake}} = 1, p_{\text{train}} = 0\)</span>，则这个值最大为<span class="arithmatex">\((1-(1-\epsilon)^t)\)</span>，但我们可以将其放得更大，它一定不大于<span class="arithmatex">\(2(1-(1-\epsilon)^t)\)</span>。而对于<span class="arithmatex">\(\epsilon \in [0,1], t \in [0,\infty)\)</span>，一定有<span class="arithmatex">\(1-(1-\epsilon)^t \leq \epsilon t\)</span>，故上面的两步放缩成立。</p>
+<blockquote>
+<p>本来以为这个2有什么深意，最后发现是Sergey随便设的。</p>
+</blockquote>
+<p>那么，采用这种学习定式的agent，所采取动作的平均错误数为：</p>
+<div class="arithmatex">\[
+\begin{align}
+\sum_t\mathbb{E}_{p_\theta(s_t)}[c_t] &amp;= \sum_t\sum_{s_t}p_\theta(s_t)c_t(s_t)\\
+&amp;\leq\sum_t\sum_{s_t}p_{train}(s_t)c_t(s_t)+|p_\theta(s_t)-p_{train}(s_t)| \cdot c_{max}\\
+&amp;\leq\sum_t\epsilon+2\epsilon t\\
+&amp;\in O(\epsilon T^2)
+\end{align}
+\]</div>
+<p>第一行到第二行是拆<span class="arithmatex">\(p_\theta\)</span>，第一项是训练集里我们知道的数据，第二项是我们不知道的数据，那我们就考虑最坏情况——全错，<span class="arithmatex">\(c_{\max} = 1\)</span>!</p>
+<p>第二行到第三行中，第二项是第二行第二项的进一步放缩，这应用了前面放缩的结论。第一项是假设中的错误概率上限，也是不等式。</p>
+<div class="arithmatex">\[
+\sum_{s_t} p_{\text{train}} (s_t) c_t(s_t) \leq \sum_{s_t} p_{\text{train}} (s_t) \epsilon = \epsilon
+\]</div>
+<p>第三行的值等于<span class="arithmatex">\(\epsilon T + 2 \epsilon T^2\)</span>，那么引用算法里大<span class="arithmatex">\(O\)</span>的概念，这个错误的上限不大于<span class="arithmatex">\(\epsilon T^2\)</span>这个数量级，所以Sergey这个2设成几都无所谓了。而如果用了DAgger，因为没有了<span class="arithmatex">\(p_{\text{mistake}}\)</span>的情况，其期望错误数就是<span class="arithmatex">\(O(\epsilon T)\)</span>这个量级了。同时，我们可以看到，随着模型总时长设定的加大，模仿学习策略出的错误会越来越多——不过是线性增长还是二次函数增长的区别罢了，这是模仿学习的根本症结之一，也是我们学习强化学习而不是模仿学习的原因。</p>
+<h2 id="5">5. 关于作业</h2>
+<p>作业会单独的作为一个网页挂出来，见<a href="https://yliu-fe.github.io/Majors/Reinforcement%20Learning/CS285/HW1_Imitation%20Learning/">作业一、模仿学习</a>。</p>
+<p>但在领略CS285这门课噩梦般的作业前，还要学习CS285的Lecture 3，这部分是助教领着上PyTorch的教程课，这部分内容不会出笔记。</p>
+<p>CS285 Fall 2021（最近一个有课程录像的学期）的网站上没有给出Lecture 3的演示文稿，我贴一下这一期课程所用Jupyter Notebook的Google Colab链接：<a href="https://colab.research.google.com/drive/135fzWzVf4IULsr68RUoShV-ZDTzXKvbp?usp=sharing">CS 285 Fa21 PyTorch Tutorial</a>。</p>
+
+
+
+
+
+
+
+  
+    
+  
+  
+    
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="最后更新">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 27, 2024</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="创建日期">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3h-2Z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 27, 2024</span>
+  </span>
+
+    
+    
+    
+  </aside>
+
+
+
+
+
+  <h2 id="__comments">评论</h2>
+  <script src="https://giscus.app/client.js"
+  data-repo="yliu-fe/yliu-fe.github.io"
+  data-repo-id="R_kgDOJUL-qg"
+  data-category="Announcements"
+  data-category-id="DIC_kwDOJUL-qs4CVpQZ"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async>
+</script>
+
+
+  <!-- Synchronize Giscus theme with palette -->
+  <script>
+    var giscus = document.querySelector("script[src*=giscus]")
+
+    /* Set palette on initial load */
+    var palette = __md_get("__palette")
+    if (palette && typeof palette.color === "object") {
+      var theme = palette.color.scheme === "slate" ? "dark" : "light"
+      giscus.setAttribute("data-theme", theme) 
+    }
+
+    /* Register event handlers after documented loaded */
+    document.addEventListener("DOMContentLoaded", function() {
+      var ref = document.querySelector("[data-md-component=palette]")
+      ref.addEventListener("change", function() {
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+          var theme = palette.color.scheme === "slate" ? "dark" : "light"
+
+          /* Instruct Giscus to change theme */
+          var frame = document.querySelector(".giscus-frame")
+          frame.contentWindow.postMessage(
+            { giscus: { setConfig: { theme } } },
+            "https://giscus.app"
+          )
+        }
+      })
+    })
+  </script>
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 Y. Liu
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/yliu-fe" target="_blank" rel="noopener" title="GitHub | yliu-fe" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["header.autohide", "navigation.tracking", "navigation.tabs", "search.highlight", "search.share", "search.suggest", "content.code.copy", "content.code.annotate", "navigation.top", "navigation.instant"], "search": "../../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.081f42fc.min.js"></script>
+      
+        <script src="../../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
