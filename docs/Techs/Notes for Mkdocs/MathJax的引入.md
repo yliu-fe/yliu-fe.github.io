@@ -8,6 +8,13 @@ comments: true
 
 参考：[Python Markdown Extensions - Material for MkDocs (squidfunk.github.io)](https://squidfunk.github.io/mkdocs-material/setup/extensions/python-markdown-extensions/#arithmatex)
 
+/// admonition | 修订：2024年5月
+    type: bug
+    参考文档（见页首）的cdn链接已经修订，本文给出的cdn也随之修订。修改的是第二个cdn链接，变成了unpkg.com的链接。
+
+    同时，`mathjax.js`文件中的`document$.subscribe`项目中需要加入的命令从一条变为四条。
+///
+
 首先，在 `docs`即文档体系下增设 `mathjax.js`文件，具体放在哪都行，其内容为：
 
 ```javascript
@@ -24,7 +31,10 @@ window.MathJax = {
   }
 };
 
-document$.subscribe(() => {
+document$.subscribe(() => { 
+  MathJax.startup.output.clearCache()
+  MathJax.typesetClear()
+  MathJax.texReset()
   MathJax.typesetPromise()
 })
 ```
@@ -39,9 +49,9 @@ markdown_extensions:
       generic: true
 
 extra_javascript:
-  - javascripts/mathjax.js #mathjax的相对目录（不用写/docs/）
+  - javascripts/mathjax.js
   - https://polyfill.io/v3/polyfill.min.js?features=es6
-  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
 ```
 
 它们不是theme的子项目，如果带缩进的话是没法被编译的......此外，`extra_javascript`中的mathjax CDN网址是个谜，具体能不能用我不是很明白，但Material for MkDocs文档中给出的是以上内容，我的个人网站里用的也是这个配置。

@@ -63,6 +63,7 @@ nav:
     - Entertainment/ett_index.md
     - 拉丁语:
       - Entertainment/Lingua Latino/Latin_index.md
+      
 theme:
   name: material
   custom_dir: overrides
@@ -150,4 +151,4 @@ markdown_extensions:
 extra_javascript:
   - javascripts/mathjax.js
   - https://polyfill.io/v3/polyfill.min.js?features=es6
-  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
