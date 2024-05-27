@@ -10,6 +10,7 @@ comments: true
 
 /// admonition | 修订：2024年5月
     type: bug
+
     参考文档（见页首）的cdn链接已经修订，本文给出的cdn也随之修订。修改的是第二个cdn链接，变成了unpkg.com的链接。
 
     同时，`mathjax.js`文件中的`document$.subscribe`项目中需要加入的命令从一条变为四条。
@@ -17,7 +18,7 @@ comments: true
 
 首先，在 `docs`即文档体系下增设 `mathjax.js`文件，具体放在哪都行，其内容为：
 
-```javascript
+```javascript title="mathjax.js"
 window.MathJax = {
   tex: {
     inlineMath: [["\\(", "\\)"]],
