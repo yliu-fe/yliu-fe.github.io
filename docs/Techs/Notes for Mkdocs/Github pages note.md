@@ -6,7 +6,7 @@ comments: true
 
 核心的问题在于如何让Git和Github连起来，报超时的Fatal报到傻，目前网上给出的解决方案均无效。
 
-好吧，不用vs code自带的git套件，而是用github desktop，其实啥问题都没有。
+好吧，不用vs code自带的git套件，而是用github desktop或者GitKraken，其实啥问题都没有。
 
 ---
 

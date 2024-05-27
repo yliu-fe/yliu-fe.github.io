@@ -113,6 +113,11 @@ plugins:
       lang: 
         -en
         -ja
+  - git-revision-date-localized:
+      enable_creation_date: true
+      exclude:
+        - index.md
+      type: date
 
 markdown_extensions:
   - md_in_html
