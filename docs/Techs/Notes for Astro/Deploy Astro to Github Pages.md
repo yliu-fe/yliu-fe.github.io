@@ -5,9 +5,7 @@ comments: true
 
 参考文档（中文）：[部署你的 Astro 站点至 GitHub Pages](https://docs.astro.build/zh-cn/guides/deploy/github/)
 
-这个文档将会记载两部分内容：第一，我需要构造一个基于Astro的网页结构；第二，我需要将其部署到Github Pages上，
-但是注意到，您现在所看到的这个基于Mkdocs框架的网站已经占据了我的Github Pages网址的位置，所以新的网站只能在根网址
-下面开一个子目录。以下展示均来自我对另一个仓库的折腾实况。
+这个文档将会记载两部分内容：第一，我需要构造一个基于Astro的网页结构；第二，我需要将其部署到Github Pages上，但是注意到，您现在所看到的这个基于Mkdocs框架的网站已经占据了我的Github Pages网址的位置，所以新的网站只能在根网址下面开一个子目录。以下展示均来自我对另一个仓库的折腾实况。
 
 ## 本地构建Astro框架
 
@@ -39,18 +37,16 @@ yarn create astro
 
 ///
 
-该过程将提供安装向导，您可以从中设置项目文件夹位置、选择是否使用模板库、是否自行编写TypeScript、是否完成git初始化等。
-在此基础上，您可以利用`npm run dev`命令在本地启动一个开发服务器，查看您的网页效果（默认本地网站位于localhost:4321）。
+该过程将提供安装向导，您可以从中设置项目文件夹位置、选择是否使用模板库、是否自行编写TypeScript、是否完成git初始化等。在此基础上，您可以利用`npm run dev`命令在本地启动一个开发服务器，查看您的网页效果（默认本地网站位于localhost:4321）。
 
 ## 部署到Github Pages
 
 Astro支持多种网页托管服务，这里仅就Github Pages进行说明。
 
-还是那件事，这个Astro是我第二个托管在Github Pages上的网站。对应于我用户名的`github.io`主域名已经被Mkdocs占据，那个Astro的
-实验性网站就只能以项目网站的身份出现：`<username>.github.io/<repository>`。这会在接下来的设置中带来一点小小的坑，但无伤
-大雅。
+还是那件事，这个Astro是我第二个托管在Github Pages上的网站。对应于我用户名的`github.io`主域名已经被Mkdocs占据，那个Astro的实验性网站就只能以项目网站的身份出现：`<username>.github.io/<repository>`。这会在接下来的设置中带来一点小小的坑，但无伤大雅。
 
 需要做的设置分为三步：
+
 - 设置`astro.config.mjs`文件；
 - 设置Github Pages；
 - 构造并设置Github Actions。
@@ -154,5 +150,4 @@ jobs:
 
 ```
 
-可能有很多人像我一样，第一次commit的时候将其默认分支命名为master，并且之后一直在该分支上更新。在网站发布时，请务必检查该yml文件
-中的`branches`位置(被高亮的那一行代码)是否填对了，否则github action会无法执行——因为你仓库里压根就没有main分支。
+可能有很多人像我一样，第一次commit的时候将其默认分支命名为master，并且之后一直在该分支上更新。在网站发布时，请务必检查该yml文件中的`branches`位置(被高亮的那一行代码)是否填对了，否则github action会无法执行——因为你仓库里压根就没有main分支。
