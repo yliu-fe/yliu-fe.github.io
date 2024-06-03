@@ -817,6 +817,39 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="部署到Github Pages">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#astroconfigmjs" class="md-nav__link">
+    <span class="md-ellipsis">
+      设置astro.config.mjs文件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#github-pages_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      设置Github Pages
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#github-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      构造并设置Github Actions
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -2211,6 +2244,39 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="部署到Github Pages">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#astroconfigmjs" class="md-nav__link">
+    <span class="md-ellipsis">
+      设置astro.config.mjs文件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#github-pages_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      设置Github Pages
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#github-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      构造并设置Github Actions
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -2235,7 +2301,7 @@
 <p>参考文档（中文）：<a href="https://docs.astro.build/zh-cn/guides/deploy/github/">部署你的 Astro 站点至 GitHub Pages</a></p>
 <p>这个文档将会记载两部分内容：第一，我需要构造一个基于Astro的网页结构；第二，我需要将其部署到Github Pages上，
 但是注意到，您现在所看到的这个基于Mkdocs框架的网站已经占据了我的Github Pages网址的位置，所以新的网站只能在根网址
-下面开一个子目录。以下展示均来自我对另一个仓库[<a href="https://github.com/yliu-fe/AstroNamie">AstroNamie</a>]的折腾实况。</p>
+下面开一个子目录。以下展示均来自我对另一个仓库<a href="https://github.com/yliu-fe/AstroNamie">AstroNamie</a>的折腾实况。</p>
 <h2 id="astro">本地构建Astro框架</h2>
 <p>有兴趣使用Astro构造网页的话，可以跟着官方文档中的教程走一遍：<a href="https://docs.astro.build/zh-cn/tutorial/0-introduction/">搭建你的 Astro 博客</a>。</p>
 <p>与Mkdocs Material需要自行安装Python库的方式不同，Astro通过<code>npm</code>等管理器提供了自动化流程，形成一个比较完整的Astro网站仓库：</p>
@@ -2259,6 +2325,87 @@
 在此基础上，您可以利用<code>npm run dev</code>命令在本地启动一个开发服务器，查看您的网页效果（默认本地网站位于localhost:4321）。</p>
 <h2 id="github-pages">部署到Github Pages</h2>
 <p>Astro支持多种网页托管服务，这里仅就Github Pages进行说明。</p>
+<p>还是那件事，这个Astro是我第二个托管在Github Pages上的网站。对应于我用户名的<code>github.io</code>主域名已经被Mkdocs占据，那个Astro的
+实验性网站就只能以项目网站的身份出现：<code>&lt;username&gt;.github.io/&lt;repository&gt;</code>。这会在接下来的设置中带来一点小小的坑，但无伤
+大雅。</p>
+<p>需要做的设置分为三步：
+- 设置<code>astro.config.mjs</code>文件；
+- 设置Github Pages；
+- 构造并设置Github Actions。</p>
+<h3 id="astroconfigmjs">设置<code>astro.config.mjs</code>文件</h3>
+<p>在Astro项目的根目录下，有一个<code>astro.config.mjs</code>文件，其中包含了一些关于网站的配置信息。在这个文件中，您需要添加一些内容：</p>
+<div class="language-javascript highlight"><span class="filename">astro.config.mjs</span><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">defineConfig</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;astro/config&#39;</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="k">export</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="nx">defineConfig</span><span class="p">({</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">  </span><span class="nx">site</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;https://&lt;USERNAME&gt;.github.io&#39;</span><span class="p">,</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">  </span><span class="nx">base</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;/my-repo&#39;</span><span class="p">,</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="p">})</span>
+</span></code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">关于<code>site</code>字段</p>
+<p>其中，<code>site</code> 字段是您的发布域名。如果您购买了其他的域名，这里请填写您所购买的域名。</p>
+<p>否则，这里填Github Pages<strong>主网址</strong>，无论您的网站直接以这个网址发布，还是以项目网站<code>&lt;username&gt;.github.io/&lt;repository&gt;</code>的形式发布
+，这里都要填<code>https://&lt;USERNAME&gt;.github.io</code>，而不是<code>https://&lt;USERNAME&gt;.github.io/&lt;repository&gt;</code>！</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">关于<code>base</code>字段</p>
+<p><code>base</code>字段填写的是您希望网站具体发布的位置。以我的<code>AstroNamie</code>为例，我希望它发布在<code>&lt;username&gt;.github.io/AstroNamie</code>下。前面的<code>Site</code>
+字段中我填写了<code>https://yliu-fe.github.io</code>，而在这里填写<code>/AstroNamie</code>。</p>
+<p>如果您发布的是个人网站，那么这里填写<code>/</code>即可。但是个人网站所需要的仓库名称应当是<code>&lt;username&gt;.github.io</code>。</p>
+<p>如果您的网站是以项目网站的形式发布，那么这里填写的应当是<code>/&lt;repository&gt;</code>。</p>
+<p>如果您自行购买了域名，且希望网站发布在根目录下，那么这里填写<code>/</code>。</p>
+</div>
+<p>如果您自行购买了域名并希望在其上发布的话，您需要额外在Astro网站仓库的文件夹<code>public</code>中构造文件<code>CNAME</code>，其中填写您的域名。</p>
+<div class="language-text highlight"><span class="filename">./public/CNAME</span><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>example.com
+</span></code></pre></div>
+<h3 id="github-pages_1">设置Github Pages</h3>
+<p>在Github仓库的<code>Settings</code>中，找到<code>Pages</code>选项卡。在“build and deployment”项目下的“Source”中选择“Github Actions”。</p>
+<p>如果您自行购买了域名，请在下面的Custom Domain处填写域名并保存，等待DNS检查通过后选择<code>Enforce HTTPS</code>。</p>
+<h3 id="github-actions">构造并设置Github Actions</h3>
+<p>最后一步是构造Github的自动发布功能。该自动化流程调用了Astro官方维护的Github action，将自动检测仓库中的新提交并将其更新到网站上。</p>
+<p>在仓库根目录下新建文件夹<code>.github</code>，并在其中新建文件夹<code>workflows</code>，在其中新建<code>deploy.yml</code>文件如下：</p>
+<div class="language-text highlight"><span class="filename">.github/workflows/deploy.yml</span><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>name: Deploy to GitHub Pages
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>on:
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>  # 每次推送到 `main` 分支时触发这个“工作流程”
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>  # 如果你使用了别的分支名，请按需将 `main` 替换成你的分支名
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>  push:
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>    branches: [ main ]
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="hll">  # 允许你在 GitHub 上的 Actions 标签中手动触发此“工作流程”
+</span></span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>  workflow_dispatch:
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a># 允许 job 克隆 repo 并创建一个 page deployment
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>permissions:
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>  contents: read
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>  pages: write
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>  id-token: write
+</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>
+</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>jobs:
+</span><span id="__span-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>  build:
+</span><span id="__span-5-19"><a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a>    runs-on: ubuntu-latest
+</span><span id="__span-5-20"><a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a>    steps:
+</span><span id="__span-5-21"><a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a>      - name: Checkout your repository using git
+</span><span id="__span-5-22"><a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a>        uses: actions/checkout@v4
+</span><span id="__span-5-23"><a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a>      - name: Install, build, and upload your site
+</span><span id="__span-5-24"><a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a>        uses: withastro/action@v2
+</span><span id="__span-5-25"><a id="__codelineno-5-25" name="__codelineno-5-25" href="#__codelineno-5-25"></a>        # with:
+</span><span id="__span-5-26"><a id="__codelineno-5-26" name="__codelineno-5-26" href="#__codelineno-5-26"></a>          # path: . # 存储库中 Astro 项目的根位置。（可选）
+</span><span id="__span-5-27"><a id="__codelineno-5-27" name="__codelineno-5-27" href="#__codelineno-5-27"></a>          # node-version: 20 # 用于构建站点的特定 Node.js 版本，默认为 20。（可选）
+</span><span id="__span-5-28"><a id="__codelineno-5-28" name="__codelineno-5-28" href="#__codelineno-5-28"></a>          # package-manager: pnpm@latest # 应使用哪个 Node.js 包管理器来安装依赖项和构建站点。会根据存储库中的 lockfile 自动检测。（可选）
+</span><span id="__span-5-29"><a id="__codelineno-5-29" name="__codelineno-5-29" href="#__codelineno-5-29"></a>
+</span><span id="__span-5-30"><a id="__codelineno-5-30" name="__codelineno-5-30" href="#__codelineno-5-30"></a>  deploy:
+</span><span id="__span-5-31"><a id="__codelineno-5-31" name="__codelineno-5-31" href="#__codelineno-5-31"></a>    needs: build
+</span><span id="__span-5-32"><a id="__codelineno-5-32" name="__codelineno-5-32" href="#__codelineno-5-32"></a>    runs-on: ubuntu-latest
+</span><span id="__span-5-33"><a id="__codelineno-5-33" name="__codelineno-5-33" href="#__codelineno-5-33"></a>    environment:
+</span><span id="__span-5-34"><a id="__codelineno-5-34" name="__codelineno-5-34" href="#__codelineno-5-34"></a>      name: github-pages
+</span><span id="__span-5-35"><a id="__codelineno-5-35" name="__codelineno-5-35" href="#__codelineno-5-35"></a>      url: ${{ steps.deployment.outputs.page_url }}
+</span><span id="__span-5-36"><a id="__codelineno-5-36" name="__codelineno-5-36" href="#__codelineno-5-36"></a>    steps:
+</span><span id="__span-5-37"><a id="__codelineno-5-37" name="__codelineno-5-37" href="#__codelineno-5-37"></a>      - name: Deploy to GitHub Pages
+</span><span id="__span-5-38"><a id="__codelineno-5-38" name="__codelineno-5-38" href="#__codelineno-5-38"></a>        id: deployment
+</span><span id="__span-5-39"><a id="__codelineno-5-39" name="__codelineno-5-39" href="#__codelineno-5-39"></a>        uses: actions/deploy-pages@v4
+</span></code></pre></div>
+<p>可能有很多人像我一样，第一次commit的时候将其默认分支命名为master，并且之后一直在该分支上更新。在网站发布时，请务必检查该yml文件
+中的<code>branches</code>位置是否填对了，否则github action会无法执行。</p>
 
 
 
