@@ -20,6 +20,8 @@ nav:
       - 如何使用PyMdown blocks: Techs/Notes for Mkdocs/PyMdown_blocks.md
       - 如何配置代码块: Techs/Notes for Mkdocs/Settings_Code_Blocks.md
       - 利用Giscus配置评论区: Techs/Notes for Mkdocs/Comment with Giscus.md
+    - Astro笔记: 
+      - Astro部署网页至Github Pages: Techs/Notes for Astro/Deploy Astro to Github Pages.md
     - LaTeX杂症研究:
       - 利用threeparttable包实现表格的note: Techs/Notes for LaTeX/Notes for Table.md
     - Python掉坑笔记: 
