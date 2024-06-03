@@ -2301,7 +2301,7 @@
 <p>参考文档（中文）：<a href="https://docs.astro.build/zh-cn/guides/deploy/github/">部署你的 Astro 站点至 GitHub Pages</a></p>
 <p>这个文档将会记载两部分内容：第一，我需要构造一个基于Astro的网页结构；第二，我需要将其部署到Github Pages上，
 但是注意到，您现在所看到的这个基于Mkdocs框架的网站已经占据了我的Github Pages网址的位置，所以新的网站只能在根网址
-下面开一个子目录。以下展示均来自我对另一个仓库<a href="https://github.com/yliu-fe/AstroNamie">AstroNamie</a>的折腾实况。</p>
+下面开一个子目录。以下展示均来自我对另一个仓库的折腾实况。</p>
 <h2 id="astro">本地构建Astro框架</h2>
 <p>有兴趣使用Astro构造网页的话，可以跟着官方文档中的教程走一遍：<a href="https://docs.astro.build/zh-cn/tutorial/0-introduction/">搭建你的 Astro 博客</a>。</p>
 <p>与Mkdocs Material需要自行安装Python库的方式不同，Astro通过<code>npm</code>等管理器提供了自动化流程，形成一个比较完整的Astro网站仓库：</p>
@@ -2350,7 +2350,7 @@
 <div class="admonition note">
 <p class="admonition-title">关于<code>base</code>字段</p>
 <p><code>base</code>字段填写的是您希望网站具体发布的位置。以我的<code>AstroNamie</code>为例，我希望它发布在<code>&lt;username&gt;.github.io/AstroNamie</code>下。前面的<code>Site</code>
-字段中我填写了<code>https://yliu-fe.github.io</code>，而在这里填写<code>/AstroNamie</code>。</p>
+字段中我填写了<code>https://&lt;username&gt;.github.io</code>，而在这里填写<code>/AstroNamie</code>。</p>
 <p>如果您发布的是个人网站，那么这里填写<code>/</code>即可。但是个人网站所需要的仓库名称应当是<code>&lt;username&gt;.github.io</code>。</p>
 <p>如果您的网站是以项目网站的形式发布，那么这里填写的应当是<code>/&lt;repository&gt;</code>。</p>
 <p>如果您自行购买了域名，且希望网站发布在根目录下，那么这里填写<code>/</code>。</p>
@@ -2367,12 +2367,12 @@
 <div class="language-text highlight"><span class="filename">.github/workflows/deploy.yml</span><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>name: Deploy to GitHub Pages
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
 </span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>on:
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>  # 每次推送到 `main` 分支时触发这个“工作流程”
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>  # 如果你使用了别的分支名，请按需将 `main` 替换成你的分支名
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>  # 每次推送到 `master` 分支时触发这个“工作流程”
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>  # 如果你使用了别的分支名，请按需将 `master` 替换成你的分支名
 </span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>  push:
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>    branches: [ main ]
-</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="hll">  # 允许你在 GitHub 上的 Actions 标签中手动触发此“工作流程”
-</span></span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>  workflow_dispatch:
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="hll">    branches: [ master ]
+</span></span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>  # 允许你在 GitHub 上的 Actions 标签中手动触发此“工作流程”
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>  workflow_dispatch:
 </span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>
 </span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a># 允许 job 克隆 repo 并创建一个 page deployment
 </span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>permissions:
@@ -2405,7 +2405,7 @@
 </span><span id="__span-5-39"><a id="__codelineno-5-39" name="__codelineno-5-39" href="#__codelineno-5-39"></a>        uses: actions/deploy-pages@v4
 </span></code></pre></div>
 <p>可能有很多人像我一样，第一次commit的时候将其默认分支命名为master，并且之后一直在该分支上更新。在网站发布时，请务必检查该yml文件
-中的<code>branches</code>位置是否填对了，否则github action会无法执行。</p>
+中的<code>branches</code>位置(被高亮的那一行代码)是否填对了，否则github action会无法执行——因为你仓库里压根就没有main分支。</p>
 
 
 
