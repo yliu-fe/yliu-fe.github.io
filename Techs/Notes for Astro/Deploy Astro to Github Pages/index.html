@@ -2299,9 +2299,7 @@
 
 <h1 id="astrogithub-pages">基于Astro框架构造网页并将其部署到Github Pages</h1>
 <p>参考文档（中文）：<a href="https://docs.astro.build/zh-cn/guides/deploy/github/">部署你的 Astro 站点至 GitHub Pages</a></p>
-<p>这个文档将会记载两部分内容：第一，我需要构造一个基于Astro的网页结构；第二，我需要将其部署到Github Pages上，
-但是注意到，您现在所看到的这个基于Mkdocs框架的网站已经占据了我的Github Pages网址的位置，所以新的网站只能在根网址
-下面开一个子目录。以下展示均来自我对另一个仓库的折腾实况。</p>
+<p>这个文档将会记载两部分内容：第一，我需要构造一个基于Astro的网页结构；第二，我需要将其部署到Github Pages上，但是注意到，您现在所看到的这个基于Mkdocs框架的网站已经占据了我的Github Pages网址的位置，所以新的网站只能在根网址下面开一个子目录。以下展示均来自我对另一个仓库的折腾实况。</p>
 <h2 id="astro">本地构建Astro框架</h2>
 <p>有兴趣使用Astro构造网页的话，可以跟着官方文档中的教程走一遍：<a href="https://docs.astro.build/zh-cn/tutorial/0-introduction/">搭建你的 Astro 博客</a>。</p>
 <p>与Mkdocs Material需要自行安装Python库的方式不同，Astro通过<code>npm</code>等管理器提供了自动化流程，形成一个比较完整的Astro网站仓库：</p>
@@ -2321,17 +2319,16 @@
 </div>
 </div>
 </div>
-<p>该过程将提供安装向导，您可以从中设置项目文件夹位置、选择是否使用模板库、是否自行编写TypeScript、是否完成git初始化等。
-在此基础上，您可以利用<code>npm run dev</code>命令在本地启动一个开发服务器，查看您的网页效果（默认本地网站位于localhost:4321）。</p>
+<p>该过程将提供安装向导，您可以从中设置项目文件夹位置、选择是否使用模板库、是否自行编写TypeScript、是否完成git初始化等。在此基础上，您可以利用<code>npm run dev</code>命令在本地启动一个开发服务器，查看您的网页效果（默认本地网站位于localhost:4321）。</p>
 <h2 id="github-pages">部署到Github Pages</h2>
 <p>Astro支持多种网页托管服务，这里仅就Github Pages进行说明。</p>
-<p>还是那件事，这个Astro是我第二个托管在Github Pages上的网站。对应于我用户名的<code>github.io</code>主域名已经被Mkdocs占据，那个Astro的
-实验性网站就只能以项目网站的身份出现：<code>&lt;username&gt;.github.io/&lt;repository&gt;</code>。这会在接下来的设置中带来一点小小的坑，但无伤
-大雅。</p>
-<p>需要做的设置分为三步：
-- 设置<code>astro.config.mjs</code>文件；
-- 设置Github Pages；
-- 构造并设置Github Actions。</p>
+<p>还是那件事，这个Astro是我第二个托管在Github Pages上的网站。对应于我用户名的<code>github.io</code>主域名已经被Mkdocs占据，那个Astro的实验性网站就只能以项目网站的身份出现：<code>&lt;username&gt;.github.io/&lt;repository&gt;</code>。这会在接下来的设置中带来一点小小的坑，但无伤大雅。</p>
+<p>需要做的设置分为三步：</p>
+<ul>
+<li>设置<code>astro.config.mjs</code>文件；</li>
+<li>设置Github Pages；</li>
+<li>构造并设置Github Actions。</li>
+</ul>
 <h3 id="astroconfigmjs">设置<code>astro.config.mjs</code>文件</h3>
 <p>在Astro项目的根目录下，有一个<code>astro.config.mjs</code>文件，其中包含了一些关于网站的配置信息。在这个文件中，您需要添加一些内容：</p>
 <div class="language-javascript highlight"><span class="filename">astro.config.mjs</span><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">defineConfig</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;astro/config&#39;</span>
@@ -2404,8 +2401,7 @@
 </span><span id="__span-5-38"><a id="__codelineno-5-38" name="__codelineno-5-38" href="#__codelineno-5-38"></a>        id: deployment
 </span><span id="__span-5-39"><a id="__codelineno-5-39" name="__codelineno-5-39" href="#__codelineno-5-39"></a>        uses: actions/deploy-pages@v4
 </span></code></pre></div>
-<p>可能有很多人像我一样，第一次commit的时候将其默认分支命名为master，并且之后一直在该分支上更新。在网站发布时，请务必检查该yml文件
-中的<code>branches</code>位置(被高亮的那一行代码)是否填对了，否则github action会无法执行——因为你仓库里压根就没有main分支。</p>
+<p>可能有很多人像我一样，第一次commit的时候将其默认分支命名为master，并且之后一直在该分支上更新。在网站发布时，请务必检查该yml文件中的<code>branches</code>位置(被高亮的那一行代码)是否填对了，否则github action会无法执行——因为你仓库里压根就没有main分支。</p>
 
 
 
