@@ -2,182 +2,187 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://yliu-fe.github.io/</loc>
-         <lastmod>2024-05-27</lastmod>
+         <lastmod>2024-06-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://yliu-fe.github.io/About/</loc>
-         <lastmod>2024-05-27</lastmod>
+         <lastmod>2024-06-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://yliu-fe.github.io/About/cv/</loc>
-         <lastmod>2024-05-27</lastmod>
+         <lastmod>2024-06-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://yliu-fe.github.io/Entertainment/ett_index/</loc>
-         <lastmod>2024-05-27</lastmod>
+         <lastmod>2024-06-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://yliu-fe.github.io/Entertainment/Lingua%20Latino/Latin_index/</loc>
-         <lastmod>2024-05-27</lastmod>
+         <lastmod>2024-06-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://yliu-fe.github.io/Majors/Major_index/</loc>
-         <lastmod>2024-05-27</lastmod>
+         <lastmod>2024-06-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://yliu-fe.github.io/Majors/Cross-Sectional%20Econometrics/1_OLS/</loc>
-         <lastmod>2024-05-27</lastmod>
+         <lastmod>2024-06-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://yliu-fe.github.io/Majors/Cross-Sectional%20Econometrics/About%20cross-section%20data/</loc>
-         <lastmod>2024-05-27</lastmod>
+         <lastmod>2024-06-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://yliu-fe.github.io/Majors/Non_Parametric/Gaussian_Process/</loc>
-         <lastmod>2024-05-27</lastmod>
+         <lastmod>2024-06-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://yliu-fe.github.io/Majors/Reinforcement%20Learning/RL_index/</loc>
-         <lastmod>2024-05-27</lastmod>
+         <lastmod>2024-06-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://yliu-fe.github.io/Majors/Reinforcement%20Learning/CS188/Introduction/</loc>
-         <lastmod>2024-05-27</lastmod>
+         <lastmod>2024-06-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://yliu-fe.github.io/Majors/Reinforcement%20Learning/CS188/Section1.1%20Uninformed%20Search/</loc>
-         <lastmod>2024-05-27</lastmod>
+         <lastmod>2024-06-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://yliu-fe.github.io/Majors/Reinforcement%20Learning/CS188/Section1.2%20A_star%20Search%20and%20Heuristics/</loc>
-         <lastmod>2024-05-27</lastmod>
+         <lastmod>2024-06-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://yliu-fe.github.io/Majors/Reinforcement%20Learning/CS188/homeworks/Homework%201%20Search/</loc>
-         <lastmod>2024-05-27</lastmod>
+         <lastmod>2024-06-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://yliu-fe.github.io/Majors/Reinforcement%20Learning/CS188/projects/Project%201%20Search/</loc>
-         <lastmod>2024-05-27</lastmod>
+         <lastmod>2024-06-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://yliu-fe.github.io/Majors/Reinforcement%20Learning/CS285/2_Imitation%20Learning/</loc>
-         <lastmod>2024-05-27</lastmod>
+         <lastmod>2024-06-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://yliu-fe.github.io/Majors/Reinforcement%20Learning/CS285/CS285_index/</loc>
-         <lastmod>2024-05-27</lastmod>
+         <lastmod>2024-06-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://yliu-fe.github.io/Majors/Reinforcement%20Learning/CS285/HW1_Imitation%20Learning/</loc>
-         <lastmod>2024-05-27</lastmod>
+         <lastmod>2024-06-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://yliu-fe.github.io/Majors/Reinforcement%20Learning/Deepmind%20RL/1_Introduction/</loc>
-         <lastmod>2024-05-27</lastmod>
+         <lastmod>2024-06-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://yliu-fe.github.io/Majors/Reinforcement%20Learning/Deepmind%20RL/DMRL_index/</loc>
-         <lastmod>2024-05-27</lastmod>
+         <lastmod>2024-06-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://yliu-fe.github.io/Majors/Time-Series%20Analysis/1_Background/</loc>
-         <lastmod>2024-05-27</lastmod>
+         <lastmod>2024-06-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://yliu-fe.github.io/Majors/Time-Series%20Analysis/2_Basic%20TimeSeries/</loc>
-         <lastmod>2024-05-27</lastmod>
+         <lastmod>2024-06-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://yliu-fe.github.io/Majors/Time-Series%20Analysis/3_Conditional%20Heteroscedasticity/</loc>
-         <lastmod>2024-05-27</lastmod>
+         <lastmod>2024-06-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://yliu-fe.github.io/Majors/Time-Series%20Analysis/TS_index/</loc>
-         <lastmod>2024-05-27</lastmod>
+         <lastmod>2024-06-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://yliu-fe.github.io/Techs/tech_index/</loc>
-         <lastmod>2024-05-27</lastmod>
+         <lastmod>2024-06-03</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://yliu-fe.github.io/Techs/Notes%20for%20Astro/Deploy%20Astro%20to%20Github%20Pages/</loc>
+         <lastmod>2024-06-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://yliu-fe.github.io/Techs/Notes%20for%20LaTeX/Notes%20for%20Table/</loc>
-         <lastmod>2024-05-27</lastmod>
+         <lastmod>2024-06-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://yliu-fe.github.io/Techs/Notes%20for%20Matlab/general/</loc>
-         <lastmod>2024-05-27</lastmod>
+         <lastmod>2024-06-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://yliu-fe.github.io/Techs/Notes%20for%20Mkdocs/Comment%20with%20Giscus/</loc>
-         <lastmod>2024-05-27</lastmod>
+         <lastmod>2024-06-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://yliu-fe.github.io/Techs/Notes%20for%20Mkdocs/Github%20pages%20note/</loc>
-         <lastmod>2024-05-27</lastmod>
+         <lastmod>2024-06-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://yliu-fe.github.io/Techs/Notes%20for%20Mkdocs/MathJax%E7%9A%84%E5%BC%95%E5%85%A5/</loc>
-         <lastmod>2024-05-27</lastmod>
+         <lastmod>2024-06-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://yliu-fe.github.io/Techs/Notes%20for%20Mkdocs/PyMdown_blocks/</loc>
-         <lastmod>2024-05-27</lastmod>
+         <lastmod>2024-06-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://yliu-fe.github.io/Techs/Notes%20for%20Mkdocs/Settings_Code_Blocks/</loc>
-         <lastmod>2024-05-27</lastmod>
+         <lastmod>2024-06-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://yliu-fe.github.io/Techs/Notes%20for%20Python/Basic%20Syntax/args_kwargs/</loc>
-         <lastmod>2024-05-27</lastmod>
+         <lastmod>2024-06-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://yliu-fe.github.io/Techs/Notes%20for%20Python/CS61A/61a_index/</loc>
-         <lastmod>2024-05-27</lastmod>
+         <lastmod>2024-06-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://yliu-fe.github.io/Techs/Notes%20for%20Python/CS61A/recursive/</loc>
-         <lastmod>2024-05-27</lastmod>
+         <lastmod>2024-06-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://yliu-fe.github.io/Techs/Notes%20for%20Python/Packages/numpy/</loc>
-         <lastmod>2024-05-27</lastmod>
+         <lastmod>2024-06-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
