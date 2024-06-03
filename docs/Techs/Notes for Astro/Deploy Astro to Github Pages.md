@@ -7,7 +7,7 @@ comments: true
 
 这个文档将会记载两部分内容：第一，我需要构造一个基于Astro的网页结构；第二，我需要将其部署到Github Pages上，
 但是注意到，您现在所看到的这个基于Mkdocs框架的网站已经占据了我的Github Pages网址的位置，所以新的网站只能在根网址
-下面开一个子目录。以下展示均来自我对另一个仓库[AstroNamie](https://github.com/yliu-fe/AstroNamie)的折腾实况。
+下面开一个子目录。以下展示均来自我对另一个仓库的折腾实况。
 
 ## 本地构建Astro框架
 
@@ -83,7 +83,7 @@ export default defineConfig({
     type: note
 
 `base`字段填写的是您希望网站具体发布的位置。以我的`AstroNamie`为例，我希望它发布在`<username>.github.io/AstroNamie`下。前面的`Site`
-字段中我填写了`https://yliu-fe.github.io`，而在这里填写`/AstroNamie`。
+字段中我填写了`https://<username>.github.io`，而在这里填写`/AstroNamie`。
 
 如果您发布的是个人网站，那么这里填写`/`即可。但是个人网站所需要的仓库名称应当是`<username>.github.io`。
 
@@ -110,15 +110,15 @@ example.com
 
 在仓库根目录下新建文件夹`.github`，并在其中新建文件夹`workflows`，在其中新建`deploy.yml`文件如下：
 
-```yml title=".github/workflows/deploy.yml" hl_lines="8"
+```yml title=".github/workflows/deploy.yml" hl_lines="7"
 
 name: Deploy to GitHub Pages
 
 on:
-  # 每次推送到 `main` 分支时触发这个“工作流程”
-  # 如果你使用了别的分支名，请按需将 `main` 替换成你的分支名
+  # 每次推送到 `master` 分支时触发这个“工作流程”
+  # 如果你使用了别的分支名，请按需将 `master` 替换成你的分支名
   push:
-    branches: [ main ]
+    branches: [ master ]
   # 允许你在 GitHub 上的 Actions 标签中手动触发此“工作流程”
   workflow_dispatch:
 
@@ -155,4 +155,4 @@ jobs:
 ```
 
 可能有很多人像我一样，第一次commit的时候将其默认分支命名为master，并且之后一直在该分支上更新。在网站发布时，请务必检查该yml文件
-中的`branches`位置是否填对了，否则github action会无法执行。
+中的`branches`位置(被高亮的那一行代码)是否填对了，否则github action会无法执行——因为你仓库里压根就没有main分支。
