@@ -954,11 +954,11 @@ $$
 3. MA(2)向前$l$步预测。真值为$r_{h+l} = C_0 + a_{h+l} - \theta_1 a_{h+l-1} - \theta_2 a_{h+l-2}$，对应$l$取值不同，已知项也不同：
 
 $$
-\begin{aligned}
+\begin{align}
          \hat r_h(1) &= C_0 - \theta_1 a_{h} - \theta_2 a_{h-1}\\
          \hat r_h(2) &= C_0 - \theta_2 a_h\\
          \hat r_h(l) &= C_0, \quad \text{if  > 2$}.
-\end{aligned}
+\end{align}
 $$
 
 因而可知，MA(2)在第三期之后预测值即收敛到无条件均值。类似的，MA(q)的均值回归在$q+1$期预测处即实现均值回归。
