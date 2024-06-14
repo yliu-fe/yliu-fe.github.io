@@ -29,7 +29,7 @@ RL的状态转移过程$p(\mathbf{s}_{t+1} \mid \mathbf{s}_t, \mathbf{a}_t)$满�
 
 ### 强化学习中的马尔科夫决策过程
 
-向马尔科夫链中加入动作和收益，就变成了马尔科夫决策过程（MDP）$\mathcaL{M} = \{\mathcal{A},\mathcal{S},\mathcal{T},r\}。设动作集为$\mathcal{A}$，使所有的合法动作$a \in \mathcal{A}$（可以是连续的，也可以是分散的）。仍然令第$t$期状态为$j$的概率为$\mu_{t,j} = p(s_t = j)$，令第$t$期选取动作$k$的概率为$\xi_{t,k} = p(a_t = k)$，而状态转移乘子变为$\mathcal{T}_{ijk} = p(s_{t+1}=i \mid s_t = j,a_t = k)，则有：
+向马尔科夫链中加入动作和收益，就变成了马尔科夫决策过程（MDP）$\mathcal{M} = \{\mathcal{A},\mathcal{S},\mathcal{T},r\}$。设动作集为$\mathcal{A}$，使所有的合法动作$a \in \mathcal{A}$（可以是连续的，也可以是分散的）。仍然令第$t$期状态为$j$的概率为$\mu_{t,j} = p(s_t = j)$，令第$t$期选取动作$k$的概率为$\xi_{t,k} = p(a_t = k)$，而状态转移乘子变为$\mathcal{T}_{ijk} = p(s_{t+1}=i \mid s_t = j,a_t = k)$，则有：
 
 $$
 \mu_{t+1},i = \sum_{j,k} \mathcal{T}_{ijk} \mu_{t,j} \xi_{t,k}
@@ -42,11 +42,28 @@ $$
 更进一步，我们可以写出POMDP（Partially-observable Markovian Decision Process）的形式化表述。在此基础上多了两项：
 
 - 观察空间$\mathcal{O}$，即智能体对状态的观测$o \in \mathcal{O}；
-- 泄露概率$\Epsilon = p(o_t \mid s_t)$，即状态$s_t$下观测为$o_t$的概率，emission probability。
+- 泄露概率$\mathcal{E} = p(o_t \mid s_t)$，即状态$s_t$下观测为$o_t$的概率，emission probability。
 
 但是POMDP下行为人的收益不取决于观测，而是取决于不可观测的实际状态：$r(s,a)$。
 
 ### 目标
+
+强化学习的本质目标是最优化策略$\theta$，使全过程的期望收益最大化：
+
+$$
+\theta^{*} = \arg \max_{\theta} \mathbb{E}_{\tau \sim p_{\theta}(\tau)} \left[ \sum_{t=0}^{T} r(\mathbf{s}_t,\mathbf{a}_t) \right]
+$$
+
+如果$T$是有限的，那我们叫它finite-horizon MDP；如果$T$是无限的，那我们叫它infinite-horizon MDP。接着，我们给这个式子，以及完整的MDP过程做一个简化，考虑到MDP全过程是由$s,a$定义的，我们可以将其出现的概率拆分为：
+
+$$
+p_{\theta}(\mathbf{s}_1,\mathbf{a}_1,...,\mathbf{s}_T,\mathbf{a}_T) = p(\mathbf{s}_1) \prod_{t=1}^{T} p(\mathbf{s}_{t+1} \mid \mathbf{s}_t,\mathbf{a}_t) \pi_{\theta}(\mathbf{a}_t \mid \mathbf{s}_t)
+$$
+
+被连乘的两项合起来，就是$p((\mathbf{s}_{t+1}, \mathbf{a}_{t+1}) \mid (\mathbf{s}_t,\mathbf{a}_t))$，即已知上一期发生了什么的情况下，这一期会发生什么的概率。这个概率是由状态转移和策略共同决定的。
+
+### 有限马尔可夫过程的举例
+
 
 ## 2. 算法思路和价值函数
 
