@@ -2055,6 +2055,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      有限马尔可夫过程的举例
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2324,6 +2333,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      有限马尔可夫过程的举例
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2392,7 +2410,7 @@
 <h3 id="_2">强化学习中的马尔科夫链</h3>
 <p>考虑到状态转移过程，我们需要聊一下马尔科夫链。马尔科夫链由两部分构成：<span class="arithmatex">\(\mathcal{M} = \{\mathcal{S},\mathcal{T}\}\)</span>，前者是状态空间，后者是状态转移乘子。状态空间<span class="arithmatex">\(\mathcal{S}\)</span>可以是连续的，也可以是离散的，关键在于状态转移概率如何形成：<span class="arithmatex">\(p(s_{t+1} \mid s_t)\)</span>。定义概率<span class="arithmatex">\(\mu_{t,i} = p(s_t = i)\)</span>，那么状态转移乘子<span class="arithmatex">\(\mathcal{T}_{i,j} = p(s_{t+1} = i \mid s_t = j)\)</span>，即在状态<span class="arithmatex">\(j\)</span>下转移到状态<span class="arithmatex">\(i\)</span>的概率。那么就可以简化为<span class="arithmatex">\(\vec \mu_{t+1} = \mathcal{T} \vec \mu_t\)</span>，即状态转移过程。</p>
 <h3 id="_3">强化学习中的马尔科夫决策过程</h3>
-<p>向马尔科夫链中加入动作和收益，就变成了马尔科夫决策过程（MDP）<span class="arithmatex">\(\mathcaL{M} = \{\mathcal{A},\mathcal{S},\mathcal{T},r\}。设动作集为\)</span>\mathcal{A}<span class="arithmatex">\(，使所有的合法动作\)</span>a \in \mathcal{A}<span class="arithmatex">\(（可以是连续的，也可以是分散的）。仍然令第\)</span>t<span class="arithmatex">\(期状态为\)</span>j<span class="arithmatex">\(的概率为\)</span>\mu_{t,j} = p(s_t = j)<span class="arithmatex">\(，令第\)</span>t<span class="arithmatex">\(期选取动作\)</span>k<span class="arithmatex">\(的概率为\)</span>\xi_{t,k} = p(a_t = k)<span class="arithmatex">\(，而状态转移乘子变为\)</span>\mathcal{T}<em>{ijk} = p(s</em>{t+1}=i \mid s_t = j,a_t = k)，则有：</p>
+<p>向马尔科夫链中加入动作和收益，就变成了马尔科夫决策过程（MDP）<span class="arithmatex">\(\mathcal{M} = \{\mathcal{A},\mathcal{S},\mathcal{T},r\}\)</span>。设动作集为<span class="arithmatex">\(\mathcal{A}\)</span>，使所有的合法动作<span class="arithmatex">\(a \in \mathcal{A}\)</span>（可以是连续的，也可以是分散的）。仍然令第<span class="arithmatex">\(t\)</span>期状态为<span class="arithmatex">\(j\)</span>的概率为<span class="arithmatex">\(\mu_{t,j} = p(s_t = j)\)</span>，令第<span class="arithmatex">\(t\)</span>期选取动作<span class="arithmatex">\(k\)</span>的概率为<span class="arithmatex">\(\xi_{t,k} = p(a_t = k)\)</span>，而状态转移乘子变为<span class="arithmatex">\(\mathcal{T}_{ijk} = p(s_{t+1}=i \mid s_t = j,a_t = k)\)</span>，则有：</p>
 <div class="arithmatex">\[
 \mu_{t+1},i = \sum_{j,k} \mathcal{T}_{ijk} \mu_{t,j} \xi_{t,k}
 \]</div>
@@ -2401,10 +2419,20 @@
 <p>更进一步，我们可以写出POMDP（Partially-observable Markovian Decision Process）的形式化表述。在此基础上多了两项：</p>
 <ul>
 <li>观察空间<span class="arithmatex">\(\mathcal{O}\)</span>，即智能体对状态的观测$o \in \mathcal{O}；</li>
-<li>泄露概率<span class="arithmatex">\(\Epsilon = p(o_t \mid s_t)\)</span>，即状态<span class="arithmatex">\(s_t\)</span>下观测为<span class="arithmatex">\(o_t\)</span>的概率，emission probability。</li>
+<li>泄露概率<span class="arithmatex">\(\mathcal{E} = p(o_t \mid s_t)\)</span>，即状态<span class="arithmatex">\(s_t\)</span>下观测为<span class="arithmatex">\(o_t\)</span>的概率，emission probability。</li>
 </ul>
 <p>但是POMDP下行为人的收益不取决于观测，而是取决于不可观测的实际状态：<span class="arithmatex">\(r(s,a)\)</span>。</p>
 <h3 id="_5">目标</h3>
+<p>强化学习的本质目标是最优化策略<span class="arithmatex">\(\theta\)</span>，使全过程的期望收益最大化：</p>
+<div class="arithmatex">\[
+\theta^{*} = \arg \max_{\theta} \mathbb{E}_{\tau \sim p_{\theta}(\tau)} \left[ \sum_{t=0}^{T} r(\mathbf{s}_t,\mathbf{a}_t) \right]
+\]</div>
+<p>如果<span class="arithmatex">\(T\)</span>是有限的，那我们叫它finite-horizon MDP；如果<span class="arithmatex">\(T\)</span>是无限的，那我们叫它infinite-horizon MDP。接着，我们给这个式子，以及完整的MDP过程做一个简化，考虑到MDP全过程是由<span class="arithmatex">\(s,a\)</span>定义的，我们可以将其出现的概率拆分为：</p>
+<div class="arithmatex">\[
+p_{\theta}(\mathbf{s}_1,\mathbf{a}_1,...,\mathbf{s}_T,\mathbf{a}_T) = p(\mathbf{s}_1) \prod_{t=1}^{T} p(\mathbf{s}_{t+1} \mid \mathbf{s}_t,\mathbf{a}_t) \pi_{\theta}(\mathbf{a}_t \mid \mathbf{s}_t)
+\]</div>
+<p>被连乘的两项合起来，就是<span class="arithmatex">\(p((\mathbf{s}_{t+1}, \mathbf{a}_{t+1}) \mid (\mathbf{s}_t,\mathbf{a}_t))\)</span>，即已知上一期发生了什么的情况下，这一期会发生什么的概率。这个概率是由状态转移和策略共同决定的。</p>
+<h3 id="_6">有限马尔可夫过程的举例</h3>
 <h2 id="2">2. 算法思路和价值函数</h2>
 <h2 id="3">3. 算法类型</h2>
 <h2 id="4">4. 如何在算法间取舍？</h2>
