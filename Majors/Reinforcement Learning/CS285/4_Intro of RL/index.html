@@ -2414,7 +2414,7 @@
 <h3 id="_3">强化学习中的马尔科夫决策过程</h3>
 <div class="admonition info">
 <p class="admonition-title">马尔科夫决策过程</p>
-<p>您可额外参考：(<a href="https://web.stanford.edu/class/cme241/lecture_slides/david_silver_slides/MDP.pdf">https://web.stanford.edu/class/cme241/lecture_slides/david_silver_slides/MDP.pdf</a>)</p>
+<p>您可额外参考：<a href="https://web.stanford.edu/class/cme241/lecture_slides/david_silver_slides/MDP.pdf">https://web.stanford.edu/class/cme241/lecture_slides/david_silver_slides/MDP.pdf</a></p>
 </div>
 <p>向马尔科夫链中加入动作和收益，就变成了马尔科夫决策过程（MDP）<span class="arithmatex">\(\mathcal{M} = \{\mathcal{A},\mathcal{S},\mathcal{T},r\}\)</span>。设动作集为<span class="arithmatex">\(\mathcal{A}\)</span>，使所有的合法动作<span class="arithmatex">\(a \in \mathcal{A}\)</span>（可以是连续的，也可以是分散的）。仍然令第<span class="arithmatex">\(t\)</span>期状态为<span class="arithmatex">\(j\)</span>的概率为<span class="arithmatex">\(\mu_{t,j} = p(s_t = j)\)</span>，令第<span class="arithmatex">\(t\)</span>期选取动作<span class="arithmatex">\(k\)</span>的概率为<span class="arithmatex">\(\xi_{t,k} = p(a_t = k)\)</span>，而状态转移乘子变为<span class="arithmatex">\(\mathcal{T}_{ijk} = p(s_{t+1}=i \mid s_t = j,a_t = k)\)</span>，则有：</p>
 <div class="arithmatex">\[

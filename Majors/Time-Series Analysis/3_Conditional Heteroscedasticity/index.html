@@ -1735,15 +1735,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#footnotes" class="md-nav__link">
-    <span class="md-ellipsis">
-      Footnotes
-    </span>
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -2837,15 +2828,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#footnotes" class="md-nav__link">
-    <span class="md-ellipsis">
-      Footnotes
-    </span>
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -2865,11 +2847,6 @@
 
 
 <h1 id="_1">条件异方差系列模型</h1>
-<div class="admonition danger">
-<p class="admonition-title">正在施工</p>
-<p>幸运的是，这一部分的原始笔记就是markdown格式，但是需要将其变成适合于MkDocs框架的格式，还要整理。</p>
-<p>当然，如果您能识读Markdown和TeX生代码的话，就请您自便吧。</p>
-</div>
 <p>前一章节，我们讲了一阶矩信息（条件均值）的描述和分析。在这一章中，我们将着重讨论二阶矩信息（条件方差）的分析。说到条件异方差，股票是一种较为常见的场景。而股票的波动率，即股票对数收益率的条件标准差，则是常见的一个讨论对象：</p>
 <div class="arithmatex">\[
 \sigma_t \mid F_{t-1}
@@ -3205,15 +3182,13 @@ E(a_t^2) = \frac{\alpha_0}{1-\sum_{i=1}^{\max(m,s)} (\alpha_i + \beta_i)}
 \sigma_t^2 = \alpha_0 + \alpha_1 a_{t-1}^2 + \beta_1 \sigma_{t-1}^2
 \]</div>
 <p>这个模型可以得到如下性质：</p>
-<ol>
-<li>显然，如果<span class="arithmatex">\(a_{t-1}^2\)</span>或<span class="arithmatex">\(\sigma_t^2\)</span>很大，那么当期的<span class="arithmatex">\(\sigma_t^2\)</span>一般会较大，从而刻画了波动率聚集现象。</li>
-<li>四阶矩信息。</li>
-</ol>
-<p>$$
-   \frac{E[a_t^4]}{E[(a_t^2)]^2} = \frac{3[1-(\alpha_1 + \beta_1)^2]}{1-2\alpha_1^2 - (\alpha_1+\beta_1)^2} &gt; 3
-   $$</p>
-<p>只要保证分母项大于0，则整个峰度必然大于3，从而刻画了波动率的厚尾现象。
-3. 用较少的参数的函数刻画了波动率的演变。经验之谈，GARCH(1,1/2,1/1,2)就可以较好的刻画波动率的演变。因为低阶的GARCH模型损失的信息较少（对样本容量的磨损较小），且准确性比对应的ARCH要好。</p>
+<p>【1】显然，如果<span class="arithmatex">\(a_{t-1}^2\)</span>或<span class="arithmatex">\(\sigma_t^2\)</span>很大，那么当期的<span class="arithmatex">\(\sigma_t^2\)</span>一般会较大，从而刻画了波动率聚集现象。</p>
+<p>【2】四阶矩信息。</p>
+<div class="arithmatex">\[
+\frac{E[a_t^4]}{E[(a_t^2)]^2} = \frac{3[1-(\alpha_1 + \beta_1)^2]}{1-2\alpha_1^2 - (\alpha_1+\beta_1)^2} &gt; 3
+\]</div>
+<p>只要保证分母项大于0，则整个峰度必然大于3，从而刻画了波动率的厚尾现象。</p>
+<p>【3】用较少的参数的函数刻画了波动率的演变。经验之谈，GARCH(1,1/2,1/1,2)就可以较好的刻画波动率的演变。因为低阶的GARCH模型损失的信息较少（对样本容量的磨损较小），且准确性比对应的ARCH要好。</p>
 <h3 id="garch11_1">GARCH(1,1)的预测</h3>
 <p>以<span class="arithmatex">\(h\)</span>为预测原点，则：</p>
 <div class="arithmatex">\[
@@ -3265,7 +3240,7 @@ E(\epsilon_t) = 0, \operatorname{Var}(\epsilon_t) = 1, E(\epsilon_t^4) = K_{\eps
     &amp;= \frac{\alpha_0^2(1+\alpha_1 + \beta_1)}{[1-(\alpha_1 + \beta_1)] [1-\alpha_1^2(K_\epsilon + 2) - (\alpha_1 + \beta_1)^2]}
 \end{aligned}
 \]</div>
-<p>因而，为了使这个四阶矩存在，应当有$ 0 \leq \alpha_1 +\beta_1 &lt; 1$，且 分母大于0，即：</p>
+<p>因而，为了使这个四阶矩存在，应当有<span class="arithmatex">\(0 \leq \alpha_1 +\beta_1 &lt; 1\)</span>，且分母大于0，即：</p>
 <div class="arithmatex">\[
 [1-(\alpha_1 + \beta_1)] [1-\alpha_1^2(K_\epsilon + 2) - (\alpha_1 + \beta_1)^2] &gt; 0
 \]</div>
@@ -3277,8 +3252,9 @@ E(\epsilon_t) = 0, \operatorname{Var}(\epsilon_t) = 1, E(\epsilon_t^4) = K_{\eps
 \end{aligned}
 \]</div>
 <p>现在就<span class="arithmatex">\(\epsilon_t\)</span>服从的分布做讨论。</p>
-<blockquote>
-<p>==a）<span class="arithmatex">\(\epsilon_t\)</span>服从正态分布==则<span class="arithmatex">\(K_\epsilon = 0\)</span>，从而有：</p>
+<details>
+<summary>a）<span class="arithmatex">\(\epsilon_t\)</span>服从正态分布</summary>
+<p><span class="arithmatex">\(\epsilon_t\)</span>服从正态分布，则<span class="arithmatex">\(K_\epsilon = 0\)</span>，从而有：</p>
 <div class="arithmatex">\[
 K_a^{(g)} = \frac{6\alpha_1^2}{1-2\alpha_1^2 - (\alpha_1+\beta_1)^2}
 \]</div>
@@ -3288,15 +3264,18 @@ K_a^{(g)} = \frac{6\alpha_1^2}{1-2\alpha_1^2 - (\alpha_1+\beta_1)^2}
 <li>若<span class="arithmatex">\(\alpha_1 = 0\)</span>，则<span class="arithmatex">\(K_a^{(g)} = 0\)</span>，对应的GARCH(1,1)无厚尾；</li>
 <li>若<span class="arithmatex">\(\beta_1 = 0\)</span>，模型退化到ARCH(1)模型，必然有厚尾，且必然有<span class="arithmatex">\(\alpha_1^2 &lt; 1/3\)</span>，符合ARCH(1)对系数的额外规定。</li>
 </ul>
-<p>==b) <span class="arithmatex">\(\epsilon_t\)</span>不服从正态分布==则<span class="arithmatex">\(K_\epsilon &gt; 0\)</span>，从而有：</p>
+</details>
+<details>
+<summary>b）<span class="arithmatex">\(\epsilon_t\)</span>不服从正态分布</summary>
+<p><span class="arithmatex">\(\epsilon_t\)</span>不服从正态分布，则<span class="arithmatex">\(K_\epsilon &gt;0\)</span>，从而有：</p>
 <div class="arithmatex">\[
 \begin{aligned}
-        K_a &amp;=  \frac{K_\epsilon - K_\epsilon (\alpha_1 + \beta_1) + 6\alpha_1^2 + 3K_\epsilon \alpha_1^2}{1-2\alpha_1^2 - (\alpha_1 + \beta_1)^2 - K_\epsilon \alpha_1^2}\\
-        &amp;= \frac{K_\epsilon + K_a^{(g)} + \frac{5}{6} K_\epsilon K_a^{(g)}}{1-\frac{1}{6} K_\epsilon K_a^{(g)}}
-    \end{aligned}
+   K_a &amp;=  \frac{K_\epsilon - K_\epsilon (\alpha_1 + \beta_1) + 6\alpha_1^2 + 3K_\epsilon \alpha_1^2}{1-2\alpha_1^2 - (\alpha_1 + \beta_1)^2 - K_\epsilon \alpha_1^2}\\
+   &amp;= \frac{K_\epsilon + K_a^{(g)} + \frac{5}{6} K_\epsilon K_a^{(g)}}{1-\frac{1}{6} K_\epsilon K_a^{(g)}}
+\end{aligned}
 \]</div>
 <p>上式对应的结论对任意的GARCH模型都成立。</p>
-</blockquote>
+</details>
 <p>对于ARCH(1)模型，即<span class="arithmatex">\(\beta_1 = 0\)</span>的情形，则高斯情形下<span class="arithmatex">\(a_t\)</span>的超额峰度为：</p>
 <div class="arithmatex">\[
 K_a^{(g)} = \frac{6\alpha_1^2}{1-3\alpha_1^2}
@@ -3311,9 +3290,9 @@ K_a = \frac{(K_\epsilon + 3) (1-\alpha_1^2)}{1-(K_\epsilon+3)\alpha_1^2} - 3
 <li>当<span class="arithmatex">\(\alpha_1 &gt; 0\)</span>时，有<span class="arithmatex">\(K_a^{(g)} &gt; 0\)</span>，从而可知<span class="arithmatex">\(a_t\)</span>存在厚尾性质；</li>
 <li>如果<span class="arithmatex">\(\epsilon_t\)</span>服从自由度为<span class="arithmatex">\(v\)</span>的学生t分布。若<span class="arithmatex">\(v &gt; 4\)</span>，则有<span class="arithmatex">\(E(\epsilon_t^4) = \frac{6}{v-4} - 3\)</span>，对应<span class="arithmatex">\(K_\epsilon = \frac{6}{v-4}\)</span>。那么对应的<span class="arithmatex">\(a_t\)</span>的超额峰度为：</li>
 </ul>
-<p>$$
-  K_a = \frac{6+(v+1)K_a^{(g)}}{v-4 - K_a^{(g)}}
-  $$</p>
+<div class="arithmatex">\[
+K_a = \frac{6+(v+1)K_a^{(g)}}{v-4 - K_a^{(g)}}
+\]</div>
 <p>要求<span class="arithmatex">\(1-\frac{2\alpha_1^2(v-1)}{v-4} - (\alpha_1+\beta_1)^2 &gt; 0\)</span>。</p>
 <h2 id="35-garch">3.5 GARCH的衍生模型</h2>
 <p>本部分介绍GARCH模型的各类衍生模型，如求和GARCH（I-GARCH）、门限GARCH（T-GARCH）、指数GARCH（E-GARCH）。</p>
@@ -3323,34 +3302,31 @@ K_a = \frac{(K_\epsilon + 3) (1-\alpha_1^2)}{1-(K_\epsilon+3)\alpha_1^2} - 3
 a_t^2 = \alpha_0 + \sum_{i=1}^{\max(m,s)} (\alpha_i + \beta_i)a_{t-i}^2 + \eta_t - \sum_{j=1}^s \beta_j \eta_{t-j}
 \]</div>
 <p>考虑这个式子中AR部分，即<span class="arithmatex">\(\sum_{i=1}^{\max(m,s)} (\alpha_i + \beta_i) a_{t-i}^2\)</span>，如果这一部分中存在至少一个单位根，则称该GARCH模型为I-GARCH。由于单位根的存在，I-GARCH模型中过去的扰动<span class="arithmatex">\(\eta_{t-i} = a_{t-i}^2 - \sigma_{t-i}^2\)</span>对当前的扰动<span class="arithmatex">\(a_t^2\)</span>存在持续性（无衰减）的影响。</p>
-<ol>
-<li><strong>I-GARCH(1,1)模型的形式</strong>。以I-GARCH(1,1)为例，其基本形式为：</li>
-</ol>
-<p>$$
-   a_t = \sigma_t \epsilon_t, \quad \sigma_t^2 = \alpha_0 + \beta_1 \sigma_{t-1}^2 + (1-\beta_1) a_{t-1}^2
-   $$</p>
-<p>其中假定<span class="arithmatex">\(\epsilon_t\)</span>独立同分布，并且要求<span class="arithmatex">\(0&lt;\beta_i &lt; 1\)</span>。由于I-GARCH模型是存在单位根的GARCH，且只有一期滞后，因此必然有<span class="arithmatex">\(\alpha_1 + \beta_1 = 1\)</span>，从而得到上式。
-2. <strong>I-GARCH(1,1)模型的向前预测</strong>。下面讨论I-GARCH(1,1)模型的向前预测，设<span class="arithmatex">\(h\)</span>为预测的起点，则一般GARCH(1,1)模型向前<span class="arithmatex">\(l\)</span>步预测的形式为：</p>
-<p>$$
-   \sigma_h^2(l) = \alpha_0 + (\alpha_1 + \beta_1) \sigma_h^2(l-1), \quad l&gt;1
-   $$</p>
+<p>【1】 <strong>I-GARCH(1,1)模型的形式</strong>。以I-GARCH(1,1)为例，其基本形式为：</p>
+<div class="arithmatex">\[
+a_t = \sigma_t \epsilon_t, \quad \sigma_t^2 = \alpha_0 + \beta_1 \sigma_{t-1}^2 + (1-\beta_1) a_{t-1}^2
+\]</div>
+<p>其中假定<span class="arithmatex">\(\epsilon_t\)</span>独立同分布，并且要求<span class="arithmatex">\(0&lt;\beta_i &lt; 1\)</span>。由于I-GARCH模型是存在单位根的GARCH，且只有一期滞后，因此必然有<span class="arithmatex">\(\alpha_1 + \beta_1 = 1\)</span>，从而得到上式。</p>
+<p>【2】 <strong>I-GARCH(1,1)模型的向前预测</strong>。下面讨论I-GARCH(1,1)模型的向前预测，设<span class="arithmatex">\(h\)</span>为预测的起点，则一般GARCH(1,1)模型向前<span class="arithmatex">\(l\)</span>步预测的形式为：</p>
+<div class="arithmatex">\[
+\sigma_h^2(l) = \alpha_0 + (\alpha_1 + \beta_1) \sigma_h^2(l-1), \quad l&gt;1
+\]</div>
 <p>而对于I-GARCH(1,1)，可以得到类似的结论：</p>
-<p>$$
-   \sigma_h^2(l) = \sigma_h^2(1) + (l-1)\alpha_0,
-       \quad l \geq 1
-   $$</p>
-<p>而<span class="arithmatex">\(\alpha_0\)</span>显然是一个常数，因此向前预测随着步数的增多，其方差线性增长，如图所示。但随着<span class="arithmatex">\(l\)</span>的增长，<span class="arithmatex">\(\sigma_h^2(l)\)</span>线性增长且无限制，因而如果<span class="arithmatex">\(\alpha_0\)</span>不为零，则远期方程是无法收敛的，==又因为<span class="arithmatex">\(\alpha_0 \geq 0\)</span>，所以<span class="arithmatex">\(\alpha_0 = 0\)</span>才能使得模型有意义==。（搞什么，GARCH基本模型要求<span class="arithmatex">\(\alpha_0\)</span>严格大于0，这里怎么又能取等号了？）</p>
-<ol>
-<li><strong>特殊情形：<span class="arithmatex">\(\alpha_0 = 0\)</span></strong>。<span class="arithmatex">\(\alpha_0 = 0\)</span>的模型常用于计算在险价值（Value at Risk，VaR）的模型RiskMatrics。这个模型的好处在于，这是一个关于<span class="arithmatex">\(\{a_t^2\}\)</span>序列的指数平滑(exponential smoothing)的模型：</li>
-</ol>
-<p>$$
-   \begin{aligned}
-       \sigma_t^2 &amp;= (1- \beta_1) a_{t-1}^2 + \beta_1 \sigma_{t-1}^2 \nonumber\
-       &amp;= (1-\beta_1) a_{t-1}^2 + \beta_1 (1-\beta_1) a_{t-2}^2 +  \beta_1^2( \sigma_{t-2}^2 \nonumber\
-       &amp;= \ldots \nonumber\
-       &amp;= (1-\beta_1) (a_{t-1}^2 + \beta_1 a_{t-2}^2 + \beta_1^2 a_{t-3}^2 + \ldots )
-   \end{aligned}
-   $$</p>
+<div class="arithmatex">\[
+\sigma_h^2(l) = \sigma_h^2(1) + (l-1)\alpha_0,
+      \quad l \geq 1
+\]</div>
+<p>而<span class="arithmatex">\(\alpha_0\)</span>显然是一个常数，因此向前预测随着步数的增多，其方差线性增长，如图所示。但随着<span class="arithmatex">\(l\)</span>的增长，<span class="arithmatex">\(\sigma_h^2(l)\)</span>线性增长且无限制，因而如果<span class="arithmatex">\(\alpha_0\)</span>不为零，则远期方程是无法收敛的，<strong>又因为<span class="arithmatex">\(\alpha_0 \geq 0\)</span>，所以<span class="arithmatex">\(\alpha_0 = 0\)</span>才能使得模型有意义</strong>。</p>
+<p><img alt="IGARCH Figure" src="../image/3_ConditionalHeter/3_1_ArunaFigureIGARCH.jpg" /></p>
+<p>【3】 <strong>特殊情形：<span class="arithmatex">\(\alpha_0 = 0\)</span></strong>。<span class="arithmatex">\(\alpha_0 = 0\)</span>的模型常用于计算在险价值（Value at Risk，VaR）的模型RiskMatrics。这个模型的好处在于，这是一个关于<span class="arithmatex">\(\{a_t^2\}\)</span>序列的指数平滑(exponential smoothing)的模型：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+   \sigma_t^2 &amp;= (1- \beta_1) a_{t-1}^2 + \beta_1 \sigma_{t-1}^2 \nonumber\\
+   &amp;= (1-\beta_1) a_{t-1}^2 + \beta_1 (1-\beta_1) a_{t-2}^2 +  \beta_1^2( \sigma_{t-2}^2 \nonumber\\
+   &amp;= \ldots \nonumber\\
+   &amp;= (1-\beta_1) (a_{t-1}^2 + \beta_1 a_{t-2}^2 + \beta_1^2 a_{t-3}^2 + \ldots )
+\end{aligned}
+\]</div>
 <p>由于<span class="arithmatex">\(\beta_1 &lt; 1\)</span>，因而逐渐降低远期扰动对当期波动率的影响。这种模型也可用于估计I-GARCH(1,1)模型的参数。</p>
 <h3 id="garch_2">门限GARCH</h3>
 <p>The Threshold GARCH，简称T-GARCH。其特点在于加入了波动项为负值的指示变量<span class="arithmatex">\(N_{t-i}\)</span>。T-GARCH(m,s)模型的基本形式为：</p>
@@ -3369,14 +3345,14 @@ N_{t-i} = \left\{\begin{array}{cc}
 <h3 id="garch_3">指数GARCH</h3>
 <p>The Exponential GARCH。简称E-GARCH。这个模型也针对波动率的不对称性质。该模型定义了一个加权因子：</p>
 <div class="arithmatex">\[
-g(\epsilon_t) = \theta \epsilon_t + \gamma [|\epsilon_t| - E(|\epsilon_t|) ] \label{eq: EGARCHweight}
+g(\epsilon_t) = \theta \epsilon_t + \gamma [|\epsilon_t| - E(|\epsilon_t|) ] \tag{15}\label{eq: EGARCHweight}
 \]</div>
 <p>其中<span class="arithmatex">\(\theta, \gamma\)</span>为常数，<span class="arithmatex">\(\epsilon_t, |\epsilon_t| - E(|\epsilon_t|)\)</span>均为零均值独立同分布随机序列。因而有<span class="arithmatex">\(E[g(\epsilon_t)] = 0\)</span>，且对于<span class="arithmatex">\(\epsilon_t\)</span>的不同取值，<span class="arithmatex">\(g(\epsilon_t)\)</span>的序列存在不同：</p>
 <div class="arithmatex">\[
 g(\epsilon_t) = \left\{\begin{array}{cc}
-        (\theta + \gamma) \epsilon_t - \gamma E(|\epsilon_t|) &amp; \quad  \epsilon \geq 0\\
-        (\theta - \gamma) \epsilon_t - \gamma E(|\epsilon_t|)&amp; \quad \epsilon &lt; 0
-    \end{array}\right.
+   (\theta + \gamma) \epsilon_t - \gamma E(|\epsilon_t|) &amp; \quad  \epsilon \geq 0\\
+   (\theta - \gamma) \epsilon_t - \gamma E(|\epsilon_t|)&amp; \quad \epsilon &lt; 0
+\end{array}\right.
 \]</div>
 <p>基于以上内容，E-GARCH(m,s)模型的形式被定义为：</p>
 <div class="arithmatex">\[
@@ -3425,7 +3401,11 @@ g(\epsilon_{t-1}) = \theta \epsilon_{t-1} + \gamma(|\epsilon_{t-1}|- \sqrt{2/\pi
 \]</div>
 <p>而<span class="arithmatex">\(\epsilon_{t-1} = a_{t-1} / \sigma_{t-1}\)</span>，而标准差<span class="arithmatex">\(\sigma_{t-1}\)</span>必然不可能为负，因而上式的讨论条件可以变成<span class="arithmatex">\(a_{t-1}\)</span>的正负情况，换句话说，方差<span class="arithmatex">\(\sigma_t^2\)</span>的取值情况受上一期的扰动<span class="arithmatex">\(a_{t-1}\)</span>的影响。但由于上式中正负条件下影响系数存在区别，<span class="arithmatex">\(a_{t-1} \geq 0\)</span>下为<span class="arithmatex">\((\gamma + \theta)\)</span>，而<span class="arithmatex">\(a_{t-1} &lt; 0\)</span>时为<span class="arithmatex">\((\gamma- \theta)\)</span>，因此E-GARCH模型可以体现金融市场对正负波动的不对称响应情况（但不对称的前提是<span class="arithmatex">\(\theta \not = 0\)</span>）。</p>
 <h2 id="36-var">3.6 在险价值(VaR)</h2>
-<p>若干个大小写各异的VaR中的一个[^9]，全名Value at Risk。Tsay书对应章节为Chapter 7.1。</p>
+<p>若干个大小写各异的VaR中的一个，全名Value at Risk。Tsay书对应章节为Chapter 7.1。</p>
+<div class="admonition note">
+<p class="admonition-title">还有什么var？</p>
+<p>var/Var是方差，Variance；VaR是在险价值,Value at Risk; VAR通常指向量自回归模型,Vector AutoRegression。</p>
+</div>
 <h3 id="_4">风险分类和评估方法</h3>
 <p>金融风险可以分为若干类，通常分法为：</p>
 <ol>
@@ -3444,13 +3424,16 @@ g(\epsilon_{t-1}) = \theta \epsilon_{t-1} + \gamma(|\epsilon_{t-1}|- \sqrt{2/\pi
 </ul>
 <p>此外，为了控制信用风险，信用违约互换（CDS）应运而生，这是一种在规定期限内买卖双方就规定的信用事件进行风险转换的合约。特点在于透明性、市场化程度高、风险可控性好。</p>
 <h3 id="var">VaR的定义</h3>
-<blockquote>
-<p>==Def 3.1 - VaR==令<span class="arithmatex">\(\Delta V(\mathscr{l})\)</span>表示金融头寸中从<span class="arithmatex">\(t\)</span>到<span class="arithmatex">\((t+\mathscr{l})\)</span>时刻标的资产价值的改变量，令<span class="arithmatex">\(L(\mathscr{l})\)</span>为对应的损失函数[^10]，令<span class="arithmatex">\(F_{\mathscr{l}}(x)\)</span>为<span class="arithmatex">\(L(\mathscr{l})\)</span>的CDF。则一个持有期为<span class="arithmatex">\(\mathscr{l}\)</span>，尾部概率为<span class="arithmatex">\(p\)</span>的金融头寸的VaR定义为：</p>
+<div class="admonition info">
+<p class="admonition-title">定义3.1 VaR</p>
+<p>令<span class="arithmatex">\(\Delta V(\mathscr{l})\)</span>表示金融头寸中从<span class="arithmatex">\(t\)</span>到<span class="arithmatex">\((t+\mathscr{l})\)</span>时刻标的资产价值的改变量，令<span class="arithmatex">\(L(\mathscr{l})\)</span>为对应的损失函数，令<span class="arithmatex">\(F_{\mathscr{l}}(x)\)</span>为<span class="arithmatex">\(L(\mathscr{l})\)</span>的CDF。则一个持有期为<span class="arithmatex">\(\mathscr{l}\)</span>，尾部概率为<span class="arithmatex">\(p\)</span>的金融头寸的VaR定义为：</p>
 <div class="arithmatex">\[
 p = Prob(L(\mathscr{l}) \geq \operatorname{VaR}) = 1 - Prob(L(\mathscr{l}) &lt; \operatorname{VaR}) = 1-F_{\mathscr{l}}(\operatorname{VaR})
 \]</div>
-</blockquote>
+<p>关于<span class="arithmatex">\(L(\mathscr{l})\)</span>：如果做多，<span class="arithmatex">\(L(\mathscr{l}) = - \Delta V(\mathscr{l})\)</span>，如果做空则<span class="arithmatex">\(L(\mathscr{l}) = \Delta V(\mathscr{l})\)</span>。</p>
+</div>
 <p>以上定义表明，VaR是一个分位点的概念，这个概念关注的是造成极端大损失的尾部风险，如下图所示（来自英文Wiki）。</p>
+<p><img alt="VaR_tail_risk" src="../image/3_ConditionalHeter/3_2_VaR_diagram.jpg" /></p>
 <p>VaR用来警示的就是那部分红色（5%概率）的极端风险，而分位点的位置就是所谓VaR的值。如果用<span class="arithmatex">\(L_{\mathscr{l}}(x)\)</span>的方法来定义，则红色区域应该是右侧的尾部，换句话说就是把上图镜像翻转过来。但无论是怎么定义，VaR关注的绝对不是极端收益，而是极端损失。<strong>在下面计算VaR时采用损失函数的定义，也就是以右侧尾部作为极端损失。</strong></p>
 <p>影响VaR的因素包括：</p>
 <ol>
@@ -3489,7 +3472,8 @@ r_t(k) \mid \mathscr{F} \sim N(0,k\sigma_{t+1}^2)
 </blockquote>
 <p>【3】<strong>子可加性</strong>(sub-additivity):如果<span class="arithmatex">\(Z_1,Z_2 \in \mathcal{L}\)</span>，那么<span class="arithmatex">\(\varrho(Z_1+Z_2) \leq \varrho(Z_1) + \varrho(Z_2)\)</span>。</p>
 <blockquote>
-<p>在两种资产中分散风险，比独立购买两个资产的风险要小——除非两种资产完全正相关，这个假定表明了在各类资产中分散风险是有好处的。但Dhaene等人(2008)认为一致性风险度量的子可加性假定是存在问题的[^11]。</p>
+<p>在两种资产中分散风险，比独立购买两个资产的风险要小——除非两种资产完全正相关，这个假定表明了在各类资产中分散风险是有好处的。但Dhaene等人(2008)认为一致性风险度量的子可加性假定是存在问题的。</p>
+<p>参考文献：Dhaene, J., Laeven, R. J., Vanduffel, S., Darkiewicz, G., &amp; Goovaerts, M. J. (2008). Can a coherent risk measure be too subadditive?. <em>Journal of Risk and Insurance</em>, <em>75</em>(2), 365-386.</p>
 </blockquote>
 <details>
 <summary>VaR不满足子可加性的例子</summary>
@@ -3609,8 +3593,13 @@ r_t[k] \mid F_t \sim N(0,\sigma_{t[k]}^2)
 <p>风险度量制方法计算VaR的优缺点：</p>
 <ul>
 <li>优点：（1）简洁易理解；（2）使得风险更加透明、量化；</li>
-<li>缺点：（1）要求正态假设，往往使得VaR被低估<a href="I-GARCH只考虑了四阶矩信息，没有考虑（或只是部分考虑到）波动率分布尖峰厚尾的性质。">^13</a>；（2）<span class="arithmatex">\(r_t\)</span>的均值非零时失效[^14]。</li>
+<li>缺点：（1）要求正态假设，往往使得VaR被低估；（2）<span class="arithmatex">\(r_t\)</span>的均值非零时失效。</li>
 </ul>
+<details>
+<summary>两个缺点的额外解释</summary>
+<p>缺点一（正态分布假设）：I-GARCH只考虑了四阶矩信息，没有考虑（或只是部分考虑到）波动率分布尖峰厚尾的性质。</p>
+<p>缺点二（均值非零时失效）：如果<span class="arithmatex">\(r_t\)</span>均值非0，则<span class="arithmatex">\(r_t[k] \sim N(k\mu, k \sigma_{t+1}^2)\)</span>，即存在漂移项。在<span class="arithmatex">\(p = 0.05\)</span>时，<span class="arithmatex">\(\operatorname{VaR}[k] = k\mu + 1.65\sqrt{k}\sigma_{t+1}^2\)</span>，看起来，这个问题是可控的。</p>
+</details>
 <h3 id="var_3">计算组合的VaR</h3>
 <p>设<span class="arithmatex">\(VaR_1\)</span>和<span class="arithmatex">\(VaR_2\)</span>分别代表两个资产头寸的VaR，两资产收益率存在相关系数<span class="arithmatex">\(\rho_{12}\)</span>，显然<span class="arithmatex">\(\rho_{12} = \operatorname{Cov}(r_{1t},r_{2t}) / \sqrt{\operatorname{Var}(r_{1t})\operatorname{Var}(r_{2t})}\)</span>。那么组合的VaR如下式：</p>
 <div class="arithmatex">\[
@@ -3625,11 +3614,15 @@ VaR =\sqrt{ \sum_{i=1}^m VaR_i^2 + 2\sum_{i &lt; j}^m \rho_{ij} VaR_i VaR_j}
 <p>分为两类：经验分位数方法、分位数估计。</p>
 <h3 id="_5">经验分位数</h3>
 <p>首先定义次序统计量。</p>
-<blockquote>
-<p>==Def 3.2 - 次序统计量== 令<span class="arithmatex">\(r_1,…,r_n\)</span>表示样本组合收益率，并递增排序，记为:<span class="arithmatex">\(r_{(1)} \leq r_{(2)} \leq … \leq r_{(n)}\)</span>，其中<span class="arithmatex">\(r_{(i)}\)</span>为样本的第<span class="arithmatex">\(i\)</span>个次序统计量。若收益率独立同分布且服从一个连续的分布，其PDF为<span class="arithmatex">\(f(x)\)</span>，CDF为<span class="arithmatex">\(F(x)\)</span>，则次序统计量<span class="arithmatex">\(r_{(l)}\)</span>，其中<span class="arithmatex">\(l = np\)</span>且<span class="arithmatex">\(0&lt; p &lt; 1\)</span>，有如下结论成立：</p>
+<div class="admonition info">
+<p class="admonition-title">定义3.2 - 次序统计量</p>
+<p>令<span class="arithmatex">\(r_1,…,r_n\)</span>表示样本组合收益率，并递增排序，记为:<span class="arithmatex">\(r_{(1)} \leq r_{(2)} \leq … \leq r_{(n)}\)</span>，其中<span class="arithmatex">\(r_{(i)}\)</span>为样本的第<span class="arithmatex">\(i\)</span>个次序统计量。若收益率独立同分布且服从一个连续的分布，其PDF为<span class="arithmatex">\(f(x)\)</span>，CDF为<span class="arithmatex">\(F(x)\)</span>，则次序统计量<span class="arithmatex">\(r_{(l)}\)</span>，其中<span class="arithmatex">\(l = np\)</span>且<span class="arithmatex">\(0&lt; p &lt; 1\)</span>，有如下结论成立：</p>
 <p><em>令<span class="arithmatex">\(x_p\)</span>表示<span class="arithmatex">\(F(x)\)</span>在概率<span class="arithmatex">\(p\)</span>处的分位点，即<span class="arithmatex">\(x_p\)</span> = F(p)^{-1}。假定<span class="arithmatex">\(f(x)\)</span>在<span class="arithmatex">\(x_p\)</span>处不为0，即<span class="arithmatex">\(f(x_p) \not = 0\)</span>，则次序统计量<span class="arithmatex">\(r_{(l)}\)</span>是渐近正态的，其均值为<span class="arithmatex">\(x_p\)</span>，方差为<span class="arithmatex">\(p(1-p)/ [nf^2(x_p)]\)</span>。</em></p>
+</div>
+<p>当<span class="arithmatex">\(l\)</span>非整，则可以利用插值法来做分位数的估计，取<span class="arithmatex">\(np\)</span>相邻的整数，即<span class="arithmatex">\(l_1 &lt; np &lt; l_2\)</span>，定义<span class="arithmatex">\(p_i = l_i / n\)</span>，从而有<span class="arithmatex">\(p_1 &lt; p &lt; p_2\)</span>，可利用：</p>
+<blockquote>
+<p><span class="arithmatex">\(l\)</span>是次序，必然整数，但这里的<span class="arithmatex">\(l\)</span>并非给定的值，而是<span class="arithmatex">\(np\)</span>的和，<span class="arithmatex">\(n\)</span>是给定的整数，但<span class="arithmatex">\(p\)</span>取到的点未必能使得<span class="arithmatex">\(np\)</span>为整数，因此需要插值。</p>
 </blockquote>
-<p>当<span class="arithmatex">\(l\)</span>非整<a href="$l$是次序，必然整数，但这里的$l$并非给定的值，而是$np$的和，$n$是给定的整数，但$p$取到的点未必能使得$np$为整数，因此需要插值。">^15</a>，则可以利用插值法来做分位数的估计，取<span class="arithmatex">\(np\)</span>相邻的整数，即<span class="arithmatex">\(l_1 &lt; np &lt; l_2\)</span>，定义<span class="arithmatex">\(p_i = l_i / n\)</span>，从而有<span class="arithmatex">\(p_1 &lt; p &lt; p_2\)</span>，可利用：</p>
 <div class="arithmatex">\[
 \hat x_p = \frac{p_2 - p}{p_2 - p_1} r(l_1) + \frac{p - p_1}{p_2 - p_1}r(l_2)
 \]</div>
@@ -3648,7 +3641,10 @@ ES_q = \frac{1}{N_q} \sum_{i=1}^n x_i I\{X_{(i)} &gt; \hat x_q\}
 <div class="arithmatex">\[
 r_t = \beta^T x_t + a_t
 \]</div>
-<p>其中，系数<span class="arithmatex">\(\beta\)</span>是一个<span class="arithmatex">\(k\)</span>维参数向量（对应<span class="arithmatex">\(k\)</span>个解释变量），<span class="arithmatex">\(x_t \in F_{t-1}\)</span>为预测向量，<span class="arithmatex">\(\beta^T x_t\)</span>为已知项。那么<span class="arithmatex">\(r_t \mid F_{t-1}\)</span>的条件分布可视作<span class="arithmatex">\(a_t\)</span>分布的平移[^16]。在给定<span class="arithmatex">\(F_{t-1}\)</span>的条件下，条件分位数<span class="arithmatex">\(x_p\)</span>的估计：</p>
+<p>其中，系数<span class="arithmatex">\(\beta\)</span>是一个<span class="arithmatex">\(k\)</span>维参数向量（对应<span class="arithmatex">\(k\)</span>个解释变量），<span class="arithmatex">\(x_t \in F_{t-1}\)</span>为预测向量，<span class="arithmatex">\(\beta^T x_t\)</span>为已知项。那么<span class="arithmatex">\(r_t \mid F_{t-1}\)</span>的条件分布可视作<span class="arithmatex">\(a_t\)</span>分布的平移。在给定<span class="arithmatex">\(F_{t-1}\)</span>的条件下，条件分位数<span class="arithmatex">\(x_p\)</span>的估计：</p>
+<blockquote>
+<p>这里是<span class="arithmatex">\(a_t\)</span>的分布（而不需要写为条件分布），因为<span class="arithmatex">\(a_t\)</span>和<span class="arithmatex">\(F_{t-1}\)</span>无关，但已知<span class="arithmatex">\(F_{t-1}\)</span>时<span class="arithmatex">\(\beta^T x_t\)</span>是完全已知的。</p>
+</blockquote>
 <div class="arithmatex">\[
 \begin{align}
 \hat x_p \mid F_{t-1} &amp;:= \inf \left\{\beta_0^T x \mid R_p(\beta_0) \equiv \min \right\}\\
@@ -3660,28 +3656,17 @@ pz &amp; \text{若}z \geq 0;\\
 \end{align}
 \]</div>
 <p>显然，<span class="arithmatex">\(w_p(z)\)</span>为一个罚函数。例如， <span class="arithmatex">\(p= r_t(0.9)\)</span>代表分位数回归，希望回归曲线下包含<span class="arithmatex">\(90\%\)</span>的数据点。</p>
-<blockquote>
-<p><strong>分位数估计法与OLS的区别</strong></p>
+<p>/// detail | 分位数估计与OLS的区别</p>
 <p>两者的区别在于罚函数的应用，OLS的估计项为：</p>
 <div class="arithmatex">\[
 \hat \beta = \operatorname{argmin}_\beta \sum_{t=1}^n (r_t - \beta^T x)^2
 \]</div>
-<p>在上式中，<span class="arithmatex">\(r_t\)</span>更容易受到极值的影响，而分位数估计则纳入了不同情况的不同罚函数来缓解这一问题，所以可以说分位数估计方法是OLS的改进。</p>
+<p>在上式中，<span class="arithmatex">\(r_t\)</span>更容易受到极值的影响，而分位数估计则纳入了不同情况的不同罚函数来缓解这一问题，所以可以说分位数估计方法是OLS的改进。
+///</p>
+<p>分位数回归的优点：（1）无需假定任意阶矩信息的存在；（2）该方法得到的估计是稳健的，不易受极端值的影响；（3）无需对模型中的分布作出假设；（4）分位数估计可以通过设定分位数值来得到不同置信水平下的分位数估计，很适合用于捕捉分布的尾部特征。</p>
+<blockquote>
+<p>关于优点2：特别是在高频市场和极端市场环境（如金融危机）下进行研究时，分位数回归会更合适。</p>
 </blockquote>
-<p>分位数回归的优缺点：</p>
-<ul>
-<li>优点：（1）无需假定任意阶矩信息的存在；（2）该方法得到的估计是稳健的，不易受极端值的影响<a href="特别是在高频市场和极端市场环境（如金融危机）下进行研究时，分位数回归会更合适。">^17</a>；（3）无需对模型中的分布作出假设；（4）分位数估计可以通过设定分位数值来得到不同置信水平下的分位数估计，很适合用于捕捉分布的尾部特征。</li>
-</ul>
-<h2 id="footnotes">Footnotes</h2>
-<p>[^1]: 参照Tsay书Chapter 3.1。</p>
-<p>[^5]: 例如，<span class="arithmatex">\(\epsilon\)</span>可以服从独立同分布的标准正态分布，也可以是独立同分布的student t-distribution，但一定是独立同分布的。</p>
-<p>[^8]: 即<span class="arithmatex">\(r_t = \mu + a_t\)</span>，但这个式子不是ARCH模型的一部分，ARCH模型是一个纯粹的波动率模型。</p>
-<p>[^9]: var/Var是方差，<code>&lt;u&gt;</code>Var <code>&lt;/u&gt;</code>iance；VaR是在险价值,<code>&lt;u&gt;</code>V <code>&lt;/u&gt;</code>alue <code>&lt;u&gt;</code>a <code>&lt;/u&gt;</code>t <code>&lt;u&gt;</code>R <code>&lt;/u&gt;</code>isk; VAR通常指向量自回归模型，<code>&lt;u&gt;</code>V <code>&lt;/u&gt;</code>ector <code>&lt;u&gt;</code>A <code>&lt;/u&gt;</code>uto <code>&lt;u&gt;</code>r <code>&lt;/u&gt;</code>egression。</p>
-<p>[^10]: 那么如果做多，<span class="arithmatex">\(L(\mathscr{l}) = - \Delta V(\mathscr{l})\)</span>，如果做空则<span class="arithmatex">\(L(\mathscr{l}) = \Delta V(\mathscr{l})\)</span>。</p>
-<p>[^11]: Dhaene, J., Laeven, R. J., Vanduffel, S., Darkiewicz, G., &amp; Goovaerts, M. J. (2008). Can a coherent risk measure be too subadditive?. <em>Journal of Risk and Insurance</em>, <em>75</em>(2), 365-386.</p>
-<p>[^12]: Föllmer, H., &amp; Schied, A. (2002). Convex measures of risk and trading constraints. <em>Finance and stochastics</em>, <em>6</em>(4), 429-447.</p>
-<p>[^14]: 如果<span class="arithmatex">\(r_t\)</span>均值非0，则<span class="arithmatex">\(r_t[k] \sim N(k\mu, k \sigma_{t+1}^2)\)</span>，即存在漂移项。在<span class="arithmatex">\(p = 0.05\)</span>时，<span class="arithmatex">\(\operatorname{VaR}[k] = k\mu + 1.65\sqrt{k}\sigma_{t+1}^2\)</span>，看起来，这个问题可防可控。</p>
-<p>[^16]: 这里是<span class="arithmatex">\(a_t\)</span>的分布（而不需要写为条件分布），因为<span class="arithmatex">\(a_t\)</span>和<span class="arithmatex">\(F_{t-1}\)</span>无关，但已知<span class="arithmatex">\(F_{t-1}\)</span>时<span class="arithmatex">\(\beta^T x_t\)</span>是完全已知的。</p>
 
 
 
