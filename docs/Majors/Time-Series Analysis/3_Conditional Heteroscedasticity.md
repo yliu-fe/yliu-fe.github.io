@@ -20,79 +20,118 @@ $$
 
 ## 3.1 波动率
 
-股票波动率的特征有[^1]：
+///admonition| 参考书目
+      type: info
 
-- 无法被直接观测[^2]；
+参阅：Tsay, R. S. (2013). Analysis of financial time series. John Wiley & Sons. 章节4。
+///
+
+股票波动率的特征有：
+
+- 无法被直接观测；
 - 存在波动率聚集现象，在部分时间段上存在较高的波动率，而在零一段时间内波动率较低；
 - 波动率以连续时间变化，或者说，波动率序列的跳跃不频繁；
 - 波动率不发散到无穷，或者说，波动率序列是有界的、平稳的；
 - 波动率常存在一个“杠杆效应”，波动率对标的资产价格的大幅上升/下降反映不一致（不对称）。
 
+///admonition| 波动率是不连续的
+      type: tip
+
+由于存在休市时间，波动是不连续的，特别是在隔夜的时段内波动率无法被直接观测，当然，日内（交易时段内）连续的波动率变化是可以得到计算的。
+///
+
 波动率可以应用在多种场景中：
 
-- **衍生品定价**。如BSM公式，BSM模型假定标的资产价格服从几何布朗运动（GBM）。而BSM对欧式期权的定价公式为：
+第一，**衍生品定价**。如BSM公式，BSM模型假定标的资产价格服从几何布朗运动（GBM）。而BSM对欧式期权的定价公式为：
 
-  $$
-  P_j(S_j,K) = S_j \Phi(\frac{-\ln(K/S_j) + \mu_j}{\sigma_j} + \kappa \sigma_c + \sigma_j) - \frac{K}{1+r_f}\Phi(\frac{-\ln(K/S_j)+\mu_j}{\sigma_j} + \kappa \sigma_c)
-  $$
+$$
+P_j(S_j,K) = S_j \Phi(\frac{-\ln(K/S_j) + \mu_j}{\sigma_j} + \kappa \sigma_c + \sigma_j) - \frac{K}{1+r_f}\Phi(\frac{-\ln(K/S_j)+\mu_j}{\sigma_j} + \kappa \sigma_c)
+$$
 
-  显然，里面包含着$\sigma_j$，即标的资产对数收益率的状态标准差，但这种“波动率”被称作隐含波动率，即已知当前价格的情况下根据BSM公式反推得出的波动率值。
-- **风险管理**。例如在险价值(Value of Risk, VaR）。
-- **资产组合选择与定价**。例如Markwitz(1952)模型，对于一组资产来说，有$(\mu,\Sigma)$，前者为资产的收益率均值矩阵，后者为资产的协方差矩阵。从而衍生为动态模型，即$(\mu_t, \Sigma_t)$，做成AR(1)模型，即：
+显然，里面包含着$\sigma_j$，即标的资产对数收益率的状态标准差，但这种“波动率”被称作隐含波动率，即已知当前价格的情况下根据BSM公式反推得出的波动率值。
 
-  $$
-  \begin{aligned}
-      r_{i,t} &= \alpha_i + \beta_i r_{F,t-1} + \epsilon_i\\
-      \sigma_i^2 &= \beta_i + \sigma_F^2 + \sigma_{\epsilon, i}^2\\
-      \sigma_{i,j} &= \beta_i \beta_j \sigma_F^2
-      \end{aligned}
-  $$
-- **区间预测**。通过波动率，在点估计的基础上求其置信区间。
+///details | 关于BSM模型
+
+以上内容表示了已知主要参数后，Black-Scholes-Merton模型对欧式看涨期权（European Call）的定价方法。其中，$S_j$代表标的资产的价格(underlying asset price)，$K$代表期权的执行价格(strike price)，$\mu_j$代表标的资产的收益率均值，$\sigma_j$代表标的资产的波动率【即我们要求的那个波动率】，$r_f$是市场无风险收益率，如果是连续计息，则$1/(1+r_f)$表示的贴现过程可以表示为$e^{-r}$。数学记号$\Phi$表示标准正态分布的累积分布函数（PDF）
+
+其遵循的理论背景、基本假设，以及推导过程请参阅BSM模型原文献：
+
+- Black, F., & Scholes, M. (1973). The pricing of options and corporate liabilities. Journal of political economy, 81(3), 637-654.
+- Merton, R. C. (1973). Theory of rational option pricing. The Bell Journal of economics and management science, 141-183.
+
+或者相关教材，如Huang & Litzenberger的"Foundations for Financial Economics"（《金融经济学基础》），Sheldon Ross的“An Elementary Introduction to Mathematical Finance”(《数理金融初步》)。John Hull的"Options, Futures, and Other Derivatives"（《期权、期货和其他衍生品》）也有相关内容。
+///
+
+第二，**风险管理**。例如在险价值(Value of Risk, VaR）。
+
+第三，**资产组合选择与定价**。例如Markwitz(1952)模型，对于一组资产来说，有$(\mu,\Sigma)$，前者为资产的收益率均值矩阵，后者为资产的协方差矩阵。从而衍生为动态模型，即$(\mu_t, \Sigma_t)$，做成AR(1)模型，即：
+
+$$
+\begin{aligned}
+   r_{i,t} &= \alpha_i + \beta_i r_{F,t-1} + \epsilon_i\\
+   \sigma_i^2 &= \beta_i + \sigma_F^2 + \sigma_{\epsilon, i}^2\\
+   \sigma_{i,j} &= \beta_i \beta_j \sigma_F^2
+   \end{aligned}
+$$
+
+第四，**区间预测**。通过波动率，在点估计的基础上求其置信区间。
 
 ### 波动率计算
 
 波动率的计算方法有多种，如隐含波动率，或利用高频的历史信息近似计算。
 
-1. **隐含波动率**。已知资产的价格，带入BSM公式，辅以其他的参数，解出$\sigma_j$。现实中常见的例子如VIX指数。
-2. **高频下的估计**[^3]。如果利用高频的历史信息，并将时间区段无限细分，也可以近似的计算当前的波动率。令$r_t$表示某资产对数收益率，假定某月内存在等间隔的交易日，我们可以观测到一条对数收益率的序列$\{r_t\}$，从而满足:
+第一， **隐含波动率**。已知资产的价格，带入BSM公式，辅以其他的参数，解出$\sigma_j$。现实中常见的例子如VIX指数。
+第二，**高频下的估计**。如果利用高频的历史信息，并将时间区段无限细分，也可以近似的计算当前的波动率。令$r_t$表示某资产对数收益率，假定某月内存在等间隔的交易日，我们可以观测到一条对数收益率的序列$\{r_t\}$，从而满足:
 
-   $$
-   r_t = \sum_{i=1}^n r_{t,i}, \quad \text{假定月内有$n$个交易日}
-   $$
+///admonition | 高频下的波动率估计
+      type: danger
 
-   则称
+但实务中，高频数据估计可能存在较高的误差
+///
 
-   $$
-   RV_t = \sum_{i=1}^n r_{t,i}^2
-   $$
+$$
+r_t = \sum_{i=1}^n r_{t,i}, \quad \text{假定月内有$n$个交易日}
+$$
 
-   为$r_t$已实现的波动率，其中假定$\{r_{t,i}\}_{i=1}^n$为均值为0，方差有限且独立同分布的随机变量序列。基于以上假定和设定，经验结果表明$\ln(RV_t)$序列近似服从于高斯ARIMA(0,1,q)模型。
-3. **计量模型估计**。使用计量模型进行估计的思路是，资产收益率的波动率来自于资产定价模型的扰动，而资产价格的扰动项$\{a_t\}$虽然非序列相关，但是可能存在“相依”的关系[^4]。下面介绍计量模型的结构，已知$t-1$时刻下的信息集$F_{t-1}$，其$r_t$的条件均值和条件方差为：
+则称
 
-   $$
-   \begin{aligned}
-       \mu_t &= E(r_t \mid F_{t-1})\\ 
-       \sigma_t^2 &= \operatorname{Var}(r_t \mid F_{t-1}) = E[(r_t - \mu)^2 \mid F_{t-1}]\\
-       \end{aligned}
-   $$
+$$
+RV_t = \sum_{i=1}^n r_{t,i}^2
+$$
 
-   而如果$\{r_t\}$是弱平稳序列，则$r_t = \mu_t + a_t$，对应有：
+为$r_t$已实现的波动率，其中假定$\{r_{t,i}\}_{i=1}^n$为均值为0，方差有限且独立同分布的随机变量序列。基于以上假定和设定，经验结果表明$\ln(RV_t)$序列近似服从于高斯ARIMA(0,1,q)模型。
 
-   $$
-   \begin{aligned}
-           \mu_t &= \sum_{i=1}^p \phi_i y_{t-i} - \sum_{i=1}^q \theta_i a_{t-i};\\
-           y_t &= r_t - \phi_0 - \sum_{i=1}^k \beta_i x_{it}
-       \end{aligned}
-   $$
+第三， **计量模型估计**。使用计量模型进行估计的思路是，资产收益率的波动率来自于资产定价模型的扰动，而资产价格的扰动项$\{a_t\}$虽然非序列相关，但是可能存在“相依”的关系。下面介绍计量模型的结构，已知$t-1$时刻下的信息集$F_{t-1}$，其$r_t$的条件均值和条件方差为：
 
-   基于以上内容，可以解得$\sigma_t^2$的形式：
+/// details | 扰动项的“相依”
 
-   $$
-   \begin{aligned}
-           \sigma_t^2 &= \operatorname{Var}(r_t \mid F_{t-1}) = \operatorname{Var}(\mu_t + a_t \mid F_{t-1})\\
-           &=  \operatorname{Var}(a_t\mid F_{t-1})
-       \end{aligned}
-   $$
+其证据是，在实际观测中，我们经常观测到$|r_t|$或者$r_t^2$存在强烈的序列相关性。
+///
+
+$$
+\begin{aligned}
+      \mu_t &= E(r_t \mid F_{t-1})\\
+      \sigma_t^2 &= \operatorname{Var}(r_t \mid F_{t-1}) = E[(r_t - \mu)^2 \mid F_{t-1}]\\
+      \end{aligned}
+$$
+
+而如果$\{r_t\}$是弱平稳序列，则$r_t = \mu_t + a_t$，对应有：
+
+$$
+\begin{aligned}
+   \mu_t &= \sum_{i=1}^p \phi_i y_{t-i} - \sum_{i=1}^q \theta_i a_{t-i};\\
+   y_t &= r_t - \phi_0 - \sum_{i=1}^k \beta_i x_{it}
+\end{aligned}
+$$
+
+基于以上内容，可以解得$\sigma_t^2$的形式：
+
+$$
+\begin{aligned}
+   \sigma_t^2 &= \operatorname{Var}(r_t \mid F_{t-1}) = \operatorname{Var}(\mu_t + a_t \mid F_{t-1})\\
+   &=  \operatorname{Var}(a_t\mid F_{t-1})
+\end{aligned}
+$$
 
 ## 3.2 建立异方差模型的准备
 
@@ -130,22 +169,24 @@ ARCH效应检验的思路是。记$a_t = r_t - \mu_t$为均值方程的残差，
 1. **Ljung-Box**检验。思路是检验序列$\{a_t^2\}$是否序列相关，即$H0: \rho_1 = \rho_2 = ... = \rho_m = 0$。
 2. **拉格朗日乘子（LM）检验**。
 
-   > 在如下的线性回归中，用一个F统计量，检验：
-   >
-   > $$
-   > a_t^2 = \alpha_0 + \alpha_1 a_{t-1}^2 + ... + \alpha_m a_{t-m}^2 + e_t, \quad t = m+1,...,T
-   > $$
-   >
-   > 中$\alpha_i = 0$，即$H0: \alpha_1 = \alpha_2 = ... = \alpha_m =  0$。其中$e_t$为误差项，$m$为指定的阶数，$T$是样本容量。进而构建F统计量如下：
-   >
-   > $$
-   > \begin{align}
-   >         SSR_0 &= \sum_{t=m+1}^T (a_t^2 - \bar W), \quad \bar W = \frac{1}{T} \sum_{t=1}^T a_t^2, \quad \text{$\bar W$是$\{a_t^2\}$的样本均值}\\
-   >         SSR_1 &= \sum_{t=1}^T \hat e_t^2, \quad \text{$\hat e_t^2$是线性最小二乘的估计残差}\\
-   >         F &= \frac{(SSR_0 - SSR_1)/m}{SSR_1/(T-2m-1)} \sim \chi^2(m)
-   >     \end{align}
-   > $$
-   >
+/// details | Lagrange Multiplier Test
+
+在如下的线性回归中，用一个F统计量，检验：
+
+$$
+a_t^2 = \alpha_0 + \alpha_1 a_{t-1}^2 + ... + \alpha_m a_{t-m}^2 + e_t, \quad t = m+1,...,T
+$$
+
+中$\alpha_i = 0$，即$H0: \alpha_1 = \alpha_2 = ... = \alpha_m =  0$。其中$e_t$为误差项，$m$为指定的阶数，$T$是样本容量。进而构建F统计量如下：
+
+$$
+\begin{align}
+   SSR_0 &= \sum_{t=m+1}^T (a_t^2 - \bar W), \quad \bar W = \frac{1}{T} \sum_{t=1}^T a_t^2, \quad \text{$\bar W$是$\{a_t^2\}$的样本均值}\\
+   SSR_1 &= \sum_{t=1}^T \hat e_t^2, \quad \text{$\hat e_t^2$是线性最小二乘的估计残差}\\
+   F &= \frac{(SSR_0 - SSR_1)/m}{SSR_1/(T-2m-1)} \sim \chi^2(m)
+\end{align}
+$$
+///
 
 ## 3.3 ARCH模型
 
@@ -157,7 +198,7 @@ $$
 
   显然，上面的函数形式表明（1）ARCH模型中的扰动项$a_t$，不相关，但不是独立的，是“相互依存”的；（2）函数描述了$a_t$的不独立性。其中，$\epsilon_t$为独立同分布且均值为0、方差为1的随机序列[^5]；而$\alpha_0 > 0$且$\alpha_i \geq 0, \quad \forall i > 0$。
 
-  这一模型表明，如果存在一个比较大的过去扰动$\{a_{t-i}^2\}_{i=1}^m$，按照$\sigma_t^2$的模型设定，就会导致较大的当期波动率$\sigma_t^2$，从而可能导致较大的当期扰动$a_t$[^6]，进而可能造成当期存在较大的$r_t$，再进一步，就可能导致未来出现大的$\sigma_t^2$。这一个影响链条的存在，使得大的扰动倾向于导致另一个大的扰动紧随着出现，从而描述了波动性聚集现象。因而，这种波动性聚集的现象也被称作ARCH效应。
+  这一模型表明，如果存在一个比较大的过去扰动$\{a_{t-i}^2\}_{i=1}^m$，按照$\sigma_t^2$的模型设定，就会导致较大的当期波动率$\sigma_t^2$，从而可能导致较大的当期扰动$a_t$，进而可能造成当期存在较大的$r_t$，再进一步，就可能导致未来出现大的$\sigma_t^2$。这一个影响链条的存在，使得大的扰动倾向于导致另一个大的扰动紧随着出现，从而描述了波动性聚集现象。因而，这种波动性聚集的现象也被称作ARCH效应。
 
 ### ARCH(1)模型的性质
 
@@ -167,62 +208,69 @@ $$
 a_t = \sigma_t \epsilon_t, \quad \sigma_t^2 = \alpha_0 +\alpha_1 a_{t-1}^2,\quad \alpha_0,\alpha_1 > 0
 $$
 
-1. **无条件均值**。扰动的无条件均值为：
+第一， **无条件均值**。扰动的无条件均值为：
 
-   $$
-   E(a_t) = E[E(a_t\mid F_{t-1})] = E[\sigma_t E(\epsilon_t)] = 0
-   $$
-2. **无条件方差**。扰动的无条件方差的计算可以变为期望的形式：
+$$
+E(a_t) = E[E(a_t\mid F_{t-1})] = E[\sigma_t E(\epsilon_t)] = 0
+$$
 
-   $$
-   \begin{aligned}
-           \operatorname{Var}(a_t) &= E[a_t^2] = E[E(a_t^2 \mid F_{t-1})] = E[E(\sigma_t^2 \epsilon_t^2\mid F_{t-1})]\\
-           &= E[\sigma_t^2 E(\epsilon_t^2 \mid F_{t-1})] = E(\sigma_t^2)\\
-           &= E(\alpha_0 + \alpha_1 a_{t-1}^2) = \alpha_0 + \alpha_1 E(a_{t-1}^2)\\
-           &\Rightarrow \operatorname{Var}(a_t) = \frac{\alpha_0}{1-\alpha_1}, \quad 0<\alpha_1<1
-       \end{aligned}
-   $$
-3. **ACF**。自己推，本质上是$\operatorname{Var}(a_t a_{t-l})$。
-4. **尾部性**。由于讨论对象的特殊性，扰动项很在意较大的波动率情形，因而需要讨论扰动项$a_t$的尾部性质。
+第二， **无条件方差**。扰动的无条件方差的计算可以变为期望的形式：
 
-   > 为了讨论方便，这里要求$a_t$的四阶矩有限，并假定$\epsilon_t \sim N(0,1)$。那么$\epsilon_t$的峰度为3。基于以上内容展开推导：
-   >
-   > $$
-   > \begin{aligned}
-   >     \text{已知}\quad K_\epsilon &= E[(\frac{\epsilon_t - \mu_\epsilon}{\sigma_\epsilon})^4] = \frac{E(\epsilon_t^4)}{[\operatorname{Var}(\epsilon)]^2} = E(\epsilon_t^4) = 3\\
-   >     \text{求扰动项的峰度}\quad K_a &= \frac{E(a_t^4)}{[\operatorname{Var}(a_t)]^2}
-   > \end{aligned}
-   > $$
-   >
-   > 由上面第一式得，$E(\epsilon_t^4) = E(a_t^4/\sigma_t^4) = 3$，从而有$E(a_t^4) / E[(\sigma_t^2)^2] = 3$，即$E(a_t^4) = 3 E[(\alpha_0 + \alpha_1 a_{t-1}^2)^2]$：
-   >
-   > $$
-   > \begin{aligned}
-   >     E(a_t^4) &= 3E[\alpha_0^2 + 2\alpha_0 \alpha_1 a_{t-1}^2 + \alpha_1^2 a_{t-1}^4] \\
-   >     &= \frac{3\alpha_0^2(1+\alpha_1)}{(1-3\alpha_1^2)(1-\alpha_1)}
-   > \end{aligned}
-   > $$
-   >
-   > 那么$a_t$的峰度为：
-   >
-   > $$
-   > K_a = \frac{E(a_t^4)}{[\operatorname{Var}(a_t)]^2} = \frac{3\alpha_0^2(1+\alpha_1)}{(1-3\alpha_1^2)(1-\alpha_1)} / \frac{\alpha_0^2}{(1-\alpha_1)^2} = \frac{3(1-\alpha_1^2)}{1-3\alpha_1^2}
-   > $$
-   >
-   > 分式结构显然大于1，因而$a_t$的峰度$K_a$显然大于3。
-   >
+$$
+\begin{aligned}
+   \operatorname{Var}(a_t) &= E[a_t^2] = E[E(a_t^2 \mid F_{t-1})] = E[E(\sigma_t^2 \epsilon_t^2\mid F_{t-1})]\\
+   &= E[\sigma_t^2 E(\epsilon_t^2 \mid F_{t-1})] = E(\sigma_t^2)\\
+   &= E(\alpha_0 + \alpha_1 a_{t-1}^2) = \alpha_0 + \alpha_1 E(a_{t-1}^2)\\
+   &\Rightarrow \operatorname{Var}(a_t) = \frac{\alpha_0}{1-\alpha_1}, \quad 0<\alpha_1<1
+\end{aligned}
+$$
 
-   以上内容说明：
+第三， **ACF**。自己推，本质上是$\operatorname{Var}(a_t a_{t-l})$。
 
-   - $\{a_t\}$的尾部特征比正态分布的尾部要厚。这说明条件ARCH(1)模型的扰动，比高斯白噪声序列更容易产生极端值。
-   - 在峰度的讨论中我们发现$1-3\alpha_1^2 > 0$（这个条件出现在$K_a$最终形式的分母上），从而使$\alpha_1$的取值范围进一步限定在$0 < \alpha_1^2 < 1/3$上。
+第四， **尾部性**。由于讨论对象的特殊性，扰动项很在意较大的波动率情形，因而需要讨论扰动项$a_t$的尾部性质。
+
+///details | 尾部性的讨论
+
+为了讨论方便，这里要求$a_t$的四阶矩有限，并假定$\epsilon_t \sim N(0,1)$。那么$\epsilon_t$的峰度为3。基于以上内容展开推导：
+
+$$
+\begin{aligned}
+    \text{已知}\quad K_\epsilon &= E[(\frac{\epsilon_t - \mu_\epsilon}{\sigma_\epsilon})^4] = \frac{E(\epsilon_t^4)}{[\operatorname{Var}(\epsilon)]^2} = E(\epsilon_t^4) = 3\\
+    \text{求扰动项的峰度}\quad K_a &= \frac{E(a_t^4)}{[\operatorname{Var}(a_t)]^2}
+\end{aligned}
+$$
+
+由上面第一式得，$E(\epsilon_t^4) = E(a_t^4/\sigma_t^4) = 3$，从而有$E(a_t^4) / E[(\sigma_t^2)^2] = 3$，即$E(a_t^4) = 3 E[(\alpha_0 + \alpha_1 a_{t-1}^2)^2]$：
+
+$$
+\begin{aligned}
+   E(a_t^4) &= 3E[\alpha_0^2 + 2\alpha_0 \alpha_1 a_{t-1}^2 + \alpha_1^2 a_{t-1}^4] \\
+   &= \frac{3\alpha_0^2(1+\alpha_1)}{(1-3\alpha_1^2)(1-\alpha_1)}
+\end{aligned}
+$$
+
+那么$a_t$的峰度为：
+
+$$
+K_a = \frac{E(a_t^4)}{[\operatorname{Var}(a_t)]^2} = \frac{3\alpha_0^2(1+\alpha_1)}{(1-3\alpha_1^2)(1-\alpha_1)} / \frac{\alpha_0^2}{(1-\alpha_1)^2} = \frac{3(1-\alpha_1^2)}{1-3\alpha_1^2}
+$$
+
+分式结构显然大于1，因而$a_t$的峰度$K_a$显然大于3。
+///
+
+以上内容说明：
+
+- $\{a_t\}$的尾部特征比正态分布的尾部要厚。这说明条件ARCH(1)模型的扰动，比高斯白噪声序列更容易产生极端值。
+- 在峰度的讨论中我们发现$1-3\alpha_1^2 > 0$（这个条件出现在$K_a$最终形式的分母上），从而使$\alpha_1$的取值范围进一步限定在$0 < \alpha_1^2 < 1/3$上。
 
 ### ARCH模型的优劣
 
 其优点在于：
 
 - 结构简单，方便描述金融市场中的波动率聚集现象；
-- 描述了金融市场中收益率扰动项的厚尾性[^7]。
+- 描述了金融市场中收益率扰动项的厚尾性。
+
+> 如果讨论尾部性时假定$\epsilon_t$服从学生t分布，则更进一步可以推导出$a_t$序列是尖峰厚尾的。
 
 缺点在于：
 
@@ -233,117 +281,128 @@ $$
 
 ### ARCH模型的建模过程
 
-1. **定阶**。如果ARCH效应检验结果显著，则可用$\{a_t^2\}$序列的PACF来确定ARCH模型的阶数。
+第一步， **定阶**。如果ARCH效应检验结果显著，则可用$\{a_t^2\}$序列的PACF来确定ARCH模型的阶数。
 
-   > ==Proof: PACF用于ARCH定阶==下面简单证明PACF可以用于ARCH的定阶。对于ARCH(m)模型，有：
-   >
-   > $$
-   > \sigma_t^2 = \alpha_0 + \alpha_1 a_{t-1}^2 + ... + \alpha_m a_{t-m}^2
-   > $$
-   >
-   > 对于给定的样本，可知$a_t^2$是$\sigma_t^2$的无偏估计。进而可建立$\{a_t^2\}$的$m$阶自回归模型，即AR(m)。定义残差序列$\eta_t = a_t^2 - \sigma_t^2$，则可证明$\{\eta_t\}$是一个均值不为0的鞅差序列（martingale difference series）。进而，ARCH(m)模型可以被改写为：
-   >
-   > $$
-   > a_t^2 = \alpha_0 + \alpha_1 a_{t-1}^2 + ... + \alpha_m a_{t-m^2} + \eta_t
-   > $$
-   >
-   > 这就是$\{a_t^2\}$序列的AR(m)形式，因而可以用PACF来定阶。
-   >
+/// details | 证明：PACF可以用于对ARCH模型的定阶
 
-   > ==Note：鞅差序列（Martingale Difference Serie）== 简要介绍鞅差序列。如果$\{Y_t\}_{t=1}^\infty$序列满足$E(Y_t) = 0, \quad \forall t$，且对于$t = 2,3,...$，有：
-   >
-   > $$
-   > E(Y_t \mid Y_{t-1},Y_{t-2},...) = 0
-   > $$
-   >
-   > 则称$\{Y_t\}$为“鞅差（分）序列”。其特性在于，基于鞅差序列过去值的任何函数均不能用于预测；但是其高阶矩信息是可以用来预测的。设定一个序列$\{Y_t\}$为鞅差序列的假设强于$\{Y_t\}$序列相关假设，但显著弱于序列独立假设，因为鞅差序列假设未排除高阶矩信息$E(Y_t^2\mid Y_{t-1},...)$依赖于过去观测值的可能性。
-   >
-2. **估计**。对于ARCH(m)模型：
+下面简单证明PACF可以用于ARCH的定阶。对于ARCH(m)模型，有：
 
-   $$
-   a_t = \sigma_t \epsilon_t, \quad \sigma_t^2 = \alpha_0 + \alpha_1 a_{t-1}^2 + ... + \alpha_m a_{t-m}^2
-   $$
+$$
+\sigma_t^2 = \alpha_0 + \alpha_1 a_{t-1}^2 + ... + \alpha_m a_{t-m}^2
+$$
 
-   相较于之前的AR、MA模型，ARCH是一个双方程模型，因而在估计上存在一定的困难。问题在于$\epsilon_t$的分布问题。
+对于给定的样本，可知$a_t^2$是$\sigma_t^2$的无偏估计。进而可建立$\{a_t^2\}$的$m$阶自回归模型，即AR(m)。定义残差序列$\eta_t = a_t^2 - \sigma_t^2$，则可证明$\{\eta_t\}$是一个均值不为0的鞅差序列（martingale difference series）。进而，ARCH(m)模型可以被改写为：
 
-   > ==a) 如果$\epsilon_t$服从正态分布==，则ARCH(m)模型的似然函数可以列为：
-   >
-   > $$
-   > \begin{aligned}
-   >         f(a_1,...,a_T \mid \mathbf{\alpha}) &= f(a_T \mid F_{T-1}) f(a_{T-1} \mid F_{T-2}) \ldots f(a_{m+1} \mid F_m) f(a_1,...,a_m \mid \mathbf{\alpha})\\
-   >         &= \prod_{t = m+1}^T \frac{1}{\sigma_t \sqrt{2\pi}} \exp (-\frac{a_t^2}{2\sigma_t^2}) \times f(a_1,...,a_m \mid \mathbf{\alpha})
-   >     \end{aligned}
-   > $$
-   >
-   > 其中$\mathbf{\alpha} = (\alpha_0,...,\alpha_m)^T$。如果$T$较大（观测值很多），则可以舍弃掉无条件概率（先验概率）$f(a_1,..,a_m \mid \mathbf{\alpha})$，然后转到条件似然函数：
-   >
-   > $$
-   > \begin{aligned}
-   >         l(a_{m+1},...,a_T \mid \mathbf{\alpha}, a_1,...,a_m) &= \prod_{t=m+1}^T [-\frac{1}{2}\ln(2\pi) - \frac{1}{2}\ln(\sigma_t^2) - \frac{1}{2}\frac{a_t^2}{\sigma_t^2}]\\
-   >         &= -\prod_{t=m+1}^T [\frac{1}{2}\ln(2\sigma_t^2) + \frac{1}{2}\frac{a_t^2}{\sigma_t^2}]
-   >     \end{aligned}
-   > $$
-   >
-   > 最大化上式所得估计（求解上面对数条件似然函数的FOC），称作服从正态假设条件下的最大似然估计。
-   >
+$$
+a_t^2 = \alpha_0 + \alpha_1 a_{t-1}^2 + ... + \alpha_m a_{t-m^2} + \eta_t
+$$
 
-   > ==b) 如果$\epsilon_t$服从学生t分布==，设$x_v$服从自由度为$v$的学生t分布，则：
-   >
-   > $$
-   > \operatorname{Var}(x_v) = \frac{v}{v-2}, \quad v>2
-   > $$
-   >
-   > 令：
-   >
-   > $$
-   > \epsilon_t = \frac{x_v}{\sqrt{\frac{v}{v-2}}}
-   > $$
-   >
-   > 则$\epsilon_t$的PDF可以表示为：
-   >
-   > $$
-   > f(\epsilon_t \mid v) = \frac{\Gamma(\frac{v+1}{2})}{\Gamma(\frac{v}{2})\sqrt{(v-2)\pi}} (1+\frac{\epsilon_t^2}{v-2})^{-(v+1)/2}, \quad v > 2
-   > $$
-   >
-   > 其中$\Gamma$为Gamma函数，其中$\Gamma(x) := \int_0^\infty y^{x-1} e^{-y} dy$。从而有条件似然函数如下：
-   >
-   > $$
-   > f(a_{m+1},...,a_T \mid \mathbf{\alpha}, a_1,...,a_m) = \prod_{t=m+1}^T \frac{\Gamma(\frac{v+1}{2})}{\Gamma(\frac{v}{2})\sqrt{(v-2)\pi}} \frac{1}{\sigma_t} \left[1+\frac{\epsilon_t^2}{(v-2)\sigma_t^2}\right]^{-(v+1)/2}
-   > $$
-   >
-   > 最大化上式得到的估计，称为服从学生t分布下的极大似然估计。一般来说，$v\in [4,8]$。（1）若$v$事先已知，则可以在上式两侧同取对数，从而消除Gamma函数运算；（2）如果$v$未知，则可以一起估计，即除了常规待估参数外，还要一起估计$v$，具体结构参见Tsay书pp.121。
-   >
+这就是$\{a_t^2\}$序列的AR(m)形式，因而可以用PACF来定阶。
+///
 
-   > ==c) 若$\epsilon_t$服从广义误差分布==, 此时的PDF形式为：
-   >
-   > $$
-   > f(x) = \frac{v \exp(-\frac{1}{2}|\frac{x}{\lambda}|^v)}{\lambda 2^{(1+1/v)} \Gamma(1/v)}, \quad -\infty < x < +\infty, \quad 0< v< \infty
-   > $$
-   >
-   > 其中$\lambda = [2^{-2/v} \Gamma(1/v) \Gamma(3/v)]^{1/2}$。如果$v = 2$，则广义误差分布退化为正态分布；而$v < 2$时广义误差分布具有厚尾性。
-   >
-3. **模型验证**。给定一个得到正确定阶的ARCH模型，则其标准化残差：
+/// details | 鞅差序列（Martingale Difference Serie）
 
-   $$
-   \tilde a_t = \frac{a_t}{\sigma_t}
-   $$
+简要介绍鞅差序列。如果$\{Y_t\}_{t=1}^\infty$序列满足$E(Y_t) = 0, \quad \forall t$，且对于$t = 2,3,...$，有：
 
-   是一个独立同分布的随机序列。下面进行一系列操作：
+$$
+E(Y_t \mid Y_{t-1},Y_{t-2},...) = 0
+$$
 
-   - **均值方程充分性**。对$\tilde \alpha_t$采用Ljung-Box检验，检验均值方程[^8]的充分性。
-   - **波动率方程正确性**。使用$\tilde \alpha_t^2$的Ljung-Box统计量来检验波动率方程的正确性。
-   - **$\epsilon_t$分布假定的合理性**。检验$\{\tilde a_t\}$序列的偏度、峰度、QQ图（各类矩信息）来检验$\epsilon_t$分布假设的合理性。
-4. **模型预测**。令$h$为预测的原点，则当前拥有的信息称作$F_t$，现在基于ARCH模型，对$\sigma_t^2$向前预测。
+则称$\{Y_t\}$为“鞅差（分）序列”。其特性在于，基于鞅差序列过去值的任何函数均不能用于预测；但是其高阶矩信息是可以用来预测的。设定一个序列$\{Y_t\}$为鞅差序列的假设强于$\{Y_t\}$序列相关假设，但显著弱于序列独立假设，因为鞅差序列假设未排除高阶矩信息$E(Y_t^2\mid Y_{t-1},...)$依赖于过去观测值的可能性。
+///
 
-   $$
-   \begin{align}
-       \text{（根据波动率方程向前一步）}\quad & \sigma_h^2(1) = \alpha_0 + \alpha_1 a_h^2 + ... + \alpha_m a_{h+1-m}^2\\
-       \text{（向前两步）}\quad & \sigma_h^2(2) = \alpha_0 + \alpha_1 \sigma_h^2(1) + \alpha_2 a_h^2 + ... + \alpha_m a_{h+2-m}^2\\
-       \text{（向前$l$步）}\quad & \sigma_h^2(l) = \alpha_0 + \sum_{t=1}^m \alpha_i \sigma_h^2(l-i)
-   \end{align}
-   $$
+第二步，**估计**。对于ARCH(m)模型：
 
-   对于最后一个式子，如果$l-i \leq 0$，则$\sigma_h^2 (l-i) = a_{h+l-i}^2$。而经验证据表明，ARCH模型对波动率的远期预测值往往比实际值偏高。
+$$
+a_t = \sigma_t \epsilon_t, \quad \sigma_t^2 = \alpha_0 + \alpha_1 a_{t-1}^2 + ... + \alpha_m a_{t-m}^2
+$$
+
+相较于之前的AR、MA模型，ARCH是一个双方程模型，因而在估计上存在一定的困难。问题在于$\epsilon_t$的分布问题。
+
+/// details | (a) 如果$\epsilon_t$服从正态分布？
+
+如果$\epsilon_t$服从正态分布，则ARCH(m)模型的似然函数可以列为：
+
+$$
+\begin{aligned}
+f(a_1,...,a_T \mid \mathbf{\alpha}) &= f(a_T \mid F_{T-1}) f(a_{T-1} \mid F_{T-2}) \ldots f(a_{m+1} \mid F_m) f(a_1,...,a_m \mid \mathbf{\alpha})\\
+&= \prod_{t = m+1}^T \frac{1}{\sigma_t \sqrt{2\pi}} \exp (-\frac{a_t^2}{2\sigma_t^2}) \times f(a_1,...,a_m \mid \mathbf{\alpha})
+\end{aligned}
+$$
+
+其中$\mathbf{\alpha} = (\alpha_0,...,\alpha_m)^T$。如果$T$较大（观测值很多），则可以舍弃掉无条件概率（先验概率）$f(a_1,..,a_m \mid \mathbf{\alpha})$，然后转到条件似然函数：
+
+$$
+\begin{aligned}
+l(a_{m+1},...,a_T \mid \mathbf{\alpha}, a_1,...,a_m) &= \prod_{t=m+1}^T [-\frac{1}{2}\ln(2\pi) - \frac{1}{2}\ln(\sigma_t^2) - \frac{1}{2}\frac{a_t^2}{\sigma_t^2}]\\
+&= -\prod_{t=m+1}^T [\frac{1}{2}\ln(2\sigma_t^2) + \frac{1}{2}\frac{a_t^2}{\sigma_t^2}]
+\end{aligned}
+$$
+
+最大化上式所得估计（求解上面对数条件似然函数的FOC），称作服从正态假设条件下的最大似然估计。
+///
+
+///details | (b) 如果$\epsilon_t$服从学生t分布？
+如果$\epsilon_t$服从学生t分布，设$x_v$服从自由度为$v$的学生t分布，则：
+
+$$
+\operatorname{Var}(x_v) = \frac{v}{v-2}, \quad v>2
+$$
+
+令：
+
+$$
+\epsilon_t = \frac{x_v}{\sqrt{\frac{v}{v-2}}}
+$$
+
+则$\epsilon_t$的PDF可以表示为：
+
+$$
+f(\epsilon_t \mid v) = \frac{\Gamma(\frac{v+1}{2})}{\Gamma(\frac{v}{2})\sqrt{(v-2)\pi}} (1+\frac{\epsilon_t^2}{v-2})^{-(v+1)/2}, \quad v > 2
+$$
+
+其中$\Gamma$为Gamma函数，其中$\Gamma(x) := \int_0^\infty y^{x-1} e^{-y} dy$。从而有条件似然函数如下：
+
+$$
+f(a_{m+1},...,a_T \mid \mathbf{\alpha}, a_1,...,a_m) = \prod_{t=m+1}^T \frac{\Gamma(\frac{v+1}{2})}{\Gamma(\frac{v}{2})\sqrt{(v-2)\pi}} \frac{1}{\sigma_t} \left[1+\frac{\epsilon_t^2}{(v-2)\sigma_t^2}\right]^{-(v+1)/2}
+$$
+
+最大化上式得到的估计，称为服从学生t分布下的极大似然估计。一般来说，$v\in [4,8]$。（1）若$v$事先已知，则可以在上式两侧同取对数，从而消除Gamma函数运算；（2）如果$v$未知，则可以一起估计，即除了常规待估参数外，还要一起估计$v$，具体结构参见Tsay书pp.121。
+///
+
+///details | (c) 如果$\epsilon_t$服从广义误差分布？
+若$\epsilon_t$服从广义误差分布, 此时的PDF形式为：
+
+$$
+f(x) = \frac{v \exp(-\frac{1}{2}|\frac{x}{\lambda}|^v)}{\lambda 2^{(1+1/v)} \Gamma(1/v)}, \quad -\infty < x < +\infty, \quad 0< v< \infty
+$$
+
+其中$\lambda = [2^{-2/v} \Gamma(1/v) \Gamma(3/v)]^{1/2}$。如果$v = 2$，则广义误差分布退化为正态分布；而$v < 2$时广义误差分布具有厚尾性。
+///
+
+第三步，**模型验证**。给定一个得到正确定阶的ARCH模型，则其标准化残差：
+
+$$
+\tilde a_t = \frac{a_t}{\sigma_t}
+$$
+
+是一个独立同分布的随机序列。下面进行一系列操作：
+
+- **均值方程充分性**。对$\tilde \alpha_t$采用Ljung-Box检验，检验均值方程$r_t = \mu + a_t$的充分性。
+- **波动率方程正确性**。使用$\tilde \alpha_t^2$的Ljung-Box统计量来检验波动率方程的正确性。
+- **$\epsilon_t$分布假定的合理性**。检验$\{\tilde a_t\}$序列的偏度、峰度、QQ图（各类矩信息）来检验$\epsilon_t$分布假设的合理性。
+
+第四步，**模型预测**。令$h$为预测的原点，则当前拥有的信息称作$F_t$，现在基于ARCH模型，对$\sigma_t^2$向前预测。
+
+$$
+\begin{align}
+   \text{（根据波动率方程向前一步）}\quad & \sigma_h^2(1) = \alpha_0 + \alpha_1 a_h^2 + ... + \alpha_m a_{h+1-m}^2\\
+   \text{（向前两步）}\quad & \sigma_h^2(2) = \alpha_0 + \alpha_1 \sigma_h^2(1) + \alpha_2 a_h^2 + ... + \alpha_m a_{h+2-m}^2\\
+   \text{（向前$l$步）}\quad & \sigma_h^2(l) = \alpha_0 + \sum_{t=1}^m \alpha_i \sigma_h^2(l-i)
+\end{align}
+$$
+
+对于最后一个式子，如果$l-i \leq 0$，则$\sigma_h^2 (l-i) = a_{h+l-i}^2$。而经验证据表明，ARCH模型对波动率的远期预测值往往比实际值偏高。
 
 ## 3.4 GARCH模型
 
@@ -361,31 +420,33 @@ $$
 
 从而保证$\{a_t\}$的无条件方差有限。
 
-> ==Proof：上面条件的合理性==证明一下这个条件确实能让$a_t$的无条件方差有限。令$\eta_t = a_t^2 - \sigma_t^2$，等价于$\sigma_t^2 = a_t^2 - \eta_t$，从而有：
->
-> $$
-> \sigma_{t-i}^2 = a_{t-i}^2 - \eta_{t-i}, \quad i = 0,...,s
-> $$
->
-> 将上式代入波动率方程，有：
->
-> $$
-> a_t^2 = \alpha_0 + \sum_{i=1}^{\max(m,s)} (\alpha_i + \beta_i)a_{t-i}^2 + \eta_t - \sum_{j=1}^s \beta_j \eta_{t-j}
-> $$
->
-> 从而变成了一个$a_t^2$的ARMA模型，易证$\{\eta_t\}$为鞅差序列，即：
->
-> $$
-> E(\eta_t) = 0,\quad E(\eta_t \mid F_{t-1}) = 0, \quad \forall t
-> $$
->
-> 从而知$\{\eta_t\}$为一个服从同一个分布的独立同分布序列。利用$\{a_t^2\}$序列的ARMA模型无条件均值，有：
->
-> $$
-> E(a_t^2) = \frac{\alpha_0}{1-\sum_{i=1}^{\max(m,s)} (\alpha_i + \beta_i)}
-> $$
->
-> 而显然$a_t^2$的期望应当不小于0，从而有分母不小于0，即有$\sum_{i=1}^{\max(m,s)} (\alpha_i + \beta_i) < 1$。
+/// details | 该条件合理性的证明
+证明一下这个条件确实能让$a_t$的无条件方差有限。令$\eta_t = a_t^2 - \sigma_t^2$，等价于$\sigma_t^2 = a_t^2 - \eta_t$，从而有：
+
+$$
+\sigma_{t-i}^2 = a_{t-i}^2 - \eta_{t-i}, \quad i = 0,...,s
+$$
+
+将上式代入波动率方程，有：
+
+$$
+a_t^2 = \alpha_0 + \sum_{i=1}^{\max(m,s)} (\alpha_i + \beta_i)a_{t-i}^2 + \eta_t - \sum_{j=1}^s \beta_j \eta_{t-j}
+$$
+
+从而变成了一个$a_t^2$的ARMA模型，易证$\{\eta_t\}$为鞅差序列，即：
+
+$$
+E(\eta_t) = 0,\quad E(\eta_t \mid F_{t-1}) = 0, \quad \forall t
+$$
+
+从而知$\{\eta_t\}$为一个服从同一个分布的独立同分布序列。利用$\{a_t^2\}$序列的ARMA模型无条件均值，有：
+
+$$
+E(a_t^2) = \frac{\alpha_0}{1-\sum_{i=1}^{\max(m,s)} (\alpha_i + \beta_i)}
+$$
+
+而显然$a_t^2$的期望应当不小于0，从而有分母不小于0，即有$\sum_{i=1}^{\max(m,s)} (\alpha_i + \beta_i) < 1$。
+///
 
 ### GARCH(1,1)模型的性质
 
@@ -573,13 +634,12 @@ $$
    而对于I-GARCH(1,1)，可以得到类似的结论：
 
    $$
-   \sigma_h^2(l) = \sigma_h^2(1) + (l-1)\alpha_0, 
+   \sigma_h^2(l) = \sigma_h^2(1) + (l-1)\alpha_0,
        \quad l \geq 1
    $$
 
    而$\alpha_0$显然是一个常数，因此向前预测随着步数的增多，其方差线性增长，如图所示。但随着$l$的增长，$\sigma_h^2(l)$线性增长且无限制，因而如果$\alpha_0$不为零，则远期方程是无法收敛的，==又因为$\alpha_0 \geq 0$，所以$\alpha_0 = 0$才能使得模型有意义==。（搞什么，GARCH基本模型要求$\alpha_0$严格大于0，这里怎么又能取等号了？）
 
-   `<img src="C:\Users\li_uy\Nutstore\1\我的坚果云\Typora Notes\BUAA Graduate Classes\Financial TimeSeries\IMGs\3_1_ArunaFigureIGARCH.jpg" alt="3_1_ArunaFigureIGARCH" style="zoom:50%;" />`
 3. **特殊情形：$\alpha_0 = 0$**。$\alpha_0 = 0$的模型常用于计算在险价值（Value at Risk，VaR）的模型RiskMatrics。这个模型的好处在于，这是一个关于$\{a_t^2\}$序列的指数平滑(exponential smoothing)的模型：
 
    $$
@@ -725,8 +785,6 @@ $$
 
 以上定义表明，VaR是一个分位点的概念，这个概念关注的是造成极端大损失的尾部风险，如下图所示（来自英文Wiki）。
 
-`<img src="C:\Users\li_uy\Nutstore\1\我的坚果云\Typora Notes\BUAA Graduate Classes\Financial TimeSeries\IMGs\3_2_VaR_diagram.jpg" style="zoom:50%;" />`
-
 VaR用来警示的就是那部分红色（5%概率）的极端风险，而分位点的位置就是所谓VaR的值。如果用$L_{\mathscr{l}}(x)$的方法来定义，则红色区域应该是右侧的尾部，换句话说就是把上图镜像翻转过来。但无论是怎么定义，VaR关注的绝对不是极端收益，而是极端损失。**在下面计算VaR时采用损失函数的定义，也就是以右侧尾部作为极端损失。**
 
 影响VaR的因素包括：
@@ -769,48 +827,57 @@ $$
 
 Coherent risk measure, CRM。指的是满足单调性、子可加性、正齐次性、平移不变性的风险度量。考虑可测函数的线性空间$\mathcal{L}$，泛函$\varrho: \mathcal{L} \to \mathbb{R} \cup \{+\infty\}$被称作一致性风险度量的前提是满足以下条件：
 
-1. **正规化**(normalized)：$\varrho(0) = 0$。
+【1】**正规化**(normalized)：$\varrho(0) = 0$。
 
-   不持有任何资产，则风险为0；
-2. **单调性**(monotonicity)：如果$Z_1, Z_2 \in \mathcal{L}$且$Z_1 \leq Z_2$几乎处处成立，那么$\varrho(Z_1)\geq \varrho(Z_2)$。
+> 不持有任何资产，则风险为0；
 
-   如果资产$Z_2$几乎在任意情况下价值都高于$Z_1$，那么$Z_2$的风险自然应当小于$Z_1$。更人话的说法是，未来收益更好的资产风险更低。
-3. **子可加性**(sub-additivity):如果$Z_1,Z_2 \in \mathcal{L}$，那么$\varrho(Z_1+Z_2) \leq \varrho(Z_1) + \varrho(Z_2)$。
+【2】**单调性**(monotonicity)：如果$Z_1, Z_2 \in \mathcal{L}$且$Z_1 \leq Z_2$几乎处处成立，那么$\varrho(Z_1)\geq \varrho(Z_2)$。
 
-   在两种资产中分散风险，比独立购买两个资产的风险要小——除非两种资产完全正相关，这个假定表明了在各类资产中分散风险是有好处的。但Dhaene等人(2008)认为一致性风险度量的子可加性假定是存在问题的[^11]。
+> 如果资产$Z_2$几乎在任意情况下价值都高于$Z_1$，那么$Z_2$的风险自然应当小于$Z_1$。更人话的说法是，未来收益更好的资产风险更低。
 
-   > 为什么VaR不是一致性风险度量？因为不满足子可加性，下面给一个数值例：
-   >
-   >     *给出两个**独立**资产和各自确定的投资损失：每一种资产都有96%概率得到1元利润，而4%概率遭到2元损失。*
-   >
-   >     给定$\alpha = 0.95$（即上文中的$p = 0.05$），则单个资产的$\operatorname{VaR}_a(x) = -1, x \in \{Z_1,Z_2\}$。而对于这个组合来说，$\operatorname{VaR}_\alpha(Z_1+Z_2) = 1$：
-   >
-   > |           Scenario           | Overall Loss |              PDF              |     CDF     |
-   > | :--------------------------: | :----------: | :----------------------------: | :---------: |
-   > | $F(Z_1) = -1, F(Z_2) = -1$ |    $-2$    | $96\% \times 96\% = 92.16\%$ | $92.16\%$ |
-   > | $F(Z_1) = 2, F(Z_2) = -1$ |    $1$    |  $4\% \times 96\% = 3.84\%$  |  $96\%$  |
-   > | $F(Z_1) = -1, F(Z_2) = 2$ |    $1$    |  $4\% \times 96\% = 3.84\%$  | $99.84\%$ |
-   > |  $F(Z_1) = 2, F(Z_2) = 2$  |    $4$    |  $4\% \times 4\% = 0.16\%$  |  $100\%$  |
-   >
-   >     $95\%$分位点显然对应损失值$1$，从而有$\operatorname{VaR}_\alpha(Z_1+Z_2) = 1$。所以：
-   >
-   > $$
-   > VaR(Z_1 + Z_2) = 1 > VaR(Z_1) + VaR(Z_2) = -2\nonumber
-   > $$
-   >
-   > 显然VaR不满足子可加性。
-   >
-4. **正齐次性**(positive homogeneity)：如果实数$\alpha \geq 0$, 资产$Z \in \mathcal{L}$，那么$\varrho(\alpha Z) = \alpha \varrho(Z)$。
+【3】**子可加性**(sub-additivity):如果$Z_1,Z_2 \in \mathcal{L}$，那么$\varrho(Z_1+Z_2) \leq \varrho(Z_1) + \varrho(Z_2)$。
 
-   资产构成不变的情况下，资产规模越大，风险越大，而且是正比例函数。
+> 在两种资产中分散风险，比独立购买两个资产的风险要小——除非两种资产完全正相关，这个假定表明了在各类资产中分散风险是有好处的。但Dhaene等人(2008)认为一致性风险度量的子可加性假定是存在问题的[^11]。
 
-   > Föllmer & Schied(2002)提出了风险的凸测度(convex risk measures)[^12]，即一致性风险度量的**子可加性**和**正齐次性**可以被凸性替代：
-   >
-   > *如果*$Z_1,Z_2 \in \mathcal{L}$，*且实数*$\lambda \in [0,1]$，*则*$\varrho[\lambda Z_1 + (1-\lambda)Z_2] \leq \lambda \varrho(Z_1) + (1-\lambda) \varrho(Z_2)$
-   >
-5. **平移不变性**(translation invariance)：对于无风险资产$A$（给予确定性收益$a$）和风险资产$Z \in \mathcal{L}$，应有$\varrho(Z+A) = \varrho(Z) - a$。
+/// details | VaR不满足子可加性的例子
+为什么VaR不是一致性风险度量？因为不满足子可加性，下面给一个数值例：
 
-   资产组合中加入无风险资产会降低组合的风险，而且加得越多，（按照无风险资产的确定性收益额度）风险减的越多。
+*给出两个**独立**资产和各自确定的投资损失：每一种资产都有96%概率得到1元利润，而4%概率遭到2元损失。*
+
+给定$\alpha = 0.95$（即上文中的$p = 0.05$），则单个资产的$\operatorname{VaR}_a(x) = -1, x \in \{Z_1,Z_2\}$。而对于这个组合来说，$\operatorname{VaR}_\alpha(Z_1+Z_2) = 1$：
+
+|           Scenario           | Overall Loss |              PDF              |     CDF     |
+| :--------------------------: | :----------: | :----------------------------: | :---------: |
+| $F(Z_1) = -1, F(Z_2) = -1$ |    $-2$    | $96\% \times 96\% = 92.16\%$ | $92.16\%$ |
+| $F(Z_1) = 2, F(Z_2) = -1$ |    $1$    |  $4\% \times 96\% = 3.84\%$  |  $96\%$  |
+| $F(Z_1) = -1, F(Z_2) = 2$ |    $1$    |  $4\% \times 96\% = 3.84\%$  | $99.84\%$ |
+|  $F(Z_1) = 2, F(Z_2) = 2$  |    $4$    |  $4\% \times 4\% = 0.16\%$  |  $100\%$  |
+
+$95\%$分位点显然对应损失值$1$，从而有$\operatorname{VaR}_\alpha(Z_1+Z_2) = 1$。所以：
+
+$$
+VaR(Z_1 + Z_2) = 1 > VaR(Z_1) + VaR(Z_2) = -2\nonumber
+$$
+
+显然VaR不满足子可加性。
+///
+
+【4】**正齐次性**(positive homogeneity)：如果实数$\alpha \geq 0$, 资产$Z \in \mathcal{L}$，那么$\varrho(\alpha Z) = \alpha \varrho(Z)$。
+
+> 资产构成不变的情况下，资产规模越大，风险越大，而且是正比例函数。
+
+/// admonition | 风险的凸测度
+      type: info
+
+Föllmer & Schied(2002)提出了风险的凸测度(convex risk measures)，即一致性风险度量的**子可加性**和**正齐次性**可以被凸性替代：
+
+*如果*$Z_1,Z_2 \in \mathcal{L}$，*且实数*$\lambda \in [0,1]$，*则*$\varrho[\lambda Z_1 + (1-\lambda)Z_2] \leq \lambda \varrho(Z_1) + (1-\lambda) \varrho(Z_2)$
+
+参考文献：Föllmer, H., & Schied, A. (2002). Convex measures of risk and trading constraints. *Finance and stochastics*, *6*(4), 429-447.
+///
+【5】**平移不变性**(translation invariance)：对于无风险资产$A$（给予确定性收益$a$）和风险资产$Z \in \mathcal{L}$，应有$\varrho(Z+A) = \varrho(Z) - a$。
+
+> 资产组合中加入无风险资产会降低组合的风险，而且加得越多，（按照无风险资产的确定性收益额度）风险减的越多。
 
 ### 条件VaR：满足一致性风险度量的VaR变种
 
@@ -876,13 +943,12 @@ $$
 
 - 对于$i = 1$的情形，由I-GARCH模型，有：
 
-  $$
-  \begin{aligned}
-  \sigma_{t+1}^2 &= \alpha \sigma_t^2 + (1-\alpha) \sigma_t^2 r_t^2 = \sigma_t^2 + (1-\alpha) \sigma_t^2 (\epsilon_t^2 - 1)\\
-  \text{两边同取条件期望} \quad  E(\sigma_{t+1}^2) &= E(\sigma_t^2\mid F_t) = \operatorname{Var}(r_{t-1}\mid F_t)
-  \end{aligned}
-  $$
-- 
+$$
+\begin{aligned}
+\sigma_{t+1}^2 &= \alpha \sigma_t^2 + (1-\alpha) \sigma_t^2 r_t^2 = \sigma_t^2 + (1-\alpha) \sigma_t^2 (\epsilon_t^2 - 1)\\
+\text{两边同取条件期望} \quad  E(\sigma_{t+1}^2) &= E(\sigma_t^2\mid F_t) = \operatorname{Var}(r_{t-1}\mid F_t)
+\end{aligned}
+$$
 
 上式取条件期望时，$\epsilon_t \sim N(0,1)$，从而$E(\epsilon_t^2 - 1) = \operatorname{Var}(\epsilon_t)-1 = 0$。从而对于任意的$i \geq 1$，有$\operatorname{Var}(r_{t+i} \mid F_t) = \sigma_{t+1}^2$，即有$\sigma_{t[k]}^2 = k\sigma_{t+1}^2$。这说明$r_t[k] \mid F_t \sim N(0,k\sigma_{t+1}^2)$。在I-GARCH(1,1)模型下，条件方差与时间$k$成正比，而$k$个持有期的收益率$r_t \mid F_t$的条件方差为$\sqrt{k}\sigma_{t+1}$，这意味着只需要基于现有信息估计出下一期的标准差，就可以估计出未来各期的标准差，且长期看来标准差是收敛的。
 
@@ -980,35 +1046,35 @@ $$
 ## Footnotes
 
 [^1]: 参照Tsay书Chapter 3.1。
-    
+
 [^2]: 由于存在休市时间，波动是不连续的，特别是在隔夜的时段内波动率无法被直接观测，当然，日内（交易时段内）连续的波动率变化是可以得到计算的。
-    
+
 [^3]: 但实务中，高频数据估计可能存在较高的误差。
-    
+
 [^4]: 其证据是，在实际观测中，我们经常观测到$|r_t|$或者$r_t^2$存在强烈的序列相关性。
-    
+
 [^5]: 例如，$\epsilon$可以服从独立同分布的标准正态分布，也可以是独立同分布的student t-distribution，但一定是独立同分布的。
-    
+
 [^6]: 这取决于$\epsilon_t$摇到了什么样的值，如果摇到了较大的$\epsilon_i$，则导致了当期存在较大的波动率。
-    
+
 [^7]: 如果讨论尾部性时假定$\epsilon_t$服从学生t分布，则更进一步可以推导出$a_t$序列是尖峰厚尾的。
-    
+
 [^8]: 即$r_t = \mu + a_t$，但这个式子不是ARCH模型的一部分，ARCH模型是一个纯粹的波动率模型。
-    
+
 [^9]: var/Var是方差，`<u>`Var `</u>`iance；VaR是在险价值,`<u>`V `</u>`alue `<u>`a `</u>`t `<u>`R `</u>`isk; VAR通常指向量自回归模型，`<u>`V `</u>`ector `<u>`A `</u>`uto `<u>`r `</u>`egression。
-    
+
 [^10]: 那么如果做多，$L(\mathscr{l}) = - \Delta V(\mathscr{l})$，如果做空则$L(\mathscr{l}) = \Delta V(\mathscr{l})$。
-    
+
 [^11]: Dhaene, J., Laeven, R. J., Vanduffel, S., Darkiewicz, G., & Goovaerts, M. J. (2008). Can a coherent risk measure be too subadditive?. *Journal of Risk and Insurance*, *75*(2), 365-386.
-    
+
 [^12]: Föllmer, H., & Schied, A. (2002). Convex measures of risk and trading constraints. *Finance and stochastics*, *6*(4), 429-447.
-    
+
 [^13]: I-GARCH只考虑了四阶矩信息，没有考虑（或只是部分考虑到）波动率分布尖峰厚尾的性质。
-    
+
 [^14]: 如果$r_t$均值非0，则$r_t[k] \sim N(k\mu, k \sigma_{t+1}^2)$，即存在漂移项。在$p = 0.05$时，$\operatorname{VaR}[k] = k\mu + 1.65\sqrt{k}\sigma_{t+1}^2$，看起来，这个问题可防可控。
-    
+
 [^15]: $l$是次序，必然整数，但这里的$l$并非给定的值，而是$np$的和，$n$是给定的整数，但$p$取到的点未必能使得$np$为整数，因此需要插值。
-    
+
 [^16]: 这里是$a_t$的分布（而不需要写为条件分布），因为$a_t$和$F_{t-1}$无关，但已知$F_{t-1}$时$\beta^T x_t$是完全已知的。
-    
+
 [^17]: 特别是在高频市场和极端市场环境（如金融危机）下进行研究时，分位数回归会更合适。

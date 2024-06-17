@@ -957,7 +957,7 @@ $$
 \begin{align}
          \hat r_h(1) &= C_0 - \theta_1 a_{h} - \theta_2 a_{h-1}\\
          \hat r_h(2) &= C_0 - \theta_2 a_h\\
-         \hat r_h(l) &= C_0, \quad \text{if  > 2$}.
+         \hat r_h(l) &= C_0, \quad \text{if  $l > 2$}.
 \end{align}
 $$
 

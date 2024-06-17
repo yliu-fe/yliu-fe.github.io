@@ -5,6 +5,8 @@ comments: true
 
 对应CS285 Lecture 4 “Introduction to Reinforcement Learning”。
 
+Course Slide: [CS285 Lecture 4](https://rail.eecs.berkeley.edu/deeprlcourse/deeprlcourse/static/slides/lec-4.pdf)
+
 ## 1. 基础定义
 
 在上一讲中，已经给出了RL所需的若干定义，如state, action, reward等，以及policy的表示方法。这里再次给出这些定义：
@@ -27,7 +29,15 @@ RL的状态转移过程$p(\mathbf{s}_{t+1} \mid \mathbf{s}_t, \mathbf{a}_t)$满�
 
 考虑到状态转移过程，我们需要聊一下马尔科夫链。马尔科夫链由两部分构成：$\mathcal{M} = \{\mathcal{S},\mathcal{T}\}$，前者是状态空间，后者是状态转移乘子。状态空间$\mathcal{S}$可以是连续的，也可以是离散的，关键在于状态转移概率如何形成：$p(s_{t+1} \mid s_t)$。定义概率$\mu_{t,i} = p(s_t = i)$，那么状态转移乘子$\mathcal{T}_{i,j} = p(s_{t+1} = i \mid s_t = j)$，即在状态$j$下转移到状态$i$的概率。那么就可以简化为$\vec \mu_{t+1} = \mathcal{T} \vec \mu_t$，即状态转移过程。
 
+如上面所述，在强化学习算法所讨论的决策背景中，环境状态的转移$\mathcal{T}$只与上一期的状态$s_t$有关，而与更早期的状态$s_{t-1},...s_1$无关。这满足了马尔可夫性。
+
 ### 强化学习中的马尔科夫决策过程
+
+///admonition | 马尔科夫决策过程
+    type: info
+
+您可额外参考：(<https://web.stanford.edu/class/cme241/lecture_slides/david_silver_slides/MDP.pdf>)
+///
 
 向马尔科夫链中加入动作和收益，就变成了马尔科夫决策过程（MDP）$\mathcal{M} = \{\mathcal{A},\mathcal{S},\mathcal{T},r\}$。设动作集为$\mathcal{A}$，使所有的合法动作$a \in \mathcal{A}$（可以是连续的，也可以是分散的）。仍然令第$t$期状态为$j$的概率为$\mu_{t,j} = p(s_t = j)$，令第$t$期选取动作$k$的概率为$\xi_{t,k} = p(a_t = k)$，而状态转移乘子变为$\mathcal{T}_{ijk} = p(s_{t+1}=i \mid s_t = j,a_t = k)$，则有：
 
@@ -41,7 +51,7 @@ $$
 
 更进一步，我们可以写出POMDP（Partially-observable Markovian Decision Process）的形式化表述。在此基础上多了两项：
 
-- 观察空间$\mathcal{O}$，即智能体对状态的观测$o \in \mathcal{O}；
+- 观察空间$\mathcal{O}$，即智能体对状态的观测$o \in \mathcal{O}$；
 - 泄露概率$\mathcal{E} = p(o_t \mid s_t)$，即状态$s_t$下观测为$o_t$的概率，emission probability。
 
 但是POMDP下行为人的收益不取决于观测，而是取决于不可观测的实际状态：$r(s,a)$。
