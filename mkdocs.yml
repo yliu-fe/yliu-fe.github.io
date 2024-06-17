@@ -37,6 +37,7 @@ nav:
     - 截面数据计量经济学:
       - Majors/Cross-Sectional Econometrics/About cross-section data.md
       - 一、线性模型和最小二乘法: Majors/Cross-Sectional Econometrics/1_OLS.md
+      - 二、大样本理论（渐进理论）: Majors/Cross-Sectional Econometrics/2_LargeSample.md
     - 时间序列计量经济学:
       - Majors/Time-Series Analysis/TS_index.md
       - 一、一点预备内容: Majors/Time-Series Analysis/1_Background.md
