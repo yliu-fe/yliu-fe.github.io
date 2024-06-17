@@ -4,14 +4,6 @@ comments: true
 
 # 条件异方差系列模型
 
-/// admonition | 正在施工
-      type: danger
-
-幸运的是，这一部分的原始笔记就是markdown格式，但是需要将其变成适合于MkDocs框架的格式，还要整理。
-
-当然，如果您能识读Markdown和TeX生代码的话，就请您自便吧。
-///
-
 前一章节，我们讲了一阶矩信息（条件均值）的描述和分析。在这一章中，我们将着重讨论二阶矩信息（条件方差）的分析。说到条件异方差，股票是一种较为常见的场景。而股票的波动率，即股票对数收益率的条件标准差，则是常见的一个讨论对象：
 
 $$
@@ -196,9 +188,9 @@ $$
 a_t = \sigma_t \epsilon_t, \quad \sigma_t^2 = \alpha_0 + \alpha_1 a_{t-1}^2 + ... + \alpha_m a_{t-m}^2
 $$
 
-  显然，上面的函数形式表明（1）ARCH模型中的扰动项$a_t$，不相关，但不是独立的，是“相互依存”的；（2）函数描述了$a_t$的不独立性。其中，$\epsilon_t$为独立同分布且均值为0、方差为1的随机序列[^5]；而$\alpha_0 > 0$且$\alpha_i \geq 0, \quad \forall i > 0$。
+显然，上面的函数形式表明（1）ARCH模型中的扰动项$a_t$，不相关，但不是独立的，是“相互依存”的；（2）函数描述了$a_t$的不独立性。其中，$\epsilon_t$为独立同分布且均值为0、方差为1的随机序列[^5]；而$\alpha_0 > 0$且$\alpha_i \geq 0, \quad \forall i > 0$。
 
-  这一模型表明，如果存在一个比较大的过去扰动$\{a_{t-i}^2\}_{i=1}^m$，按照$\sigma_t^2$的模型设定，就会导致较大的当期波动率$\sigma_t^2$，从而可能导致较大的当期扰动$a_t$，进而可能造成当期存在较大的$r_t$，再进一步，就可能导致未来出现大的$\sigma_t^2$。这一个影响链条的存在，使得大的扰动倾向于导致另一个大的扰动紧随着出现，从而描述了波动性聚集现象。因而，这种波动性聚集的现象也被称作ARCH效应。
+这一模型表明，如果存在一个比较大的过去扰动$\{a_{t-i}^2\}_{i=1}^m$，按照$\sigma_t^2$的模型设定，就会导致较大的当期波动率$\sigma_t^2$，从而可能导致较大的当期扰动$a_t$，进而可能造成当期存在较大的$r_t$，再进一步，就可能导致未来出现大的$\sigma_t^2$。这一个影响链条的存在，使得大的扰动倾向于导致另一个大的扰动紧随着出现，从而描述了波动性聚集现象。因而，这种波动性聚集的现象也被称作ARCH效应。
 
 ### ARCH(1)模型的性质
 
@@ -458,15 +450,17 @@ $$
 
 这个模型可以得到如下性质：
 
-1. 显然，如果$a_{t-1}^2$或$\sigma_t^2$很大，那么当期的$\sigma_t^2$一般会较大，从而刻画了波动率聚集现象。
-2. 四阶矩信息。
+【1】显然，如果$a_{t-1}^2$或$\sigma_t^2$很大，那么当期的$\sigma_t^2$一般会较大，从而刻画了波动率聚集现象。
 
-   $$
-   \frac{E[a_t^4]}{E[(a_t^2)]^2} = \frac{3[1-(\alpha_1 + \beta_1)^2]}{1-2\alpha_1^2 - (\alpha_1+\beta_1)^2} > 3
-   $$
+【2】四阶矩信息。
 
-   只要保证分母项大于0，则整个峰度必然大于3，从而刻画了波动率的厚尾现象。
-3. 用较少的参数的函数刻画了波动率的演变。经验之谈，GARCH(1,1/2,1/1,2)就可以较好的刻画波动率的演变。因为低阶的GARCH模型损失的信息较少（对样本容量的磨损较小），且准确性比对应的ARCH要好。
+$$
+\frac{E[a_t^4]}{E[(a_t^2)]^2} = \frac{3[1-(\alpha_1 + \beta_1)^2]}{1-2\alpha_1^2 - (\alpha_1+\beta_1)^2} > 3
+$$
+
+只要保证分母项大于0，则整个峰度必然大于3，从而刻画了波动率的厚尾现象。
+
+【3】用较少的参数的函数刻画了波动率的演变。经验之谈，GARCH(1,1/2,1/1,2)就可以较好的刻画波动率的演变。因为低阶的GARCH模型损失的信息较少（对样本容量的磨损较小），且准确性比对应的ARCH要好。
 
 ### GARCH(1,1)的预测
 
@@ -540,7 +534,7 @@ $$
 \end{aligned}
 $$
 
-因而，为了使这个四阶矩存在，应当有$ 0 \leq \alpha_1 +\beta_1 < 1$，且 分母大于0，即：
+因而，为了使这个四阶矩存在，应当有$0 \leq \alpha_1 +\beta_1 < 1$，且分母大于0，即：
 
 $$
 [1-(\alpha_1 + \beta_1)] [1-\alpha_1^2(K_\epsilon + 2) - (\alpha_1 + \beta_1)^2] > 0
@@ -557,28 +551,33 @@ $$
 
 现在就$\epsilon_t$服从的分布做讨论。
 
-> ==a）$\epsilon_t$服从正态分布==则$K_\epsilon = 0$，从而有：
->
-> $$
-> K_a^{(g)} = \frac{6\alpha_1^2}{1-2\alpha_1^2 - (\alpha_1+\beta_1)^2}
-> $$
->
-> 进一步做出讨论：
->
-> - 若$1-2\alpha_1^2 - (\alpha_1+\beta_1)^2 > 0$，则$a_t$的峰度存在；
-> - 若$\alpha_1 = 0$，则$K_a^{(g)} = 0$，对应的GARCH(1,1)无厚尾；
-> - 若$\beta_1 = 0$，模型退化到ARCH(1)模型，必然有厚尾，且必然有$\alpha_1^2 < 1/3$，符合ARCH(1)对系数的额外规定。
+/// details | a）$\epsilon_t$服从正态分布
+$\epsilon_t$服从正态分布，则$K_\epsilon = 0$，从而有：
 
-> ==b) $\epsilon_t$不服从正态分布==则$K_\epsilon > 0$，从而有：
->
-> $$
-> \begin{aligned}
->         K_a &=  \frac{K_\epsilon - K_\epsilon (\alpha_1 + \beta_1) + 6\alpha_1^2 + 3K_\epsilon \alpha_1^2}{1-2\alpha_1^2 - (\alpha_1 + \beta_1)^2 - K_\epsilon \alpha_1^2}\\
->         &= \frac{K_\epsilon + K_a^{(g)} + \frac{5}{6} K_\epsilon K_a^{(g)}}{1-\frac{1}{6} K_\epsilon K_a^{(g)}}
->     \end{aligned}
-> $$
->
-> 上式对应的结论对任意的GARCH模型都成立。
+$$
+K_a^{(g)} = \frac{6\alpha_1^2}{1-2\alpha_1^2 - (\alpha_1+\beta_1)^2}
+$$
+
+进一步做出讨论：
+
+- 若$1-2\alpha_1^2 - (\alpha_1+\beta_1)^2 > 0$，则$a_t$的峰度存在；
+- 若$\alpha_1 = 0$，则$K_a^{(g)} = 0$，对应的GARCH(1,1)无厚尾；
+- 若$\beta_1 = 0$，模型退化到ARCH(1)模型，必然有厚尾，且必然有$\alpha_1^2 < 1/3$，符合ARCH(1)对系数的额外规定。
+
+///
+
+/// details | b）$\epsilon_t$不服从正态分布
+$\epsilon_t$不服从正态分布，则$K_\epsilon >0$，从而有：
+
+$$
+\begin{aligned}
+   K_a &=  \frac{K_\epsilon - K_\epsilon (\alpha_1 + \beta_1) + 6\alpha_1^2 + 3K_\epsilon \alpha_1^2}{1-2\alpha_1^2 - (\alpha_1 + \beta_1)^2 - K_\epsilon \alpha_1^2}\\
+   &= \frac{K_\epsilon + K_a^{(g)} + \frac{5}{6} K_\epsilon K_a^{(g)}}{1-\frac{1}{6} K_\epsilon K_a^{(g)}}
+\end{aligned}
+$$
+
+上式对应的结论对任意的GARCH模型都成立。
+///
 
 对于ARCH(1)模型，即$\beta_1 = 0$的情形，则高斯情形下$a_t$的超额峰度为：
 
@@ -598,11 +597,11 @@ $$
 - 当$\alpha_1 > 0$时，有$K_a^{(g)} > 0$，从而可知$a_t$存在厚尾性质；
 - 如果$\epsilon_t$服从自由度为$v$的学生t分布。若$v > 4$，则有$E(\epsilon_t^4) = \frac{6}{v-4} - 3$，对应$K_\epsilon = \frac{6}{v-4}$。那么对应的$a_t$的超额峰度为：
 
-  $$
-  K_a = \frac{6+(v+1)K_a^{(g)}}{v-4 - K_a^{(g)}}
-  $$
+$$
+K_a = \frac{6+(v+1)K_a^{(g)}}{v-4 - K_a^{(g)}}
+$$
 
-  要求$1-\frac{2\alpha_1^2(v-1)}{v-4} - (\alpha_1+\beta_1)^2 > 0$。
+要求$1-\frac{2\alpha_1^2(v-1)}{v-4} - (\alpha_1+\beta_1)^2 > 0$。
 
 ## 3.5 GARCH的衍生模型
 
@@ -618,40 +617,43 @@ $$
 
 考虑这个式子中AR部分，即$\sum_{i=1}^{\max(m,s)} (\alpha_i + \beta_i) a_{t-i}^2$，如果这一部分中存在至少一个单位根，则称该GARCH模型为I-GARCH。由于单位根的存在，I-GARCH模型中过去的扰动$\eta_{t-i} = a_{t-i}^2 - \sigma_{t-i}^2$对当前的扰动$a_t^2$存在持续性（无衰减）的影响。
 
-1. **I-GARCH(1,1)模型的形式**。以I-GARCH(1,1)为例，其基本形式为：
+【1】 **I-GARCH(1,1)模型的形式**。以I-GARCH(1,1)为例，其基本形式为：
 
-   $$
-   a_t = \sigma_t \epsilon_t, \quad \sigma_t^2 = \alpha_0 + \beta_1 \sigma_{t-1}^2 + (1-\beta_1) a_{t-1}^2
-   $$
+$$
+a_t = \sigma_t \epsilon_t, \quad \sigma_t^2 = \alpha_0 + \beta_1 \sigma_{t-1}^2 + (1-\beta_1) a_{t-1}^2
+$$
 
-   其中假定$\epsilon_t$独立同分布，并且要求$0<\beta_i < 1$。由于I-GARCH模型是存在单位根的GARCH，且只有一期滞后，因此必然有$\alpha_1 + \beta_1 = 1$，从而得到上式。
-2. **I-GARCH(1,1)模型的向前预测**。下面讨论I-GARCH(1,1)模型的向前预测，设$h$为预测的起点，则一般GARCH(1,1)模型向前$l$步预测的形式为：
+其中假定$\epsilon_t$独立同分布，并且要求$0<\beta_i < 1$。由于I-GARCH模型是存在单位根的GARCH，且只有一期滞后，因此必然有$\alpha_1 + \beta_1 = 1$，从而得到上式。
 
-   $$
-   \sigma_h^2(l) = \alpha_0 + (\alpha_1 + \beta_1) \sigma_h^2(l-1), \quad l>1
-   $$
+【2】 **I-GARCH(1,1)模型的向前预测**。下面讨论I-GARCH(1,1)模型的向前预测，设$h$为预测的起点，则一般GARCH(1,1)模型向前$l$步预测的形式为：
 
-   而对于I-GARCH(1,1)，可以得到类似的结论：
+$$
+\sigma_h^2(l) = \alpha_0 + (\alpha_1 + \beta_1) \sigma_h^2(l-1), \quad l>1
+$$
 
-   $$
-   \sigma_h^2(l) = \sigma_h^2(1) + (l-1)\alpha_0,
-       \quad l \geq 1
-   $$
+而对于I-GARCH(1,1)，可以得到类似的结论：
 
-   而$\alpha_0$显然是一个常数，因此向前预测随着步数的增多，其方差线性增长，如图所示。但随着$l$的增长，$\sigma_h^2(l)$线性增长且无限制，因而如果$\alpha_0$不为零，则远期方程是无法收敛的，==又因为$\alpha_0 \geq 0$，所以$\alpha_0 = 0$才能使得模型有意义==。（搞什么，GARCH基本模型要求$\alpha_0$严格大于0，这里怎么又能取等号了？）
+$$
+\sigma_h^2(l) = \sigma_h^2(1) + (l-1)\alpha_0,
+      \quad l \geq 1
+$$
 
-3. **特殊情形：$\alpha_0 = 0$**。$\alpha_0 = 0$的模型常用于计算在险价值（Value at Risk，VaR）的模型RiskMatrics。这个模型的好处在于，这是一个关于$\{a_t^2\}$序列的指数平滑(exponential smoothing)的模型：
+而$\alpha_0$显然是一个常数，因此向前预测随着步数的增多，其方差线性增长，如图所示。但随着$l$的增长，$\sigma_h^2(l)$线性增长且无限制，因而如果$\alpha_0$不为零，则远期方程是无法收敛的，**又因为$\alpha_0 \geq 0$，所以$\alpha_0 = 0$才能使得模型有意义**。
 
-   $$
-   \begin{aligned}
-       \sigma_t^2 &= (1- \beta_1) a_{t-1}^2 + \beta_1 \sigma_{t-1}^2 \nonumber\\
-       &= (1-\beta_1) a_{t-1}^2 + \beta_1 (1-\beta_1) a_{t-2}^2 +  \beta_1^2( \sigma_{t-2}^2 \nonumber\\
-       &= \ldots \nonumber\\
-       &= (1-\beta_1) (a_{t-1}^2 + \beta_1 a_{t-2}^2 + \beta_1^2 a_{t-3}^2 + \ldots )
-   \end{aligned}
-   $$
+![IGARCH Figure](./image/3_ConditionalHeter/3_1_ArunaFigureIGARCH.jpg)
 
-   由于$\beta_1 < 1$，因而逐渐降低远期扰动对当期波动率的影响。这种模型也可用于估计I-GARCH(1,1)模型的参数。
+【3】 **特殊情形：$\alpha_0 = 0$**。$\alpha_0 = 0$的模型常用于计算在险价值（Value at Risk，VaR）的模型RiskMatrics。这个模型的好处在于，这是一个关于$\{a_t^2\}$序列的指数平滑(exponential smoothing)的模型：
+
+$$
+\begin{aligned}
+   \sigma_t^2 &= (1- \beta_1) a_{t-1}^2 + \beta_1 \sigma_{t-1}^2 \nonumber\\
+   &= (1-\beta_1) a_{t-1}^2 + \beta_1 (1-\beta_1) a_{t-2}^2 +  \beta_1^2( \sigma_{t-2}^2 \nonumber\\
+   &= \ldots \nonumber\\
+   &= (1-\beta_1) (a_{t-1}^2 + \beta_1 a_{t-2}^2 + \beta_1^2 a_{t-3}^2 + \ldots )
+\end{aligned}
+$$
+
+由于$\beta_1 < 1$，因而逐渐降低远期扰动对当期波动率的影响。这种模型也可用于估计I-GARCH(1,1)模型的参数。
 
 ### 门限GARCH
 
@@ -679,16 +681,16 @@ $$
 The Exponential GARCH。简称E-GARCH。这个模型也针对波动率的不对称性质。该模型定义了一个加权因子：
 
 $$
-g(\epsilon_t) = \theta \epsilon_t + \gamma [|\epsilon_t| - E(|\epsilon_t|) ] \label{eq: EGARCHweight}
+g(\epsilon_t) = \theta \epsilon_t + \gamma [|\epsilon_t| - E(|\epsilon_t|) ] \tag{15}\label{eq: EGARCHweight}
 $$
 
 其中$\theta, \gamma$为常数，$\epsilon_t, |\epsilon_t| - E(|\epsilon_t|)$均为零均值独立同分布随机序列。因而有$E[g(\epsilon_t)] = 0$，且对于$\epsilon_t$的不同取值，$g(\epsilon_t)$的序列存在不同：
 
 $$
 g(\epsilon_t) = \left\{\begin{array}{cc}
-        (\theta + \gamma) \epsilon_t - \gamma E(|\epsilon_t|) & \quad  \epsilon \geq 0\\
-        (\theta - \gamma) \epsilon_t - \gamma E(|\epsilon_t|)& \quad \epsilon < 0
-    \end{array}\right.
+   (\theta + \gamma) \epsilon_t - \gamma E(|\epsilon_t|) & \quad  \epsilon \geq 0\\
+   (\theta - \gamma) \epsilon_t - \gamma E(|\epsilon_t|)& \quad \epsilon < 0
+\end{array}\right.
 $$
 
 基于以上内容，E-GARCH(m,s)模型的形式被定义为：
@@ -754,7 +756,13 @@ $$
 
 ## 3.6 在险价值(VaR)
 
-若干个大小写各异的VaR中的一个[^9]，全名Value at Risk。Tsay书对应章节为Chapter 7.1。
+若干个大小写各异的VaR中的一个，全名Value at Risk。Tsay书对应章节为Chapter 7.1。
+
+/// admonition | 还有什么var？
+      type: note
+
+var/Var是方差，Variance；VaR是在险价值,Value at Risk; VAR通常指向量自回归模型,Vector AutoRegression。
+///
 
 ### 风险分类和评估方法
 
@@ -777,13 +785,21 @@ $$
 
 ### VaR的定义
 
-> ==Def 3.1 - VaR==令$\Delta V(\mathscr{l})$表示金融头寸中从$t$到$(t+\mathscr{l})$时刻标的资产价值的改变量，令$L(\mathscr{l})$为对应的损失函数[^10]，令$F_{\mathscr{l}}(x)$为$L(\mathscr{l})$的CDF。则一个持有期为$\mathscr{l}$，尾部概率为$p$的金融头寸的VaR定义为：
->
-> $$
-> p = Prob(L(\mathscr{l}) \geq \operatorname{VaR}) = 1 - Prob(L(\mathscr{l}) < \operatorname{VaR}) = 1-F_{\mathscr{l}}(\operatorname{VaR})
-> $$
+/// admonition | 定义3.1 VaR
+      type: info
+
+令$\Delta V(\mathscr{l})$表示金融头寸中从$t$到$(t+\mathscr{l})$时刻标的资产价值的改变量，令$L(\mathscr{l})$为对应的损失函数，令$F_{\mathscr{l}}(x)$为$L(\mathscr{l})$的CDF。则一个持有期为$\mathscr{l}$，尾部概率为$p$的金融头寸的VaR定义为：
+
+$$
+p = Prob(L(\mathscr{l}) \geq \operatorname{VaR}) = 1 - Prob(L(\mathscr{l}) < \operatorname{VaR}) = 1-F_{\mathscr{l}}(\operatorname{VaR})
+$$
+
+关于$L(\mathscr{l})$：如果做多，$L(\mathscr{l}) = - \Delta V(\mathscr{l})$，如果做空则$L(\mathscr{l}) = \Delta V(\mathscr{l})$。
+///
 
 以上定义表明，VaR是一个分位点的概念，这个概念关注的是造成极端大损失的尾部风险，如下图所示（来自英文Wiki）。
+
+![VaR_tail_risk](./image/3_ConditionalHeter/3_2_VaR_diagram.jpg)
 
 VaR用来警示的就是那部分红色（5%概率）的极端风险，而分位点的位置就是所谓VaR的值。如果用$L_{\mathscr{l}}(x)$的方法来定义，则红色区域应该是右侧的尾部，换句话说就是把上图镜像翻转过来。但无论是怎么定义，VaR关注的绝对不是极端收益，而是极端损失。**在下面计算VaR时采用损失函数的定义，也就是以右侧尾部作为极端损失。**
 
@@ -837,7 +853,9 @@ Coherent risk measure, CRM。指的是满足单调性、子可加性、正齐次
 
 【3】**子可加性**(sub-additivity):如果$Z_1,Z_2 \in \mathcal{L}$，那么$\varrho(Z_1+Z_2) \leq \varrho(Z_1) + \varrho(Z_2)$。
 
-> 在两种资产中分散风险，比独立购买两个资产的风险要小——除非两种资产完全正相关，这个假定表明了在各类资产中分散风险是有好处的。但Dhaene等人(2008)认为一致性风险度量的子可加性假定是存在问题的[^11]。
+> 在两种资产中分散风险，比独立购买两个资产的风险要小——除非两种资产完全正相关，这个假定表明了在各类资产中分散风险是有好处的。但Dhaene等人(2008)认为一致性风险度量的子可加性假定是存在问题的。
+>
+> 参考文献：Dhaene, J., Laeven, R. J., Vanduffel, S., Darkiewicz, G., & Goovaerts, M. J. (2008). Can a coherent risk measure be too subadditive?. *Journal of Risk and Insurance*, *75*(2), 365-386.
 
 /// details | VaR不满足子可加性的例子
 为什么VaR不是一致性风险度量？因为不满足子可加性，下面给一个数值例：
@@ -957,7 +975,14 @@ $$
 风险度量制方法计算VaR的优缺点：
 
 - 优点：（1）简洁易理解；（2）使得风险更加透明、量化；
-- 缺点：（1）要求正态假设，往往使得VaR被低估[^13]；（2）$r_t$的均值非零时失效[^14]。
+- 缺点：（1）要求正态假设，往往使得VaR被低估；（2）$r_t$的均值非零时失效。
+
+/// details | 两个缺点的额外解释
+
+缺点一（正态分布假设）：I-GARCH只考虑了四阶矩信息，没有考虑（或只是部分考虑到）波动率分布尖峰厚尾的性质。
+
+缺点二（均值非零时失效）：如果$r_t$均值非0，则$r_t[k] \sim N(k\mu, k \sigma_{t+1}^2)$，即存在漂移项。在$p = 0.05$时，$\operatorname{VaR}[k] = k\mu + 1.65\sqrt{k}\sigma_{t+1}^2$，看起来，这个问题是可控的。
+///
 
 ### 计算组合的VaR
 
@@ -983,11 +1008,16 @@ $$
 
 首先定义次序统计量。
 
-> ==Def 3.2 - 次序统计量== 令$r_1,…,r_n$表示样本组合收益率，并递增排序，记为:$r_{(1)} \leq r_{(2)} \leq … \leq r_{(n)}$，其中$r_{(i)}$为样本的第$i$个次序统计量。若收益率独立同分布且服从一个连续的分布，其PDF为$f(x)$，CDF为$F(x)$，则次序统计量$r_{(l)}$，其中$l = np$且$0< p < 1$，有如下结论成立：
->
-> *令$x_p$表示$F(x)$在概率$p$处的分位点，即$x_p$ = F(p)^{-1}。假定$f(x)$在$x_p$处不为0，即$f(x_p) \not = 0$，则次序统计量$r_{(l)}$是渐近正态的，其均值为$x_p$，方差为$p(1-p)/ [nf^2(x_p)]$。*
+/// admonition | 定义3.2 - 次序统计量
+      type: info
+令$r_1,…,r_n$表示样本组合收益率，并递增排序，记为:$r_{(1)} \leq r_{(2)} \leq … \leq r_{(n)}$，其中$r_{(i)}$为样本的第$i$个次序统计量。若收益率独立同分布且服从一个连续的分布，其PDF为$f(x)$，CDF为$F(x)$，则次序统计量$r_{(l)}$，其中$l = np$且$0< p < 1$，有如下结论成立：
 
-当$l$非整[^15]，则可以利用插值法来做分位数的估计，取$np$相邻的整数，即$l_1 < np < l_2$，定义$p_i = l_i / n$，从而有$p_1 < p < p_2$，可利用：
+*令$x_p$表示$F(x)$在概率$p$处的分位点，即$x_p$ = F(p)^{-1}。假定$f(x)$在$x_p$处不为0，即$f(x_p) \not = 0$，则次序统计量$r_{(l)}$是渐近正态的，其均值为$x_p$，方差为$p(1-p)/ [nf^2(x_p)]$。*
+///
+
+当$l$非整，则可以利用插值法来做分位数的估计，取$np$相邻的整数，即$l_1 < np < l_2$，定义$p_i = l_i / n$，从而有$p_1 < p < p_2$，可利用：
+
+> $l$是次序，必然整数，但这里的$l$并非给定的值，而是$np$的和，$n$是给定的整数，但$p$取到的点未必能使得$np$为整数，因此需要插值。
 
 $$
 \hat x_p = \frac{p_2 - p}{p_2 - p_1} r(l_1) + \frac{p - p_1}{p_2 - p_1}r(l_2)
@@ -1014,7 +1044,9 @@ $$
 r_t = \beta^T x_t + a_t
 $$
 
-其中，系数$\beta$是一个$k$维参数向量（对应$k$个解释变量），$x_t \in F_{t-1}$为预测向量，$\beta^T x_t$为已知项。那么$r_t \mid F_{t-1}$的条件分布可视作$a_t$分布的平移[^16]。在给定$F_{t-1}$的条件下，条件分位数$x_p$的估计：
+其中，系数$\beta$是一个$k$维参数向量（对应$k$个解释变量），$x_t \in F_{t-1}$为预测向量，$\beta^T x_t$为已知项。那么$r_t \mid F_{t-1}$的条件分布可视作$a_t$分布的平移。在给定$F_{t-1}$的条件下，条件分位数$x_p$的估计：
+
+> 这里是$a_t$的分布（而不需要写为条件分布），因为$a_t$和$F_{t-1}$无关，但已知$F_{t-1}$时$\beta^T x_t$是完全已知的。
 
 $$
 \begin{align}
@@ -1029,52 +1061,17 @@ $$
 
 显然，$w_p(z)$为一个罚函数。例如， $p= r_t(0.9)$代表分位数回归，希望回归曲线下包含$90\%$的数据点。
 
-> **分位数估计法与OLS的区别**
->
-> 两者的区别在于罚函数的应用，OLS的估计项为：
->
-> $$
-> \hat \beta = \operatorname{argmin}_\beta \sum_{t=1}^n (r_t - \beta^T x)^2
-> $$
->
-> 在上式中，$r_t$更容易受到极值的影响，而分位数估计则纳入了不同情况的不同罚函数来缓解这一问题，所以可以说分位数估计方法是OLS的改进。
+/// detail | 分位数估计与OLS的区别
 
-分位数回归的优缺点：
+两者的区别在于罚函数的应用，OLS的估计项为：
 
-- 优点：（1）无需假定任意阶矩信息的存在；（2）该方法得到的估计是稳健的，不易受极端值的影响[^17]；（3）无需对模型中的分布作出假设；（4）分位数估计可以通过设定分位数值来得到不同置信水平下的分位数估计，很适合用于捕捉分布的尾部特征。
+$$
+\hat \beta = \operatorname{argmin}_\beta \sum_{t=1}^n (r_t - \beta^T x)^2
+$$
 
-## Footnotes
+在上式中，$r_t$更容易受到极值的影响，而分位数估计则纳入了不同情况的不同罚函数来缓解这一问题，所以可以说分位数估计方法是OLS的改进。
+///
 
-[^1]: 参照Tsay书Chapter 3.1。
+分位数回归的优点：（1）无需假定任意阶矩信息的存在；（2）该方法得到的估计是稳健的，不易受极端值的影响；（3）无需对模型中的分布作出假设；（4）分位数估计可以通过设定分位数值来得到不同置信水平下的分位数估计，很适合用于捕捉分布的尾部特征。
 
-[^2]: 由于存在休市时间，波动是不连续的，特别是在隔夜的时段内波动率无法被直接观测，当然，日内（交易时段内）连续的波动率变化是可以得到计算的。
-
-[^3]: 但实务中，高频数据估计可能存在较高的误差。
-
-[^4]: 其证据是，在实际观测中，我们经常观测到$|r_t|$或者$r_t^2$存在强烈的序列相关性。
-
-[^5]: 例如，$\epsilon$可以服从独立同分布的标准正态分布，也可以是独立同分布的student t-distribution，但一定是独立同分布的。
-
-[^6]: 这取决于$\epsilon_t$摇到了什么样的值，如果摇到了较大的$\epsilon_i$，则导致了当期存在较大的波动率。
-
-[^7]: 如果讨论尾部性时假定$\epsilon_t$服从学生t分布，则更进一步可以推导出$a_t$序列是尖峰厚尾的。
-
-[^8]: 即$r_t = \mu + a_t$，但这个式子不是ARCH模型的一部分，ARCH模型是一个纯粹的波动率模型。
-
-[^9]: var/Var是方差，`<u>`Var `</u>`iance；VaR是在险价值,`<u>`V `</u>`alue `<u>`a `</u>`t `<u>`R `</u>`isk; VAR通常指向量自回归模型，`<u>`V `</u>`ector `<u>`A `</u>`uto `<u>`r `</u>`egression。
-
-[^10]: 那么如果做多，$L(\mathscr{l}) = - \Delta V(\mathscr{l})$，如果做空则$L(\mathscr{l}) = \Delta V(\mathscr{l})$。
-
-[^11]: Dhaene, J., Laeven, R. J., Vanduffel, S., Darkiewicz, G., & Goovaerts, M. J. (2008). Can a coherent risk measure be too subadditive?. *Journal of Risk and Insurance*, *75*(2), 365-386.
-
-[^12]: Föllmer, H., & Schied, A. (2002). Convex measures of risk and trading constraints. *Finance and stochastics*, *6*(4), 429-447.
-
-[^13]: I-GARCH只考虑了四阶矩信息，没有考虑（或只是部分考虑到）波动率分布尖峰厚尾的性质。
-
-[^14]: 如果$r_t$均值非0，则$r_t[k] \sim N(k\mu, k \sigma_{t+1}^2)$，即存在漂移项。在$p = 0.05$时，$\operatorname{VaR}[k] = k\mu + 1.65\sqrt{k}\sigma_{t+1}^2$，看起来，这个问题可防可控。
-
-[^15]: $l$是次序，必然整数，但这里的$l$并非给定的值，而是$np$的和，$n$是给定的整数，但$p$取到的点未必能使得$np$为整数，因此需要插值。
-
-[^16]: 这里是$a_t$的分布（而不需要写为条件分布），因为$a_t$和$F_{t-1}$无关，但已知$F_{t-1}$时$\beta^T x_t$是完全已知的。
-
-[^17]: 特别是在高频市场和极端市场环境（如金融危机）下进行研究时，分位数回归会更合适。
+> 关于优点2：特别是在高频市场和极端市场环境（如金融危机）下进行研究时，分位数回归会更合适。

@@ -36,7 +36,7 @@ RL的状态转移过程$p(\mathbf{s}_{t+1} \mid \mathbf{s}_t, \mathbf{a}_t)$满�
 ///admonition | 马尔科夫决策过程
     type: info
 
-您可额外参考：(<https://web.stanford.edu/class/cme241/lecture_slides/david_silver_slides/MDP.pdf>)
+您可额外参考：<https://web.stanford.edu/class/cme241/lecture_slides/david_silver_slides/MDP.pdf>
 ///
 
 向马尔科夫链中加入动作和收益，就变成了马尔科夫决策过程（MDP）$\mathcal{M} = \{\mathcal{A},\mathcal{S},\mathcal{T},r\}$。设动作集为$\mathcal{A}$，使所有的合法动作$a \in \mathcal{A}$（可以是连续的，也可以是分散的）。仍然令第$t$期状态为$j$的概率为$\mu_{t,j} = p(s_t = j)$，令第$t$期选取动作$k$的概率为$\xi_{t,k} = p(a_t = k)$，而状态转移乘子变为$\mathcal{T}_{ijk} = p(s_{t+1}=i \mid s_t = j,a_t = k)$，则有：
