@@ -201,6 +201,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://yliu-fe.github.io/Techs/Notes%20for%20Python/FluentPython/2%20An%20Array%20of%20Sequences/</loc>
+         <lastmod>2024-06-19</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://yliu-fe.github.io/Techs/Notes%20for%20Python/Packages/numpy/</loc>
          <lastmod>2024-06-19</lastmod>
          <changefreq>daily</changefreq>

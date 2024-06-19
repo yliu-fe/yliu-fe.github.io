@@ -12,13 +12,13 @@
         <meta name="author" content="yliu-fe">
       
       
-        <link rel="canonical" href="https://yliu-fe.github.io/Techs/Notes%20for%20Python/FluentPython/1%20Python%20Data%20Model/">
+        <link rel="canonical" href="https://yliu-fe.github.io/Techs/Notes%20for%20Python/FluentPython/2%20An%20Array%20of%20Sequences/">
       
       
-        <link rel="prev" href="../../CS61A/recursive/">
+        <link rel="prev" href="../1%20Python%20Data%20Model/">
       
       
-        <link rel="next" href="../2%20An%20Array%20of%20Sequences/">
+        <link rel="next" href="../../../../Majors/Major_index/">
       
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
@@ -26,7 +26,7 @@
     
     
       
-        <title>Ch1 Python Data Model - Website of a Doctor Candidate</title>
+        <title>Ch2 An Array of Sequences - Website of a Doctor Candidate</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#python-data-model" class="md-skip">
+        <a href="#an-array-of-sequences" class="md-skip">
           跳转至
         </a>
       
@@ -112,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Ch1 Python Data Model
+              Ch2 An Array of Sequences
             
           </span>
         </div>
@@ -1149,6 +1149,27 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../1%20Python%20Data%20Model/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ch1 Python Data Model
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -1165,7 +1186,7 @@
           
   
   <span class="md-ellipsis">
-    Ch1 Python Data Model
+    Ch2 An Array of Sequences
   </span>
   
 
@@ -1176,7 +1197,7 @@
         
   
   <span class="md-ellipsis">
-    Ch1 Python Data Model
+    Ch2 An Array of Sequences
   </span>
   
 
@@ -1198,28 +1219,37 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#21" class="md-nav__link">
     <span class="md-ellipsis">
-      魔术方法
+      2.1 内置序列
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#22" class="md-nav__link">
     <span class="md-ellipsis">
-      特殊方法如何使用
+      2.2 列表推导和生成器表达式
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="特殊方法如何使用">
+    <nav class="md-nav" aria-label="2.2 列表推导和生成器表达式">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1" class="md-nav__link">
+  <a href="#list-comprehensions" class="md-nav__link">
     <span class="md-ellipsis">
-      1. 数学和字符串
+      list comprehensions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generator-expressions" class="md-nav__link">
+    <span class="md-ellipsis">
+      generator expressions
     </span>
   </a>
   
@@ -1230,31 +1260,94 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3 元组：不仅仅是不可变的列表
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3 元组：不仅仅是不可变的列表">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      元组是一种记录的手段
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      元组作为一种不可变列表
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4 对序列和可迭代对象的拆包
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4 对序列和可迭代对象的拆包">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      用星号*处理不确定数量的元素
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      在函数调用或者序列字面量中用*解包
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      嵌套元组的解包
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#25" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5 基于序列的模式匹配
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../2%20An%20Array%20of%20Sequences/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Ch2 An Array of Sequences
-  </span>
-  
-
-      </a>
     </li>
   
 
@@ -2364,28 +2457,37 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#21" class="md-nav__link">
     <span class="md-ellipsis">
-      魔术方法
+      2.1 内置序列
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#22" class="md-nav__link">
     <span class="md-ellipsis">
-      特殊方法如何使用
+      2.2 列表推导和生成器表达式
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="特殊方法如何使用">
+    <nav class="md-nav" aria-label="2.2 列表推导和生成器表达式">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1" class="md-nav__link">
+  <a href="#list-comprehensions" class="md-nav__link">
     <span class="md-ellipsis">
-      1. 数学和字符串
+      list comprehensions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generator-expressions" class="md-nav__link">
+    <span class="md-ellipsis">
+      generator expressions
     </span>
   </a>
   
@@ -2393,6 +2495,90 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3 元组：不仅仅是不可变的列表
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3 元组：不仅仅是不可变的列表">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      元组是一种记录的手段
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      元组作为一种不可变列表
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4 对序列和可迭代对象的拆包
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4 对序列和可迭代对象的拆包">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      用星号*处理不确定数量的元素
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      在函数调用或者序列字面量中用*解包
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      嵌套元组的解包
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#25" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5 基于序列的模式匹配
+    </span>
+  </a>
   
 </li>
       
@@ -2414,109 +2600,246 @@
   
 
 
-<h1 id="python-data-model">Python Data Model</h1>
-<p>讲了一些简单的Python数据模型【不是数据结构】。</p>
-<h2 id="_1">魔术方法</h2>
-<p>利用<code>collections.namedtuple</code>可以简单生成一些命名的类示例，例如：</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span> <span class="nn">collections</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">Card</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;Card&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;rank&#39;</span><span class="p">,</span><span class="s1">&#39;suit&#39;</span><span class="p">])</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">beer_card</span> <span class="o">=</span> <span class="n">Card</span><span class="p">(</span><span class="s1">&#39;7&#39;</span><span class="p">,</span><span class="s1">&#39;diamonds&#39;</span><span class="p">)</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">beer_card</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">Card</span><span class="p">(</span><span class="n">rank</span><span class="o">=</span><span class="s1">&#39;7&#39;</span><span class="p">,</span><span class="n">suit</span><span class="o">=</span><span class="s1">&#39;diamonds&#39;</span><span class="p">)</span>
-</span></code></pre></div>
-<p>通过魔术方法（magic method）可以将一些系统定义的方法（例如<code>len()</code>等）的实现方式转变为类内的方法，例如：</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">class</span> <span class="nc">FrenchDeck</span><span class="p">:</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="n">ranks</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">11</span><span class="p">)]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="s1">&#39;JQKA&#39;</span><span class="p">)</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="n">suits</span> <span class="o">=</span> <span class="s1">&#39;spades diamonds clubs hearts&#39;</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_cards</span> <span class="o">=</span> <span class="p">[</span><span class="n">Card</span><span class="p">(</span><span class="n">rank</span><span class="p">,</span> <span class="n">suit</span><span class="p">)</span> <span class="k">for</span> <span class="n">suit</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">suits</span> <span class="k">for</span> <span class="n">rank</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ranks</span><span class="p">]</span>
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_cards</span><span class="p">)</span>
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>
-</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
-</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cards</span><span class="p">[</span><span class="n">position</span><span class="p">]</span>
-</span></code></pre></div>
-<p>其中，<code>__init__</code>是最常见的魔术方法，对于每个类而言，它必不可少，因为它负责定义类实例所需要的全部信息；</p>
-<p><code>__len__</code>方法替代了标准库的<code>len()</code>，对于一个<code>FrenchDeck</code>的实例<code>deck = Frenchdeck()</code>，<code>len(deck)</code>不是传统的返回数据结构中元素数量的标准函数，而是代码中使用的<code>len(deck._cards)</code>，即返回类中所规定的私有变量<code>_cards</code>这个列表中元素的数量，显然，根据上面<code>ranks</code>和<code>suits</code>的定义，这是一副没有王牌的扑克，共52张。</p>
-<blockquote>
-<p>对于其他的，不是<code>FrenchDeck</code>实例的变量，<code>len(example)</code>就还是那个标准的<code>len()</code>，不会调用这个<code>len(self._cards)</code></p>
-</blockquote>
-<p>而<code>__getitem__</code>调用了索引，即<code>example[]</code>。显然，作为一个类的实例，<code>deck</code>不能被直接索引，直接用<code>deck[0]</code>会被报错，但是<code>__getitem__</code>将索引转化为实例下面<code>_cards</code>这个列表的索引，所以得到的是一组牌的名字，例如：</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">deck</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">Card</span><span class="p">(</span><span class="n">rank</span><span class="o">=</span><span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="n">suit</span><span class="o">=</span><span class="s1">&#39;spades&#39;</span><span class="p">)</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">deck</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="n">Card</span><span class="p">(</span><span class="n">rank</span><span class="o">=</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="n">suit</span><span class="o">=</span><span class="s1">&#39;hearts&#39;</span><span class="p">)</span>
-</span></code></pre></div>
-<p>尽量不要直接调用魔术方法，例如<code>deck.__len__()</code>就很蠢，可以直接用<code>len(deck)</code>。同时，标准的Python内置类型也大量地使用了魔术方法，可以通过<code>dir(int)</code>来查看整型class中定义或使用了哪些方法（包括魔术方法）。</p>
-<div class="admonition warning">
-<p class="admonition-title">魔术方法不能被自定义</p>
-<p>魔术方法的名字（如<code>__init__</code>,<code>__len__</code>等）是标准库里的<strong>内置函数</strong>，它们各自对应于一个常见的方法（如<code>len</code>、索引等），用户可以通过这些给定的魔术方法来决定哪些常见的函数如何应用于这个类的实例上，但不能自己凭空创造一个新的<code>__example__</code>方法并挂钩于任何的标准python方法。</p>
-<p>或者说，可以自行创造一个，但它不会挂钩于任何的现有方法，使用时只会被当作一个普通的方法调用，也即<code>class.__example__()</code>，尽管它的名字以魔术方法特有的双下划线开头。</p>
-<p>而且，尽量不要想当然地自行创造这样的方法，因为未来Python说不定会在标准库中加入这个魔术方法，就会引发代码的冲突。</p>
+<h1 id="an-array-of-sequences">An array of sequences</h1>
+<p>用序列表示的数组。</p>
+<div class="admonition note">
+<p class="admonition-title">第二版的调整</p>
+<p>相比于现有汉译本的第一版，第二版在第二章调整了两处内容：</p>
+<ol>
+<li>新增了一节新内容<code>Pattern Matching with Sequences</code>，放在“切片”之前</li>
+<li>将具名元组(Classic Named Tuples)挪到了全新的第五章“Data Class Builders”中。</li>
+</ol>
 </div>
-<p>关于Magic Method的更多讲解可参照以下博文：
-（中文）<a href="https://segmentfault.com/a/1190000040286979">python魔法方法长文详解 - 个人文章 - SegmentFault 思否</a>
-（英文）<a href="https://rszalski.github.io/magicmethods/">A Guide to Python's Magic Methods « rafekettler.com (rszalski.github.io)</a></p>
-<h2 id="_2">特殊方法如何使用</h2>
-<blockquote>
-<p>Chapter 1.2</p>
-</blockquote>
-<p>进一步，讲了更多的魔术方法，并分别从数学、字符串、布尔代数和Collection API角度讨论魔术方法的应用。</p>
-<h3 id="1">1. 数学和字符串</h3>
-<p>考虑一个二维向量的表示</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">import</span> <span class="nn">math</span>  
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="k">class</span> <span class="nc">Vector</span><span class="p">:</span>  
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>  
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>  
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>  
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  
-</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;Vector(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="si">}</span><span class="s1">)&#39;</span>  
-</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>
-</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>    <span class="k">def</span> <span class="fm">__abs__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  
-</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>        <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">hypot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>  
-</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>
-</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>    <span class="k">def</span> <span class="fm">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  
-</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>        <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>  
-</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>
-</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>    <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>  
-</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">other</span><span class="o">.</span><span class="n">x</span>  
-</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">other</span><span class="o">.</span><span class="n">y</span>  
-</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>        <span class="k">return</span> <span class="n">Vector</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>  
-</span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>
-</span><span id="__span-3-22"><a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>    <span class="k">def</span> <span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scalar</span><span class="p">):</span>  
-</span><span id="__span-3-23"><a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a>        <span class="k">return</span> <span class="n">Vector</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">*</span> <span class="n">scalar</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">*</span> <span class="n">scalar</span><span class="p">)</span>
-</span></code></pre></div>
-<p>一共涉及了六个魔术方法，其中<code>__init__</code>之前讨论过。</p>
-<p><code>__repr__</code>用于展示<code>Vector</code>类实例，并将其表示为一个表示向量的字符串，同样是<code>v1 = Vector(2,4)</code>的定义，同样是<code>print(v1)</code>，定义或不定义该魔术方法有较大的区别：</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># define __repr__</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">v1</span><span class="p">)</span>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">Vector</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="c1"># without __repr__</span>
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">v1</span><span class="p">)</span>
-</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="o">&lt;</span><span class="n">__main__</span><span class="o">.</span><span class="n">Vector</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x000001A91E8BDC90</span><span class="o">&gt;</span>
-</span></code></pre></div>
-<p>不定义<code>__repr__</code>时，编译器返回的是这个实例是什么类，以及它所在的内存位置。这是<code>print</code>函数对类实例的标准输出。</p>
-<blockquote>
-<p>通常对<code>__repr__</code>定义输出的要求是，用于生成实例的<code>eval(输出项)</code>函数可以直接复制一个新的，完全相同的类实例出来。</p>
-</blockquote>
+<h2 id="21">2.1 内置序列</h2>
+<p>序列（sequence）的分法不同，如果按照存放内容区分：</p>
 <ul>
-<li><code>__abs__</code>绑定<code>abs()</code>函数，从而使其返回向量的长度；</li>
-<li><code>__bool__</code>绑定的是<code>if-else</code>或<code>while</code>中的逻辑判断。在定义后，如果向量的长为0，则返回<code>False</code>，否则返回为<code>True</code>；而如果没定义它，则对于所有的情况来说，<code>Vector</code>实例都会被视作<code>True</code>，无论其长度。关于真值检验的内容可以参阅Python文档<a href="https://docs.python.org/zh-cn/3/library/stdtypes.html#truth">内置类型 — Python 3.12.4 文档</a>，简单来说，<code>None,False</code>、各类空集、各类数值0都会被当作<code>False</code>。</li>
-<li><code>__add__</code>和<code>__mul__</code>分别顶替了加法和乘法运算符(<code>+,*</code>)从而实现向量的相加和相乘。</li>
+<li>容器序列（container）：它们是所包含的任意对象的引用。这类序列的例子是<code>list, tuple, collections.deque</code></li>
+<li>扁平序列（flat）：直接存放了对象的值，特点是具有连续的内存空间，但是只能用于存放基础数据类型（数值、字节、字符），例如<code>str,bytes,bytearray, array.array</code>等。</li>
+</ul>
+<p>或者按照可不可以被修改分类：</p>
+<ul>
+<li>可变（mutable）序列：<code>list, bytearray, array.array, collections.deque</code></li>
+<li>不可变(immutable)序列：<code>tuple, str, bytes</code></li>
 </ul>
 <div class="admonition note">
-<p class="admonition-title">关于<code>__add__</code>和<code>__mul__</code></p>
-<p>示例中的add和mul方法的实现形式都是生成一个新的向量<code>return Vector(xxx,xxx)</code>，而不是直接在原有加数或者乘数上修改，这是一个中置运算符（infix operators)的良好特性。</p>
+<p class="admonition-title">container sequence v. flat sequence</p>
+<p>书中图2.1给出了container的典型案例<code>tuple</code>和flat典型案例<code>array</code>的内存模型。</p>
+<ul>
+<li>array实例<code>array('d',[9.46,2.08,4.29])</code>在内存中处于连续位置，头地址后依次存放<code>9.46</code>等三个数值。</li>
+<li>tuple实例<code>tuple(9.46,'cat',[2.08,4.29])</code>虽然也占据了连续的内存空间，但这块内存空间存储的不是元素本身，而是元素对应的内存地址。<code>tuple</code>本体占据的内存中，头地址之后依次存放<code>9.46</code>,<code>'cat'</code>和<code>[2.08,4.29]</code>的内存地址。特别的是，第三个元素是<code>[2.08,4.29]</code>，这是个list，也是一个container sequence，因此它所对应的连续地址中存储的还是地址，用于导向真正的数值2.08、4.29所在的位置——这两个数所在的内存地址不一定是连续的。</li>
+</ul>
 </div>
-<p>由于字符串部分只在讨论<code>__repr__</code>和<code>__str__</code>，合并在这里，它们基本上都是定义了类实例的字符串表示，通常选择<code>__repr__</code>不会有错，因为它被要求返回详细的、无歧义的字符串表示。</p>
+<div class="admonition warning">
+<p class="admonition-title">不建议在具有大量增删操作的数据结构中使用任何的container</p>
+<p>在CPython中，列表（list）是通过动态数组实现的。这意味着列表在内存中是连续存储的，可以通过索引快速访问元素，但是插入和删除元素可能需要移动大量的元素。  </p>
+<p>当你创建一个列表时，Python会预先分配一些额外的空间用于存储未来可能添加的元素。这样，当你添加元素到列表时，Python通常不需要重新分配内存，只需要在预先分配的空间中添加元素即可。这使得添加元素的操作非常快速。  </p>
+<p>当列表的预先分配的空间用完时，Python会创建一个新的、更大的内存区域，然后将旧的元素复制到新的内存区域，并释放旧的内存区域。这个过程被称为重新分配内存，它会消耗一些时间，但是由于预先分配的空间，这种情况发生的频率较低。  </p>
+<p>删除元素时，Python不会立即释放内存，而是保留一些空间以便未来添加元素。如果删除大量元素，Python可能会决定缩小列表的大小，这需要重新分配内存。  </p>
+<p>总的来说，Python的列表实现提供了良好的平均性能，对于大多数用途来说，它的性能是足够的。然而，如果你需要在列表的中间频繁地插入或删除元素，可能需要考虑使用其他数据结构，如链表。</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">任意的Python对象都会有一个具有元数据（meta-data）的头部</p>
+<p>以浮点数<code>float</code>为例，在内存中它实际上由三块内容构成：</p>
+<ul>
+<li><code>ob_refcnt</code>：引用次数计数。这是Python垃圾回收机制所需的项目，生成实例时此数为1，当对象被其他对象引用的时候，这个计数会增加，当引用结束或者超出作用域的时候，计数减少。计数为0则Python自动回收其内存。</li>
+<li><code>ob_type</code>：指向对象类型（<code>float</code> class）的指针</li>
+<li><code>ob_fval</code>：实际上存储了浮点数内容，它是C语言下的double数据类型。</li>
+</ul>
+<p>而这三块内容各自消耗了8个字节（64bit），因此使用array of float比tuple of float的开销要小，因为array在内存中是连续的，直接存储了各个浮点数的原始值（只需要<code>ob_fval</code>），而tuple要包含的是整个float object，即上面所说的全部三个对象。</p>
+</div>
+<h2 id="22">2.2 列表推导和生成器表达式</h2>
+<blockquote>
+<p>List comprehensions and Generator expressions</p>
+<p>前者有时被简写为listcomps，后者则是genexps。</p>
+</blockquote>
+<h3 id="list-comprehensions">list comprehensions</h3>
+<p>列表推导可以用于构建<code>list</code>，而生成器表达式可以用于构造其他任何类型的序列。</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># list comprehensions  </span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">symbols</span> <span class="o">=</span><span class="s1">&#39;$¢£¥€¤&#39;</span>  
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">codes</span> <span class="o">=</span> <span class="p">[</span><span class="nb">ord</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span> <span class="k">for</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="n">symbols</span><span class="p">]</span>  
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">codes</span><span class="p">)</span>  
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;---&#39;</span><span class="p">)</span>  
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="c1"># without list comprehension  </span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="n">codes</span> <span class="o">=</span> <span class="p">[]</span>  
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="k">for</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="n">symbols</span><span class="p">:</span>  
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>    <span class="n">codes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="n">symbol</span><span class="p">))</span>  
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="nb">print</span><span class="p">(</span><span class="n">codes</span><span class="p">)</span>
+</span></code></pre></div>
+<p>一个简单的list comprehension示例，它代替了整个for循环。</p>
+<blockquote>
+<p>list comprehension是一个由<code>[ ]</code>括起来的东西。而Python编译器会忽略掉<code>[ ], { }, ( )</code>中的换行符，所以不需要像其他语言一样打回车的时候加"\"。但是，如果listcomp太长而复杂了，最好就老老实实写for循环，不丢人。</p>
+</blockquote>
+<p>进一步，listcomp还可以加入条件过滤：</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">symbols</span> <span class="o">=</span><span class="s1">&#39;$¢£¥€¤&#39;</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">beyond_ascii</span> <span class="o">=</span> <span class="p">[</span><span class="nb">ord</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">symbols</span> <span class="k">if</span> <span class="nb">ord</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">127</span><span class="p">]</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># beyond_ascii = [162, 163, 165, 8364, 164]</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="n">beyond_ascii</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span> <span class="o">&gt;</span> <span class="mi">127</span><span class="p">,</span> <span class="nb">map</span><span class="p">(</span><span class="nb">ord</span><span class="p">,</span> <span class="n">symbols</span><span class="p">)))</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="c1"># beyond_ascii = [162, 163, 165, 8364, 164]</span>
+</span></code></pre></div>
+<p>着重介绍第二种方法，这是更为常见的<code>map+filter</code>组合：</p>
+<div class="admonition note">
+<p class="admonition-title"><code>map</code>和<code>filter</code>的组合</p>
+<p>以上面的代码<code>beyond_ascii = list(filter(lambda c: c &gt; 127, map(ord, symbols)))</code>为例：</p>
+<ul>
+<li><code>map(ord, symbols)</code>: <code>map</code>函数对<code>symbols</code>中的每个字符应用<code>ord</code>函数。<code>ord</code>函数返回一个字符的ASCII值。所以，<code>map(ord, symbols)</code>的结果是一个包含<code>symbols</code>中所有字符ASCII值的迭代器。  </li>
+<li><code>filter(lambda c: c &gt; 127, map(ord, symbols))</code>: <code>filter</code>函数对<code>map(ord, symbols)</code>返回的迭代器中的每个元素应用函数<code>lambda c: c &gt; 127</code>。这个函数检查一个数是否大于<code>127</code>。所以，<code>filter(lambda c: c &gt; 127, map(ord, symbols))</code>的结果是一个包含所有ASCII值大于127的元素的迭代器。</li>
+<li><code>list(filter(lambda c: c &gt; 127, map(ord, symbols)))</code>: <code>list</code>函数将迭代器转换为列表。所以，<code>beyond_ascii</code>是一个包含所有ASCII值大于127的元素的列表。</li>
+</ul>
+</div>
+<p>生成器里可以叠for循环，形成一个类似于“笛卡尔积”</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="s1">&#39;white&#39;</span><span class="p">]</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">sizes</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;S&#39;</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="s1">&#39;L&#39;</span><span class="p">]</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">tshirts</span> <span class="o">=</span> <span class="p">[(</span><span class="n">color</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span> <span class="k">for</span> <span class="n">color</span> <span class="ow">in</span> <span class="n">colors</span> <span class="k">for</span> <span class="n">size</span> <span class="ow">in</span> <span class="n">sizes</span><span class="p">]</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="p">[(</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="s1">&#39;S&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="s1">&#39;L&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="s1">&#39;S&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="s1">&#39;L&#39;</span><span class="p">)]</span>
+</span></code></pre></div>
+<p>根据listcomp中for循环的先后顺序，生成的list中的所有元组首先以<code>color</code>排序，然后以<code>size</code>排序。</p>
+<h3 id="generator-expressions">generator expressions</h3>
+<p>listcomp只能用于生成列表，而不适合生成其他的数据结构。但genexp不是，它遵守了iterator protocol——它不会一次性生成所有元素的列表，你踢它一脚，他就会按顺序给你蹦一个元素出来。它的结构是：<code>(expression for item in iterable)</code>，相比于listcomp，它直观上说，把方括号变成了圆括号。</p>
+<p>例如要生成上面问题的元组或者array：</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">symbols</span> <span class="o">=</span> <span class="s1">&#39;$¢£¥€¤&#39;</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span> <span class="k">for</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="n">symbols</span><span class="p">)</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="p">(</span><span class="mi">36</span><span class="p">,</span> <span class="mi">162</span><span class="p">,</span> <span class="mi">163</span><span class="p">,</span> <span class="mi">165</span><span class="p">,</span> <span class="mi">8364</span><span class="p">,</span> <span class="mi">164</span><span class="p">)</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">array</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">array</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span> <span class="k">for</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="n">symbols</span><span class="p">))</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="n">array</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">36</span><span class="p">,</span> <span class="mi">162</span><span class="p">,</span> <span class="mi">163</span><span class="p">,</span> <span class="mi">165</span><span class="p">,</span> <span class="mi">8364</span><span class="p">,</span> <span class="mi">164</span><span class="p">])</span>
+</span></code></pre></div>
+<p>如果genexp是函数中的唯一参数，那么就不需要用括号把它装起来，就像上面对<code>tuple</code>的操作，如果函数中有多个变量则需要用圆括号括起来。</p>
+<p>类似的，它也可以用来做笛卡尔积：</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="s1">&#39;white&#39;</span><span class="p">]</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">sizes</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;S&#39;</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="s1">&#39;L&#39;</span><span class="p">]</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">tshirt</span> <span class="ow">in</span> <span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">c</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">colors</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">sizes</span><span class="p">):</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="o">...</span>     <span class="nb">print</span><span class="p">(</span><span class="n">tshirt</span><span class="p">)</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="n">black</span> <span class="n">S</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="n">black</span> <span class="n">M</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="n">black</span> <span class="n">L</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="n">white</span> <span class="n">S</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="n">white</span> <span class="n">M</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="n">white</span> <span class="n">L</span>
+</span></code></pre></div>
+<p>它实际上是由for循环驱动的。如果说我直接写成下面的形式，它就不会回答你任何东西：</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="s1">&#39;white&#39;</span><span class="p">]</span>  
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">sizes</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;S&#39;</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="s1">&#39;L&#39;</span><span class="p">]</span>  
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">tshirt</span> <span class="o">=</span><span class="p">((</span><span class="n">color</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span> <span class="k">for</span> <span class="n">color</span> <span class="ow">in</span> <span class="n">colors</span> <span class="k">for</span> <span class="n">size</span> <span class="ow">in</span> <span class="n">sizes</span><span class="p">)</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">tshirt</span><span class="p">)</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="o">&lt;</span><span class="n">generator</span> <span class="nb">object</span> <span class="o">&lt;</span><span class="n">genexpr</span><span class="o">&gt;</span> <span class="n">at</span> <span class="mh">0x000001F300ED8BA0</span><span class="o">&gt;</span>
+</span></code></pre></div>
+<p>而输出它的方法有两种：<code>next(tshirt)</code>会按顺序打印下一个元素，或者用下面的for循环：</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">tshirt</span><span class="p">:</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a> <span class="nb">print</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+</span></code></pre></div>
+<p>打印可生成的全部元素，<code>item</code>是genexp生成的序列中的元素（元组）。</p>
+<h2 id="23">2.3 元组：不仅仅是不可变的列表</h2>
+<h3 id="_1">元组是一种记录的手段</h3>
+<p>没什么好说的，元组中元素的先后顺序、数值都可能有意义，例如：</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">traveler_ids</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;USA&#39;</span><span class="p">,</span> <span class="s1">&#39;31195855&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;BRA&#39;</span><span class="p">,</span> <span class="s1">&#39;CE342567&#39;</span><span class="p">),</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="o">...</span>                 <span class="p">(</span><span class="s1">&#39;ESP&#39;</span><span class="p">,</span> <span class="s1">&#39;XDA205856&#39;</span><span class="p">)]</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">passport</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">traveler_ids</span><span class="p">):</span>  
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="o">...</span>     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">passport</span><span class="p">)</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="n">BRA</span><span class="o">/</span><span class="n">CE342567</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="n">ESP</span><span class="o">/</span><span class="n">XDA205856</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="n">USA</span><span class="o">/</span><span class="mi">31195855</span>
+</span></code></pre></div>
+<p>这意味着<code>traveler_ids</code>存储的三个元组中，每个元组的第一个元素都属于同一个类别（国籍），第二个元素都是护照号。所以可以批量的处理并输出这些信息，甚至可以将其命名或按类型输出：</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">city</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">pop</span><span class="p">,</span> <span class="n">chg</span><span class="p">,</span> <span class="n">area</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Tokyo&#39;</span><span class="p">,</span> <span class="mi">2003</span><span class="p">,</span> <span class="mi">32_450</span><span class="p">,</span> <span class="mf">0.66</span><span class="p">,</span> <span class="mi">8014</span><span class="p">)</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">city</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="s1">&#39;Tokyo&#39;</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">country</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">traveler_ids</span><span class="p">:</span>  
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="o">...</span>     <span class="nb">print</span><span class="p">(</span><span class="n">country</span><span class="p">)</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="n">USA</span>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="n">BRA</span>
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="n">ESP</span>
+</span></code></pre></div>
+<h3 id="_2">元组作为一种不可变列表</h3>
+<p><code>tuple</code>类支持<code>list</code>类中 <strong>除了增删以外的</strong>几乎所有方法（<code>__reversed__</code>除外，但它可以通过<code>reversed(tuple)</code>直接实现）：<code>__add__</code>, <code>__contains__</code>, <code>count</code>, <code>__getitem__</code>, <code>__getnewargs__</code>, <code>index</code>, <code>__iter__</code>, <code>__len__</code>, <code>__mul__</code>, <code>__rmul__</code>。</p>
+<h2 id="24">2.4 对序列和可迭代对象的拆包</h2>
+<blockquote>
+<p>这一部分在第二版中被单独拿出来作为一个二级标题。讨论对元组、列表、可迭代对象的拆包（unpacking）操作。</p>
+</blockquote>
+<p>最简单的方法是平行赋值(parallel assignment)，把一个可迭代对象的值，赋到一个变量的元组中：</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># normal example</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="n">city</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">pop</span><span class="p">,</span> <span class="n">chg</span><span class="p">,</span> <span class="n">area</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Tokyo&#39;</span><span class="p">,</span> <span class="mi">2003</span><span class="p">,</span> <span class="mi">32_450</span><span class="p">,</span> <span class="mf">0.66</span><span class="p">,</span> <span class="mi">8014</span><span class="p">)</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="c1"># exchange value using parallel assignment</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="n">b</span><span class="p">,</span><span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span> 
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="c1"># Unpack an iterable as function&#39;s arguments, use `*`</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">divmod</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">8</span><span class="p">)</span>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">t</span> <span class="o">=</span> <span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">8</span><span class="p">)</span>
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">divmod</span><span class="p">(</span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>
+</span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a><span class="c1"># use function&#39;s output as tuple</span>
+</span><span id="__span-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">os</span>
+</span><span id="__span-9-16"><a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">_</span><span class="p">,</span> <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;home/luciano/.ssh/idrsa.pub&#39;</span><span class="p">)</span>
+</span><span id="__span-9-17"><a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">filename</span>
+</span><span id="__span-9-18"><a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a><span class="s1">&#39;idrsa.pub&#39;</span>
+</span></code></pre></div>
+<p>上面的第三种玩法是用星号<code>*</code>拆开一个元组（或其他可迭代对象），解出其全部元素，作为函数的一个参数，可能更熟悉<code>func(*args)</code>的写法。</p>
+<p>最后一种玩法是把函数<code>os.path.split</code>返回的元组给解开了（它原本返回的是文件的路径和文件名<code>(path, last_part)</code>，现在我只要后半部分），把路径的部分挂了占位符<code>_</code>忽略掉，只保留需要的文件名。</p>
+<h3 id="_3">用星号<code>*</code>处理不确定数量的元素</h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="o">*</span><span class="n">rest</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">rest</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="o">*</span><span class="n">rest</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">rest</span>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">[])</span>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span><span class="p">,</span> <span class="o">*</span><span class="n">rest</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span><span class="p">,</span> <span class="n">rest</span><span class="p">,</span> <span class="n">b</span>
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="mi">4</span><span class="p">)</span>
+</span></code></pre></div>
+<p>原则是：先可着普通变量赋值。最后，挂星号的<code>rest</code>有多少吃多少，没有就返回空列表。</p>
+<h3 id="_4">在函数调用或者序列字面量中用<code>*</code>解包</h3>
+<p>讲<code>*args</code>。看下面的例子：</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">def</span> <span class="nf">fun</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="o">*</span><span class="n">rest</span><span class="p">):</span>  
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>    <span class="k">return</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">rest</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">fun</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="mi">3</span><span class="p">,</span> <span class="o">*</span><span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+</span></code></pre></div>
+<p>下面实例里，fun()中输入的内容说白了就是<code>1,2,3,4,5,6</code>，但在函数声明中，第五个参数及其以后的内容被归入了<code>rest</code>项目中统一输出，因此在函数输出的大元组中，前四项（1-4）挨个输出，剩下的都在第五项里，形成嵌套的小元组。</p>
+<p>类似的，声明新元组、新列表时，也可以用<code>*args</code>的形式：</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="o">*</span><span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="mi">4</span> <span class="c1"># tuple</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="p">[</span><span class="o">*</span><span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="mi">4</span><span class="p">]</span> <span class="c1"># list</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="p">{</span><span class="o">*</span><span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="mi">4</span><span class="p">,</span> <span class="o">*</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">)}</span> <span class="c1"># set</span>
+</span></code></pre></div>
+<blockquote>
+<p>而另一种函数解包的形式，即<code>**kwargs</code>在第三章“Unpacking Mappings”。</p>
+</blockquote>
+<h3 id="_5">嵌套元组的解包</h3>
+<blockquote>
+<p>Nested Unpacking</p>
+</blockquote>
+<div class="language-python highlight"><span class="filename">west_cities.py</span><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="n">metro_areas</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="p">(</span><span class="s1">&#39;Tokyo&#39;</span><span class="p">,</span> <span class="s1">&#39;JP&#39;</span><span class="p">,</span> <span class="mf">36.933</span><span class="p">,</span> <span class="p">(</span><span class="mf">35.689722</span><span class="p">,</span> <span class="mf">139.691667</span><span class="p">)),</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="p">(</span><span class="s1">&#39;Delhi NCR&#39;</span><span class="p">,</span> <span class="s1">&#39;IN&#39;</span><span class="p">,</span> <span class="mf">21.935</span><span class="p">,</span> <span class="p">(</span><span class="mf">28.613889</span><span class="p">,</span> <span class="mf">77.208889</span><span class="p">)),</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="p">(</span><span class="s1">&#39;Mexico City&#39;</span><span class="p">,</span> <span class="s1">&#39;MX&#39;</span><span class="p">,</span> <span class="mf">20.142</span><span class="p">,</span> <span class="p">(</span><span class="mf">19.433333</span><span class="p">,</span> <span class="o">-</span><span class="mf">99.133333</span><span class="p">)),</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="p">(</span><span class="s1">&#39;New York-Newark&#39;</span><span class="p">,</span> <span class="s1">&#39;US&#39;</span><span class="p">,</span> <span class="mf">20.104</span><span class="p">,</span> <span class="p">(</span><span class="mf">40.808611</span><span class="p">,</span> <span class="o">-</span><span class="mf">74.020386</span><span class="p">)),</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="p">(</span><span class="s1">&#39;São Paulo&#39;</span><span class="p">,</span> <span class="s1">&#39;BR&#39;</span><span class="p">,</span> <span class="mf">19.649</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="mf">23.547778</span><span class="p">,</span> <span class="o">-</span><span class="mf">46.635833</span><span class="p">)),</span>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="p">]</span>
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a> <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="s2">&quot;&quot;</span><span class="si">:</span><span class="s1">15</span><span class="si">}</span><span class="s1"> | </span><span class="si">{</span><span class="s2">&quot;latitude&quot;</span><span class="si">:</span><span class="s1">&gt;9</span><span class="si">}</span><span class="s1"> | </span><span class="si">{</span><span class="s2">&quot;longitude&quot;</span><span class="si">:</span><span class="s1">&gt;9</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="p">(</span><span class="n">lat</span><span class="p">,</span> <span class="n">lon</span><span class="p">)</span> <span class="ow">in</span> <span class="n">metro_areas</span><span class="p">:</span>
+</span><span id="__span-13-12"><a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a>  <span class="k">if</span> <span class="n">lon</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+</span><span id="__span-13-13"><a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a>   <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">name</span><span class="si">:</span><span class="s1">15</span><span class="si">}</span><span class="s1"> | </span><span class="si">{</span><span class="n">lat</span><span class="si">:</span><span class="s1">9.4f</span><span class="si">}</span><span class="s1"> | </span><span class="si">{</span><span class="n">lon</span><span class="si">:</span><span class="s1">9.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</span><span id="__span-13-14"><a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a>
+</span><span id="__span-13-15"><a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+</span><span id="__span-13-16"><a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a> <span class="n">main</span><span class="p">()</span>
+</span></code></pre></div>
+<p>刨开制表用的代码，这里的内容完全靠解包<code>metro_areas</code>实现，即便元组中嵌套了经纬度的小元组，也可以通过<code>for var1, ..., (tvar1,tvar2,...) in nested_tuple</code>逐个挖出子元组中的数值。</p>
+<div class="admonition danger">
+<p class="admonition-title">单个元素的元组需要保留一个逗号</p>
+<p>元组<code>('single')</code>等同于字符串<code>'single'</code>，而<code>('single',)</code>才是一个单元素的元组。这种问题常见于查询后只有一行数据，甚至只有一行数据一个字段的情况，返回的结果很有可能不是元组（而是直接被退化为数值、字符串等），从而不适配于后面处理元组的代码，从而形成静默的bug。</p>
+</div>
+<h2 id="25">2.5 基于序列的模式匹配</h2>
 
 
 
@@ -2560,55 +2883,6 @@
 
 
 
-
-  <h2 id="__comments">评论</h2>
-  <script src="https://giscus.app/client.js"
-  data-repo="yliu-fe/yliu-fe.github.io"
-  data-repo-id="R_kgDOJUL-qg"
-  data-category="Announcements"
-  data-category-id="DIC_kwDOJUL-qs4CVpQZ"
-  data-mapping="pathname"
-  data-strict="0"
-  data-reactions-enabled="1"
-  data-emit-metadata="0"
-  data-input-position="top"
-  data-theme="preferred_color_scheme"
-  data-lang="zh-CN"
-  data-loading="lazy"
-  crossorigin="anonymous"
-  async>
-</script>
-
-
-  <!-- Synchronize Giscus theme with palette -->
-  <script>
-    var giscus = document.querySelector("script[src*=giscus]")
-
-    /* Set palette on initial load */
-    var palette = __md_get("__palette")
-    if (palette && typeof palette.color === "object") {
-      var theme = palette.color.scheme === "slate" ? "dark" : "light"
-      giscus.setAttribute("data-theme", theme) 
-    }
-
-    /* Register event handlers after documented loaded */
-    document.addEventListener("DOMContentLoaded", function() {
-      var ref = document.querySelector("[data-md-component=palette]")
-      ref.addEventListener("change", function() {
-        var palette = __md_get("__palette")
-        if (palette && typeof palette.color === "object") {
-          var theme = palette.color.scheme === "slate" ? "dark" : "light"
-
-          /* Instruct Giscus to change theme */
-          var frame = document.querySelector(".giscus-frame")
-          frame.contentWindow.postMessage(
-            { giscus: { setConfig: { theme } } },
-            "https://giscus.app"
-          )
-        }
-      })
-    })
-  </script>
 
                 
               </article>
