@@ -34,6 +34,7 @@ nav:
         - 高阶函数、递归和hw2: Techs/Notes for Python/CS61A/recursive.md 
       - Fluent Python:
         - Ch1 Python Data Model: Techs/Notes for Python/FluentPython/1 Python Data Model.md
+        - Ch2 An Array of Sequences: Techs/Notes for Python/FluentPython/2 An Array of Sequences.md
   - 专业笔记:
     - Majors/Major_index.md
     - 截面数据计量经济学:
