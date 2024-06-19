@@ -32,6 +32,8 @@ nav:
       - CS61A:
         - 引导页：希望这不是一个笑话: Techs/Notes for Python/CS61A/61a_index.md
         - 高阶函数、递归和hw2: Techs/Notes for Python/CS61A/recursive.md 
+      - Fluent Python:
+        - Ch1 Python Data Model: Techs/Notes for Python/FluentPython/1 Python Data Model.md
   - 专业笔记:
     - Majors/Major_index.md
     - 截面数据计量经济学:
@@ -63,6 +65,7 @@ nav:
         - 二、模仿学习: Majors/Reinforcement Learning/CS285/2_Imitation Learning.md
         - 作业一、模仿学习: Majors/Reinforcement Learning/CS285/HW1_Imitation Learning.md
         - 四、强化学习导引: Majors/Reinforcement Learning/CS285/4_Intro of RL.md
+        - 作业二、策略梯度: Majors/Reinforcement Learning/CS285/HW2_Policy_Gradients.md
   - 消遣娱乐:
     - Entertainment/ett_index.md
     - 拉丁语:
