@@ -11,9 +11,9 @@ comments: true
 
 作者：Luciano Ramalho
 
-此为本书第二版，对应Python 3.10（第一版对应Python 3.4）。
+此为本书第二版，对应Python 3.10（第一版对应Python 3.4）。示例代码（Github）：[example-code-2e](https://github.com/fluentpython/example-code-2e)
 
-第一版的汉译本《流畅的Python》由人民邮电出版社出版，ISBN: 9787115454157。
+汉译本由人民邮电出版社出版，ISBN: 9787115612366。豆瓣页面：[流畅的Python（第2版）](https://book.douban.com/subject/36342440/)
 ///
 
 第一章讲了一些简单的Python数据模型【不是数据结构】。
