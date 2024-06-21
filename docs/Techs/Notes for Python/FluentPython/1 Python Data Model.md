@@ -1,9 +1,22 @@
 ---
 comments: true
 ---
+
 # Python Data Model
 
-讲了一些简单的Python数据模型【不是数据结构】。
+/// admonition | 图书信息
+        type: info
+
+书名：Fluent Python: Clear, Concise, and Effective Programming (2nd Edition)
+
+作者：Luciano Ramalho
+
+此为本书第二版，对应Python 3.10（第一版对应Python 3.4）。
+
+第一版的汉译本《流畅的Python》由人民邮电出版社出版，ISBN: 9787115454157。
+///
+
+第一章讲了一些简单的Python数据模型【不是数据结构】。
 
 ## 魔术方法
 
